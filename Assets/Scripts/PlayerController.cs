@@ -4,31 +4,28 @@ using System.Collections;
 public class PlayerController : MonoBehaviour
 {
 
-
-	bool facingRight = false;
-	private Rigidbody2D rb;
-	private Animator animator;
-
+	public Transform scratchPrefab;
 	public float speed = 10, jumpVelocity = 10;
 	public LayerMask playerMask;
-	public bool canMoveInAir = true;
-	Transform checkGroundTop, checkGroundBottom;
-	public bool isGrounded = false;
+	public bool isGrounded = false, canMoveInAir = true;
+
 	float hInput = 0;
+	bool facingRight = false;
+	Rigidbody2D rb;
+	Animator animator;
+	Transform checkGroundTop, checkGroundBottom, attackLocation;
 
 	void Awake ()
 	{
-		// Get the animator
 		animator = GetComponent<Animator> ();
-
 	}
 
 	void Start ()
 	{
 		rb = GetComponent<Rigidbody2D> ();
-		//tagGround = GameObject.Find (this.name + "/tag_ground").transform;
 		checkGroundTop = GameObject.Find (this.name + "/ground_check_top").transform;
 		checkGroundBottom = GameObject.Find (this.name + "/ground_check_bottom").transform;
+		attackLocation = GameObject.Find (this.name + "/AttackLocation").transform;
 	}
 
 	void Update ()
@@ -40,11 +37,15 @@ public class PlayerController : MonoBehaviour
 		#else
 			Move (hInput);
 		#endif
+
+		#if !UNITY_ANDROID && !UNITY_IPHONE && !UNITY_BLACKBERRY && !UNITY_WINRT || UNITY_EDITOR
+		if (Input.GetButtonDown ("Fire1"))
+			Attack ();
+		#endif
 	}
 
 	void FixedUpdate ()
 	{
-		//isGrounded = Physics2D.Linecast (myTrans.position, tagGround.position, playerMask);
 		isGrounded = Physics2D.OverlapArea (checkGroundTop.position, checkGroundBottom.position, playerMask);
 		animator.SetBool ("isGrounded", isGrounded);
 		animator.SetFloat ("y.velocity", rb.velocity.y);
@@ -84,12 +85,16 @@ public class PlayerController : MonoBehaviour
 		hInput = horizonalInput;
 	}
 
-
-
 	void Flip ()
 	{
 		facingRight = !facingRight;
 		Vector3 theScale = new Vector3 (transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
 		transform.localScale = theScale;
+	}
+
+	public void Attack ()
+	{
+		animator.SetTrigger ("attack01");
+		Instantiate (scratchPrefab, attackLocation.position, Quaternion.identity);
 	}
 }
