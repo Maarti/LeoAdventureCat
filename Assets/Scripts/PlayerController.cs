@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
 	Rigidbody2D rb;
 	Animator animator;
 	Transform checkGroundTop, checkGroundBottom, attackLocation;
+	MouthController mouth;
 
 	void Awake ()
 	{
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour
 		checkGroundTop = GameObject.Find (this.name + "/ground_check_top").transform;
 		checkGroundBottom = GameObject.Find (this.name + "/ground_check_bottom").transform;
 		attackLocation = GameObject.Find (this.name + "/AttackLocation").transform;
+		mouth = GameObject.Find (this.name + "/Body/Head/Mouth").GetComponent<MouthController> ();
 	}
 
 	void Update ()
@@ -76,6 +78,8 @@ public class PlayerController : MonoBehaviour
 		if (isGrounded) {
 			animator.SetTrigger ("jump");
 			rb.velocity += jumpVelocity * Vector2.up;
+			if (Random.value > 0.85f)	//play sound (15% chance)
+				mouth.Meowing ("jump");
 		}
 		
 	}
