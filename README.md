@@ -14,7 +14,7 @@
 * 24/09 :  Dessiner tous les levels
 
 ### Scenario :
-2 frères chats. Le propriétaire abandonne l'un d'eux dans la forêt
+2 frères chats. Le propriétaire abandonne l'un d'eux dans la forêt. Il veut retrouver son frère.
 
 ### Jeu :
 - Chaque lancement de jeu = 3 vies (possibilité d'acheter vies suplémentaires)
@@ -27,12 +27,12 @@
 > - 1 Forêt : Plateforme
 > - 2 Fourrière :	[Fin de la forêt] poursuite avec collecte de pièces, capturé obligatoirement à la fin
 >							[Interieur fourriere] Rencontre ami rat qui le libère et l'aide
-- 3 Ville : Plateforme
-              Skate
-- 4 Maison : Le rat retient l'humain le temps que le chat cherche son frère.
-                  Il [nospoilfrère]. Il [nospoilrat].
-                  Boss (proprio)
-[Générique : [nospoil]. Chat s'éloignant petit à petit]
+> - 3 Ville : Plateforme
+>             Skate
+> - 4 Maison : Le rat retient l'humain le temps que le chat cherche son frère.
+>                 Il [nospoilfrère]. Il [nospoilrat].
+>                  Boss (proprio)
+> [Générique : [nospoil]. Chat s'éloignant petit à petit]
  
 ### Shop :
 - 1 pub visionnée rapporte 25 pièces
