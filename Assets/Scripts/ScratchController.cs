@@ -25,5 +25,7 @@ public class ScratchController : MonoBehaviour
 	{
 		float t = (Time.time - startTime) / duration;
 		sprite.color = new Color (1f, 1f, 1f, Mathf.SmoothStep (1f, 0.0f, t));
+		if (Time.time - startTime >= duration)
+			Destroy (this.gameObject);
 	}
 }

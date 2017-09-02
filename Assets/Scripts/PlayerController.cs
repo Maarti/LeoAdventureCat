@@ -94,7 +94,9 @@ public class PlayerController : MonoBehaviour
 
 	public void Attack ()
 	{
-		animator.SetTrigger ("attack01");
+		string[] attacksAnim = { "attack01", "attack02" };
+		string randomAttackAnim = attacksAnim [Random.Range (0, attacksAnim.Length)];
+		animator.SetTrigger (randomAttackAnim);
 		Instantiate (scratchPrefab, attackLocation.position, Quaternion.identity);
 	}
 }
