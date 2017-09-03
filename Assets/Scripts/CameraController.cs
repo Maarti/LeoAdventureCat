@@ -5,7 +5,7 @@ public class CameraController : MonoBehaviour
 {
 
 	public GameObject player;
-	public float yMin = 1;
+	public float yMin = 1, xMin = 2;
 	//Public variable to store a reference to the player game object
 	private Vector3 offset;
 	//Private variable to store the offset distance between the player and camera
@@ -24,6 +24,8 @@ public class CameraController : MonoBehaviour
 		Vector3 newPosition = player.transform.position + offset;
 		if (newPosition.y < yMin)
 			newPosition.y = yMin;
+		if (newPosition.x < xMin)
+			newPosition.x = xMin;
 		transform.position = newPosition;
 
 	}
