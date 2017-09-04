@@ -40,6 +40,9 @@
 - 1 vie = 20 pieces
 - 1 skin = 200 pièces
  
+ 
+### Graphismes
+* **Bonus/Icôness :** Filtres > Distorsion de lentille
 
 
 ## Resources

@@ -28,4 +28,12 @@ public class ScratchController : MonoBehaviour
 		if (Time.time - startTime >= duration)
 			Destroy (this.gameObject);
 	}
+
+	void OnTriggerEnter2D (Collider2D other)
+	{
+		GameObject obj = other.gameObject;
+		if (obj.layer == LayerMask.NameToLayer ("Destructible")) {
+			other.GetComponent<DestructiveBlocController> ().Hit (1.0f);
+		}
+	}
 }
