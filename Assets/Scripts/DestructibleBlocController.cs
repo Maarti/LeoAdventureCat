@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DestructiveBlocController : MonoBehaviour
+public class DestructibleBlocController : MonoBehaviour
 {
 
 	public float life = 2.0f;

@@ -41,7 +41,6 @@ public class ScollingBackground : MonoBehaviour
 
 	private void ScrollLeft ()
 	{
-		int lastRight = rightIndex;
 		Vector3 right = layers [rightIndex].position;
 		layers [rightIndex].position = new Vector3 ((layers [leftIndex].position.x - backgroundSize), right.y, right.z);
 		leftIndex = rightIndex;
@@ -53,7 +52,6 @@ public class ScollingBackground : MonoBehaviour
 
 	private void ScrollRight ()
 	{
-		int lastLeft = leftIndex;
 		Vector3 left = layers [leftIndex].position;
 		layers [leftIndex].position = new Vector3 ((layers [rightIndex].position.x + backgroundSize), left.y, left.z);
 		rightIndex = leftIndex;

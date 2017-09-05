@@ -33,7 +33,7 @@ public class ScratchController : MonoBehaviour
 	{
 		GameObject obj = other.gameObject;
 		if (obj.layer == LayerMask.NameToLayer ("Destructible")) {
-			other.GetComponent<DestructiveBlocController> ().Hit (1.0f);
+			other.GetComponent<DestructibleBlocController> ().Hit (1.0f);
 		}
 	}
 }
