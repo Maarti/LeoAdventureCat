@@ -7,9 +7,11 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 	public LayerMask groundLayer, playerLayer;
 	public float speed = 1, lineOfSight = 0;
 
-	bool facingRight = false;
-	Rigidbody2D rb;
-	Transform groundCheck, startLoS;
+	protected bool facingRight = false;
+	protected Rigidbody2D rb;
+	protected Transform groundCheck, startLoS;
+	protected bool isMoving = true;
+	public bool isAtacking = false;
 
 	// Use this for initialization
 	protected void Start ()
@@ -22,8 +24,9 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 	// Update is called once per frame
 	protected void Update ()
 	{
-		Patrol ();
-		if (CheckLoS ())
+		if (isMoving)
+			Patrol ();
+		if (CheckLoS () && !isAtacking)
 			Attack ();
 	}
 
@@ -42,6 +45,8 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 
 	public virtual void Attack ()
 	{
+		isMoving = false;
+		isAtacking = true;
 		Debug.Log ("Abstract Attack");
 	}
 

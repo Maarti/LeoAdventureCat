@@ -299,7 +299,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.0394, y: 0, z: -0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 4.965822}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 12.466919}
   m_Children: []
   m_Father: {fileID: 635471760}
   m_RootOrder: 0
@@ -1115,7 +1115,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.039, y: -0.015, z: 0.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 335.052}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 332.56183}
   m_Children:
   - {fileID: 1854558091}
   m_Father: {fileID: 635471760}
@@ -1805,7 +1805,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -6.7027946}
   m_Children:
   - {fileID: 66088336}
   - {fileID: 1069188078}
@@ -2972,7 +2972,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.007, y: 0.008, z: 0.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 11.411}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 25.050001}
   m_Children: []
   m_Father: {fileID: 635471760}
   m_RootOrder: 1
@@ -4703,6 +4703,8 @@ MonoBehaviour:
     m_Bits: 256
   speed: 1
   lineOfSight: 3
+  isAtacking: 0
+  respawnDartTime: 1.5
 --- !u!50 &1760945209
 Rigidbody2D:
   serializedVersion: 2
@@ -5716,7 +5718,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.003, y: 0.025, z: 0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -33.039}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -12.987}
   m_Children: []
   m_Father: {fileID: 635471760}
   m_RootOrder: 2
