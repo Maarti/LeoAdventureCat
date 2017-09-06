@@ -77,7 +77,8 @@ public class PlayerController : MonoBehaviour
 	{
 		if (isGrounded) {
 			animator.SetTrigger ("jump");
-			rb.velocity += jumpVelocity * Vector2.up;
+			//rb.velocity += jumpVelocity * Vector2.up;
+			rb.velocity = jumpVelocity * Vector2.up;
 			if (Random.value > 0.85f)	//play sound (15% chance)
 				mouth.Meowing ("jump");
 		}
