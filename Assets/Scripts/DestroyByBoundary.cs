@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class DestroyByBoundary : MonoBehaviour
@@ -8,7 +9,8 @@ public class DestroyByBoundary : MonoBehaviour
 	{
 		GameObject obj = other.gameObject;
 		if (obj.tag == "Player")
-			obj.transform.position = new Vector3 (0.0f, 0.0f, 0.0f);
+			//obj.transform.position = new Vector3 (0.0f, 0.0f, 0.0f);
+			SceneManager.LoadScene ("level_01");
 		else
 			Destroy (other.gameObject);
 	}

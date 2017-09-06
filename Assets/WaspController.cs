@@ -1,15 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class WaspController : MonoBehaviour
+public class WaspController : AbstractEnemy
 {
-
-	public float range = 3;
-	public LayerMask playerLayer;
-
 	Animator animator;
-	Transform player;
-	bool facingRight = false;
 
 	void Awake ()
 	{
@@ -17,19 +11,20 @@ public class WaspController : MonoBehaviour
 	}
 
 	// Use this for initialization
-	void Start ()
+	new void Start ()
 	{
-		player = GameObject.Find ("Cat").transform;
+		base.Start ();
 	}
-	
+
 	// Update is called once per frame
-	void Update ()
+	new void Update ()
 	{
-		Vector3 direction = (facingRight) ? Vector3.right * range : Vector3.left * range;
-		if (Physics2D.Raycast (transform.position, direction, playerLayer).collider)
-			Debug.Log ("LINE OF SIGHT");
-		Debug.DrawRay (transform.position, direction, Color.red);
-		
-		//Debug.DrawRay (transform.position, Vector3.left, Color.red);
+		base.Update ();
+	}
+
+	public override void Attack ()
+	{
+		Debug.Log ("Wasp Attack");
+
 	}
 }
