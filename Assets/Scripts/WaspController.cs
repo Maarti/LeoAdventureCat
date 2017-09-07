@@ -4,6 +4,7 @@ using System.Collections;
 public class WaspController : AbstractEnemy
 {
 	public float respawnDartTime = 1.5f;
+	public Transform dartPrefab;
 
 	Animator animator;
 	SpriteRenderer dartSprite;
@@ -38,8 +39,7 @@ public class WaspController : AbstractEnemy
 	// Called by "wasp_attack" animation
 	void ThrowDart ()
 	{
-		Debug.Log ("Dart Thrown");
-		//dartSprite.enabled = false;
+		Transform dartProjectile = (Transform)Instantiate (dartPrefab, dartSprite.transform.position, dartSprite.transform.rotation);
 		dartSprite.color = new Color (1f, 1f, 1f, 0.0f);
 		startTimeDart = Time.time;
 		StartCoroutine (RespawnDart (respawnDartTime));
@@ -48,10 +48,7 @@ public class WaspController : AbstractEnemy
 
 	IEnumerator RespawnDart (float time)
 	{
-		
-		//float t = (Time.time - startTimeDart) / 1.0f;
-		//dartSprite.color = new Color (1f, 1f, 1f, Mathf.SmoothStep (1f, 0.0f, t));
-		yield return new WaitForSeconds (0.5f);
+		yield return new WaitForSeconds (0.5f); // waiting time before respawning dart
 		Color newColor = dartSprite.color;
 		for (float t = 0.0f; t <= 1.0f; t += Time.deltaTime / time) {			
 			newColor.a = Mathf.Lerp (0, 1, t);
@@ -60,6 +57,6 @@ public class WaspController : AbstractEnemy
 		}
 		newColor.a = 1;
 		dartSprite.color = newColor;
-		isAtacking = false;
+		isAtacking = false; // ready to attack again
 	}
 }

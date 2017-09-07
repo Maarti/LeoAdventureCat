@@ -32,8 +32,9 @@ public class ScratchController : MonoBehaviour
 	void OnTriggerEnter2D (Collider2D other)
 	{
 		GameObject obj = other.gameObject;
-		if (obj.layer == LayerMask.NameToLayer ("Destructible")) {
+		if (obj.layer == LayerMask.NameToLayer ("Destructible"))
 			other.GetComponent<DestructibleBlocController> ().Hit (1.0f);
-		}
+		else if (obj.layer == LayerMask.NameToLayer ("Enemy"))
+			GameObject.Destroy (other.gameObject);
 	}
 }

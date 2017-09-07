@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDefendable
 {
 
 	public Transform scratchPrefab;
@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
 	public bool isGrounded = false, canMoveInAir = true;
 
 	float hInput = 0;
-	bool facingRight = false;
+	bool facingRight = false, isBumped = false;
 	Rigidbody2D rb;
 	Animator animator;
 	Transform checkGroundTop, checkGroundBottom, attackLocation;
@@ -48,7 +48,10 @@ public class PlayerController : MonoBehaviour
 
 	void FixedUpdate ()
 	{
-		isGrounded = Physics2D.OverlapArea (checkGroundTop.position, checkGroundBottom.position, playerMask);
+		bool newisGrounded = Physics2D.OverlapArea (checkGroundTop.position, checkGroundBottom.position, playerMask);
+		if (!isGrounded && newisGrounded) // landing
+			isBumped = false;
+		isGrounded = newisGrounded;
 		animator.SetBool ("isGrounded", isGrounded);
 		animator.SetFloat ("y.velocity", rb.velocity.y);
 
@@ -57,6 +60,9 @@ public class PlayerController : MonoBehaviour
 	void Move (float horizonalInput)
 	{
 		if (!canMoveInAir && !isGrounded)
+			return;
+
+		if (isBumped)
 			return;
 
 		Vector2 moveVel = rb.velocity;
@@ -115,5 +121,15 @@ public class PlayerController : MonoBehaviour
 	{
 		if (other.transform.tag == "MovingPlatform")
 			transform.parent = null;
+	}
+
+	public void Defend (float damage, float bumpVelocity)
+	{
+		Debug.Log ("defend");
+		if (bumpVelocity > 0) {
+			animator.SetTrigger ("jump");
+			isBumped = true;
+			rb.velocity = (Vector2.up.normalized + Vector2.left.normalized) * bumpVelocity;
+		}
 	}
 }
