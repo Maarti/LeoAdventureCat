@@ -42,7 +42,7 @@
  
  
 ### Graphismes
-* **Bonus/Icôness :** Filtres > Distorsion de lentille
+* **Bonus/Icônes :** Filtres > Distorsion de lentille
 
 
 ## Resources
