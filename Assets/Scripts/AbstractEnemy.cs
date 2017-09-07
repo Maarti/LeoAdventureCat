@@ -5,7 +5,8 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 {
 
 	public LayerMask groundLayer, playerLayer;
-	public float speed = 1, lineOfSight = 0;
+	public float speed = 1, lineOfSight = 2, damageOnCollision = 1;
+	public Vector2 bumpOnCollision = new Vector2 (-2, 3);
 
 	protected bool facingRight = false;
 	protected Rigidbody2D rb;
@@ -47,7 +48,6 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 	{
 		isMoving = false;
 		isAtacking = true;
-		Debug.Log ("Abstract Attack");
 	}
 
 	public void Patrol ()
@@ -70,6 +70,14 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 			Vector3 theScale = new Vector3 (transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
 			transform.localScale = theScale;
 			rb.velocity = Vector2.zero;
+		}
+	}
+
+	// Bump player if touched
+	void OnCollisionEnter2D (Collision2D other)
+	{
+		if (other.transform.tag == "Player") {
+			other.gameObject.GetComponent<PlayerController> ().Defend (this.gameObject, damageOnCollision, bumpOnCollision, 0.5f);
 		}
 	}
 }

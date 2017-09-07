@@ -31,7 +31,6 @@ public class WaspController : AbstractEnemy
 	public override void Attack ()
 	{
 		base.Attack ();
-		Debug.Log ("Wasp Attack");
 		rb.velocity = Vector2.zero;
 		animator.SetTrigger ("attack");
 	}
@@ -40,10 +39,19 @@ public class WaspController : AbstractEnemy
 	void ThrowDart ()
 	{
 		Transform dartProjectile = (Transform)Instantiate (dartPrefab, dartSprite.transform.position, dartSprite.transform.rotation);
-		dartSprite.color = new Color (1f, 1f, 1f, 0.0f);
+		dartSprite.color = new Color (1f, 1f, 1f, 0.0f); // hiding wasp dart
 		startTimeDart = Time.time;
 		StartCoroutine (RespawnDart (respawnDartTime));
 		isMoving = true;
+		ProjectileController dart = dartProjectile.GetComponent<ProjectileController> ();
+		dart.timeToLive = 3;
+		if (!facingRight)
+			dart.speed *= -1;
+		else {
+			Vector3 scale = dartProjectile.localScale;
+			scale.x *= -1;
+			dartProjectile.localScale = scale;
+		}
 	}
 
 	IEnumerator RespawnDart (float time)

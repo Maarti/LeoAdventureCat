@@ -49,8 +49,8 @@ public class PlayerController : MonoBehaviour, IDefendable
 	void FixedUpdate ()
 	{
 		bool newisGrounded = Physics2D.OverlapArea (checkGroundTop.position, checkGroundBottom.position, playerMask);
-		if (!isGrounded && newisGrounded) // landing
-			isBumped = false;
+		/*	if (!isGrounded && newisGrounded) // landing
+			isBumped = false;*/
 		isGrounded = newisGrounded;
 		animator.SetBool ("isGrounded", isGrounded);
 		animator.SetFloat ("y.velocity", rb.velocity.y);
@@ -123,13 +123,21 @@ public class PlayerController : MonoBehaviour, IDefendable
 			transform.parent = null;
 	}
 
-	public void Defend (float damage, float bumpVelocity)
+	public void Defend (GameObject attacker, float damage, Vector2 bumpVelocity, float bumpTime)
 	{
-		Debug.Log ("defend");
-		if (bumpVelocity > 0) {
+		if (bumpVelocity != Vector2.zero) {
+			if ((transform.position.x - attacker.transform.position.x) > 0) // if attacker come from the left, bump to right
+				bumpVelocity.x *= -1;
 			animator.SetTrigger ("jump");
-			isBumped = true;
-			rb.velocity = (Vector2.up.normalized + Vector2.left.normalized) * bumpVelocity;
+			rb.velocity = bumpVelocity;
+			StartCoroutine (BeingBump (bumpTime));
 		}
+	}
+
+	IEnumerator BeingBump (float timeBeingBumped)
+	{
+		isBumped = true;
+		yield return new WaitForSeconds (timeBeingBumped);
+		isBumped = false;
 	}
 }

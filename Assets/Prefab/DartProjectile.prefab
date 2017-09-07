@@ -16,14 +16,12 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000010417160586}
-  - 212: {fileID: 212000011984752162}
-  - 60: {fileID: 60000010632751950}
-  - 50: {fileID: 50000011450359892}
-  - 247: {fileID: 247000014178128744}
-  - 114: {fileID: 114000012180843820}
+  - component: {fileID: 4000010417160586}
+  - component: {fileID: 212000011984752162}
+  - component: {fileID: 60000010632751950}
+  - component: {fileID: 114000012180843820}
   m_Layer: 13
   m_Name: DartProjectile
   m_TagString: Untagged
@@ -38,29 +36,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011671190356}
   m_LocalRotation: {x: -0, y: -0, z: -0.4267358, w: 0.9043764}
-  m_LocalPosition: {x: 7.842, y: 2.474, z: 0.51}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -50.263}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!50 &50000011450359892
-Rigidbody2D:
-  serializedVersion: 2
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011671190356}
-  m_UseAutoMass: 0
-  m_Mass: 0.1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -50.263}
 --- !u!60 &60000010632751950
 PolygonCollider2D:
   m_ObjectHideFlags: 1
@@ -72,7 +53,17 @@ PolygonCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
+  m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.66668063, y: 0.85695267}
+    oldSize: {x: 0.09375, y: 0.09765625}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   m_Points:
     m_Paths:
     - - {x: -0.014497454, y: 0.014078679}
@@ -94,7 +85,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4467406934ee924188bd7beada3d111, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bumpVelocity: 2
+  speed: 1
+  bumpTime: 0.5
+  timeToLive: 3
+  bumpVelocity: {x: -2, y: 3}
+  destroyOnCollision: 1
 --- !u!212 &212000011984752162
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -109,7 +104,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 0
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_SubsetIndices: 
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
@@ -117,24 +114,21 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedWireframeHidden: 1
+  m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300006, guid: d541c6be1c6b7ed4db60fab9475b58fa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
---- !u!247 &247000014178128744
-ConstantForce2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011671190356}
-  m_Enabled: 1
-  m_Force: {x: -1, y: 0}
-  m_RelativeForce: {x: 0, y: 0}
-  m_Torque: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
