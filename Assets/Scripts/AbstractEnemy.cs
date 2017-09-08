@@ -23,7 +23,7 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 	}
 
 	// Update is called once per frame
-	protected void Update ()
+	protected virtual void Update ()
 	{
 		if (isMoving)
 			Patrol ();
@@ -48,9 +48,6 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 	{
 		isMoving = false;
 		isAtacking = true;
-		// call specifiac attack function here
-		isMoving = true;
-		isAtacking = false;
 	}
 
 	public void Patrol ()
