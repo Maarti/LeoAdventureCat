@@ -10,16 +10,18 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 
 	protected bool facingRight = false;
 	protected Rigidbody2D rb;
-	protected Transform groundCheck, startLoS;
+	protected Transform groundCheck, startLoS, wallCheckTop, wallCheckBottom;
 	protected bool isMoving = true;
 	public bool isAtacking = false;
 
 	// Use this for initialization
-	protected void Start ()
+	protected virtual void Start ()
 	{
 		rb = GetComponent<Rigidbody2D> ();
-		groundCheck = GameObject.Find (this.name + "/groundCheck").transform;
-		startLoS = GameObject.Find (this.name + "/lineOfSight").transform;
+		groundCheck = transform.Find ("groundCheck").transform;
+		startLoS = transform.Find ("lineOfSight").transform;
+		wallCheckTop = transform.Find ("wallCheckTop").transform;
+		wallCheckBottom = transform.Find ("wallCheckBottom").transform;
 	}
 
 	// Update is called once per frame
@@ -27,7 +29,7 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 	{
 		if (isMoving)
 			Patrol ();
-		if (CheckLoS () && !isAtacking)
+		if (!isAtacking && CheckLoS ())
 			Attack ();
 	}
 
@@ -54,9 +56,9 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 	{
 		// Detecting Ground
 		//if (!Physics2D.Raycast (transform.position, groundCheck.position - transform.position, 1, groundLayer))
-		if (!Physics2D.Linecast (transform.position, groundCheck.position, groundLayer))
+		if (!detectGround () || detectWall ())
 			Flip ();
-		Debug.DrawRay (transform.position, groundCheck.position - transform.position, Color.black);
+		Debug.DrawLine (transform.position, groundCheck.position, Color.black);
 
 		// Moving
 		Vector2 moveVel = rb.velocity;
@@ -77,8 +79,26 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 	// Bump player if touched
 	void OnCollisionEnter2D (Collision2D other)
 	{
-		if (other.transform.tag == "Player") {
+		if (other.transform.tag == "Player")
 			other.gameObject.GetComponent<PlayerController> ().Defend (this.gameObject, damageOnCollision, bumpOnCollision, 0.5f);
-		}
 	}
+
+	RaycastHit2D detectGround ()
+	{
+		return Physics2D.Linecast (transform.position, groundCheck.position, groundLayer);
+	}
+
+	RaycastHit2D detectWall ()
+	{
+		RaycastHit2D ray;
+		if (ray = Physics2D.Linecast (transform.position, wallCheckTop.position, groundLayer))
+			return ray;
+		else if (ray = Physics2D.Linecast (transform.position, wallCheckBottom.position, groundLayer))
+			return ray;
+		else
+			return default(RaycastHit2D);
+	}
+
+
+
 }

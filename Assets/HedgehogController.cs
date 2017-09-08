@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class HedgehogController : AbstractEnemy
 {
-	public float chargeVelocity = 6f, chargeCooldown = 2f;
+	public float chargeVelocity = 3f, chargeCooldown = 0.5f;
 
+	float speedInit;
+
+	protected override void Start ()
+	{
+		base.Start ();
+		speedInit = speed;
+	}
 
 	protected override void Update ()
 	{
 		base.Update ();
 		if (isAtacking) {
 			Vector2 moveVel = rb.velocity;
-			moveVel.x = (facingRight) ? chargeVelocity : -chargeVelocity;
+			moveVel.x = (facingRight) ? speed : -speed;
 			rb.velocity = moveVel;
 		}
 	}
@@ -24,10 +31,10 @@ public class HedgehogController : AbstractEnemy
 		Charge ();
 	}
 
+	// Charge blindly, then return to safely patrolling while decelarating
 	void Charge ()
 	{
-		Vector2 newVelocity = rb.velocity;
-		newVelocity.x += (facingRight) ? chargeVelocity : -chargeVelocity;
+		speed = chargeVelocity;
 		StartCoroutine (ChargeCooldown ());
 	}
 
@@ -36,6 +43,11 @@ public class HedgehogController : AbstractEnemy
 		yield return new WaitForSeconds (chargeCooldown);
 		isAtacking = false;
 		isMoving = true;
+		while (speed > speedInit) {
+			speed -= Time.deltaTime * chargeVelocity; //deceleration
+			yield return null;
+		}
+		speed = speedInit;
 	}
 
 }

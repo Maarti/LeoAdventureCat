@@ -8,7 +8,6 @@ public class WaspController : AbstractEnemy
 
 	Animator animator;
 	SpriteRenderer dartSprite;
-	float startTimeDart;
 
 	void Awake ()
 	{
@@ -40,7 +39,6 @@ public class WaspController : AbstractEnemy
 	{
 		Transform dartProjectile = (Transform)Instantiate (dartPrefab, dartSprite.transform.position, dartSprite.transform.rotation);
 		dartSprite.color = new Color (1f, 1f, 1f, 0.0f); // hiding wasp dart
-		startTimeDart = Time.time;
 		StartCoroutine (RespawnDart (respawnDartTime));
 		isMoving = true;
 		ProjectileController dart = dartProjectile.GetComponent<ProjectileController> ();
