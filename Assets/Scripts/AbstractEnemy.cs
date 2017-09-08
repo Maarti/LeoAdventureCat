@@ -53,7 +53,8 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 	public void Patrol ()
 	{
 		// Detecting Ground
-		if (!Physics2D.Raycast (transform.position, groundCheck.position - transform.position, 1, groundLayer))
+		//if (!Physics2D.Raycast (transform.position, groundCheck.position - transform.position, 1, groundLayer))
+		if (!Physics2D.Linecast (transform.position, groundCheck.position, groundLayer))
 			Flip ();
 		Debug.DrawRay (transform.position, groundCheck.position - transform.position, Color.black);
 

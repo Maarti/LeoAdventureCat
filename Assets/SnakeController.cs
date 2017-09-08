@@ -5,7 +5,7 @@ using UnityEngine;
 public class SnakeController : AbstractEnemy
 {
 
-	public virtual void Attack ()
+	public override void Attack ()
 	{
 
 	}
