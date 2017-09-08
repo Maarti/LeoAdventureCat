@@ -48,6 +48,9 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 	{
 		isMoving = false;
 		isAtacking = true;
+		// call specifiac attack function here
+		isMoving = true;
+		isAtacking = false;
 	}
 
 	public void Patrol ()
