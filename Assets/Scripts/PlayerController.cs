@@ -37,6 +37,8 @@ public class PlayerController : MonoBehaviour, IDefendable
 		Move (Input.GetAxisRaw ("Horizontal"));
 		if (Input.GetButtonDown ("Jump"))
 			Jump ();
+		else if (Input.GetButtonUp ("Jump"))
+			StopJump ();
 		#else
 			Move (hInput);
 		#endif
@@ -82,10 +84,16 @@ public class PlayerController : MonoBehaviour, IDefendable
 		if (isGrounded) {
 			animator.SetTrigger ("jump");
 			rb.velocity = jumpVelocity * Vector2.up;
-			if (Random.value > 0.85f)	//play sound (15% chance)
+			if (Random.value > 0.87f)	//play sound (13% chance)
 				mouth.Meowing ("jump");
 		}
 		
+	}
+
+	public void StopJump ()
+	{
+		if (!isGrounded && rb.velocity.y > 0)
+			rb.velocity /= 2;
 	}
 
 	public void StartMoving (float horizonalInput)

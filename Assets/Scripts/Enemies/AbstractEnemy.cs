@@ -106,7 +106,6 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 
 	public virtual void Defend (GameObject attacker, float damage, Vector2 bumpVelocity, float bumpTime)
 	{
-		Debug.Log (gameObject.name + " hit for " + damage + " dmg !");
 		this.life -= damage;
 		if (life <= 0) {
 			GameObject.Destroy (this.gameObject);
