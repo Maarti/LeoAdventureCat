@@ -7,18 +7,11 @@ public class ProjectileController : MonoBehaviour
 	public Vector2 bumpVelocity = new Vector2 (-2, 3);
 	public bool destroyOnCollision = true;
 
-	GameObject player;
-	IDefendable pc;
-
-	// Use this for initialization
 	void Start ()
 	{
-		player = GameObject.Find ("Cat");
-		pc = player.GetComponent<IDefendable> ();
 		GameObject.Destroy (this.gameObject, timeToLive);
 	}
-	
-	// Update is called once per frame
+
 	void FixedUpdate ()
 	{
 		transform.position = new Vector3 (transform.position.x + speed / 10, transform.position.y, transform.position.z);
@@ -27,7 +20,7 @@ public class ProjectileController : MonoBehaviour
 	void OnCollisionEnter2D (Collision2D other)
 	{
 		if (other.transform.tag == "Player") {
-			pc.Defend (this.gameObject, damage, bumpVelocity, bumpTime);
+			other.gameObject.GetComponent<IDefendable> ().Defend (this.gameObject, damage, bumpVelocity, bumpTime);
 			if (destroyOnCollision)
 				GameObject.Destroy (this.gameObject);
 		}

@@ -5,9 +5,10 @@ public class PlayerController : MonoBehaviour, IDefendable
 {
 
 	public Transform scratchPrefab;
-	public float speed = 10, jumpVelocity = 10;
+	public float speed = 10, jumpVelocity = 10, damage = 1f;
 	public LayerMask playerMask;
 	public bool isGrounded = false, canMoveInAir = true;
+	public Vector2 offensiveBumpVelocity = new Vector2 (-1.5f, 0.5f);
 
 	float hInput = 0;
 	bool facingRight = false, isBumped = false;
@@ -48,10 +49,7 @@ public class PlayerController : MonoBehaviour, IDefendable
 
 	void FixedUpdate ()
 	{
-		bool newisGrounded = Physics2D.OverlapArea (checkGroundTop.position, checkGroundBottom.position, playerMask);
-		/*	if (!isGrounded && newisGrounded) // landing
-			isBumped = false;*/
-		isGrounded = newisGrounded;
+		isGrounded = Physics2D.OverlapArea (checkGroundTop.position, checkGroundBottom.position, playerMask);
 		animator.SetBool ("isGrounded", isGrounded);
 		animator.SetFloat ("y.velocity", rb.velocity.y);
 
@@ -83,7 +81,6 @@ public class PlayerController : MonoBehaviour, IDefendable
 	{
 		if (isGrounded) {
 			animator.SetTrigger ("jump");
-			//rb.velocity += jumpVelocity * Vector2.up;
 			rb.velocity = jumpVelocity * Vector2.up;
 			if (Random.value > 0.85f)	//play sound (15% chance)
 				mouth.Meowing ("jump");
@@ -108,7 +105,8 @@ public class PlayerController : MonoBehaviour, IDefendable
 		string[] attacksAnim = { "attack01", "attack02" };
 		string randomAttackAnim = attacksAnim [Random.Range (0, attacksAnim.Length)];
 		animator.SetTrigger (randomAttackAnim);
-		Instantiate (scratchPrefab, attackLocation.position, Quaternion.identity);
+		Transform attack = (Transform)Instantiate (scratchPrefab, attackLocation.position, Quaternion.identity);
+		attack.gameObject.GetComponent<ScratchController> ().Init (this.damage, this.offensiveBumpVelocity, 0.35f);
 	}
 
 	void OnCollisionEnter2D (Collision2D other)

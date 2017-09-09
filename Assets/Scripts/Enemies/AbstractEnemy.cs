@@ -1,18 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPatroller
+public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPatroller, IDefendable
 {
 
 	public LayerMask groundLayer, playerLayer;
-	public float speed = 1, lineOfSight = 2, damageOnCollision = 1;
+	public float speed = 1, lineOfSight = 2, damageOnCollision = 1, life = 2;
+	// 0 = no bump taken
+	public float selfBumpMultiplier = 0f;
 	public Vector2 bumpOnCollision = new Vector2 (-2, 3);
+	public bool isAtacking = false;
 
 	protected bool facingRight = false;
 	protected Rigidbody2D rb;
 	protected Transform groundCheck, startLoS, wallCheckTop, wallCheckBottom;
-	protected bool isMoving = true;
-	public bool isAtacking = false;
+	protected bool isMoving = true, isBumped = false;
+
 
 	// Use this for initialization
 	protected virtual void Start ()
@@ -27,7 +30,7 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 	// Update is called once per frame
 	protected virtual void Update ()
 	{
-		if (isMoving)
+		if (isMoving && !isBumped)
 			Patrol ();
 		if (!isAtacking && CheckLoS ())
 			Attack ();
@@ -81,6 +84,8 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 	{
 		if (other.transform.tag == "Player")
 			other.gameObject.GetComponent<PlayerController> ().Defend (this.gameObject, damageOnCollision, bumpOnCollision, 0.5f);
+		else if (other.gameObject.name == "Scratch")
+			Debug.Log (this.name + " OnCollis with " + other.gameObject.name);
 	}
 
 	RaycastHit2D detectGround ()
@@ -97,6 +102,31 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 			return ray;
 		else
 			return default(RaycastHit2D);
+	}
+
+	public virtual void Defend (GameObject attacker, float damage, Vector2 bumpVelocity, float bumpTime)
+	{
+		Debug.Log (gameObject.name + " hit for " + damage + " dmg !");
+		this.life -= damage;
+		if (life <= 0) {
+			GameObject.Destroy (this.gameObject);
+			return;
+		}
+		if (selfBumpMultiplier > 0 && bumpVelocity != Vector2.zero) {
+			if ((transform.position.x - attacker.transform.position.x) > 0) // if attacker come from the left, bump to right
+				bumpVelocity.x *= -1;
+			bumpVelocity *= this.selfBumpMultiplier;
+			//animator.SetTrigger ("hit");
+			rb.velocity = bumpVelocity;
+			StartCoroutine (BeingBump (bumpTime * selfBumpMultiplier));
+		}
+	}
+
+	IEnumerator BeingBump (float timeBeingBumped)
+	{
+		isBumped = true;
+		yield return new WaitForSeconds (timeBeingBumped);
+		isBumped = false;
 	}
 
 
