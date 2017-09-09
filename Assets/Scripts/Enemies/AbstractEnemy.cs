@@ -28,7 +28,7 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 	}
 
 	// Update is called once per frame
-	protected virtual void Update ()
+	protected virtual void FixedUpdate ()
 	{
 		if (isMoving && !isBumped)
 			Patrol ();
@@ -57,8 +57,7 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 
 	public void Patrol ()
 	{
-		// Detecting Ground
-		//if (!Physics2D.Raycast (transform.position, groundCheck.position - transform.position, 1, groundLayer))
+		// Detecting ground and walls
 		if (!detectGround () || detectWall ())
 			Flip ();
 		Debug.DrawLine (transform.position, groundCheck.position, Color.black);

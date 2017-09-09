@@ -16,9 +16,9 @@ public class HedgehogController : AbstractEnemy
 		this.sprites = GetComponentsInChildren <SpriteRenderer> ();
 	}
 
-	protected override void Update ()
+	protected override void FixedUpdate ()
 	{
-		base.Update ();
+		base.FixedUpdate ();
 
 		// remove this when the animation will be finished
 		if (this.sprites [0].color != Color.yellow && !isAtacking)

@@ -21,11 +21,6 @@ public class WaspController : AbstractEnemy
 		dartSprite = GameObject.Find (this.name + "/Body/Abdomen/Dart").GetComponent<SpriteRenderer> ();
 	}
 
-	// Update is called once per frame
-	new void Update ()
-	{
-		base.Update ();
-	}
 
 	public override void Attack ()
 	{
@@ -64,5 +59,12 @@ public class WaspController : AbstractEnemy
 		newColor.a = 1;
 		dartSprite.color = newColor;
 		isAtacking = false; // ready to attack again
+	}
+
+	// to delete when all enemies's animator have "hit" trigger
+	public override void Defend (GameObject attacker, float damage, Vector2 bumpVelocity, float bumpTime)
+	{
+		animator.SetTrigger ("hit");
+		base.Defend (attacker, damage, bumpVelocity, bumpTime);
 	}
 }
