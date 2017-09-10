@@ -8,12 +8,14 @@ public class SquirrelController : MonoBehaviour, IAttackable
 	public Vector2[] nutForces;
 	public float nutRespawnTime = 2f;
 	public bool aimPlayer = true;
+	public LayerMask playerLayer;
 
 	bool readyToAttack = true;
 	GameObject player;
 	Rigidbody2D playerRb;
 	Vector2 nutForce;
 	int currentNut = 0;
+	Transform losTop, losBottom;
 
 
 	// Use this for initialization
@@ -22,11 +24,13 @@ public class SquirrelController : MonoBehaviour, IAttackable
 		player = GameObject.FindWithTag ("Player");
 		playerRb = player.GetComponent<Rigidbody2D> ();
 		nutForce = nutForces [0];
+		losTop = transform.Find ("lineOfSightTop").transform;
+		losBottom = transform.Find ("lineOfSightBottom").transform;
 	}
 
 	void Update ()
 	{
-		if (readyToAttack)
+		if (readyToAttack && Physics2D.OverlapArea (losTop.position, losBottom.position, playerLayer))
 			Attack ();
 	}
 
