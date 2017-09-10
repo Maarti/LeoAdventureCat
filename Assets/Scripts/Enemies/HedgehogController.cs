@@ -58,10 +58,8 @@ public class HedgehogController : AbstractEnemy
 
 	IEnumerator ChargeCooldown ()
 	{
-		Debug.Log ("ChargeCD " + Time.realtimeSinceStartup);
 		yield return new WaitForSeconds (chargeCooldown);
 		isAtacking = false;
-		Debug.Log ("isAttacking =" + isAtacking.ToString () + " " + Time.realtimeSinceStartup);
 		isMoving = true;
 		while (speed > speedInit) {
 			speed -= Time.deltaTime * chargeVelocity; //deceleration

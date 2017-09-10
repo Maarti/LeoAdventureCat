@@ -39,6 +39,8 @@ public class MouthController : MonoBehaviour
 			return;
 		}
 
+		if (audioSource.isPlaying)
+			audioSource.Stop ();						//stop playing current sound
 		audioSource.PlayOneShot (audio);			//play audio
 		StartCoroutine (CloseMouthIn (audio.length));//close mouth when finished
 	}
