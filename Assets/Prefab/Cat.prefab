@@ -651,7 +651,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1323530707737238}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.25, y: 0.028, z: 0}
+  m_LocalPosition: {x: -0.25, y: 0.028, z: -0.01}
   m_LocalScale: {x: 0.525, y: 0.36249906, z: 1}
   m_Children: []
   m_Father: {fileID: 4228936885491144}
@@ -1260,6 +1260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpAudio: {fileID: 8300000, guid: f404ec55738c1264192c610cdf0cb10a, type: 3}
   biteAudio: {fileID: 8300000, guid: 53c2b18829f69cc41a38e9e96e5fc385, type: 3}
+  hitAudio: {fileID: 8300000, guid: bc2b06f78b2894c449159b3adfe53152, type: 3}
 --- !u!212 &212104916808843064
 SpriteRenderer:
   m_ObjectHideFlags: 1

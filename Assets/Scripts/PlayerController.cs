@@ -138,6 +138,7 @@ public class PlayerController : MonoBehaviour, IDefendable
 			rb.velocity = bumpVelocity;
 			StartCoroutine (BeingBump (bumpTime));
 		}
+		mouth.Meowing ("hit");
 	}
 
 	IEnumerator BeingBump (float timeBeingBumped)

@@ -4,7 +4,7 @@ using System.Collections;
 public class MouthController : MonoBehaviour
 {
 
-	public AudioClip jumpAudio, biteAudio;
+	public AudioClip jumpAudio, biteAudio, hitAudio;
 
 	AudioSource audioSource;
 	SpriteRenderer sprite;
@@ -31,6 +31,9 @@ public class MouthController : MonoBehaviour
 		switch (audioName) {
 		case "jump":
 			audio = jumpAudio;
+			break;
+		case "hit":
+			audio = hitAudio;
 			break;
 		default:
 			return;
