@@ -15,7 +15,7 @@ public class WaspController : AbstractEnemy
 	}
 
 	// Use this for initialization
-	new void Start ()
+	protected override void Start ()
 	{
 		base.Start ();
 		dartSprite = GameObject.Find (this.name + "/Body/Abdomen/Dart").GetComponent<SpriteRenderer> ();

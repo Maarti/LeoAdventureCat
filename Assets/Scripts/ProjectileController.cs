@@ -5,24 +5,48 @@ public class ProjectileController : MonoBehaviour
 {
 	public float speed = 1, bumpTime = 0.5f, timeToLive = 3, damage = 1;
 	public Vector2 bumpVelocity = new Vector2 (-2, 3);
-	public bool destroyOnCollision = true;
+	public bool destroyOnCollision = true, hasRigidBody = false, fade = false;
+
+	bool isFading = false;
+	SpriteRenderer sprite;
 
 	void Start ()
 	{
-		GameObject.Destroy (this.gameObject, timeToLive);
+		if (fade)
+			StartCoroutine (FadeOut ());
+		else
+			GameObject.Destroy (this.gameObject, timeToLive);
+		sprite = GetComponent<SpriteRenderer> ();
 	}
 
 	void FixedUpdate ()
 	{
-		transform.position = new Vector3 (transform.position.x + speed / 10, transform.position.y, transform.position.z);
+		if (!hasRigidBody)
+			transform.position = new Vector3 (transform.position.x + speed / 10, transform.position.y, transform.position.z);
 	}
 
 	void OnCollisionEnter2D (Collision2D other)
 	{
-		if (other.transform.tag == "Player") {
-			other.gameObject.GetComponent<IDefendable> ().Defend (this.gameObject, damage, bumpVelocity, bumpTime);
-			if (destroyOnCollision)
-				GameObject.Destroy (this.gameObject);
+		if (!isFading) {
+			if (other.transform.tag == "Player") {
+				other.gameObject.GetComponent<IDefendable> ().Defend (this.gameObject, damage, bumpVelocity, bumpTime);
+				if (destroyOnCollision)
+					GameObject.Destroy (this.gameObject);
+			}
 		}
+	}
+
+	// FadeOut then destroys
+	IEnumerator FadeOut ()
+	{
+		yield return new WaitForSeconds (timeToLive); // waiting time before respawning dart
+		isFading = true; //no damage when fading away
+		Color newColor = sprite.color;
+		for (float t = 0.0f; t <= 1.0f; t += Time.deltaTime / 1f) {			
+			newColor.a = Mathf.Lerp (1, 0, t);
+			sprite.color = newColor;
+			yield return null;
+		}
+		GameObject.Destroy (this.gameObject);
 	}
 }

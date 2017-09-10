@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CameraController : MonoBehaviour
 {
-	public float yMin = 1, xMin = 2;
+	public float yMin = 1, yMax = 6.8f, xMin = 2;
 
 	Vector3 offset;
 	GameObject player;
@@ -22,6 +22,8 @@ public class CameraController : MonoBehaviour
 		Vector3 newPosition = player.transform.position + offset;
 		if (newPosition.y < yMin)
 			newPosition.y = yMin;
+		else if (newPosition.y > yMax)
+			newPosition.y = yMax;
 		if (newPosition.x < xMin)
 			newPosition.x = xMin;
 		transform.position = newPosition;
