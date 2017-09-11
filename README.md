@@ -1,5 +1,33 @@
 # LeoAdventureCat
 
+Jouez tout en aidant la cause animale !
+
+Lâchement abandonné par son maître, aidez Léo à retrouver son frère à travers de nombreuses aventures. La recette générée par se jeu est reversée à une association animale ([plus d'infos](#cause-animal)).
+
+## Téléchargement
+[À venir]
+
+## Cause animale
+### Comment sont utilisés vos dons ?
+Les dons et bénéfices générés par la publicité seront utilisés pour acheter des croquettes pour chat qui seront offert à l'[Association Pour les Chats Libres d'Orléans](http://www.apclo.fr/) (APCLO). 
+L'association recueille, soigne, identifie et stérilise les chats errants afin de les rendres libres ou disponibles à l'adoption. L'association agit principalement grâce aux dons.
+C'est pourquoi j'ai décidé de monétiser ce jeu afin d'aider l'APCLO, grâce à qui je vis désormais avec Léo : 
+![Léo](docs/img/leo_07.jpg)
+La recette générée par la publicité ne peut être récupérée qu'à partir de $100USD. Ce cap sera donc considéré comme une victoire s'il est atteint, car il permettrait l'achat d'une vingtaine de kg de croquettes.
+Par la suite, si le jeu est toujours un succès et si le public (vous !) en fait sentir la demande, une partie de la recette pourrait être utilisée pour continuer à développer le jeu (améliorations, niveaux supplémentaires, suite ?).
+
+### Avancement des dons et recettes publicitaires :
+[Jeu pas encore disponible]
+
+* Total publicité : 0€ (la recette publicitaire ne peut être récupérée qu'à partir de $100 USD selon [les conditions des UnityAds](https://unityads.unity3d.com/help/faq/monetization#how-does-the-payment-process-work-))
+* Total dons : 0€
+
+*Dernière mise à jour : 11/09/2017*
+
+### Utilisation des dons et recettes publicitaires :
+[Jeu pas encore disponible]
+
+
 ## Memo
 
 ### Planning prévisionnel
@@ -13,34 +41,7 @@
 			+ Game Menu
 * 24/09 :  Dessiner tous les levels
 
-### Scenario :
-2 frères chats. Le propriétaire abandonne l'un d'eux dans la forêt. Il veut retrouver son frère.
 
-### Jeu :
-- Chaque lancement de jeu = 3 vies (possibilité d'acheter vies suplémentaires)
-- Chaque niveau peut posséder un gameplay différent du précédent
-- Les niveaux sont entrecoupés par des scènes (non jouables) pour apporter des éléments de scénario (possibilité d'accélérer ces scènes)
- 
- 
-### Niveau :
-> [Intro : Chat abandonné dans la forêt par son propriétaire]
-> - 1 Forêt : Plateforme
-> - 2 Fourrière :	[Fin de la forêt] poursuite avec collecte de pièces, capturé obligatoirement à la fin
->							[Interieur fourriere] Rencontre ami rat qui le libère et l'aide
-> - 3 Ville : Plateforme
->             Skate
-> - 4 Maison : Le rat retient l'humain le temps que le chat cherche son frère.
->                 Il [nospoilfrère]. Il [nospoilrat].
->                  Boss (proprio)
-> [Générique : [nospoil]. Chat s'éloignant petit à petit]
- 
-### Shop :
-- 1 pub visionnée rapporte 25 pièces
-- Chaque niveau dispose de 20 pièces collectables
-- 1 vie = 20 pieces
-- 1 skin = 200 pièces
- 
- 
 ### Graphismes
 * **Bonus/Icônes :** Filtres > Distorsion de lentille
 
