@@ -15,6 +15,7 @@ Les dons et bénéfices générés par la publicité seront utilisés pour achet
 L'association recueille, soigne, identifie et stérilise les chats errants afin de les rendres libres ou disponibles à l'adoption.
 
 L'association agit principalement grâce aux dons. C'est pourquoi j'ai décidé de monétiser ce jeu afin d'aider l'APCLO, grâce à qui je vis désormais avec Léo : 
+
 ![Léo](docs/img/leo_01.jpg)
 
 La recette générée par la publicité ne peut être récupérée qu'à partir de $100USD. Ce cap sera donc considéré comme une victoire s'il est atteint, car il permettrait l'achat d'une vingtaine de kg de croquettes.
@@ -28,8 +29,8 @@ Autrement, vous pouvez participer simplement en regardant une publicité à trav
 ### Avancement des dons et recettes publicitaires :
 *[Jeu pas encore disponible]*
 
-* Total publicité : 0€ (la recette publicitaire ne peut être récupérée qu'à partir de $100 USD selon [les conditions des UnityAds](https://unityads.unity3d.com/help/faq/monetization#how-does-the-payment-process-work-))
-* Total dons : 0€
+* **Total publicité : 0€** (la recette publicitaire ne peut être récupérée qu'à partir de $100 USD selon [les conditions des UnityAds](https://unityads.unity3d.com/help/faq/monetization#how-does-the-payment-process-work-))
+* **Total dons : 0€**
 
 *Dernière mise à jour : 11/09/2017*
 
