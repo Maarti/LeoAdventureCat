@@ -11,7 +11,7 @@ Lâchement abandonné par son maître, aidez Léo à retrouver son frère à tra
 
 ## Cause animale
 ### Comment sont utilisés vos dons ?
-Les dons et bénéfices générés par la publicité seront utilisés pour acheter des croquettes pour chat qui seront offerte à l'[Association pour la Protection les Chats Libres d'Orléans](http://www.apclo.fr/) (APCLO). 
+Les dons et bénéfices générés par la publicité seront utilisés pour acheter des croquettes pour chat qui seront offertes à l'[Association pour la Protection les Chats Libres d'Orléans](http://www.apclo.fr/) (APCLO). 
 L'association recueille, soigne, identifie et stérilise les chats errants afin de les rendres libres ou disponibles à l'adoption.
 
 L'association agit principalement grâce aux dons. C'est pourquoi j'ai décidé de monétiser ce jeu afin d'aider l'APCLO, grâce à qui je vis désormais avec Léo : 
