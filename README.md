@@ -1,4 +1,4 @@
-# LeoAdventureCat
+# Leo Adventure Cat
 
 Jouez tout en aidant la cause animale !
 
