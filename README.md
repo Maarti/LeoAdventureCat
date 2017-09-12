@@ -66,17 +66,18 @@ Autrement, vous pouvez participer simplement en regardant une publicité à trav
 > **Brightness**, then, accounts for how light or dark the color is. If we reduced the brightness of a color, we would see this as a darker shade of that same color.
 > 
 > To create a great color palette you need only follow this rule:
-> IF hues do not equal each other
-> THEN set saturations to match each other
-> AND set brightnesses to match each other
 > 
-> ELSE IF saturations do not equal each other
-> THEN set hues to match each other
-> AND set brightnesses to match each other
-> 
-> ELSE IF brightnesses do not equal each other
-> THEN set hues to equal each other
-> AND set saturations to equal each other
+>     IF hues do not equal each other
+>     THEN set saturations to match each other
+>     AND set brightnesses to match each other
+>     
+>     ELSE IF saturations do not equal each other
+>     THEN set hues to match each other
+>     AND set brightnesses to match each other
+>     
+>     ELSE IF brightnesses do not equal each other
+>     THEN set hues to equal each other
+>     AND set saturations to equal each other
 
 ## Author
 [Bryan MARTINET](https://maarti.net)
