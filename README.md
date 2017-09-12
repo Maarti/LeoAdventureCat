@@ -58,6 +58,25 @@ Autrement, vous pouvez participer simplement en regardant une publicité à trav
 
 ## Resources
 * [How to animate a cat walking cycle](https://www.youtube.com/watch?v=dYCGMdQgs-I)
+* [The Secret to Creating Perfect Color Palettes](https://gamedevelopment.tutsplus.com/articles/picking-a-color-palette-for-your-games-artwork--gamedev-1174) :
+> **Hue** defines the tone of the actual color. For example, the color red has a hue value of 0 regardless of what you set the saturation and brightness values to. If you change that hue value to 120 you will have changed the color to green and if you change it to 240 the color will become blue.
+> 
+> Now what happens if we take one of those colors and give it a **saturation** value of 50? It looks as if you are picking a different color, but you are actually only affecting the intensity of the color - that is, how vivid the color is. Reducing the saturation makes the color look washed out.
+> 
+> **Brightness**, then, accounts for how light or dark the color is. If we reduced the brightness of a color, we would see this as a darker shade of that same color.
+> 
+> To create a great color palette you need only follow this rule:
+> IF hues do not equal each other
+> THEN set saturations to match each other
+> AND set brightnesses to match each other
+> 
+> ELSE IF saturations do not equal each other
+> THEN set hues to match each other
+> AND set brightnesses to match each other
+> 
+> ELSE IF brightnesses do not equal each other
+> THEN set hues to equal each other
+> AND set saturations to equal each other
 
 ## Author
 [Bryan MARTINET](https://maarti.net)
