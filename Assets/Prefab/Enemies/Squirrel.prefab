@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 4888496285528226}
   - component: {fileID: 212076499132101514}
   - component: {fileID: 114269272654734080}
+  - component: {fileID: 95013253919550844}
   m_Layer: 14
   m_Name: Squirrel
   m_TagString: Untagged
@@ -309,6 +310,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &95013253919550844
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1729595468607174}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f2606b053f1781a4c94740de78bbd7b4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114269272654734080
 MonoBehaviour:
   m_ObjectHideFlags: 1

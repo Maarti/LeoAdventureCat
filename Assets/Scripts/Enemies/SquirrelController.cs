@@ -15,8 +15,8 @@ public class SquirrelController : MonoBehaviour, IAttackable
 	Rigidbody2D playerRb;
 	Vector2 nutForce;
 	int currentNut = 0;
-	Transform losTop, losBottom;
-
+	Transform losTop, losBottom, nutTransform;
+	Animator animator;
 
 	// Use this for initialization
 	void Start ()
@@ -26,6 +26,8 @@ public class SquirrelController : MonoBehaviour, IAttackable
 		nutForce = nutForces [0];
 		losTop = transform.Find ("lineOfSightTop").transform;
 		losBottom = transform.Find ("lineOfSightBottom").transform;
+		nutTransform = transform.Find ("Body").Find ("HazelNut").transform;
+		animator = GetComponent<Animator> ();
 	}
 
 	void Update ()
@@ -37,8 +39,8 @@ public class SquirrelController : MonoBehaviour, IAttackable
 	public void Attack ()
 	{
 		readyToAttack = false;
-		//animator.SetTrigger ("attack");
-		ThrowNut ();
+		animator.SetTrigger ("attack");
+		//ThrowNut ();
 		if (!aimPlayer) {
 			currentNut++;
 			if (currentNut > nutForces.Length - 1)
@@ -47,10 +49,10 @@ public class SquirrelController : MonoBehaviour, IAttackable
 		}
 	}
 
-
+	// called by animator
 	void ThrowNut ()
 	{
-		Transform nutProjectile = (Transform)Instantiate (nutPrefab, transform.position, transform.rotation);
+		Transform nutProjectile = (Transform)Instantiate (nutPrefab, nutTransform.position, nutTransform.rotation);
 		if (aimPlayer)
 			nutForce.x = (player.transform.position.x - this.transform.position.x) + playerRb.velocity.x;
 		nutProjectile.GetComponent<Rigidbody2D> ().velocity = nutForce;
