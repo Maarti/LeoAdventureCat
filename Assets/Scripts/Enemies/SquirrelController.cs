@@ -54,7 +54,7 @@ public class SquirrelController : MonoBehaviour, IAttackable
 	{
 		Transform nutProjectile = (Transform)Instantiate (nutPrefab, nutTransform.position, nutTransform.rotation);
 		if (aimPlayer)
-			nutForce.x = (player.transform.position.x - this.transform.position.x) + playerRb.velocity.x;
+			nutForce.x = (player.transform.position.x - nutProjectile.transform.position.x) + playerRb.velocity.x;
 		nutProjectile.GetComponent<Rigidbody2D> ().velocity = nutForce;
 		//GameObject.Destroy (nutProjectile.gameObject, nutTimeToLive);
 		StartCoroutine (RespawnNut (nutRespawnTime));
