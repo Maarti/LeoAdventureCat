@@ -4,9 +4,22 @@ Jouez tout en aidant la cause animale !
 
 Lâchement abandonné par son maître, aidez Léo à retrouver son frère à travers de nombreuses aventures. 
 
-**La recette générée par se jeu est reversée à une association animale** ([plus d'infos](#cause-animale)).
+**La recette générée par ce jeu est reversée à une association animale** ([plus d'infos](#cause-animale)).
 
 ## Téléchargement
+*[Jeu pas encore disponible]*
+
+## Développement
+Lors du développement du jeu, mon objectif était de ne pas importer de ressources externes et d'essayer de tout créer moi-même, pour savoir si j'allais être capable de produire tous les éléments nécessaires à son développement.
+Malgré mes lacunes artistiques, j'ai donc dessiné et développé seul l'intégralité du jeu, sans avoir à rechercher des personnages ou décors existants sur internet.
+
+Ainsi, l'idée était d'améliorer ma compétence graphique (proche du néant) pour que celle-ci soit ma seule limite (ainsi que mon imagination) dans la conception de ce jeu vidéo (*et des suivants ?*).
+Désormais, je ne dépends plus des ressources (gratuites ou payantes) obtenues sur internet.
+Quoi de plus frustrant que d'avoir une idée geniale de personnage ou de décor et de ne pas pouvoir l'implémenter, faute de trouver les images nécessaires à sa réalisation ?
+
+Côté programmation, pas de problème particulier étant déjà auto-suffisant *(je n'allais quand même pas partir avec que des désavatages...)*.
+
+### Making of
 *[À venir]*
 
 ## Cause animale
@@ -29,13 +42,13 @@ Autrement, vous pouvez participer simplement en regardant une publicité à trav
 ### Avancement des dons et recettes publicitaires :
 *[Jeu pas encore disponible]*
 
-* **Total publicité : 0€** (la recette publicitaire ne peut être récupérée qu'à partir de $100 USD selon [les conditions des UnityAds](https://unityads.unity3d.com/help/faq/monetization#how-does-the-payment-process-work-))
+* **Total publicité : 0€** (la recette publicitaire ne peut être récupérée qu'à partir de $100 USD selon [les conditions de UnityAds](https://unityads.unity3d.com/help/faq/monetization#how-does-the-payment-process-work-))
 * **Total dons : 0€**
 
 *Dernière mise à jour : 11/09/2017*
 
 ### Actions déjà réalisées grâce aux dons et bénéfices :
-[Jeu pas encore disponible]
+*[Jeu pas encore disponible]*
 
 
 ## Memo
