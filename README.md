@@ -14,7 +14,7 @@ Lors du développement du jeu, mon objectif était de ne pas importer de ressour
 Malgré mes lacunes artistiques, j'ai donc dessiné et développé seul l'intégralité du jeu, sans avoir à rechercher des personnages ou décors existants sur internet.
 
 Ainsi, l'idée était d'améliorer ma compétence graphique (proche du néant) pour que celle-ci soit ma seule limite (ainsi que mon imagination) dans la conception de ce jeu vidéo (*et des suivants ?*).
-Désormais, je ne dépends plus des ressources (gratuites ou payantes) obtenues sur internet.
+Je suis agréablement surpris du résultat, désormais, je ne dépends plus des ressources (gratuites ou payantes) obtenues sur internet.
 Quoi de plus frustrant que d'avoir une idée geniale de personnage ou de décor et de ne pas pouvoir l'implémenter, faute de trouver les images nécessaires à sa réalisation ?
 
 Côté programmation, pas de problème particulier étant déjà auto-suffisant *(je n'allais quand même pas partir avec que des désavatages...)*.
