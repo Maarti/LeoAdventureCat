@@ -55,9 +55,7 @@ public class ScratchController : MonoBehaviour
 	{
 		string layer = LayerMask.LayerToName (other.gameObject.layer);
 		// if the ennemy has not been already hit by this attack
-		Debug.Log ("collid");
 		if ((layer == "Destructible" || layer == "Enemy") && !ennemiesHit.Contains (other.name)) {
-			Debug.Log ("damage");
 			ennemiesHit.Add (other.name);
 			other.gameObject.GetComponent<IDefendable> ().Defend (this.gameObject, damage, bumpVelocity, bumpDuration);
 		}

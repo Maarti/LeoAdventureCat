@@ -7,14 +7,14 @@ public class HedgehogController : AbstractEnemy
 	public float chargeVelocity = 3f, chargeCooldown = 0.5f;
 
 	float speedInit;
-	SpriteRenderer[] sprites;
+	//SpriteRenderer[] sprites;
 	Animator animator;
 
 	protected override void Start ()
 	{
 		base.Start ();
 		speedInit = speed;
-		this.sprites = GetComponentsInChildren <SpriteRenderer> ();
+		//this.sprites = GetComponentsInChildren <SpriteRenderer> ();
 		animator = GetComponent<Animator> ();
 		animator.SetFloat ("chargeVelocity", chargeVelocity); //adapt the charging animation to the charge velocity
 	}

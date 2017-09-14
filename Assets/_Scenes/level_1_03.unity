@@ -355,7 +355,12 @@ Prefab:
     - target: {fileID: 114470619878396000, guid: 1286c9efe1e807e4197b0e5a579c8832,
         type: 2}
       propertyPath: levelToLoad
-      value: main_menu
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114470619878396000, guid: 1286c9efe1e807e4197b0e5a579c8832,
+        type: 2}
+      propertyPath: currentLevel
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1286c9efe1e807e4197b0e5a579c8832, type: 2}
@@ -819,6 +824,48 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 662966039}
+--- !u!1 &756866736
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 756866738}
+  - component: {fileID: 756866737}
+  m_Layer: 0
+  m_Name: ApplicationController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &756866737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 756866736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c48196cc9d7d7674eb8b80003f19d0cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData:
+    kittyz: 0
+--- !u!4 &756866738
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 756866736}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 30.949974, y: 121.07388, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 20
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &844789738
 Prefab:
   m_ObjectHideFlags: 0

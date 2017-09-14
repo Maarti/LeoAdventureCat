@@ -6,23 +6,14 @@ using UnityEngine.SceneManagement;
 public class EndSign : MonoBehaviour
 {
 
-	public string levelToLoad = "level_1_01";
+	public LevelEnum levelToLoad = LevelEnum.level_1_01;
+	public LevelEnum currentLevel = LevelEnum.level_1_01;
 
-	// Use this for initialization
-	void Start ()
+	void OnTriggerEnter2D (Collider2D other)
 	{
-		
-	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
-		
-	}
-
-	void OnTriggerExit2D (Collider2D other)
-	{
-		if (other.gameObject.tag == "Player")
-			SceneManager.LoadScene (levelToLoad);
+		if (other.gameObject.tag == "Player") {
+			ApplicationController.ac.FinishLevel (currentLevel);		
+			SceneManager.LoadScene (levelToLoad.ToString ());
+		}
 	}
 }
