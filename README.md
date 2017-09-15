@@ -64,6 +64,13 @@ Autrement, vous pouvez participer simplement en regardant une publicité à trav
 			+ Game Menu
 * 24/09 :  Dessiner tous les levels
 
+### Remember
+**Get device ID or AdMob :**
+Launch Command Prompt at adb.exe location (*C:\Users\[username]\AppData\Local\Android\android-sdk\platform-tools*) then type : 
+```
+adb shell
+settings get secure android_id
+```
 
 ### Graphismes
 * **Bonus/Icônes :** Filtres > Distorsion de lentille

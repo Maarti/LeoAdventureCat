@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Runtime.Serialization.Formatters.Binary;
 using System;
 using System.IO;
 using System.ComponentModel;
+
 
 public class ApplicationController : MonoBehaviour
 {
@@ -57,7 +59,6 @@ public class ApplicationController : MonoBehaviour
 public class PlayerData
 {
 	public int kittyz = 0;
-	//public List<KeyValuePair<string,Level>> levels;
 	public Dictionary<LevelEnum,Level> levels;
 
 	public PlayerData ()
@@ -72,6 +73,16 @@ public class PlayerData
 		lvls.Add (LevelEnum.level_1_02, new Level ("level_1_02", "1.02", World.Forest, 0, false));
 		lvls.Add (LevelEnum.level_1_03, new Level ("level_1_03", "1.03", World.Forest, 0, false));
 		this.levels = lvls;
+	}
+
+	public int updateKittys (int kittyz, Text uiText = null, bool doSave = false)
+	{
+		this.kittyz += kittyz;
+		if (doSave)
+			ApplicationController.ac.Save ();
+		if (uiText != null)
+			uiText.text = this.kittyz.ToString ();
+		return this.kittyz;
 	}
 }
 
