@@ -16,24 +16,32 @@ public class AdController : MonoBehaviour
 
 	void Start ()
 	{
+		Debug.Log ("Start");
 		//init kittyz
 		kittyzText = GameObject.Find ("KittyzText").GetComponentInChildren<Text> ();
 		kittyzText.text = ApplicationController.ac.playerData.kittyz.ToString ();
 		//init ad
 		adText = GetComponentInChildren<Text> ();
+		Debug.Log ("adText = " + adText.ToString ());
 		rewardBasedVideo = RewardBasedVideoAd.Instance;
 		//init ad button
 		adButton = GetComponent<Button> ();
+		Debug.Log ("adButton = " + adButton.ToString ());
 		if (rewardBasedVideo.IsLoaded ())
-			enableButton ();
+			//enableButton ();
+			RequestRewardBasedVideo ();
 		else
 			enableButton (false);
+		
 	}
 
 	void Update ()
 	{
-		if (!adIsLoadingOrWatching && !rewardBasedVideo.IsLoaded ())
+		if (!adIsLoadingOrWatching && !rewardBasedVideo.IsLoaded ()) {
+			adIsLoadingOrWatching = true;
 			RequestRewardBasedVideo ();
+		} else if (rewardBasedVideo.IsLoaded () && !adButton.IsInteractable ())
+			enableButton ();
 	}
 
 	public void RequestRewardBasedVideo ()
@@ -50,9 +58,15 @@ public class AdController : MonoBehaviour
 			.Build ();
 		rewardBasedVideo.LoadAd (request, adUnitId);
 
-		adText.text = "Ad is loading...";
+		// update ad button
+		enableButton (false, "Ad is loading...");
+		Debug.Log ("Request");
 		// Reward based video instance is a singleton. Register handlers once to avoid duplicate events.
 		if (!rewardBasedEventHandlersSet) {
+			//if (rewardBasedVideo.GetType ().GetMethod ("OnAdLoaded") == null) {
+			//Debug.Log ("HAndlerSet = " + rewardBasedVideo.rewardBasedEventHandlersSet.ToString ());
+			//if (!rewardBasedVideo.rewardBasedEventHandlersSet) {
+			Debug.Log ("Handlers set");
 			// Ad event fired when the rewarded video ad has been received.
 			rewardBasedVideo.OnAdLoaded += HandleOnAdLoaded;
 			rewardBasedVideo.OnAdFailedToLoad += HandleOnAdFailedToLoad;
@@ -62,6 +76,7 @@ public class AdController : MonoBehaviour
 			rewardBasedVideo.OnAdClosed += HandleOnAdClosed;
 			rewardBasedVideo.OnAdLeavingApplication += HandleOnAdLeavingApplication;
 
+			//rewardBasedVideo.rewardBasedEventHandlersSet = true;
 			rewardBasedEventHandlersSet = true;
 		}
 	}
@@ -72,7 +87,7 @@ public class AdController : MonoBehaviour
 		if (rewardBasedVideo.IsLoaded ()) {
 			adIsLoadingOrWatching = true;
 			rewardBasedVideo.Show ();
-			enableButton (false);
+			//enableButton (false, "Ad opening...");
 		}
 	}
 
@@ -89,16 +104,18 @@ public class AdController : MonoBehaviour
 
 	public void HandleOnAdOpening (object sender, EventArgs args)
 	{
-		adText.text = "Ad opening...";
+		enableButton (false, "Ad opening...");
 	}
 
 	public void HandleOnAdStarted (object sender, EventArgs args)
 	{
 		adIsLoadingOrWatching = true;
+		enableButton (false, "Ad playing...");
 	}
 
 	public void HandleOnAdClosed (object sender, EventArgs args)
 	{
+		Debug.Log ("ad closed");
 		adIsLoadingOrWatching = false;
 		rewardBasedVideo = RewardBasedVideoAd.Instance;
 	}
@@ -120,12 +137,28 @@ public class AdController : MonoBehaviour
 	}
 
 
-	void enableButton (bool enable = true)
+	void enableButton (bool enable = true, string disabledText = "No ad for now")
 	{
-		adButton.interactable = enable;
-		if (enable)
-			adText.text = "Watch Ad";
-		else
-			adText.text = "No ad for now";
+		if (adButton == null)
+			Debug.Log ("enable null");
+		else {
+			Debug.Log ("Enable adButton = " + adButton.ToString ());
+			adButton.interactable = enable;
+			if (enable)
+				adText.text = "Watch Ad";
+			else
+				adText.text = disabledText;
+		}
+	}
+
+	void OnDestroy ()
+	{
+		rewardBasedVideo.OnAdLoaded -= HandleOnAdLoaded;
+		rewardBasedVideo.OnAdFailedToLoad -= HandleOnAdFailedToLoad;
+		rewardBasedVideo.OnAdOpening -= HandleOnAdOpening;
+		rewardBasedVideo.OnAdStarted -= HandleOnAdStarted;
+		rewardBasedVideo.OnAdRewarded -= HandleOnAdRewarded;
+		rewardBasedVideo.OnAdClosed -= HandleOnAdClosed;
+		rewardBasedVideo.OnAdLeavingApplication -= HandleOnAdLeavingApplication;
 	}
 }
