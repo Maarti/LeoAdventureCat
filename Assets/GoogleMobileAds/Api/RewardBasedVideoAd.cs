@@ -24,7 +24,7 @@ namespace GoogleMobileAds.Api
 		private IRewardBasedVideoAdClient client;
 		private static readonly RewardBasedVideoAd instance = new RewardBasedVideoAd ();
 		// custom
-		public bool rewardBasedEventHandlersSet = false;
+		//public bool rewardBasedEventHandlersSet = false;
 
 		public static RewardBasedVideoAd Instance {
 			get {
