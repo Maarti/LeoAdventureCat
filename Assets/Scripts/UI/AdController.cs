@@ -16,17 +16,14 @@ public class AdController : MonoBehaviour
 
 	void Start ()
 	{
-		Debug.Log ("Start");
 		//init kittyz
 		kittyzText = GameObject.Find ("KittyzText").GetComponentInChildren<Text> ();
 		kittyzText.text = ApplicationController.ac.playerData.kittyz.ToString ();
 		//init ad
 		adText = GetComponentInChildren<Text> ();
-		Debug.Log ("adText = " + adText.ToString ());
 		rewardBasedVideo = RewardBasedVideoAd.Instance;
 		//init ad button
 		adButton = GetComponent<Button> ();
-		Debug.Log ("adButton = " + adButton.ToString ());
 		if (rewardBasedVideo.IsLoaded ())
 			//enableButton ();
 			RequestRewardBasedVideo ();
@@ -59,14 +56,9 @@ public class AdController : MonoBehaviour
 		rewardBasedVideo.LoadAd (request, adUnitId);
 
 		// update ad button
-		enableButton (false, "Ad is loading...");
-		Debug.Log ("Request");
+		enableButton (false, "AD_LOADING");
 		// Reward based video instance is a singleton. Register handlers once to avoid duplicate events.
 		if (!rewardBasedEventHandlersSet) {
-			//if (rewardBasedVideo.GetType ().GetMethod ("OnAdLoaded") == null) {
-			//Debug.Log ("HAndlerSet = " + rewardBasedVideo.rewardBasedEventHandlersSet.ToString ());
-			//if (!rewardBasedVideo.rewardBasedEventHandlersSet) {
-			Debug.Log ("Handlers set");
 			// Ad event fired when the rewarded video ad has been received.
 			rewardBasedVideo.OnAdLoaded += HandleOnAdLoaded;
 			rewardBasedVideo.OnAdFailedToLoad += HandleOnAdFailedToLoad;
@@ -104,18 +96,17 @@ public class AdController : MonoBehaviour
 
 	public void HandleOnAdOpening (object sender, EventArgs args)
 	{
-		enableButton (false, "Ad opening...");
+		enableButton (false, "AD_OPENING");
 	}
 
 	public void HandleOnAdStarted (object sender, EventArgs args)
 	{
 		adIsLoadingOrWatching = true;
-		enableButton (false, "Ad playing...");
+		enableButton (false, "AD_PLAYING");
 	}
 
 	public void HandleOnAdClosed (object sender, EventArgs args)
 	{
-		Debug.Log ("ad closed");
 		adIsLoadingOrWatching = false;
 		rewardBasedVideo = RewardBasedVideoAd.Instance;
 	}
@@ -137,17 +128,16 @@ public class AdController : MonoBehaviour
 	}
 
 
-	void enableButton (bool enable = true, string disabledText = "No ad for now")
+	void enableButton (bool enable = true, string disabledText = "NO_ADS")
 	{
 		if (adButton == null)
 			Debug.Log ("enable null");
 		else {
-			Debug.Log ("Enable adButton = " + adButton.ToString ());
 			adButton.interactable = enable;
 			if (enable)
-				adText.text = "Watch Ad";
+				adText.text = LocalizationManager.Instance.GetText ("WATCH_AD");
 			else
-				adText.text = disabledText;
+				adText.text = LocalizationManager.Instance.GetText (disabledText);
 		}
 	}
 

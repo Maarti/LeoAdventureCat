@@ -2061,8 +2061,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2db55f4f53880f4699b106a5d2a5680, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelToLoad: 2
-  currentLevel: 1
+  levelToLoad: 3
+  currentLevel: 2
 --- !u!4 &1536271938
 Transform:
   m_ObjectHideFlags: 0
@@ -2386,7 +2386,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData:
+    dataVersion: 1
     kittyz: 0
+    lang_id: 0
+    unlockedLvls: 
+    completedLvls: 
+    boughtItems: 
+    equippedItems: 
 --- !u!4 &1666331493
 Transform:
   m_ObjectHideFlags: 0
@@ -2489,11 +2495,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000014029771228, guid: bfde9048a0c104d4e85dba1a1347c418, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 6.2299995
+      value: 4.302
       objectReference: {fileID: 0}
     - target: {fileID: 4000014029771228, guid: bfde9048a0c104d4e85dba1a1347c418, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 3.5700002
+      value: 3.561
       objectReference: {fileID: 0}
     - target: {fileID: 4000014029771228, guid: bfde9048a0c104d4e85dba1a1347c418, type: 2}
       propertyPath: m_LocalPosition.z
