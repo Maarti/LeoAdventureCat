@@ -5,11 +5,35 @@ using UnityEngine.UI;
 
 public class ShopItemController : MonoBehaviour
 {
-	public LevelEnum level;
+
+	public ItemEnum itemEnum;
 	public Text kittyzText;
+	Text itemNameText, itemDescText, itemPriceText;
+	Item item;
 
+	void Start ()
+	{
+		itemNameText = GameObject.Find (this.name + "/ItemTitle").GetComponent<Text> ();
+		itemDescText = GameObject.Find (this.name + "/ItemDesc").GetComponent<Text> ();
+		itemPriceText = GameObject.Find (this.name + "/ItemPrice/PriceText").GetComponent<Text> ();
 
-	public void BuyLevel ()
+		InitButton ();
+	}
+
+	void InitButton ()
+	{
+		item = ApplicationController.ac.items [itemEnum];
+		itemNameText.text = item.GetName ();
+		itemDescText.text = item.GetDesc ();
+		itemPriceText.text = item.price.ToString ();
+	}
+
+	public void BuyThis ()
+	{
+		ApplicationController.ac.BuyItem (itemEnum, kittyzText);
+	}
+
+	/*	public void BuyLevel ()
 	{
 		int levelPrice = ApplicationController.ac.levels [level].price;
 		int kittyz = ApplicationController.ac.playerData.kittyz;
@@ -21,7 +45,7 @@ public class ShopItemController : MonoBehaviour
 			ApplicationController.ac.playerData.updateKittys (-levelPrice, kittyzText, true);
 			//return true;
 		}
-	}
+	}*/
 
 	public void Cheat ()
 	{

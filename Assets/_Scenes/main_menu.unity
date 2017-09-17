@@ -2518,7 +2518,7 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 958710521}
+      objectReference: {fileID: 1047901425}
     - target: {fileID: 114261119626278878, guid: e4ccabee8e4b52e45b35433b601e5742,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -2837,6 +2837,8 @@ MonoBehaviour:
     kittyz: 0
     unlockedLvls: 
     completedLvls: 
+    boughtItems: 
+    equippedItems: 
 --- !u!4 &686866544
 Transform:
   m_ObjectHideFlags: 0
@@ -3811,24 +3813,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 931579362}
---- !u!1 &958710516 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1238945462760542, guid: e4ccabee8e4b52e45b35433b601e5742,
-    type: 2}
-  m_PrefabInternal: {fileID: 1326267791}
---- !u!114 &958710521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 958710516}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47ce0163587e6fe4e9b391344c592d5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  level: 3
-  kittyzText: {fileID: 380860701}
 --- !u!1001 &1022936498
 Prefab:
   m_ObjectHideFlags: 0
@@ -3953,6 +3937,24 @@ RectTransform:
   m_PrefabParentObject: {fileID: 224554140011765446, guid: e4ccabee8e4b52e45b35433b601e5742,
     type: 2}
   m_PrefabInternal: {fileID: 1022936498}
+--- !u!1 &1047901424 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1691966890373964, guid: e4ccabee8e4b52e45b35433b601e5742,
+    type: 2}
+  m_PrefabInternal: {fileID: 1326267791}
+--- !u!114 &1047901425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1047901424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47ce0163587e6fe4e9b391344c592d5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemEnum: 1
+  kittyzText: {fileID: 380860701}
 --- !u!224 &1078817654 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224554140011765446, guid: e4ccabee8e4b52e45b35433b601e5742,
@@ -4548,11 +4550,11 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 958710521}
+      objectReference: {fileID: 1047901425}
     - target: {fileID: 114261119626278878, guid: e4ccabee8e4b52e45b35433b601e5742,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: BuyLevel
+      value: BuyThis
       objectReference: {fileID: 0}
     - target: {fileID: 114261119626278878, guid: e4ccabee8e4b52e45b35433b601e5742,
         type: 2}
@@ -4613,7 +4615,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a9cdc7021dcd0d44a4b93ea1379f474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelEnum: 2
+  levelEnum: 3
 --- !u!114 &1340156791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5874,7 +5876,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a9cdc7021dcd0d44a4b93ea1379f474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelEnum: 1
+  levelEnum: 2
 --- !u!1 &2091831830
 GameObject:
   m_ObjectHideFlags: 0
@@ -5926,7 +5928,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a9cdc7021dcd0d44a4b93ea1379f474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelEnum: 3
+  levelEnum: 4
 --- !u!114 &2091831833
 MonoBehaviour:
   m_ObjectHideFlags: 0

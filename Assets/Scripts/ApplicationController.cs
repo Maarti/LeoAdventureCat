@@ -14,6 +14,7 @@ public class ApplicationController : MonoBehaviour
 	public static ApplicationController ac;
 	public PlayerData playerData;
 	public Dictionary<LevelEnum,Level> levels;
+	public Dictionary<ItemEnum,Item> items;
 
 	void Awake ()
 	{
@@ -25,6 +26,9 @@ public class ApplicationController : MonoBehaviour
 		}
 		Load ();
 		initLevels ();
+		initItems ();
+		// Update initial data with saved player data
+		MergeData ();
 	}
 
 
@@ -57,8 +61,13 @@ public class ApplicationController : MonoBehaviour
 		lvls.Add (LevelEnum.level_1_02, new Level ("level_1_02", "1.02", World.Forest, 0, false));
 		lvls.Add (LevelEnum.level_1_03, new Level ("level_1_03", "1.03", World.Forest, 100, true));
 		this.levels = lvls;
-		// Update levels with player data
-		MergeData ();
+	}
+
+	void initItems ()
+	{
+		// Init all items
+		items = new Dictionary<ItemEnum, Item> ();
+		items.Add (ItemEnum.level_1_03, new Item (ItemEnum.level_1_03, "level_1_03_name", "level_1_03_desc", 99, LevelEnum.level_1_03));
 	}
 
 	public void FinishLevel (LevelEnum level, bool doSave = true)
@@ -72,13 +81,49 @@ public class ApplicationController : MonoBehaviour
 
 	public void UnlockLevel (LevelEnum level, bool doSave = true)
 	{
-		this.levels [level].isLocked = false;
-		if (!this.playerData.unlockedLvls.Contains (level))
-			this.playerData.unlockedLvls.Add (level);
+		if (level != LevelEnum.none) {
+			this.levels [level].isLocked = false;
+			if (!this.playerData.unlockedLvls.Contains (level))
+				this.playerData.unlockedLvls.Add (level);
+			if (doSave)
+				Save ();
+		}
+	}
+
+	public void BuyItem (ItemEnum itemEnum, Text kittyzText = null, bool doSave = true, bool initMode = false)
+	{
+		int price = this.items [itemEnum].price;
+		if (price <= playerData.kittyz || initMode) {
+			this.items [itemEnum].isBought = true;
+			if (!this.playerData.boughtItems.Contains (itemEnum))
+				this.playerData.boughtItems.Add (itemEnum);	
+
+			// if the item is a level, unlock the level
+			if (this.items [itemEnum].level != LevelEnum.none) {
+				UnlockLevel (this.items [itemEnum].level, false);
+			}
+
+			if (!initMode)
+				playerData.updateKittys (-price, kittyzText, false);
+
+			if (doSave)
+				Save ();
+		}
+	}
+
+	// Equip or Unequip item (bool equip = false to unequip)
+	public void EquipItem (ItemEnum itemEnum, bool equip = true, bool doSave = true)
+	{
+		this.items [itemEnum].isEquipped = equip;
+		if (equip && !this.playerData.equippedItems.Contains (itemEnum))
+			this.playerData.equippedItems.Add (itemEnum);
+		else if (!equip && this.playerData.equippedItems.Contains (itemEnum))
+			this.playerData.equippedItems.Remove (itemEnum);
 		if (doSave)
 			Save ();
 	}
 
+	// Merge initial data with the saved data of the player
 	public void MergeData ()
 	{
 		foreach (LevelEnum lvlEnum in playerData.unlockedLvls) {
@@ -86,6 +131,12 @@ public class ApplicationController : MonoBehaviour
 		}
 		foreach (LevelEnum lvlEnum in playerData.completedLvls) {
 			FinishLevel (lvlEnum, false);
+		}
+		foreach (ItemEnum itemEnum in playerData.boughtItems) {
+			BuyItem (itemEnum, null, false, true);
+		}
+		foreach (ItemEnum itemEnum in playerData.equippedItems) {
+			EquipItem (itemEnum, true, false);
 		}
 	}
 
@@ -97,11 +148,14 @@ public class PlayerData
 {
 	public int dataVersion = 1, kittyz = 0;
 	public List<LevelEnum> unlockedLvls, completedLvls;
+	public List<ItemEnum> boughtItems, equippedItems;
 
 	public PlayerData ()
 	{		
 		unlockedLvls = new List<LevelEnum> ();
 		completedLvls = new List<LevelEnum> ();
+		boughtItems = new List<ItemEnum> ();
+		equippedItems = new List<ItemEnum> ();
 	}
 
 	public int updateKittys (int kittyz, Text uiText = null, bool doSave = false)
@@ -118,7 +172,6 @@ public class PlayerData
 
 }
 
-[Serializable]
 public class Level
 {
 	public string id, name;
@@ -145,8 +198,44 @@ public enum World : int
 
 public enum LevelEnum
 {
+	none,
 	main_menu,
 	level_1_01,
 	level_1_02,
+	level_1_03
+}
+
+public class Item
+{
+	public ItemEnum id;
+	public bool isBought = false, isEquipped = false;
+	public int price;
+	public LevelEnum level;
+	string name_id, desc_id;
+
+	public Item (ItemEnum id, string name_id, string desc_id, int price, LevelEnum level = LevelEnum.none)
+	{
+		this.id = id;
+		this.name_id = name_id;
+		this.desc_id = desc_id;
+		this.price = price;
+		this.level = level;
+	}
+
+	public string GetName ()
+	{
+		return name_id;
+	}
+
+	public string GetDesc ()
+	{
+		return desc_id;
+	}
+		
+}
+
+public enum ItemEnum
+{
+	none,
 	level_1_03
 }
