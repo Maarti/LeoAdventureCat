@@ -34,6 +34,12 @@ public class LocalizationManager : MonoBehaviour
 			languages.Add (language);
 		}
 	}
+
+	void Start ()
+	{
+		currentLanguageID = ApplicationController.ac.playerData.lang_id;
+	}
+
 	// GetText will go through each language in the languages list and return a string matching the key provided
 	public string GetText (string key)
 	{
@@ -48,6 +54,15 @@ public class LocalizationManager : MonoBehaviour
 		}
 		return "Undefined";
 	}
+
+	public void SetLanguage (int id)
+	{
+		Debug.Log ("lang = " + Application.systemLanguage.ToString ());
+		this.currentLanguageID = id;
+		ApplicationController.ac.playerData.lang_id = id;
+		ApplicationController.ac.Save ();
+	}
+
 }
 // Simple Class to hold the language metadata
 [System.Serializable]

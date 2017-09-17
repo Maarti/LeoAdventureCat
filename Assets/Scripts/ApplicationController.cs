@@ -48,6 +48,11 @@ public class ApplicationController : MonoBehaviour
 			file.Close ();
 		} else {
 			playerData = new PlayerData ();
+			if (Application.systemLanguage == SystemLanguage.French)
+				playerData.lang_id = 1;
+			else
+				playerData.lang_id = 0;
+			Save ();
 		}
 		// Update initial data with saved player data
 		MergeData ();
@@ -147,7 +152,7 @@ public class ApplicationController : MonoBehaviour
 [Serializable]
 public class PlayerData
 {
-	public int dataVersion = 1, kittyz = 0;
+	public int dataVersion = 1, kittyz = 0, lang_id = 0;
 	public List<LevelEnum> unlockedLvls, completedLvls;
 	public List<ItemEnum> boughtItems, equippedItems;
 
@@ -157,6 +162,7 @@ public class PlayerData
 		completedLvls = new List<LevelEnum> ();
 		boughtItems = new List<ItemEnum> ();
 		equippedItems = new List<ItemEnum> ();
+		// lang_id is initialized in Load()				
 	}
 
 	public int updateKittys (int kittyz, Text uiText = null, bool doSave = false)
