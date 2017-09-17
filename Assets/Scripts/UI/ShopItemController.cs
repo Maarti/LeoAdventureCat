@@ -11,6 +11,7 @@ public class ShopItemController : MonoBehaviour
 	Text itemNameText, itemDescText, itemPriceText;
 	GameObject itemBuyButton;
 	Item item;
+	bool isStarted = false;
 
 	void Start ()
 	{
@@ -20,18 +21,22 @@ public class ShopItemController : MonoBehaviour
 		itemBuyButton = GameObject.Find (this.name + "/BuyButton");
 
 		InitButton ();
+		isStarted = true;
 	}
 
 	public void InitButton ()
 	{
 		if (itemEnum != ItemEnum.none) {
 			item = ApplicationController.ac.items [itemEnum];
+			Debug.Log ("init" + item.GetName ());
 			itemNameText.text = item.GetName ();
 			itemDescText.text = item.GetDesc ();
 			itemPriceText.text = item.price.ToString ();
 			if (item.isBought) {
 				itemBuyButton.GetComponent<Button> ().interactable = false;
-				itemBuyButton.GetComponentInChildren<Text> ().text = "Bought";
+				itemBuyButton.GetComponentInChildren<Text> ().text = LocalizationManager.Instance.GetText ("BOUGHT");
+			} else {
+				itemBuyButton.GetComponentInChildren<Text> ().text = LocalizationManager.Instance.GetText ("BUY");
 			}
 		}
 	}
@@ -39,6 +44,7 @@ public class ShopItemController : MonoBehaviour
 	public void BuyThis ()
 	{
 		if (itemEnum != ItemEnum.none) {
+			Debug.Log ("buy this");
 			ApplicationController.ac.BuyItem (itemEnum, kittyzText);
 			InitButton ();
 		}
@@ -48,5 +54,11 @@ public class ShopItemController : MonoBehaviour
 	public void Cheat ()
 	{
 		ApplicationController.ac.playerData.updateKittys (50, kittyzText, true);
+	}
+
+	void OnEnable ()
+	{
+		if (isStarted)
+			InitButton ();
 	}
 }

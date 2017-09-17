@@ -72,8 +72,8 @@ public class ApplicationController : MonoBehaviour
 	{
 		// Init all items
 		items = new Dictionary<ItemEnum, Item> ();
-		items.Add (ItemEnum.level_1_02, new Item (ItemEnum.level_1_02, "level_1_02_name", "level_1_02_desc", 50, LevelEnum.level_1_02));
-		items.Add (ItemEnum.level_1_03, new Item (ItemEnum.level_1_03, "level_1_03_name", "level_1_03_desc", 99, LevelEnum.level_1_03));
+		items.Add (ItemEnum.level_1_02, new Item (ItemEnum.level_1_02, "LEVEL", "LEVEL_DESC", 50, LevelEnum.level_1_02));
+		items.Add (ItemEnum.level_1_03, new Item (ItemEnum.level_1_03, "LEVEL", "LEVEL_DESC", 99, LevelEnum.level_1_03));
 	}
 
 	public void FinishLevel (LevelEnum level, bool doSave = true)
@@ -230,12 +230,15 @@ public class Item
 
 	public string GetName ()
 	{
-		return name_id;
+		if (this.level != LevelEnum.none)
+			return LocalizationManager.Instance.GetText ("LEVEL") + " " + ApplicationController.ac.levels [level].name;
+		else
+			return LocalizationManager.Instance.GetText (name_id);
 	}
 
 	public string GetDesc ()
 	{
-		return desc_id;
+		return LocalizationManager.Instance.GetText (desc_id);
 	}
 		
 }
