@@ -13,6 +13,7 @@ public class ApplicationController : MonoBehaviour
 
 	public static ApplicationController ac;
 	public PlayerData playerData;
+	public Dictionary<LevelEnum,Level> levels;
 
 	void Awake ()
 	{
@@ -23,6 +24,7 @@ public class ApplicationController : MonoBehaviour
 			Destroy (gameObject);
 		}
 		Load ();
+		initLevels ();
 	}
 
 
@@ -47,32 +49,59 @@ public class ApplicationController : MonoBehaviour
 		}
 	}
 
-	public void FinishLevel (LevelEnum level)
+	void initLevels ()
 	{
-		playerData.levels [level].isCompleted = true;
-		Save ();
+		// Initialise all levels
+		Dictionary<LevelEnum,Level> lvls = new Dictionary<LevelEnum, Level> ();
+		lvls.Add (LevelEnum.level_1_01, new Level ("level_1_01", "1.01", World.Forest, 0, false));
+		lvls.Add (LevelEnum.level_1_02, new Level ("level_1_02", "1.02", World.Forest, 0, false));
+		lvls.Add (LevelEnum.level_1_03, new Level ("level_1_03", "1.03", World.Forest, 0, true));
+		this.levels = lvls;
+		// Update levels with player data
+		MergeData ();
 	}
+
+	public void FinishLevel (LevelEnum level, bool doSave = true)
+	{
+		this.levels [level].isCompleted = true;
+		if (!this.playerData.completedLvls.Contains (level))
+			this.playerData.completedLvls.Add (level);
+		if (doSave)
+			Save ();
+	}
+
+	public void UnlockLevel (LevelEnum level, bool doSave = true)
+	{
+		this.levels [level].isLocked = false;
+		if (!this.playerData.unlockedLvls.Contains (level))
+			this.playerData.unlockedLvls.Add (level);
+		if (doSave)
+			Save ();
+	}
+
+	public void MergeData ()
+	{
+		foreach (LevelEnum lvlEnum in playerData.unlockedLvls) {
+			UnlockLevel (lvlEnum, false);
+		}
+		foreach (LevelEnum lvlEnum in playerData.completedLvls) {
+			FinishLevel (lvlEnum, false);
+		}
+	}
+
 }
 
 
 [Serializable]
 public class PlayerData
 {
-	public int kittyz = 0;
-	public Dictionary<LevelEnum,Level> levels;
+	public int dataVersion = 1, kittyz = 0;
+	public List<LevelEnum> unlockedLvls, completedLvls;
 
 	public PlayerData ()
-	{
-		initLevels ();
-	}
-
-	void initLevels ()
-	{
-		Dictionary<LevelEnum,Level> lvls = new Dictionary<LevelEnum, Level> ();
-		lvls.Add (LevelEnum.level_1_01, new Level ("level_1_01", "1.01", World.Forest, 0, false));
-		lvls.Add (LevelEnum.level_1_02, new Level ("level_1_02", "1.02", World.Forest, 0, false));
-		lvls.Add (LevelEnum.level_1_03, new Level ("level_1_03", "1.03", World.Forest, 0, false));
-		this.levels = lvls;
+	{		
+		unlockedLvls = new List<LevelEnum> ();
+		completedLvls = new List<LevelEnum> ();
 	}
 
 	public int updateKittys (int kittyz, Text uiText = null, bool doSave = false)
@@ -84,6 +113,8 @@ public class PlayerData
 			uiText.text = this.kittyz.ToString ();
 		return this.kittyz;
 	}
+
+
 }
 
 [Serializable]
@@ -91,16 +122,16 @@ public class Level
 {
 	public string id, name;
 	public int price;
-	public bool isLock, isCompleted = false;
+	public bool isLocked, isCompleted = false;
 	public World world;
 
-	public Level (string id, string name, World world, int price, bool isLock = true, bool isCompleted = false)
+	public Level (string id, string name, World world, int price, bool isLocked = true, bool isCompleted = false)
 	{
 		this.id = id;
 		this.name = name;
 		this.world = world;
 		this.price = price;
-		this.isLock = isLock;
+		this.isLocked = isLocked;
 		this.isCompleted = isCompleted;
 	}
 }
