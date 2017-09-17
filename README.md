@@ -98,6 +98,7 @@ settings get secure android_id
 >     ELSE IF brightnesses do not equal each other
 >     THEN set hues to equal each other
 >     AND set saturations to equal each other
+* [Free Country Flags](https://www.countryflags.com/en/)
 
 ## Author
 [Bryan MARTINET](https://maarti.net)
