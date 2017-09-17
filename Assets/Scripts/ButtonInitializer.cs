@@ -9,6 +9,7 @@ public class ButtonInitializer : MonoBehaviour
 
 	Level level;
 	GameObject /*uiName, uiDifficulty,*/ uiLockImage;
+	Button button;
 
 	// Use this for initialization
 	void Start ()
@@ -17,18 +18,24 @@ public class ButtonInitializer : MonoBehaviour
 		//uiName = transform.Find ("Name").gameObject;
 		uiLockImage = transform.Find ("LockImg").gameObject;
 		//uiDifficulty = transform.Find ("Difficulty").gameObject;
+		button = GetComponent<Button> ();
 		InitButton ();
 	}
 
 	void InitButton ()
 	{
 		if (level.isLocked) {
-			GetComponent<Button> ().interactable = false;
+			button.interactable = false;
 			uiLockImage.GetComponent<Image> ().color = Color.red;
-		} else if (level.isCompleted)
+		} else {
+			button.interactable = true;
 			uiLockImage.GetComponent<Image> ().color = Color.green;
-		else
-			uiLockImage.GetComponent<Image> ().color = Color.yellow;
+		}
+	}
+
+	void OnEnable ()
+	{
+		Start ();
 	}
 
 }
