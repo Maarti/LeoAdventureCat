@@ -10,20 +10,25 @@ public class LevelButtonInitializer : MonoBehaviour
 	Level level;
 	GameObject /*uiName, uiDifficulty,*/ uiLockImage;
 	Button button;
+	bool isStarted = false;
 
 	// Use this for initialization
 	void Start ()
 	{
-		level = ApplicationController.ac.levels [levelEnum];
+		Debug.Log (this.name + " = " + Time.time + " " + ApplicationController.ac.levels [levelEnum].name);
+		//level = ApplicationController.ac.levels [levelEnum];
 		//uiName = transform.Find ("Name").gameObject;
 		uiLockImage = transform.Find ("LockImg").gameObject;
 		//uiDifficulty = transform.Find ("Difficulty").gameObject;
 		button = GetComponent<Button> ();
 		InitButton ();
+		// When object is Started, OnEnable() can be called
+		isStarted = true;
 	}
 
 	void InitButton ()
 	{
+		level = ApplicationController.ac.levels [levelEnum];
 		if (level.isLocked) {
 			button.interactable = false;
 			uiLockImage.GetComponent<Image> ().color = Color.red;
@@ -35,7 +40,8 @@ public class LevelButtonInitializer : MonoBehaviour
 
 	void OnEnable ()
 	{
-		Start ();
+		if (isStarted)
+			Start ();
 	}
 
 }
