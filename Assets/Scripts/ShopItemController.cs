@@ -9,6 +9,7 @@ public class ShopItemController : MonoBehaviour
 	public ItemEnum itemEnum;
 	public Text kittyzText;
 	Text itemNameText, itemDescText, itemPriceText;
+	GameObject itemBuyButton;
 	Item item;
 
 	void Start ()
@@ -16,36 +17,33 @@ public class ShopItemController : MonoBehaviour
 		itemNameText = GameObject.Find (this.name + "/ItemTitle").GetComponent<Text> ();
 		itemDescText = GameObject.Find (this.name + "/ItemDesc").GetComponent<Text> ();
 		itemPriceText = GameObject.Find (this.name + "/ItemPrice/PriceText").GetComponent<Text> ();
+		itemBuyButton = GameObject.Find (this.name + "/BuyButton");
 
 		InitButton ();
 	}
 
-	void InitButton ()
+	public void InitButton ()
 	{
-		item = ApplicationController.ac.items [itemEnum];
-		itemNameText.text = item.GetName ();
-		itemDescText.text = item.GetDesc ();
-		itemPriceText.text = item.price.ToString ();
+		if (itemEnum != ItemEnum.none) {
+			item = ApplicationController.ac.items [itemEnum];
+			itemNameText.text = item.GetName ();
+			itemDescText.text = item.GetDesc ();
+			itemPriceText.text = item.price.ToString ();
+			if (item.isBought) {
+				itemBuyButton.GetComponent<Button> ().interactable = false;
+				itemBuyButton.GetComponentInChildren<Text> ().text = "Bought";
+			}
+		}
 	}
 
 	public void BuyThis ()
 	{
-		ApplicationController.ac.BuyItem (itemEnum, kittyzText);
+		if (itemEnum != ItemEnum.none) {
+			ApplicationController.ac.BuyItem (itemEnum, kittyzText);
+			InitButton ();
+		}
 	}
 
-	/*	public void BuyLevel ()
-	{
-		int levelPrice = ApplicationController.ac.levels [level].price;
-		int kittyz = ApplicationController.ac.playerData.kittyz;
-		if (levelPrice <= kittyz) {
-			//return false;
-			//else {
-			Debug.Log ("ok");
-			ApplicationController.ac.UnlockLevel (level);
-			ApplicationController.ac.playerData.updateKittys (-levelPrice, kittyzText, true);
-			//return true;
-		}
-	}*/
 
 	public void Cheat ()
 	{

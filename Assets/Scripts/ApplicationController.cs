@@ -24,11 +24,9 @@ public class ApplicationController : MonoBehaviour
 		} else if (ac != this) {
 			Destroy (gameObject);
 		}
-		Load ();
 		initLevels ();
 		initItems ();
-		// Update initial data with saved player data
-		MergeData ();
+		Load ();
 	}
 
 
@@ -51,6 +49,8 @@ public class ApplicationController : MonoBehaviour
 		} else {
 			playerData = new PlayerData ();
 		}
+		// Update initial data with saved player data
+		MergeData ();
 	}
 
 	void initLevels ()
@@ -58,7 +58,7 @@ public class ApplicationController : MonoBehaviour
 		// Initialise all levels
 		Dictionary<LevelEnum,Level> lvls = new Dictionary<LevelEnum, Level> ();
 		lvls.Add (LevelEnum.level_1_01, new Level ("level_1_01", "1.01", World.Forest, 0, false));
-		lvls.Add (LevelEnum.level_1_02, new Level ("level_1_02", "1.02", World.Forest, 0, false));
+		lvls.Add (LevelEnum.level_1_02, new Level ("level_1_02", "1.02", World.Forest, 0, true));
 		lvls.Add (LevelEnum.level_1_03, new Level ("level_1_03", "1.03", World.Forest, 100, true));
 		this.levels = lvls;
 	}
@@ -67,6 +67,7 @@ public class ApplicationController : MonoBehaviour
 	{
 		// Init all items
 		items = new Dictionary<ItemEnum, Item> ();
+		items.Add (ItemEnum.level_1_02, new Item (ItemEnum.level_1_02, "level_1_02_name", "level_1_02_desc", 50, LevelEnum.level_1_02));
 		items.Add (ItemEnum.level_1_03, new Item (ItemEnum.level_1_03, "level_1_03_name", "level_1_03_desc", 99, LevelEnum.level_1_03));
 	}
 
@@ -160,8 +161,7 @@ public class PlayerData
 
 	public int updateKittys (int kittyz, Text uiText = null, bool doSave = false)
 	{
-		this.kittyz += kittyz;
-		Debug.Log ("thisk = " + this.kittyz + " k = " + kittyz);
+		this.kittyz = Mathf.Clamp (this.kittyz + kittyz, 0, 9999); // set min and max to kittyz
 		if (doSave)
 			ApplicationController.ac.Save ();
 		if (uiText != null)
@@ -237,5 +237,6 @@ public class Item
 public enum ItemEnum
 {
 	none,
+	level_1_02,
 	level_1_03
 }

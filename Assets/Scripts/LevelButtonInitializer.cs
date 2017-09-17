@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ButtonInitializer : MonoBehaviour
+public class LevelButtonInitializer : MonoBehaviour
 {
 	public LevelEnum levelEnum = LevelEnum.level_1_01;
 
