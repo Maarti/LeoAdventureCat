@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Linq;
@@ -17,8 +18,14 @@ public class LocalizationManager : MonoBehaviour
 
 	void Awake ()
 	{
-		instance = this;
-		DontDestroyOnLoad (this);
+		
+		if (!instance) {
+			instance = this;
+			DontDestroyOnLoad (gameObject);
+		} else
+			Destroy (gameObject);
+		//instance = this;
+		//DontDestroyOnLoad (this);
 		// This will read  each XML file from the languageFiles list<> and populate the languages list with the data
 		foreach (TextAsset languageFile in languageFiles) {
 			XDocument languageXMLData = XDocument.Parse (languageFile.text);
@@ -44,7 +51,7 @@ public class LocalizationManager : MonoBehaviour
 	public string GetText (string key)
 	{
 		foreach (Language language in languages) {
-			if (language.languageID == currentLanguageID) {
+			if (language.languageID == LocalizationManager.Instance.currentLanguageID) {
 				foreach (TextKeyValue textKeyValue in language.textKeyValueList) {
 					if (textKeyValue.key == key) {
 						return textKeyValue.value;
@@ -55,13 +62,16 @@ public class LocalizationManager : MonoBehaviour
 		return "Undefined";
 	}
 
-	public void SetLanguage (int id)
+	public void SetLanguage (int id, Text[] texts)
 	{
-		Debug.Log ("lang = " + Application.systemLanguage.ToString ());
-		this.currentLanguageID = id;
+		LocalizationManager.Instance.currentLanguageID = id;
 		ApplicationController.ac.playerData.lang_id = id;
 		ApplicationController.ac.Save ();
+		foreach (Text text in texts) {
+			text.GetComponent<LocalizationUIText> ().Refresh ();
+		}
 	}
+
 
 }
 // Simple Class to hold the language metadata

@@ -16,7 +16,6 @@ public class LevelButtonInitializer : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		Debug.Log (this.name + " = " + Time.time + " " + ApplicationController.ac.levels [levelEnum].name);
 		//level = ApplicationController.ac.levels [levelEnum];
 		uiName = transform.Find ("Name").gameObject.GetComponent<Text> ();
 		uiLockImage = transform.Find ("LockImg").gameObject;

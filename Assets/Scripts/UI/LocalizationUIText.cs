@@ -11,7 +11,8 @@ public class LocalizationUIText : MonoBehaviour
 
 	void Start ()
 	{
-		lang = LocalizationManager.Instance.currentLanguageID;
+		//lang = LocalizationManager.Instance.currentLanguageID;
+		lang = ApplicationController.ac.playerData.lang_id;
 		// Get the string value from localization manager from key & set text component text value to the returned string value
 		Refresh ();
 
