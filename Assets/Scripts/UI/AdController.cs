@@ -11,6 +11,7 @@ public class AdController : MonoBehaviour
 	RewardBasedVideoAd rewardBasedVideo;
 	bool rewardBasedEventHandlersSet = false;
 	bool adIsLoadingOrWatching = false;
+	bool isStarted = false;
 	Text kittyzText, adText;
 	Button adButton;
 
@@ -29,7 +30,7 @@ public class AdController : MonoBehaviour
 			RequestRewardBasedVideo ();
 		else
 			enableButton (false);
-		
+		isStarted = true;
 	}
 
 	void Update ()
@@ -150,5 +151,15 @@ public class AdController : MonoBehaviour
 		rewardBasedVideo.OnAdRewarded -= HandleOnAdRewarded;
 		rewardBasedVideo.OnAdClosed -= HandleOnAdClosed;
 		rewardBasedVideo.OnAdLeavingApplication -= HandleOnAdLeavingApplication;
+	}
+
+	void OnEnable ()
+	{
+		if (isStarted) {
+			if (rewardBasedVideo.IsLoaded ())
+				enableButton (true);
+			else
+				enableButton (false);
+		}
 	}
 }
