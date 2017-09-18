@@ -81,6 +81,7 @@ public class ApplicationController : MonoBehaviour
 		this.levels [level].isCompleted = true;
 		if (!this.playerData.completedLvls.Contains (level))
 			this.playerData.completedLvls.Add (level);
+		this.playerData.setScore (level, 100);
 		if (doSave)
 			Save ();
 	}
@@ -144,6 +145,9 @@ public class ApplicationController : MonoBehaviour
 		foreach (ItemEnum itemEnum in playerData.equippedItems) {
 			EquipItem (itemEnum, true, false);
 		}
+		foreach (KeyValuePair<LevelEnum,int> entry in this.playerData.scores) {
+			this.levels [entry.Key].score = entry.Value;
+		}
 	}
 
 }
@@ -155,6 +159,7 @@ public class PlayerData
 	public int dataVersion = 1, kittyz = 0, lang_id = 0;
 	public List<LevelEnum> unlockedLvls, completedLvls;
 	public List<ItemEnum> boughtItems, equippedItems;
+	public Dictionary<LevelEnum,int> scores;
 
 	public PlayerData ()
 	{		
@@ -162,6 +167,7 @@ public class PlayerData
 		completedLvls = new List<LevelEnum> ();
 		boughtItems = new List<ItemEnum> ();
 		equippedItems = new List<ItemEnum> ();
+		scores = new Dictionary<LevelEnum, int> ();
 		// lang_id is initialized in Load()				
 	}
 
@@ -175,7 +181,15 @@ public class PlayerData
 		return this.kittyz;
 	}
 
-
+	public void setScore (LevelEnum lvl, int score)
+	{
+		if (this.scores.ContainsKey (lvl)) {
+			if (this.scores [lvl] < score)
+				this.scores [lvl] = Mathf.Clamp (score, 0, 100);
+		} else {
+			this.scores.Add (lvl, Mathf.Clamp (score, 0, 100));
+		}
+	}
 }
 
 public class Level
@@ -184,7 +198,7 @@ public class Level
 	public int price;
 	public bool isLocked, isCompleted = false;
 	public World world;
-	public int score = 99;
+	public int score = 0;
 
 	public Level (string id, string name, World world, int price, bool isLocked = true, bool isCompleted = false)
 	{
