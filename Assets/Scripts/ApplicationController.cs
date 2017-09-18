@@ -184,6 +184,7 @@ public class Level
 	public int price;
 	public bool isLocked, isCompleted = false;
 	public World world;
+	public int score = 99;
 
 	public Level (string id, string name, World world, int price, bool isLocked = true, bool isCompleted = false)
 	{

@@ -8,7 +8,7 @@ public class LevelButtonInitializer : MonoBehaviour
 	public LevelEnum levelEnum = LevelEnum.level_1_01;
 
 	Level level;
-	GameObject uiDifficulty, uiLockImage;
+	GameObject uiDifficulty, uiLockImage, uiScore;
 	Text uiName;
 	Button button;
 	bool isStarted = false;
@@ -21,6 +21,7 @@ public class LevelButtonInitializer : MonoBehaviour
 		uiName = transform.Find ("Name").gameObject.GetComponent<Text> ();
 		uiLockImage = transform.Find ("LockImg").gameObject;
 		uiDifficulty = transform.Find ("Difficulty").gameObject;
+		uiScore = transform.Find ("Score").gameObject;
 		button = GetComponent<Button> ();
 		InitButton ();
 		// When object is Started, OnEnable() can be called
@@ -31,11 +32,15 @@ public class LevelButtonInitializer : MonoBehaviour
 	{
 		level = ApplicationController.ac.levels [levelEnum];
 		if (level.isLocked) {
+			// TODO : change the onclick to shop menu if level locked
 			button.interactable = false;
-			uiLockImage.GetComponent<Image> ().color = Color.red;
+			uiLockImage.SetActive (true);
+			uiScore.SetActive (false);
 		} else {
 			button.interactable = true;
-			uiLockImage.GetComponent<Image> ().color = Color.green;
+			uiLockImage.SetActive (false);
+			uiScore.SetActive (true);
+			uiScore.GetComponent<Text> ().text = level.score.ToString () + "%";
 		}
 		uiName.text = LocalizationManager.Instance.GetText ("LEVEL") + " " + level.name;
 	}
