@@ -76,12 +76,11 @@ public class ApplicationController : MonoBehaviour
 		items.Add (ItemEnum.level_1_03, new Item (ItemEnum.level_1_03, "LEVEL", "LEVEL_DESC", 99, LevelEnum.level_1_03));
 	}
 
-	public void FinishLevel (LevelEnum level, bool doSave = true)
+	public void FinishLevel (LevelEnum level, int score = 100, bool doSave = true)
 	{
-		this.levels [level].isCompleted = true;
-		if (!this.playerData.completedLvls.Contains (level))
-			this.playerData.completedLvls.Add (level);
-		this.playerData.setScore (level, 100);
+		if (this.levels [level].score < score)
+			this.levels [level].score = score;
+		this.playerData.setScore (level, score);
 		if (doSave)
 			Save ();
 	}
@@ -136,9 +135,9 @@ public class ApplicationController : MonoBehaviour
 		foreach (LevelEnum lvlEnum in playerData.unlockedLvls) {
 			UnlockLevel (lvlEnum, false);
 		}
-		foreach (LevelEnum lvlEnum in playerData.completedLvls) {
+		/*foreach (LevelEnum lvlEnum in playerData.completedLvls) {
 			FinishLevel (lvlEnum, false);
-		}
+		}*/
 		foreach (ItemEnum itemEnum in playerData.boughtItems) {
 			BuyItem (itemEnum, null, false, true);
 		}
@@ -146,7 +145,8 @@ public class ApplicationController : MonoBehaviour
 			EquipItem (itemEnum, true, false);
 		}
 		foreach (KeyValuePair<LevelEnum,int> entry in this.playerData.scores) {
-			this.levels [entry.Key].score = entry.Value;
+			FinishLevel (entry.Key, entry.Value, false);
+			//this.levels [entry.Key].score = entry.Value;
 		}
 	}
 
@@ -196,18 +196,17 @@ public class Level
 {
 	public string id, name;
 	public int price;
-	public bool isLocked, isCompleted = false;
+	public bool isLocked;
 	public World world;
 	public int score = 0;
 
-	public Level (string id, string name, World world, int price, bool isLocked = true, bool isCompleted = false)
+	public Level (string id, string name, World world, int price, bool isLocked = true)
 	{
 		this.id = id;
 		this.name = name;
 		this.world = world;
 		this.price = price;
 		this.isLocked = isLocked;
-		this.isCompleted = isCompleted;
 	}
 }
 
