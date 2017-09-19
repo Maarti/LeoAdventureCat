@@ -28,15 +28,15 @@ public class ShopItemController : MonoBehaviour
 	{
 		if (itemEnum != ItemEnum.none) {
 			item = ApplicationController.ac.items [itemEnum];
-			Debug.Log ("init" + item.GetName ());
 			itemNameText.text = item.GetName ();
 			itemDescText.text = item.GetDesc ();
 			itemPriceText.text = item.price.ToString ();
 			if (item.isBought) {
 				itemBuyButton.GetComponent<Button> ().interactable = false;
-				itemBuyButton.GetComponentInChildren<Text> ().text = LocalizationManager.Instance.GetText ("BOUGHT");
+				//itemBuyButton.gameObject.SetActive (false);
+				//itemBuyButton.GetComponentInChildren<Text> ().text = LocalizationManager.Instance.GetText ("BOUGHT");
 			} else {
-				itemBuyButton.GetComponentInChildren<Text> ().text = LocalizationManager.Instance.GetText ("BUY");
+				//itemBuyButton.GetComponentInChildren<Text> ().text = LocalizationManager.Instance.GetText ("BUY");
 			}
 		}
 	}

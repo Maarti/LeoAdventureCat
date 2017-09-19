@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LevelButtonInitializer : MonoBehaviour
 {
@@ -48,6 +49,11 @@ public class LevelButtonInitializer : MonoBehaviour
 	{
 		if (isStarted)
 			Start ();
+	}
+
+	public void LoadThisLevel ()
+	{
+		SceneManager.LoadScene (levelEnum.ToString ());
 	}
 
 }
