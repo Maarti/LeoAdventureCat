@@ -160,6 +160,7 @@ public class PlayerData
 	public List<LevelEnum> unlockedLvls, completedLvls;
 	public List<ItemEnum> boughtItems, equippedItems;
 	public Dictionary<LevelEnum,int> scores;
+	public bool isMute = false;
 
 	public PlayerData ()
 	{		
