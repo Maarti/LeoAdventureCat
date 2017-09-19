@@ -13,7 +13,7 @@ public class EndSign : MonoBehaviour
 	{
 		if (other.gameObject.tag == "Player") {
 			ApplicationController.ac.FinishLevel (currentLevel);		
-			if (ApplicationController.ac.levels [levelToLoad].isLocked)
+			if (levelToLoad == LevelEnum.main_menu || levelToLoad == LevelEnum.none || ApplicationController.ac.levels [levelToLoad].isLocked)
 				SceneManager.LoadScene ("main_menu");
 			else
 				SceneManager.LoadScene (levelToLoad.ToString ());
