@@ -62,9 +62,9 @@ public class ApplicationController : MonoBehaviour
 	{
 		// Initialise all levels
 		Dictionary<LevelEnum,Level> lvls = new Dictionary<LevelEnum, Level> ();
-		lvls.Add (LevelEnum.level_1_01, new Level ("level_1_01", "1-01", World.Forest, /*0,*/false));
-		lvls.Add (LevelEnum.level_1_02, new Level ("level_1_02", "1-02", World.Forest, /*0,*/true));
-		lvls.Add (LevelEnum.level_1_03, new Level ("level_1_03", "1-03", World.Forest, /*100,*/true));
+		lvls.Add (LevelEnum.level_1_01, new Level ("level_1_01", "1-01", World.Forest, false));
+		lvls.Add (LevelEnum.level_1_02, new Level ("level_1_02", "1-02", World.Forest, true));
+		lvls.Add (LevelEnum.level_1_03, new Level ("level_1_03", "1-03", World.Forest, true));
 		this.levels = lvls;
 	}
 
@@ -135,9 +135,6 @@ public class ApplicationController : MonoBehaviour
 		foreach (LevelEnum lvlEnum in playerData.unlockedLvls) {
 			UnlockLevel (lvlEnum, false);
 		}
-		/*foreach (LevelEnum lvlEnum in playerData.completedLvls) {
-			FinishLevel (lvlEnum, false);
-		}*/
 		foreach (ItemEnum itemEnum in playerData.boughtItems) {
 			BuyItem (itemEnum, null, false, true);
 		}
@@ -146,7 +143,6 @@ public class ApplicationController : MonoBehaviour
 		}
 		foreach (KeyValuePair<LevelEnum,int> entry in this.playerData.scores) {
 			FinishLevel (entry.Key, entry.Value, false);
-			//this.levels [entry.Key].score = entry.Value;
 		}
 	}
 
@@ -196,17 +192,15 @@ public class PlayerData
 public class Level
 {
 	public string id, name;
-	//public int price;
 	public bool isLocked;
 	public World world;
 	public int score = 0;
 
-	public Level (string id, string name, World world, /*int price,*/bool isLocked = true)
+	public Level (string id, string name, World world, bool isLocked = true)
 	{
 		this.id = id;
 		this.name = name;
 		this.world = world;
-		//this.price = price;
 		this.isLocked = isLocked;
 	}
 }
