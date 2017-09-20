@@ -102,3 +102,7 @@ settings get secure android_id
 
 ## Author
 [Bryan MARTINET](https://maarti.net)
+
+## Credits
+* Icons made by Smashicons from flaticon.com
+* Font made by Vanessa Bays

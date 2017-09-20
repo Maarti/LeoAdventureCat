@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1377808929742760}
+  m_IsPrefabParent: 1
+--- !u!1 &1377808929742760
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4071236875942150}
+  - component: {fileID: 114079442311347446}
+  - component: {fileID: 114530565487582576}
+  m_Layer: 0
+  m_Name: ApplicationController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4071236875942150
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1377808929742760}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 30.949974, y: 121.07388, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114079442311347446
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1377808929742760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c48196cc9d7d7674eb8b80003f19d0cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData:
+    dataVersion: 1
+    kittyz: 0
+    lang_id: 0
+    unlockedLvls: 
+    completedLvls: 
+    boughtItems: 
+    equippedItems: 
+    isMute: 0
+--- !u!114 &114530565487582576
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1377808929742760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1c74a2a79d9fe24dab6eb6af7ec7bc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentLanguageID: 1
+  languageFiles:
+  - {fileID: 4900000, guid: 14757472f7dfcbb46bdd045f442a3277, type: 3}
+  - {fileID: 4900000, guid: c6b095763e305eb4ba5899115bc43745, type: 3}
+  languages: []
