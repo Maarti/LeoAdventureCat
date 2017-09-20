@@ -4481,11 +4481,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 683066556}
     m_Modifications:
-    - target: {fileID: 114805051423727438, guid: f547f72e11637d9449fed5d7a1b879ef,
-        type: 2}
-      propertyPath: m_Delegates.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 224490300821517860, guid: f547f72e11637d9449fed5d7a1b879ef,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -4544,7 +4539,7 @@ Prefab:
     - target: {fileID: 224490300821517860, guid: f547f72e11637d9449fed5d7a1b879ef,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 200
+      value: 170
       objectReference: {fileID: 0}
     - target: {fileID: 224490300821517860, guid: f547f72e11637d9449fed5d7a1b879ef,
         type: 2}
@@ -4576,87 +4571,41 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114400448536927096, guid: f547f72e11637d9449fed5d7a1b879ef,
+    - target: {fileID: 114637988051630358, guid: f547f72e11637d9449fed5d7a1b879ef,
         type: 2}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1496963431}
-    - target: {fileID: 114400448536927096, guid: f547f72e11637d9449fed5d7a1b879ef,
-        type: 2}
-      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: StartMoving
-      objectReference: {fileID: 0}
-    - target: {fileID: 114400448536927096, guid: f547f72e11637d9449fed5d7a1b879ef,
-        type: 2}
-      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1496963431}
-    - target: {fileID: 114400448536927096, guid: f547f72e11637d9449fed5d7a1b879ef,
-        type: 2}
-      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: StartMoving
-      objectReference: {fileID: 0}
-    - target: {fileID: 114406024066309688, guid: f547f72e11637d9449fed5d7a1b879ef,
-        type: 2}
-      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1496963431}
-    - target: {fileID: 114406024066309688, guid: f547f72e11637d9449fed5d7a1b879ef,
-        type: 2}
-      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: StartMoving
-      objectReference: {fileID: 0}
-    - target: {fileID: 114406024066309688, guid: f547f72e11637d9449fed5d7a1b879ef,
+    - target: {fileID: 114637988051630358, guid: f547f72e11637d9449fed5d7a1b879ef,
         type: 2}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1496963431}
     - target: {fileID: 114406024066309688, guid: f547f72e11637d9449fed5d7a1b879ef,
         type: 2}
-      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: StartMoving
-      objectReference: {fileID: 0}
-    - target: {fileID: 114637988051630358, guid: f547f72e11637d9449fed5d7a1b879ef,
-        type: 2}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1496963431}
-    - target: {fileID: 114637988051630358, guid: f547f72e11637d9449fed5d7a1b879ef,
-        type: 2}
-      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Jump
-      objectReference: {fileID: 0}
-    - target: {fileID: 114637988051630358, guid: f547f72e11637d9449fed5d7a1b879ef,
+    - target: {fileID: 114406024066309688, guid: f547f72e11637d9449fed5d7a1b879ef,
         type: 2}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1496963431}
-    - target: {fileID: 114637988051630358, guid: f547f72e11637d9449fed5d7a1b879ef,
+    - target: {fileID: 114400448536927096, guid: f547f72e11637d9449fed5d7a1b879ef,
         type: 2}
-      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: StopJump
-      objectReference: {fileID: 0}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1496963431}
+    - target: {fileID: 114400448536927096, guid: f547f72e11637d9449fed5d7a1b879ef,
+        type: 2}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1496963431}
     - target: {fileID: 114805051423727438, guid: f547f72e11637d9449fed5d7a1b879ef,
         type: 2}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1496963431}
-    - target: {fileID: 114805051423727438, guid: f547f72e11637d9449fed5d7a1b879ef,
-        type: 2}
-      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: StopJump
-      objectReference: {fileID: 0}
-    - target: {fileID: 114805051423727438, guid: f547f72e11637d9449fed5d7a1b879ef,
-        type: 2}
-      propertyPath: m_Delegates.Array.data[1].eventID
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114805051423727438, guid: f547f72e11637d9449fed5d7a1b879ef,
-        type: 2}
-      propertyPath: m_Delegates.Array.data[1].callback.m_TypeName
-      value: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI, Version=1.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f547f72e11637d9449fed5d7a1b879ef, type: 2}
   m_IsPrefabParent: 0
