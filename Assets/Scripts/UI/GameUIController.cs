@@ -9,10 +9,26 @@ public class GameUIController : MonoBehaviour
 	public GameObject pausePanel, mobileController;
 	public bool gamePaused = false;
 	GameController gc;
+	Text kittyzTxt, timeTxt, lifeTxt, scoreTxt;
+	bool isStarted = false;
 
 	void Start ()
 	{
+		Debug.Log (this.name);
 		gc = GameObject.Find ("GameController").GetComponent<GameController> ();
+		kittyzTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreKittyz/Score").GetComponent<Text> ();
+		timeTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreTime/Score").GetComponent<Text> ();
+		lifeTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreLife/Score").GetComponent<Text> ();
+		scoreTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/TotalScore").GetComponent<Text> ();
+		isStarted = true;
+	}
+
+	void InitScores ()
+	{
+		kittyzTxt.text = gc.kittyzCollected.ToString ();
+		timeTxt.text = Mathf.RoundToInt (gc.levelTimer).ToString ();
+		lifeTxt.text = gc.lifeLost.ToString ();
+		scoreTxt.text = Mathf.FloorToInt (gc.CalculateScore ()).ToString () + "%";
 	}
 
 	public void TooglePause ()
@@ -25,6 +41,8 @@ public class GameUIController : MonoBehaviour
 		// Pause the UI
 		gamePaused = pause;
 		pausePanel.SetActive (pause);
+		if (pause)
+			InitScores ();
 		if (mobileController)
 			mobileController.SetActive (!pause);
 
@@ -44,4 +62,5 @@ public class GameUIController : MonoBehaviour
 		PauseGame (false);
 		SceneManager.LoadScene ("main_menu");
 	}
+
 }

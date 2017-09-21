@@ -85,8 +85,9 @@ public class GameController : MonoBehaviour
 			lifeScore = 0f;
 		else
 			lifeScore = (targetLife * lifeFlexibility - lifeLost) / (targetLife * lifeFlexibility - targetLife);
-
-		float finalScore = (1 / 3 * kittyzScore + 1 / 3 * timeScore + 1 / 3 * lifeScore) * 100;
+		
+		float finalScore = (kittyzScore / 3 + timeScore / 3 + lifeScore / 3) * 100;
+		Debug.Log ("Score = " + finalScore + " KS = " + kittyzScore + " TS = " + timeScore + " LS = " + lifeScore);
 		return finalScore;
 	}
 
