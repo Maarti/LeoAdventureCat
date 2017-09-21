@@ -97,10 +97,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4899083772966332}
   - component: {fileID: 212518055913517130}
-  - component: {fileID: 61748221881744268}
-  - component: {fileID: 61914559329392018}
   - component: {fileID: 114619710614098886}
   - component: {fileID: 50458380817664932}
+  - component: {fileID: 61689391394710506}
   m_Layer: 14
   m_Name: Snake
   m_TagString: Untagged
@@ -240,7 +239,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &61748221881744268
+--- !u!61 &61689391394710506
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -252,7 +251,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0073633194, y: 0.0025782585}
+  m_Offset: {x: -0.011381358, y: 0.07878038}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -263,32 +262,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6217346, y: 0.114062786}
-  m_EdgeRadius: 0
---- !u!61 &61914559329392018
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1796974937458474}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.27348566, y: 0.14538896}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.12156582, y: 0.38092446}
+  m_Size: {x: 0.6354818, y: 0.25074965}
   m_EdgeRadius: 0
 --- !u!114 &114619710614098886
 MonoBehaviour:
@@ -308,9 +282,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   speed: 1
-  lineOfSight: 2
-  damageOnCollision: 1
+  lineOfSight: 0
   life: 3
+  damageOnCollision: 1
   selfBumpMultiplier: 2
   bumpOnCollision: {x: -2, y: 3}
   isAtacking: 0

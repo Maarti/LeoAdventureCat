@@ -6,7 +6,7 @@ using System.Linq;
 public class KittyzController : MonoBehaviour
 {
 	public int value = 1;
-	public float speedOnCollect = 3f;
+	public float speedOnCollect = 8f;
 	AudioSource audioSource;
 	bool isCollected = false;
 

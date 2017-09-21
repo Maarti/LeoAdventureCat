@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 public class GameController : MonoBehaviour
 {
 	public static GameController gc;
-	public int lifeLost = 0, kittyzCollected = 0;
+	public int lifeLost = 0, kittyzCollected = 0, targetLife, targetKittyz, targetTime;
 	public float levelTimer = 0f;
 	public bool gamePaused = false, gameFinished = false;
 	GameUIController guic;
@@ -30,7 +30,11 @@ public class GameController : MonoBehaviour
 		// Get Level from Scene name
 		string sceneName = SceneManager.GetActiveScene ().name;
 		LevelEnum lvlEnum = (LevelEnum)Enum.Parse (typeof(LevelEnum), sceneName); 
-		this.level = ApplicationController.ac.levels [lvlEnum];		
+		this.level = ApplicationController.ac.levels [lvlEnum];	
+
+		targetKittyz = level.targetKittyz;
+		targetTime = level.targetTime;
+		targetLife = level.targetLife;
 	}
 
 	void Update ()
@@ -66,11 +70,10 @@ public class GameController : MonoBehaviour
 	public float CalculateScore ()
 	{
 		// Kittyz score
-		float kittyzScore = kittyzCollected / level.targetKittyz;
+		float kittyzScore = kittyzCollected / targetKittyz;
 
 		// Time score
 		const float timeFlexibility = 2;
-		float targetTime = level.targetTime;
 		float timeScore = 0f;
 		if (levelTimer <= targetTime)
 			timeScore = 1f;
@@ -93,6 +96,16 @@ public class GameController : MonoBehaviour
 		float finalScore = (kittyzScore / 3 + timeScore / 3 + lifeScore / 3) * 100;
 		Debug.Log ("Score = " + finalScore + " KS = " + kittyzScore + " TS = " + timeScore + " LS = " + lifeScore);
 		return finalScore;
+	}
+
+	public void ReloadScene ()
+	{
+		guic.ReloadScene ();
+	}
+
+	public void GameOver ()
+	{
+		ReloadScene ();
 	}
 
 }

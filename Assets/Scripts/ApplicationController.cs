@@ -62,9 +62,9 @@ public class ApplicationController : MonoBehaviour
 	{
 		// Initialise all levels
 		Dictionary<LevelEnum,Level> lvls = new Dictionary<LevelEnum, Level> ();
-		lvls.Add (LevelEnum.level_1_01, new Level ("level_1_01", "1-01", World.Forest, DifficultyEnum.EASY, 10, 75, 5, false));
-		lvls.Add (LevelEnum.level_1_02, new Level ("level_1_02", "1-02", World.Forest, DifficultyEnum.MEDIUM, 10, 75, 5, true));
-		lvls.Add (LevelEnum.level_1_03, new Level ("level_1_03", "1-03", World.Forest, DifficultyEnum.MEDIUM, 10, 75, 5, true));
+		lvls.Add (LevelEnum.level_1_01, new Level ("level_1_01", "1-01", World.Forest, DifficultyEnum.EASY, 10, 50, 3, false));
+		lvls.Add (LevelEnum.level_1_02, new Level ("level_1_02", "1-02", World.Forest, DifficultyEnum.MEDIUM, 20, 75, 3, true));
+		lvls.Add (LevelEnum.level_1_03, new Level ("level_1_03", "1-03", World.Forest, DifficultyEnum.MEDIUM, 20, 75, 3, true));
 		this.levels = lvls;
 	}
 
@@ -194,12 +194,11 @@ public class Level
 	public string id, name;
 	public bool isLocked;
 	public World world;
-	public int score = 0;
+	public int score = 0, targetKittyz, targetLife, targetTime;
 	public DifficultyEnum difficulty;
-	public float targetKittyz, targetTime, targetLife;
 
-	public Level (string id, string name, World world, DifficultyEnum difficulty, float targetKittyz, float targetTime,
-	              float targetLife, bool isLocked = true)
+	public Level (string id, string name, World world, DifficultyEnum difficulty, int targetKittyz, int targetTime,
+	              int targetLife, bool isLocked = true)
 	{
 		this.id = id;
 		this.name = name;

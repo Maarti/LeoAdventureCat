@@ -4,15 +4,13 @@ using System.Collections;
 
 public class DestroyByBoundary : MonoBehaviour
 {
-	public string levelToLoad = "level_1_01";
-
 	void OnTriggerExit2D (Collider2D other)
 	{
 		GameObject obj = other.gameObject;
-		if (obj.tag == "Player")
-			//obj.transform.position = new Vector3 (0.0f, 0.0f, 0.0f);
-			SceneManager.LoadScene (levelToLoad);
-		else
+		if (obj.tag == "Player") {
+			PlayerController pc = other.GetComponent<PlayerController> ();
+			pc.Defend (gameObject, pc.life, Vector2.zero, 0f);
+		} else
 			Destroy (other.gameObject);
 	}
 

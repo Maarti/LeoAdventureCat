@@ -153,9 +153,11 @@ public class PlayerController : MonoBehaviour, IDefendable
 
 	void GetInjured (int dmg)
 	{
-		dmg = Mathf.Clamp (this.life - dmg, 0, lifeMax);
+		dmg = Mathf.Clamp (dmg, 0, life);
 		this.life -= dmg;
 		GameController.gc.PlayerInjured (dmg);
+		if (this.life <= 0)
+			GameController.gc.GameOver ();
 	}
 
 	public void CollectKittyz (int amount = 1)
