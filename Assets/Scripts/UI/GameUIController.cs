@@ -8,9 +8,11 @@ public class GameUIController : MonoBehaviour
 {
 	public GameObject pausePanel, mobileController;
 	public bool gamePaused = false;
+	public Transform heartPrefab;
 	GameController gc;
 	Text kittyzTxt, timeTxt, lifeTxt, scoreTxt, targetKittyzTxt, targetTimeTxt, targetLifeTxt;
 	bool isStarted = false, targetsInited = false;
+	GameObject lifeBar;
 
 	void Start ()
 	{
@@ -24,6 +26,7 @@ public class GameUIController : MonoBehaviour
 		targetTimeTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreTime/Target").GetComponent<Text> ();
 		targetLifeTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreLife/Target").GetComponent<Text> ();
 
+		lifeBar = GameObject.Find ("Canvas/" + this.name + "/TopUI/LifeBar");
 		isStarted = true;
 	}
 
@@ -35,7 +38,7 @@ public class GameUIController : MonoBehaviour
 		scoreTxt.text = Mathf.FloorToInt (gc.CalculateScore ()).ToString () + "%";
 		GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreKittyz/Target").GetComponent<Text> ().text = "/" + gc.targetKittyz.ToString ();
 		GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreTime/Target").GetComponent<Text> ().text = "/" + gc.targetTime.ToString () + "s";
-		GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreLife/Target").GetComponent<Text> ().text = "(" + gc.targetLife.ToString () + "max)";
+		GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreLife/Target").GetComponent<Text> ().text = "(" + gc.targetLife.ToString () + " max)";
 		if (!targetsInited) {
 			targetKittyzTxt.text = "/" + gc.targetKittyz.ToString ();
 			targetTimeTxt.text = "/" + gc.targetTime.ToString () + "s";
@@ -73,6 +76,20 @@ public class GameUIController : MonoBehaviour
 	{
 		PauseGame (false);
 		SceneManager.LoadScene ("main_menu");
+	}
+
+	public void DrawLifebar (int nbHearts)
+	{
+		// Remove all hearts
+		foreach (Transform child in lifeBar.transform) {
+			GameObject.Destroy (child.gameObject);
+		}
+		// Draw hearts
+		if (nbHearts > 0) {
+			for (int i = 1; i <= nbHearts; i++) {
+				Instantiate (heartPrefab, lifeBar.transform);
+			}
+		}
 	}
 
 }

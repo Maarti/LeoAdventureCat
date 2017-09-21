@@ -63,8 +63,8 @@ public class ApplicationController : MonoBehaviour
 		// Initialise all levels
 		Dictionary<LevelEnum,Level> lvls = new Dictionary<LevelEnum, Level> ();
 		lvls.Add (LevelEnum.level_1_01, new Level ("level_1_01", "1-01", World.Forest, DifficultyEnum.EASY, 10, 50, 3, false));
-		lvls.Add (LevelEnum.level_1_02, new Level ("level_1_02", "1-02", World.Forest, DifficultyEnum.MEDIUM, 20, 75, 3, true));
-		lvls.Add (LevelEnum.level_1_03, new Level ("level_1_03", "1-03", World.Forest, DifficultyEnum.MEDIUM, 20, 75, 3, true));
+		lvls.Add (LevelEnum.level_1_02, new Level ("level_1_02", "1-02", World.Forest, DifficultyEnum.MEDIUM, 20, 40, 3, true));
+		lvls.Add (LevelEnum.level_1_03, new Level ("level_1_03", "1-03", World.Forest, DifficultyEnum.MEDIUM, 20, 34, 1, true));
 		this.levels = lvls;
 	}
 

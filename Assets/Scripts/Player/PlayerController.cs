@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour, IDefendable
 	public LayerMask playerMask;
 	public bool isGrounded = false, canMoveInAir = true;
 	public Vector2 offensiveBumpVelocity = new Vector2 (-1.5f, 0.5f);
-	public int life = 3, damage = 1;
+	public int life = 5, damage = 1;
 
 	const int lifeMax = 10;
 	float hInput = 0;

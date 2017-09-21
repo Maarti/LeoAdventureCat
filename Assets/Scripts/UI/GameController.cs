@@ -14,7 +14,8 @@ public class GameController : MonoBehaviour
 	public bool gamePaused = false, gameFinished = false;
 	GameUIController guic;
 	Level level;
-	GameObject player;
+	PlayerController pc;
+	bool lifeBarInit = false;
 
 	void Awake ()
 	{
@@ -24,8 +25,8 @@ public class GameController : MonoBehaviour
 
 	void Start ()
 	{
-		player = GameObject.FindGameObjectWithTag ("Player");
 		guic = GameObject.Find ("Canvas/GameUI").GetComponent<GameUIController> ();
+		pc = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerController> ();
 
 		// Get Level from Scene name
 		string sceneName = SceneManager.GetActiveScene ().name;
@@ -43,13 +44,21 @@ public class GameController : MonoBehaviour
 			levelTimer += Time.deltaTime;
 	}
 
+	void FixedUpdate ()
+	{
+		if (!lifeBarInit) {
+			guic.DrawLifebar (pc.life);
+			lifeBarInit = true;
+		}
+	}
+
 	public void PauseGame (bool pause = true)
 	{
 		// Pause the game
 		gamePaused = pause;
 		Time.timeScale = (pause) ? 0f : 1f;
 		if (pause)
-			player.GetComponent<PlayerController> ().StartMoving (0f);
+			pc.StartMoving (0f);
 
 		// Pause the UI if not yet paused
 		if (guic.gamePaused != pause)
@@ -58,7 +67,8 @@ public class GameController : MonoBehaviour
 
 	public void PlayerInjured (int dmg)
 	{
-		this.lifeLost += dmg;	
+		this.lifeLost += dmg;
+		guic.DrawLifebar (pc.life);
 	}
 
 	public void CollectKittyz (int amount = 1)
@@ -70,7 +80,7 @@ public class GameController : MonoBehaviour
 	public float CalculateScore ()
 	{
 		// Kittyz score
-		float kittyzScore = kittyzCollected / targetKittyz;
+		float kittyzScore = (float)kittyzCollected / targetKittyz;
 
 		// Time score
 		const float timeFlexibility = 2;
@@ -84,14 +94,13 @@ public class GameController : MonoBehaviour
 
 		// Life score
 		const float lifeFlexibility = 3;
-		float targetLife = level.targetLife;
 		float lifeScore = 0f;
 		if (lifeLost <= targetLife)
 			lifeScore = 1f;
 		else if (lifeLost >= targetLife * lifeFlexibility)
 			lifeScore = 0f;
 		else
-			lifeScore = (targetLife * lifeFlexibility - lifeLost) / (targetLife * lifeFlexibility - targetLife);
+			lifeScore = (float)(targetLife * lifeFlexibility - lifeLost) / (targetLife * lifeFlexibility - targetLife);
 		
 		float finalScore = (kittyzScore / 3 + timeScore / 3 + lifeScore / 3) * 100;
 		Debug.Log ("Score = " + finalScore + " KS = " + kittyzScore + " TS = " + timeScore + " LS = " + lifeScore);

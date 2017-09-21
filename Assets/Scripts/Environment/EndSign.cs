@@ -12,7 +12,7 @@ public class EndSign : MonoBehaviour
 	void OnTriggerEnter2D (Collider2D other)
 	{
 		if (other.gameObject.tag == "Player") {
-			ApplicationController.ac.FinishLevel (currentLevel);		
+			ApplicationController.ac.FinishLevel (currentLevel, Mathf.RoundToInt (GameController.gc.CalculateScore ()));
 			if (levelToLoad == LevelEnum.main_menu || levelToLoad == LevelEnum.none || ApplicationController.ac.levels [levelToLoad].isLocked)
 				SceneManager.LoadScene ("main_menu");
 			else

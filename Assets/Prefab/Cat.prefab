@@ -967,7 +967,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1856916475770188}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.073, y: -0.269, z: 0}
+  m_LocalPosition: {x: 0.494, y: 0.23, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children:
   - {fileID: 4952964731970656}
@@ -1240,13 +1240,14 @@ MonoBehaviour:
     type: 2}
   speed: 2
   jumpVelocity: 4.6
-  damage: 1
   playerMask:
     serializedVersion: 2
     m_Bits: 6144
   isGrounded: 0
   canMoveInAir: 1
   offensiveBumpVelocity: {x: -0.5, y: 1.5}
+  life: 5
+  damage: 1
 --- !u!114 &114835221810423104
 MonoBehaviour:
   m_ObjectHideFlags: 1
