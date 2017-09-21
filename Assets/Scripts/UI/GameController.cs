@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour
 	public bool gamePaused = false, gameFinished = false;
 	GameUIController guic;
 	Level level;
+	GameObject player;
 
 	void Awake ()
 	{
@@ -23,6 +24,7 @@ public class GameController : MonoBehaviour
 
 	void Start ()
 	{
+		player = GameObject.FindGameObjectWithTag ("Player");
 		guic = GameObject.Find ("Canvas/GameUI").GetComponent<GameUIController> ();
 
 		// Get Level from Scene name
@@ -42,6 +44,8 @@ public class GameController : MonoBehaviour
 		// Pause the game
 		gamePaused = pause;
 		Time.timeScale = (pause) ? 0f : 1f;
+		if (pause)
+			player.GetComponent<PlayerController> ().StartMoving (0f);
 
 		// Pause the UI if not yet paused
 		if (guic.gamePaused != pause)

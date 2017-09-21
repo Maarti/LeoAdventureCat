@@ -14,7 +14,6 @@ public class GameUIController : MonoBehaviour
 
 	void Start ()
 	{
-		Debug.Log (this.name);
 		gc = GameObject.Find ("GameController").GetComponent<GameController> ();
 		kittyzTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreKittyz/Score").GetComponent<Text> ();
 		timeTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreTime/Score").GetComponent<Text> ();
