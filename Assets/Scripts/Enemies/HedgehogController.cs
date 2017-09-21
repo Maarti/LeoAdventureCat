@@ -69,7 +69,7 @@ public class HedgehogController : AbstractEnemy
 		animator.SetBool ("charging", false);
 	}
 
-	public override void Defend (GameObject attacker, float damage, Vector2 bumpVelocity, float bumpTime)
+	public override void Defend (GameObject attacker, int damage, Vector2 bumpVelocity, float bumpTime)
 	{
 		//invincible if charging
 		if (!isAtacking)

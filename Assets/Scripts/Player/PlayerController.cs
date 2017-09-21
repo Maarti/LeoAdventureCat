@@ -5,11 +5,13 @@ public class PlayerController : MonoBehaviour, IDefendable
 {
 
 	public Transform scratchPrefab;
-	public float speed = 10, jumpVelocity = 10, damage = 1f;
+	public float speed = 10, jumpVelocity = 10;
 	public LayerMask playerMask;
 	public bool isGrounded = false, canMoveInAir = true;
 	public Vector2 offensiveBumpVelocity = new Vector2 (-1.5f, 0.5f);
+	public int life = 3, damage = 1;
 
+	const int lifeMax = 10;
 	float hInput = 0;
 	bool facingRight = false, isBumped = false;
 	Rigidbody2D rb;
@@ -129,7 +131,7 @@ public class PlayerController : MonoBehaviour, IDefendable
 			transform.parent = null;
 	}
 
-	public void Defend (GameObject attacker, float damage, Vector2 bumpVelocity, float bumpTime)
+	public void Defend (GameObject attacker, int damage, Vector2 bumpVelocity, float bumpTime)
 	{
 		if (bumpVelocity != Vector2.zero) {
 			if ((transform.position.x - attacker.transform.position.x) > 0) // if attacker come from the left, bump to right
@@ -138,6 +140,7 @@ public class PlayerController : MonoBehaviour, IDefendable
 			rb.velocity = bumpVelocity;
 			StartCoroutine (BeingBump (bumpTime));
 		}
+		GetInjured (damage);
 		mouth.Meowing ("hit");
 	}
 
@@ -146,5 +149,17 @@ public class PlayerController : MonoBehaviour, IDefendable
 		isBumped = true;
 		yield return new WaitForSeconds (timeBeingBumped);
 		isBumped = false;
+	}
+
+	void GetInjured (int dmg)
+	{
+		dmg = Mathf.Clamp (this.life - dmg, 0, lifeMax);
+		this.life -= dmg;
+		GameController.gc.PlayerInjured (dmg);
+	}
+
+	public void CollectKittyz (int amount = 1)
+	{
+		GameController.gc.CollectKittyz (amount);
 	}
 }

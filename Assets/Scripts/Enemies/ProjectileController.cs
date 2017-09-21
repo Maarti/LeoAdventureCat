@@ -3,7 +3,8 @@ using System.Collections;
 
 public class ProjectileController : MonoBehaviour
 {
-	public float speed = 1, bumpTime = 0.5f, timeToLive = 3, damage = 1;
+	public float speed = 1, bumpTime = 0.5f, timeToLive = 3;
+	public int damage = 1;
 	public Vector2 bumpVelocity = new Vector2 (-2, 3);
 	public bool destroyOnCollision = true, hasRigidBody = false, fade = false;
 

@@ -5,7 +5,8 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 {
 
 	public LayerMask groundLayer, playerLayer;
-	public float speed = 1, lineOfSight = 2, damageOnCollision = 1, life = 2;
+	public float speed = 1, lineOfSight = 2;
+	public int life = 2, damageOnCollision = 1;
 	// 0 = no bump taken
 	public float selfBumpMultiplier = 0f;
 	public Vector2 bumpOnCollision = new Vector2 (-2, 3);
@@ -83,8 +84,6 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 	{
 		if (other.transform.tag == "Player")
 			other.gameObject.GetComponent<PlayerController> ().Defend (this.gameObject, damageOnCollision, bumpOnCollision, 0.5f);
-		else if (other.gameObject.name == "Scratch")
-			Debug.Log (this.name + " OnCollis with " + other.gameObject.name);
 	}
 
 	RaycastHit2D detectGround ()
@@ -103,7 +102,7 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 			return default(RaycastHit2D);
 	}
 
-	public virtual void Defend (GameObject attacker, float damage, Vector2 bumpVelocity, float bumpTime)
+	public virtual void Defend (GameObject attacker, int damage, Vector2 bumpVelocity, float bumpTime)
 	{
 		this.life -= damage;
 		if (life <= 0) {

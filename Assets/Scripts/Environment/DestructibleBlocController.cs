@@ -4,7 +4,7 @@ using System.Collections;
 public class DestructibleBlocController : MonoBehaviour, IDefendable
 {
 
-	public float life = 2.0f;
+	public int life = 2;
 	public Transform explodePrefab;
 
 	Animator animator;
@@ -14,10 +14,9 @@ public class DestructibleBlocController : MonoBehaviour, IDefendable
 		animator = GetComponent<Animator> ();
 	}
 
-	public void Defend (GameObject attacker, float damage, Vector2 bumpVelocity, float bumpTime)
+	public void Defend (GameObject attacker, int damage, Vector2 bumpVelocity, float bumpTime)
 	//public void Hit (float damage)
 	{
-		Debug.Log ("defend " + damage);
 		animator.SetTrigger ("hit");
 		life -= damage;
 		if (life <= 0) {

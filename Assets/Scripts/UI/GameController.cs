@@ -48,12 +48,12 @@ public class GameController : MonoBehaviour
 			guic.PauseGame (pause);		
 	}
 
-	void PlayerInjured (int dmg)
+	public void PlayerInjured (int dmg)
 	{
 		this.lifeLost += dmg;	
 	}
 
-	void CollectKittyz (int amount = 1)
+	public void CollectKittyz (int amount = 1)
 	{
 		kittyzCollected += amount;	
 		ApplicationController.ac.playerData.updateKittys (1);	

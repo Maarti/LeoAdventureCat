@@ -12,7 +12,7 @@ public interface IAttackable
 
 public interface IDefendable
 {
-	void Defend (GameObject attacker, float damage, Vector2 bumpVelocity, float bumpTime);
+	void Defend (GameObject attacker, int damage, Vector2 bumpVelocity, float bumpTime);
 }
 
 public interface IPatroller

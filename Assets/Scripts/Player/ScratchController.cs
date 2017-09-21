@@ -7,8 +7,8 @@ using System.Linq;
 
 public class ScratchController : MonoBehaviour
 {
-	public float duration = 0.5f, minScale = 0.07f, maxScale = 0.14f,
-		damage = 1f, bumpDuration = 0f;
+	public float duration = 0.5f, minScale = 0.07f, maxScale = 0.14f, bumpDuration = 0f;
+	public int damage = 1;
 	public Vector2 bumpVelocity = Vector2.zero;
 
 	SpriteRenderer sprite;
@@ -28,7 +28,7 @@ public class ScratchController : MonoBehaviour
 		sprite.flipY = (Random.value > 0.5f); 
 	}
 
-	public void Init (float damage, Vector2 bumpVelocity, float bumpDuration)
+	public void Init (int damage, Vector2 bumpVelocity, float bumpDuration)
 	{
 		this.damage = damage;
 		this.bumpVelocity = bumpVelocity;

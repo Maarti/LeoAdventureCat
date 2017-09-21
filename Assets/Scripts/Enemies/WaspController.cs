@@ -62,7 +62,7 @@ public class WaspController : AbstractEnemy
 	}
 
 	// to delete when all enemies's animator have "hit" trigger
-	public override void Defend (GameObject attacker, float damage, Vector2 bumpVelocity, float bumpTime)
+	public override void Defend (GameObject attacker, int damage, Vector2 bumpVelocity, float bumpTime)
 	{
 		animator.SetTrigger ("hit");
 		base.Defend (attacker, damage, bumpVelocity, bumpTime);
