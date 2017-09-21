@@ -41,6 +41,10 @@ public class LevelButtonInitializer : MonoBehaviour
 			uiLockImage.SetActive (false);
 			uiScore.SetActive (true);
 			uiScore.GetComponent<Text> ().text = level.score.ToString () + "%";
+			if (level.score >= 100) {
+				uiScore.GetComponent<Text> ().color = Color.green; //1EFF00FF
+				uiScore.GetComponent<Text> ().resizeTextForBestFit = true;
+			}
 		}
 		uiDifficulty.text = LocalizationManager.Instance.GetText (level.difficulty.ToString ());
 		uiName.text = LocalizationManager.Instance.GetText ("LEVEL") + " " + level.name;
