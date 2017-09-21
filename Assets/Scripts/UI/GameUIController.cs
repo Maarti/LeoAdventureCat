@@ -4,32 +4,33 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class GameUIManager : MonoBehaviour
+public class GameUIController : MonoBehaviour
 {
 	public GameObject pausePanel, mobileController;
+	public bool gamePaused = false;
+	GameController gc;
 
-	bool isPaused = false;
+	void Start ()
+	{
+		gc = GameObject.Find ("GameController").GetComponent<GameController> ();
+	}
 
 	public void TooglePause ()
 	{
-		PauseGame (!isPaused);
+		PauseGame (!gamePaused);
 	}
 
 	public void PauseGame (bool pause = true)
 	{		
-		if (pause) {
-			Time.timeScale = 0f;
-			isPaused = true;
-			pausePanel.SetActive (true);
-			if (mobileController)
-				mobileController.SetActive (false);
-		} else {
-			Time.timeScale = 1f;
-			isPaused = false;
-			pausePanel.SetActive (false);
-			if (mobileController)
-				mobileController.SetActive (true);
-		}
+		// Pause the UI
+		gamePaused = pause;
+		pausePanel.SetActive (pause);
+		if (mobileController)
+			mobileController.SetActive (!pause);
+
+		// Pause the game if not yet paused
+		if (gc.gamePaused != pause)
+			gc.PauseGame (pause);
 	}
 
 	public void ReloadScene ()
