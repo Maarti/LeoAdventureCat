@@ -12,8 +12,8 @@ public class GameController : MonoBehaviour
 	public int lifeLost = 0, kittyzCollected = 0, targetLife, targetKittyz, targetTime;
 	public float levelTimer = 0f;
 	public bool gamePaused = false, gameFinished = false;
+	public Level level;
 	GameUIController guic;
-	Level level;
 	PlayerController pc;
 	bool lifeBarInit = false;
 

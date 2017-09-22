@@ -134,4 +134,14 @@ public class GameUIController : MonoBehaviour
 		scoreTxt.text = score.ToString () + "%";
 	}
 
+	public void LoadNextScene ()
+	{
+		/*Level currentLvl = gc.level;
+
+		if (levelToLoad == LevelEnum.main_menu || levelToLoad == LevelEnum.none || ApplicationController.ac.levels [levelToLoad].isLocked)
+			SceneManager.LoadScene ("main_menu");
+		else
+			SceneManager.LoadScene (levelToLoad.ToString ());*/
+	}
+
 }
