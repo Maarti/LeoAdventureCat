@@ -13,7 +13,7 @@ public class GameUIController : MonoBehaviour
 	GameController gc;
 	Text kittyzTxt, timeTxt, lifeTxt, scoreTxt, targetKittyzTxt, targetTimeTxt, targetLifeTxt, scoreLabelTxt, pauseTitleTxt;
 	bool isStarted = false, targetsInited = false;
-	GameObject lifeBar;
+	GameObject lifeBar, buttons_1;
 	RectTransform blocScore;
 
 
@@ -21,6 +21,7 @@ public class GameUIController : MonoBehaviour
 	{
 		gc = GameObject.Find ("GameController").GetComponent<GameController> ();
 		blocScore = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores").GetComponent<RectTransform> ();
+		buttons_1 = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Buttons_1");
 		pauseTitleTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Title").GetComponent<Text> ();
 		kittyzTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreKittyz/Score").GetComponent<Text> ();
 		timeTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreTime/Score").GetComponent<Text> ();
@@ -84,8 +85,9 @@ public class GameUIController : MonoBehaviour
 	public void EndGame ()
 	{
 		gc.EndGame ();
-		pausePanel.SetActive (true);
+		buttons_1.SetActive (false);
 		blocScore.offsetMax = new Vector2 (blocScore.offsetMax.x, -100);
+		pausePanel.SetActive (true);
 		InitScores (true);
 		if (mobileController)
 			mobileController.SetActive (false);

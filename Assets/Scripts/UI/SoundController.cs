@@ -23,7 +23,6 @@ public class SoundController : MonoBehaviour
 	public void ToggleSound ()
 	{
 		bool isMute = !ApplicationController.ac.playerData.isMute;
-		Debug.Log ("mute = " + isMute.ToString ());
 		ApplicationController.ac.playerData.isMute = isMute;
 		EnableSound (!isMute);
 		if (isMute)
