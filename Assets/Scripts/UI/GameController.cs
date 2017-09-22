@@ -65,6 +65,14 @@ public class GameController : MonoBehaviour
 			guic.PauseGame (pause);		
 	}
 
+	public void EndGame ()
+	{
+		// Pause the game
+		gameFinished = true;
+		Time.timeScale = 0f;
+		pc.StartMoving (0f);	
+	}
+
 	public void PlayerInjured (int dmg)
 	{
 		this.lifeLost += dmg;

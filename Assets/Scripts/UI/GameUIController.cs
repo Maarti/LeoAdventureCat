@@ -11,18 +11,22 @@ public class GameUIController : MonoBehaviour
 	public Transform heartPrefab;
 	public AudioClip scoreSound;
 	GameController gc;
-	Text kittyzTxt, timeTxt, lifeTxt, scoreTxt, targetKittyzTxt, targetTimeTxt, targetLifeTxt;
+	Text kittyzTxt, timeTxt, lifeTxt, scoreTxt, targetKittyzTxt, targetTimeTxt, targetLifeTxt, scoreLabelTxt, pauseTitleTxt;
 	bool isStarted = false, targetsInited = false;
 	GameObject lifeBar;
+	RectTransform blocScore;
 
 
 	void Start ()
 	{
 		gc = GameObject.Find ("GameController").GetComponent<GameController> ();
+		blocScore = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores").GetComponent<RectTransform> ();
+		pauseTitleTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Title").GetComponent<Text> ();
 		kittyzTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreKittyz/Score").GetComponent<Text> ();
 		timeTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreTime/Score").GetComponent<Text> ();
 		lifeTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreLife/Score").GetComponent<Text> ();
 		scoreTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/TotalScore").GetComponent<Text> ();
+		scoreLabelTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/LabelScore").GetComponent<Text> ();
 		//Targets
 		targetKittyzTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreKittyz/Target").GetComponent<Text> ();
 		targetTimeTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreTime/Target").GetComponent<Text> ();
@@ -32,14 +36,21 @@ public class GameUIController : MonoBehaviour
 		isStarted = true;
 	}
 
-	void InitScores ()
+	void InitScores (bool gameFinished = false)
 	{
-		int score = Mathf.FloorToInt (gc.CalculateScore ());
 		kittyzTxt.text = gc.kittyzCollected.ToString ();
 		timeTxt.text = Mathf.RoundToInt (gc.levelTimer).ToString ();
 		lifeTxt.text = gc.lifeLost.ToString ();
-		//scoreTxt.text = score.ToString () + "%";
-		StartCoroutine ("animScore", score);
+		if (gameFinished) {
+			pauseTitleTxt.text = "Game finished";
+			scoreLabelTxt.enabled = true;
+			scoreTxt.enabled = true;
+			int score = Mathf.FloorToInt (gc.CalculateScore ());
+			StartCoroutine ("animScore", score);
+		} else {
+			scoreTxt.enabled = false;
+			scoreLabelTxt.enabled = false;
+		}
 		GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreKittyz/Target").GetComponent<Text> ().text = "/" + gc.targetKittyz.ToString ();
 		GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreTime/Target").GetComponent<Text> ().text = "/" + gc.targetTime.ToString () + "s";
 		GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreLife/Target").GetComponent<Text> ().text = "(" + gc.targetLife.ToString () + " max)";
@@ -68,6 +79,16 @@ public class GameUIController : MonoBehaviour
 		// Pause the game if not yet paused
 		if (gc.gamePaused != pause)
 			gc.PauseGame (pause);
+	}
+
+	public void EndGame ()
+	{
+		gc.EndGame ();
+		pausePanel.SetActive (true);
+		blocScore.offsetMax = new Vector2 (blocScore.offsetMax.x, -100);
+		InitScores (true);
+		if (mobileController)
+			mobileController.SetActive (false);
 	}
 
 	public void ReloadScene ()
