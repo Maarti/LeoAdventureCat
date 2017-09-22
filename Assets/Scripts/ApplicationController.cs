@@ -212,6 +212,19 @@ public class Level
 		this.targetLife = targetLife;
 		this.nextLevel = nexLevel;
 	}
+
+	public Level GetNextUnlockedLevel ()
+	{
+		if (this.nextLevel == null | this.nextLevel == LevelEnum.none || this.nextLevel == LevelEnum.main_menu)
+			return this;
+			
+		Level nextLvl = this;
+		do {
+			Debug.Log ("next = " + nextLvl.id.ToString ());
+			nextLvl = ApplicationController.ac.levels [nextLvl.nextLevel];		
+		} while(nextLvl.isLocked && nextLvl.nextLevel != null && nextLvl.nextLevel != LevelEnum.none && nextLvl.nextLevel != LevelEnum.main_menu);
+		return nextLvl;
+	}
 }
 
 public enum World : int

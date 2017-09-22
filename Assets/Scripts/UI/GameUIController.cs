@@ -13,7 +13,7 @@ public class GameUIController : MonoBehaviour
 	GameController gc;
 	Text kittyzTxt, timeTxt, lifeTxt, scoreTxt, targetKittyzTxt, targetTimeTxt, targetLifeTxt, scoreLabelTxt, pauseTitleTxt;
 	bool isStarted = false, targetsInited = false;
-	GameObject lifeBar, buttons_1;
+	GameObject lifeBar, buttons_1, buttonNext, buttonResume;
 	RectTransform blocScore;
 
 
@@ -22,6 +22,8 @@ public class GameUIController : MonoBehaviour
 		gc = GameObject.Find ("GameController").GetComponent<GameController> ();
 		blocScore = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores").GetComponent<RectTransform> ();
 		buttons_1 = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Buttons_1");
+		buttonNext = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Buttons_2/NextLevelButton");
+		buttonResume = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Buttons_2/ResumeButton");
 		pauseTitleTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Title").GetComponent<Text> ();
 		kittyzTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreKittyz/Score").GetComponent<Text> ();
 		timeTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreTime/Score").GetComponent<Text> ();
@@ -46,11 +48,17 @@ public class GameUIController : MonoBehaviour
 			pauseTitleTxt.text = "Game finished";
 			scoreLabelTxt.enabled = true;
 			scoreTxt.enabled = true;
+			buttonNext.SetActive (true);
+			buttonResume.SetActive (false);
+			Level nextLevel = gc.level.GetNextUnlockedLevel ();
+			buttonNext.GetComponent<Button> ().interactable = (nextLevel.id != gc.level.id) ? true : false;
 			int score = Mathf.FloorToInt (gc.CalculateScore ());
 			StartCoroutine ("animScore", score);
 		} else {
 			scoreTxt.enabled = false;
 			scoreLabelTxt.enabled = false;
+			buttonNext.SetActive (false);
+			buttonResume.SetActive (true);
 		}
 		GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreKittyz/Target").GetComponent<Text> ().text = "/" + gc.targetKittyz.ToString ();
 		GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreTime/Target").GetComponent<Text> ().text = "/" + gc.targetTime.ToString () + "s";
@@ -136,12 +144,9 @@ public class GameUIController : MonoBehaviour
 
 	public void LoadNextScene ()
 	{
-		/*Level currentLvl = gc.level;
-
-		if (levelToLoad == LevelEnum.main_menu || levelToLoad == LevelEnum.none || ApplicationController.ac.levels [levelToLoad].isLocked)
-			SceneManager.LoadScene ("main_menu");
-		else
-			SceneManager.LoadScene (levelToLoad.ToString ());*/
+		Time.timeScale = 1f;
+		Level nextLevel = gc.level.GetNextUnlockedLevel ();
+		SceneManager.LoadScene (nextLevel.id.ToString ());
 	}
 
 }
