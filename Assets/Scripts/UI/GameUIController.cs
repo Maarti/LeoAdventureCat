@@ -11,9 +11,9 @@ public class GameUIController : MonoBehaviour
 	public Transform heartPrefab;
 	public AudioClip scoreSound;
 	GameController gc;
-	Text kittyzTxt, timeTxt, lifeTxt, scoreTxt, targetKittyzTxt, targetTimeTxt, targetLifeTxt, scoreLabelTxt, pauseTitleTxt;
+	Text kittyzTxt, timeTxt, lifeTxt, scoreTxt, targetKittyzTxt, targetTimeTxt, targetLifeTxt, scoreLabelTxt;
 	bool isStarted = false, targetsInited = false;
-	GameObject lifeBar, buttons_1, buttonNext, buttonResume;
+	GameObject lifeBar, buttons_1, buttonNext, buttonResume, pauseTitle;
 	RectTransform blocScore;
 
 
@@ -24,7 +24,7 @@ public class GameUIController : MonoBehaviour
 		buttons_1 = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Buttons_1");
 		buttonNext = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Buttons_2/NextLevelButton");
 		buttonResume = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Buttons_2/ResumeButton");
-		pauseTitleTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Title").GetComponent<Text> ();
+		pauseTitle = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Title");
 		kittyzTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreKittyz/Score").GetComponent<Text> ();
 		timeTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreTime/Score").GetComponent<Text> ();
 		lifeTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreLife/Score").GetComponent<Text> ();
@@ -45,7 +45,8 @@ public class GameUIController : MonoBehaviour
 		timeTxt.text = Mathf.RoundToInt (gc.levelTimer).ToString ();
 		lifeTxt.text = gc.lifeLost.ToString ();
 		if (gameFinished) {
-			pauseTitleTxt.text = "Game finished";
+			pauseTitle.GetComponent<LocalizationUIText> ().enabled = false;
+			pauseTitle.GetComponent<Text> ().text = LocalizationManager.Instance.GetText ("LEVEL") + " " + gc.level.name + " " + LocalizationManager.Instance.GetText ("COMPLETED");
 			scoreLabelTxt.enabled = true;
 			scoreTxt.enabled = true;
 			buttonNext.SetActive (true);
@@ -93,6 +94,7 @@ public class GameUIController : MonoBehaviour
 	public void EndGame ()
 	{
 		gc.EndGame ();
+		GameObject.Find ("Canvas/" + this.name + "/TopUI").SetActive (false);
 		buttons_1.SetActive (false);
 		blocScore.offsetMax = new Vector2 (blocScore.offsetMax.x, -100);
 		pausePanel.SetActive (true);

@@ -220,7 +220,6 @@ public class Level
 			
 		Level nextLvl = this;
 		do {
-			Debug.Log ("next = " + nextLvl.id.ToString ());
 			nextLvl = ApplicationController.ac.levels [nextLvl.nextLevel];		
 		} while(nextLvl.isLocked && nextLvl.nextLevel != null && nextLvl.nextLevel != LevelEnum.none && nextLvl.nextLevel != LevelEnum.main_menu);
 		return nextLvl;
