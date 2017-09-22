@@ -13,6 +13,8 @@ public class GameUIController : MonoBehaviour
 	Text kittyzTxt, timeTxt, lifeTxt, scoreTxt, targetKittyzTxt, targetTimeTxt, targetLifeTxt;
 	bool isStarted = false, targetsInited = false;
 	GameObject lifeBar;
+	const float animDuration = 0.5f;
+
 
 	void Start ()
 	{
@@ -32,10 +34,12 @@ public class GameUIController : MonoBehaviour
 
 	void InitScores ()
 	{
+		int score = Mathf.FloorToInt (gc.CalculateScore ());
 		kittyzTxt.text = gc.kittyzCollected.ToString ();
 		timeTxt.text = Mathf.RoundToInt (gc.levelTimer).ToString ();
 		lifeTxt.text = gc.lifeLost.ToString ();
-		scoreTxt.text = Mathf.FloorToInt (gc.CalculateScore ()).ToString () + "%";
+		//scoreTxt.text = score.ToString () + "%";
+		StartCoroutine ("animScore", score);
 		GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreKittyz/Target").GetComponent<Text> ().text = "/" + gc.targetKittyz.ToString ();
 		GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreTime/Target").GetComponent<Text> ().text = "/" + gc.targetTime.ToString () + "s";
 		GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreLife/Target").GetComponent<Text> ().text = "(" + gc.targetLife.ToString () + " max)";
@@ -90,6 +94,20 @@ public class GameUIController : MonoBehaviour
 				Instantiate (heartPrefab, lifeBar.transform);
 			}
 		}
+	}
+
+	IEnumerator animScore (int score)
+	{
+		Debug.Log ("animScore with " + score);
+		int start = 0;
+		int currentAnimScore = 0;
+		for (float timer = 0; timer < animDuration; timer += Time.fixedDeltaTime) {
+			float progress = timer / animDuration;
+			currentAnimScore = (int)Mathf.Lerp (start, score, progress);
+			scoreTxt.text = currentAnimScore.ToString () + "%";
+			yield return null;
+		}
+		scoreTxt.text = score.ToString () + "%";
 	}
 
 }
