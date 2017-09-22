@@ -9,11 +9,11 @@ public class GameUIController : MonoBehaviour
 	public GameObject pausePanel, mobileController;
 	public bool gamePaused = false;
 	public Transform heartPrefab;
+	public AudioClip scoreSound;
 	GameController gc;
 	Text kittyzTxt, timeTxt, lifeTxt, scoreTxt, targetKittyzTxt, targetTimeTxt, targetLifeTxt;
 	bool isStarted = false, targetsInited = false;
 	GameObject lifeBar;
-	const float animDuration = 0.5f;
 
 
 	void Start ()
@@ -98,9 +98,10 @@ public class GameUIController : MonoBehaviour
 
 	IEnumerator animScore (int score)
 	{
-		Debug.Log ("animScore with " + score);
+		float animDuration = scoreSound.length;
 		int start = 0;
 		int currentAnimScore = 0;
+		GetComponent<AudioSource> ().PlayOneShot (scoreSound);
 		for (float timer = 0; timer < animDuration; timer += Time.fixedDeltaTime) {
 			float progress = timer / animDuration;
 			currentAnimScore = (int)Mathf.Lerp (start, score, progress);
