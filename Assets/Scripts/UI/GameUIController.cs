@@ -203,9 +203,24 @@ public class GameUIController : MonoBehaviour
 		case LevelEnum.level_1_story:
 			Sprite portraitLeo = Resources.Load ("Portraits/leo", typeof(Sprite)) as Sprite;
 			List<DialogLine> dl = new List<DialogLine> () {
-				new DialogLine ("TUTO_MOVE_01", "LEO", portraitLeo)
+				new DialogLine ("TUTO_JUMP", "LEO", portraitLeo)
 			};
 			dialogDico.Add (DialogEnum.tuto_jump, new Dialog (dl));
+			dl = new List<DialogLine> () {
+				new DialogLine ("TUTO_ATTACK_1", "LEO", portraitLeo),
+				new DialogLine ("TUTO_ATTACK_2", "LEO", portraitLeo),
+				new DialogLine ("TUTO_ATTACK_3", "LEO", portraitLeo)
+			};
+			dialogDico.Add (DialogEnum.tuto_attack, new Dialog (dl));
+			dl = new List<DialogLine> () {
+				new DialogLine ("TUTO_KITTYZ", "LEO", portraitLeo)
+			};
+			dialogDico.Add (DialogEnum.tuto_kittyz, new Dialog (dl));
+			dl = new List<DialogLine> () {
+				new DialogLine ("TUTO_ENNEMY_1", "LEO", portraitLeo),
+				new DialogLine ("TUTO_ENNEMY_2", "LEO", portraitLeo)
+			};
+			dialogDico.Add (DialogEnum.tuto_ennemy, new Dialog (dl));
 			break;
 		default:
 			break;
