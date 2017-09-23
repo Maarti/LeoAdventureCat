@@ -227,13 +227,13 @@ public class Level
 
 	public Level GetNextUnlockedLevel ()
 	{
-		if (this.nextLevel == null | this.nextLevel == LevelEnum.none || this.nextLevel == LevelEnum.main_menu)
+		if (this.nextLevel == LevelEnum.none || this.nextLevel == LevelEnum.main_menu)
 			return this;
 			
 		Level nextLvl = this;
 		do {
 			nextLvl = ApplicationController.ac.levels [nextLvl.nextLevel];		
-		} while(nextLvl.isLocked && nextLvl.nextLevel != null && nextLvl.nextLevel != LevelEnum.none && nextLvl.nextLevel != LevelEnum.main_menu);
+		} while(nextLvl.isLocked && nextLvl.nextLevel != LevelEnum.none && nextLvl.nextLevel != LevelEnum.main_menu);
 		return nextLvl;
 	}
 }

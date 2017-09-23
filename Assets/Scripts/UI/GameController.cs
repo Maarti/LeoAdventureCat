@@ -126,5 +126,14 @@ public class GameController : MonoBehaviour
 		ReloadScene ();
 	}
 
+	public void DisplayDialog (bool pauseGame = true)
+	{
+		if (pauseGame) {
+			Time.timeScale = 0f;
+			pc.StartMoving (0f);
+		} else
+			Time.timeScale = 1f;
+	}
+
 }
 
