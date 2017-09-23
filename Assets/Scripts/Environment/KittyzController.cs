@@ -32,9 +32,10 @@ public class KittyzController : MonoBehaviour
 	void GetCollected ()
 	{
 		isCollected = true;
-		audioSource.PlayOneShot (audioSource.clip);
 		GetComponent<Collider2D> ().enabled = false;
-		Destroy (gameObject, 2);
+		transform.parent.gameObject.GetComponent<Animator> ().SetTrigger ("collected");
+		audioSource.PlayOneShot (audioSource.clip);
+		Destroy (gameObject, 1f);
 	}
 }
 
