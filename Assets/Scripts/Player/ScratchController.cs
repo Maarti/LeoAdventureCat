@@ -16,10 +16,12 @@ public class ScratchController : MonoBehaviour
 	bool enableCollider = true;
 	Collider2D col;
 	List<string> ennemiesHit = new List<string> ();
+	AudioSource audioSource;
 
 	// Use this for initialization
 	void Start ()
 	{
+		GetComponent<AudioSource> ().pitch = Random.Range (0.90f, 1.6f);
 		startTime = Time.time;
 		this.sprite = gameObject.GetComponent<SpriteRenderer> (); 
 		this.col = gameObject.GetComponent<Collider2D> ();

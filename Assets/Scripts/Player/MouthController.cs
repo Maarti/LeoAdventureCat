@@ -26,13 +26,16 @@ public class MouthController : MonoBehaviour
 	{
 		AudioClip audio;
 		sprite.enabled = true;	// open mouth
+		audioSource.pitch = 1f;
 
 		// Select audio
 		switch (audioName) {
 		case "jump":
+			audioSource.pitch = Random.Range (0.95f, 1.2f);
 			audio = jumpAudio;
 			break;
 		case "hit":
+			audioSource.pitch = Random.Range (0.9f, 1.1f);
 			audio = hitAudio;
 			break;
 		default:
