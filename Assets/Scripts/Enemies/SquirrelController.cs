@@ -6,7 +6,7 @@ public class SquirrelController : MonoBehaviour, IAttackable
 {
 	public Transform nutPrefab;
 	public Vector2[] nutForces;
-	public float nutRespawnTime = 2f;
+	public float nutRespawnTime = 2f, nutTimeToLive = 3f;
 	public bool aimPlayer = true;
 	public LayerMask playerLayer;
 
@@ -53,6 +53,7 @@ public class SquirrelController : MonoBehaviour, IAttackable
 	void ThrowNut ()
 	{
 		Transform nutProjectile = (Transform)Instantiate (nutPrefab, nutTransform.position, nutTransform.rotation);
+		nutProjectile.GetComponent<ProjectileController> ().timeToLive = nutTimeToLive;
 		if (aimPlayer)
 			nutForce.x = (player.transform.position.x - nutProjectile.transform.position.x) + playerRb.velocity.x;
 		nutProjectile.GetComponent<Rigidbody2D> ().velocity = nutForce;

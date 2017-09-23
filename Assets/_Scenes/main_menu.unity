@@ -683,7 +683,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -200, y: 0}
+  m_SizeDelta: {x: -160, y: -6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &156695105
 MonoBehaviour:
@@ -1711,8 +1711,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -38.6, y: 0}
-  m_SizeDelta: {x: 84.14, y: 30}
+  m_AnchoredPosition: {x: -42.3, y: 0}
+  m_SizeDelta: {x: 84.14, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &380860701
 MonoBehaviour:
@@ -1737,9 +1737,9 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: b6ad4dc09c2fef74b82780f6b2082de1, type: 3}
     m_FontSize: 20
     m_FontStyle: 1
-    m_BestFit: 0
-    m_MinSize: 2
-    m_MaxSize: 40
+    m_BestFit: 1
+    m_MinSize: 10
+    m_MaxSize: 36
     m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -1979,8 +1979,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 113.099976, y: 0}
-  m_SizeDelta: {x: 50.1, y: 30}
+  m_AnchoredPosition: {x: 116.4, y: 0}
+  m_SizeDelta: {x: 50.1, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &497140239
 MonoBehaviour:
@@ -2005,9 +2005,9 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: b6ad4dc09c2fef74b82780f6b2082de1, type: 3}
     m_FontSize: 16
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 1
-    m_MaxSize: 40
+    m_MaxSize: 30
     m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -3848,15 +3848,15 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1691966890373964, guid: e4ccabee8e4b52e45b35433b601e5742, type: 2}
+      propertyPath: m_Name
+      value: ItemPanel (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 114236971427479578, guid: e4ccabee8e4b52e45b35433b601e5742,
         type: 2}
       propertyPath: kittyzText
       value: 
       objectReference: {fileID: 380860701}
-    - target: {fileID: 1691966890373964, guid: e4ccabee8e4b52e45b35433b601e5742, type: 2}
-      propertyPath: m_Name
-      value: ItemPanel (1)
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e4ccabee8e4b52e45b35433b601e5742, type: 2}
   m_IsPrefabParent: 0
@@ -3986,7 +3986,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 163, y: 0}
+  m_AnchoredPosition: {x: 166.30005, y: 0}
   m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1137302475
@@ -4001,16 +4001,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 3576b57d66cbe0d4d9da13a402f4c081, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -4618,7 +4618,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6039216, g: 0.69803923, b: 0.69411767, a: 1}
+  m_Color: {r: 0.24640784, g: 0.69803923, b: 0.6792212, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -6199,16 +6199,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 3576b57d66cbe0d4d9da13a402f4c081, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -6623,16 +6623,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.846, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 3576b57d66cbe0d4d9da13a402f4c081, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -7122,6 +7122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemEnum: 0
   kittyzText: {fileID: 380860701}
+  boughtImg: {fileID: 0}
 --- !u!1001 &2028792202
 Prefab:
   m_ObjectHideFlags: 0

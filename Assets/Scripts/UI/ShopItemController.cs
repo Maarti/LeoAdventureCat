@@ -8,10 +8,12 @@ public class ShopItemController : MonoBehaviour
 
 	public ItemEnum itemEnum;
 	public Text kittyzText;
+	public Sprite boughtImg;
 	Text itemNameText, itemDescText, itemPriceText;
 	GameObject itemBuyButton;
 	Item item;
 	bool isStarted = false;
+	AudioSource audioSource;
 
 	void Start ()
 	{
@@ -19,6 +21,7 @@ public class ShopItemController : MonoBehaviour
 		itemDescText = GameObject.Find (this.name + "/ItemDesc").GetComponent<Text> ();
 		itemPriceText = GameObject.Find (this.name + "/ItemPrice/PriceText").GetComponent<Text> ();
 		itemBuyButton = GameObject.Find (this.name + "/BuyButton");
+		audioSource = GetComponent<AudioSource> ();
 
 		InitButton ();
 		isStarted = true;
@@ -33,6 +36,8 @@ public class ShopItemController : MonoBehaviour
 			itemPriceText.text = item.price.ToString ();
 			if (item.isBought) {
 				itemBuyButton.GetComponent<Button> ().interactable = false;
+				GameObject.Find (this.name + "/ItemPrice").SetActive (false);
+				itemBuyButton.transform.Find ("Image").GetComponent<Image> ().sprite = boughtImg;
 				//itemBuyButton.gameObject.SetActive (false);
 				//itemBuyButton.GetComponentInChildren<Text> ().text = LocalizationManager.Instance.GetText ("BOUGHT");
 			} else {
@@ -44,9 +49,10 @@ public class ShopItemController : MonoBehaviour
 	public void BuyThis ()
 	{
 		if (itemEnum != ItemEnum.none) {
-			Debug.Log ("buy this");
-			ApplicationController.ac.BuyItem (itemEnum, kittyzText);
-			InitButton ();
+			if (ApplicationController.ac.BuyItem (itemEnum, kittyzText)) {
+				audioSource.PlayOneShot (audioSource.clip);
+				InitButton ();
+			}
 		}
 	}
 

@@ -25,6 +25,7 @@ public class GameController : MonoBehaviour
 
 	void Start ()
 	{
+		Time.timeScale = 1f;
 		guic = GameObject.Find ("Canvas/GameUI").GetComponent<GameUIController> ();
 		pc = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerController> ();
 

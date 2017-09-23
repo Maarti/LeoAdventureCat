@@ -96,7 +96,7 @@ public class ApplicationController : MonoBehaviour
 		}
 	}
 
-	public void BuyItem (ItemEnum itemEnum, Text kittyzText = null, bool doSave = true, bool initMode = false)
+	public bool BuyItem (ItemEnum itemEnum, Text kittyzText = null, bool doSave = true, bool initMode = false)
 	{
 		int price = this.items [itemEnum].price;
 		if (price <= playerData.kittyz || initMode) {
@@ -114,6 +114,10 @@ public class ApplicationController : MonoBehaviour
 
 			if (doSave)
 				Save ();
+
+			return true;
+		} else {
+			return false;
 		}
 	}
 
