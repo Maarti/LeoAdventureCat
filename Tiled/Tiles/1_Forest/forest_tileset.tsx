@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset name="forest" tilewidth="128" tileheight="128" tilecount="23" columns="0">
+<tileset name="forest" tilewidth="128" tileheight="128" tilecount="20" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="17">
   <image width="128" height="128" source="2bis_left.png"/>
@@ -31,24 +31,6 @@
  </tile>
  <tile id="24">
   <image width="128" height="128" source="13_center.png"/>
- </tile>
- <tile id="25">
-  <image width="128" height="128" source="14_center.png"/>
-  <objectgroup draworder="index">
-   <object id="1" x="0" y="0" width="128" height="128"/>
-  </objectgroup>
- </tile>
- <tile id="26">
-  <image width="128" height="128" source="15_left.png"/>
-  <objectgroup draworder="index">
-   <object id="1" x="0" y="0" width="128" height="128"/>
-  </objectgroup>
- </tile>
- <tile id="27">
-  <image width="128" height="128" source="16_right.png"/>
-  <objectgroup draworder="index">
-   <object id="1" x="0" y="0" width="128" height="128"/>
-  </objectgroup>
  </tile>
  <tile id="28">
   <image width="128" height="128" source="17_left.png"/>

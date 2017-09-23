@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class DestroyIfNotMobile : MonoBehaviour
 {
@@ -10,16 +11,20 @@ public class DestroyIfNotMobile : MonoBehaviour
 	void Start ()
 	{
 		Destroy (this.gameObject);
-
 	}
 	#else
 	void Start ()
 	{
-		CanvasGroup cg = GetComponent<CanvasGroup> ();
-		StartCoroutine (FadeOut (cg));
+		if (SceneManager.GetActiveScene ().name != "level_1_story")
+			FadeOutUI ();
 	}
 	#endif
 
+	public void FadeOutUI ()
+	{
+		CanvasGroup cg = GetComponent<CanvasGroup> ();
+		StartCoroutine (FadeOut (cg));
+	}
 
 	IEnumerator FadeOut (CanvasGroup cg)
 	{
