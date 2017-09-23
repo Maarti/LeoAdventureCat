@@ -62,6 +62,7 @@ public class ApplicationController : MonoBehaviour
 	{
 		// Initialise all levels
 		Dictionary<LevelEnum,Level> lvls = new Dictionary<LevelEnum, Level> ();
+		lvls.Add (LevelEnum.level_1_story, new Level (LevelEnum.level_1_story, "1-", World.Forest, DifficultyEnum.EASY, 10, 50, 3, LevelEnum.level_1_01, false, true));
 		lvls.Add (LevelEnum.level_1_01, new Level (LevelEnum.level_1_01, "1-01", World.Forest, DifficultyEnum.EASY, 10, 50, 3, LevelEnum.level_1_02, false));
 		lvls.Add (LevelEnum.level_1_02, new Level (LevelEnum.level_1_02, "1-02", World.Forest, DifficultyEnum.MEDIUM, 20, 40, 3, LevelEnum.level_1_03, true));
 		lvls.Add (LevelEnum.level_1_03, new Level (LevelEnum.level_1_03, "1-03", World.Forest, DifficultyEnum.MEDIUM, 20, 34, 1, LevelEnum.level_1_01, true));
@@ -197,14 +198,14 @@ public class Level
 {
 	public LevelEnum id;
 	public string name;
-	public bool isLocked;
+	public bool isLocked, isStory;
 	public World world;
 	public int score = 0, targetKittyz, targetLife, targetTime;
 	public DifficultyEnum difficulty;
 	public LevelEnum nextLevel;
 
 	public Level (LevelEnum id, string name, World world, DifficultyEnum difficulty, int targetKittyz, int targetTime,
-	              int targetLife, LevelEnum nexLevel, bool isLocked = true)
+	              int targetLife, LevelEnum nexLevel, bool isLocked = true, bool isStory = false)
 	{
 		this.id = id;
 		this.name = name;
@@ -215,6 +216,13 @@ public class Level
 		this.targetTime = targetTime;
 		this.targetLife = targetLife;
 		this.nextLevel = nexLevel;
+		this.isStory = isStory;
+	}
+
+	public string GetFullName ()
+	{
+		string levelName = (this.isStory) ? this.name + LocalizationManager.Instance.GetText ("STORY") : this.name;
+		return LocalizationManager.Instance.GetText ("LEVEL") + " " + levelName;
 	}
 
 	public Level GetNextUnlockedLevel ()
@@ -242,7 +250,8 @@ public enum LevelEnum
 	main_menu,
 	level_1_01,
 	level_1_02,
-	level_1_03
+	level_1_03,
+	level_1_story
 }
 
 public class Item

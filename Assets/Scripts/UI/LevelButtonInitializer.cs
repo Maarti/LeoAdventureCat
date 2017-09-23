@@ -17,10 +17,11 @@ public class LevelButtonInitializer : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		//level = ApplicationController.ac.levels [levelEnum];
+		level = ApplicationController.ac.levels [levelEnum];
 		uiName = transform.Find ("Name").gameObject.GetComponent<Text> ();
 		uiLockImage = transform.Find ("LockImg").gameObject;
-		uiDifficulty = transform.Find ("Difficulty").gameObject.GetComponent<Text> ();
+		if (!level.isStory)
+			uiDifficulty = transform.Find ("Difficulty").gameObject.GetComponent<Text> ();
 		uiScore = transform.Find ("Score").gameObject;
 		button = GetComponent<Button> ();
 		InitButton ();
@@ -46,8 +47,9 @@ public class LevelButtonInitializer : MonoBehaviour
 				uiScore.GetComponent<Text> ().resizeTextForBestFit = true;
 			}
 		}
-		uiDifficulty.text = LocalizationManager.Instance.GetText (level.difficulty.ToString ());
-		uiName.text = LocalizationManager.Instance.GetText ("LEVEL") + " " + level.name;
+		if (!level.isStory)
+			uiDifficulty.text = LocalizationManager.Instance.GetText (level.difficulty.ToString ());
+		uiName.text = level.GetFullName ();
 	}
 
 	void OnEnable ()
