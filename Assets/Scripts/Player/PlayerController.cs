@@ -12,8 +12,8 @@ public class PlayerController : MonoBehaviour, IDefendable
 	public int life = 5, damage = 1;
 
 	const int lifeMax = 10;
-	float hInput = 0;
-	bool facingRight = false, isBumped = false;
+	float hInput = 0, timeBeingInvincible = 1.5f;
+	bool facingRight = false, isBumped = false, isInvincible = false;
 	Rigidbody2D rb;
 	Animator animator;
 	Transform checkGroundTop, checkGroundBottom, attackLocation;
@@ -133,15 +133,18 @@ public class PlayerController : MonoBehaviour, IDefendable
 
 	public void Defend (GameObject attacker, int damage, Vector2 bumpVelocity, float bumpTime)
 	{
-		if (bumpVelocity != Vector2.zero) {
-			if ((transform.position.x - attacker.transform.position.x) > 0) // if attacker come from the left, bump to right
+		if (!isInvincible) {
+			if (bumpVelocity != Vector2.zero) {
+				if ((transform.position.x - attacker.transform.position.x) > 0) // if attacker come from the left, bump to right
 				bumpVelocity.x *= -1;
-			animator.SetTrigger ("jump");
-			rb.velocity = bumpVelocity;
-			StartCoroutine (BeingBump (bumpTime));
+				animator.SetTrigger ("jump");
+				rb.velocity = bumpVelocity;
+				StartCoroutine (BeingBump (bumpTime));
+			}
+			GetInjured (damage);
+			mouth.Meowing ("hit");
+			StartCoroutine (BeingInvincible ());
 		}
-		GetInjured (damage);
-		mouth.Meowing ("hit");
 	}
 
 	IEnumerator BeingBump (float timeBeingBumped)
@@ -149,6 +152,29 @@ public class PlayerController : MonoBehaviour, IDefendable
 		isBumped = true;
 		yield return new WaitForSeconds (timeBeingBumped);
 		isBumped = false;
+	}
+
+	IEnumerator BeingInvincible ()
+	{
+		isInvincible = true;
+		float t = 0f;
+		float lastBlink = 0f;
+		while (t < timeBeingInvincible) {
+			t += Time.deltaTime;
+			if (lastBlink > 0.05f) { //blinking speed
+				lastBlink = 0f;
+				foreach (SpriteRenderer sprite in transform.GetComponentsInChildren<SpriteRenderer>()) {
+					sprite.enabled = !sprite.enabled;
+				}
+			} else {
+				lastBlink += Time.deltaTime;
+			}
+			yield return null;
+		}
+		foreach (SpriteRenderer sprite in transform.GetComponentsInChildren<SpriteRenderer>()) {
+			sprite.enabled = true;
+		}
+		isInvincible = false;
 	}
 
 	void GetInjured (int dmg)
