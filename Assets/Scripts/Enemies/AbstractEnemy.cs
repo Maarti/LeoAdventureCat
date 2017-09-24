@@ -34,6 +34,8 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 	// Update is called once per frame
 	protected virtual void FixedUpdate ()
 	{
+		if (life <= 0)
+			return;
 		if (isMoving && !isBumped)
 			Patrol ();
 		if (!isAtacking && CheckLoS ())
@@ -116,12 +118,13 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 			if ((transform.position.x - attacker.transform.position.x) > 0) // if attacker come from the left, bump to right
 				bumpVelocity.x *= -1;
 			bumpVelocity *= this.selfBumpMultiplier;
-			//animator.SetTrigger ("hit");
+			animator.SetTrigger ("hit");
 			rb.velocity = bumpVelocity;
 			StartCoroutine (BeingBump (bumpTime * selfBumpMultiplier));
 		}
 	}
 
+	// When bump, stop detecting the ground
 	IEnumerator BeingBump (float timeBeingBumped)
 	{
 		isBumped = true;
@@ -129,6 +132,7 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 		isBumped = false;
 	}
 
+	// Called when life = 0, set transparent and launch the dying animation
 	public virtual void Die ()
 	{
 		isMoving = false;
@@ -137,6 +141,7 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 		GetComponent<AudioSource> ().PlayOneShot (dyingSound);
 	}
 
+	// Called by the dying animation when finished
 	public void Destroy ()
 	{
 		GameObject.Destroy (this.gameObject);

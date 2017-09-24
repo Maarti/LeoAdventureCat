@@ -8,29 +8,20 @@ public class HedgehogController : AbstractEnemy
 
 	float speedInit;
 	//SpriteRenderer[] sprites;
-	Animator animator;
+	//Animator animator;
 
 	protected override void Start ()
 	{
 		base.Start ();
 		speedInit = speed;
 		//this.sprites = GetComponentsInChildren <SpriteRenderer> ();
-		animator = GetComponent<Animator> ();
+		//animator = GetComponent<Animator> ();
 		animator.SetFloat ("chargeVelocity", chargeVelocity); //adapt the charging animation to the charge velocity
 	}
 
 	protected override void FixedUpdate ()
 	{
 		base.FixedUpdate ();
-
-		// remove this when the animation will be finished
-		/*if (this.sprites [0].color != Color.yellow && !isAtacking)
-			foreach (SpriteRenderer sprite in this.sprites)
-				sprite.color = Color.yellow;
-		else if (this.sprites [0].color != Color.red && isAtacking)
-			foreach (SpriteRenderer sprite in this.sprites)
-				sprite.color = Color.red;*/
-		
 		if (isAtacking) {
 			Vector2 moveVel = rb.velocity;
 			moveVel.x = (facingRight) ? speed : -speed;
@@ -44,7 +35,6 @@ public class HedgehogController : AbstractEnemy
 		rb.velocity = Vector2.zero;
 		animator.SetBool ("charging", false);
 		animator.SetTrigger ("spotted");
-		//Charge ();
 	}
 
 	// Charge blindly, then return to safely patrolling while decelarating
