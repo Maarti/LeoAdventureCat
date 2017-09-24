@@ -226,6 +226,11 @@ public class GameUIController : MonoBehaviour
 				new DialogLine ("TUTO_ENNEMY_2", "LEO", portraitLeo)
 			};
 			dialogDico.Add (DialogEnum.tuto_ennemy, new Dialog (dl));
+			/* to delete*/
+			dl = new List<DialogLine> () {
+				new DialogLine ("IN_PROGRESS", "LEO", portraitLeo)
+			};
+			dialogDico.Add (DialogEnum.in_progress, new Dialog (dl));
 			break;
 		default:
 			break;
@@ -289,5 +294,6 @@ public enum DialogEnum
 	tuto_attack,
 	tuto_kittyz,
 	tuto_ennemy,
-	tuto_checkpoint
+	tuto_checkpoint,
+	in_progress
 }

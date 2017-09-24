@@ -10,7 +10,7 @@ public class ShopItemController : MonoBehaviour
 	public Text kittyzText;
 	public Sprite boughtImg;
 	Text itemNameText, itemDescText, itemPriceText;
-	GameObject itemBuyButton;
+	GameObject itemBuyButton, itemPrice;
 	Item item;
 	bool isStarted = false;
 	AudioSource audioSource;
@@ -21,6 +21,7 @@ public class ShopItemController : MonoBehaviour
 		itemDescText = GameObject.Find (this.name + "/ItemDesc").GetComponent<Text> ();
 		itemPriceText = GameObject.Find (this.name + "/ItemPrice/PriceText").GetComponent<Text> ();
 		itemBuyButton = GameObject.Find (this.name + "/BuyButton");
+		itemPrice = GameObject.Find (this.name + "/ItemPrice");
 		audioSource = GetComponent<AudioSource> ();
 
 		InitButton ();
@@ -36,7 +37,7 @@ public class ShopItemController : MonoBehaviour
 			itemPriceText.text = item.price.ToString ();
 			if (item.isBought) {
 				itemBuyButton.GetComponent<Button> ().interactable = false;
-				GameObject.Find (this.name + "/ItemPrice").SetActive (false);
+				itemPrice.SetActive (false);
 				itemBuyButton.transform.Find ("Image").GetComponent<Image> ().sprite = boughtImg;
 				//itemBuyButton.gameObject.SetActive (false);
 				//itemBuyButton.GetComponentInChildren<Text> ().text = LocalizationManager.Instance.GetText ("BOUGHT");
