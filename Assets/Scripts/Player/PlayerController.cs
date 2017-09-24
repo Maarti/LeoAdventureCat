@@ -133,7 +133,7 @@ public class PlayerController : MonoBehaviour, IDefendable
 
 	public void Defend (GameObject attacker, int damage, Vector2 bumpVelocity, float bumpTime)
 	{
-		if (!isInvincible) {
+		if (!isInvincible || attacker.name == "Boundary") {
 			if (bumpVelocity != Vector2.zero) {
 				if ((transform.position.x - attacker.transform.position.x) > 0) // if attacker come from the left, bump to right
 				bumpVelocity.x *= -1;
