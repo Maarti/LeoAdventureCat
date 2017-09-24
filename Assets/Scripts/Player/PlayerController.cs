@@ -164,7 +164,8 @@ public class PlayerController : MonoBehaviour, IDefendable
 			if (lastBlink > 0.05f) { //blinking speed
 				lastBlink = 0f;
 				foreach (SpriteRenderer sprite in transform.GetComponentsInChildren<SpriteRenderer>()) {
-					sprite.enabled = !sprite.enabled;
+					if (sprite.gameObject.name != "Mouth")
+						sprite.enabled = !sprite.enabled;
 				}
 			} else {
 				lastBlink += Time.deltaTime;
@@ -172,7 +173,8 @@ public class PlayerController : MonoBehaviour, IDefendable
 			yield return null;
 		}
 		foreach (SpriteRenderer sprite in transform.GetComponentsInChildren<SpriteRenderer>()) {
-			sprite.enabled = true;
+			if (sprite.gameObject.name != "Mouth")
+				sprite.enabled = true;
 		}
 		isInvincible = false;
 	}
