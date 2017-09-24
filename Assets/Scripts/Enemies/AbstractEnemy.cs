@@ -114,6 +114,7 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 			Die ();
 			return;
 		}
+		GetComponent<AudioSource> ().PlayOneShot (dyingSound);
 		if (selfBumpMultiplier > 0 && bumpVelocity != Vector2.zero) {
 			if ((transform.position.x - attacker.transform.position.x) > 0) // if attacker come from the left, bump to right
 				bumpVelocity.x *= -1;
