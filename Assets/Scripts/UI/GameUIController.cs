@@ -75,13 +75,13 @@ public class GameUIController : MonoBehaviour
 			buttonNext.SetActive (false);
 			buttonResume.SetActive (true);
 		}
-		GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreKittyz/Target").GetComponent<Text> ().text = "/" + gc.targetKittyz.ToString ();
+		/*GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreKittyz/Target").GetComponent<Text> ().text = "/" + gc.targetKittyz.ToString ();
 		GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreTime/Target").GetComponent<Text> ().text = "/" + gc.targetTime.ToString () + "s";
-		GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreLife/Target").GetComponent<Text> ().text = "(" + gc.targetLife.ToString () + " max)";
+		GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreLife/Target").GetComponent<Text> ().text = "(" + gc.targetLife.ToString () + "max)";*/
 		if (!targetsInited) {
 			targetKittyzTxt.text = "/" + gc.targetKittyz.ToString ();
 			targetTimeTxt.text = "/" + gc.targetTime.ToString () + "s";
-			targetLifeTxt.text = "(" + gc.targetLife.ToString () + "max)";
+			targetLifeTxt.text = "(" + gc.targetLife.ToString () + " max)";
 		}
 	}
 
