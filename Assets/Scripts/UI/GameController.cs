@@ -70,6 +70,7 @@ public class GameController : MonoBehaviour
 	{
 		// Pause the game
 		gameFinished = true;
+		gamePaused = true;
 		Time.timeScale = 0f;
 		pc.StartMoving (0f);	
 	}
