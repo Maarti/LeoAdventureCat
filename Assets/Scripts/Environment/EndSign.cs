@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class EndSign : MonoBehaviour
 {
 
-	public LevelEnum levelToLoad = LevelEnum.level_1_01;
+	//public LevelEnum levelToLoad = LevelEnum.level_1_01;
 	public LevelEnum currentLevel = LevelEnum.level_1_01;
 	GameUIController guic;
 
@@ -18,7 +18,7 @@ public class EndSign : MonoBehaviour
 	void OnTriggerEnter2D (Collider2D other)
 	{
 		if (other.gameObject.tag == "Player") {
-			ApplicationController.ac.FinishLevel (currentLevel, Mathf.RoundToInt (GameController.gc.CalculateScore ()));
+			ApplicationController.ac.FinishLevel (currentLevel, Mathf.FloorToInt (GameController.gc.CalculateScore ()));
 			guic.EndGame ();
 			/*
 			if (levelToLoad == LevelEnum.main_menu || levelToLoad == LevelEnum.none || ApplicationController.ac.levels [levelToLoad].isLocked)

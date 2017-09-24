@@ -17,6 +17,7 @@ public class GameUIController : MonoBehaviour
 	GameObject lifeBar, buttons_1, buttonNext, buttonResume, pauseTitle;
 	RectTransform blocScore;
 	Dictionary<DialogEnum,Dialog> dialogDico;
+	Level level;
 	/*Text dialName, dialText;
 	Image dialPortrait;*/
 
@@ -24,6 +25,10 @@ public class GameUIController : MonoBehaviour
 	void Start ()
 	{
 		gc = GameObject.Find ("GameController").GetComponent<GameController> ();
+		// Get Level from Scene name
+		string sceneName = SceneManager.GetActiveScene ().name;
+		LevelEnum lvlEnum = (LevelEnum)Enum.Parse (typeof(LevelEnum), sceneName);
+		level = ApplicationController.ac.levels [lvlEnum];
 		//PausePanel
 		blocScore = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores").GetComponent<RectTransform> ();
 		buttons_1 = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Buttons_1");
@@ -41,6 +46,8 @@ public class GameUIController : MonoBehaviour
 		targetKittyzTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreKittyz/Target").GetComponent<Text> ();
 		targetTimeTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreTime/Target").GetComponent<Text> ();
 		targetLifeTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreLife/Target").GetComponent<Text> ();
+		//LevelTitle
+		GameObject.Find ("Canvas/" + this.name + "/LevelTitle").GetComponent<Text> ().text = level.GetFullName ();
 
 		InstantiateDialogs ();
 		//isStarted = true;
@@ -53,7 +60,7 @@ public class GameUIController : MonoBehaviour
 		lifeTxt.text = gc.lifeLost.ToString ();
 		if (gameFinished) {
 			pauseTitle.GetComponent<LocalizationUIText> ().enabled = false;
-			pauseTitle.GetComponent<Text> ().text = LocalizationManager.Instance.GetText ("LEVEL") + " " + gc.level.name + " " + LocalizationManager.Instance.GetText ("COMPLETED");
+			pauseTitle.GetComponent<Text> ().text = level.GetFullName () + " " + LocalizationManager.Instance.GetText ("COMPLETED");
 			scoreLabelTxt.enabled = true;
 			scoreTxt.enabled = true;
 			buttonNext.SetActive (true);
@@ -149,6 +156,10 @@ public class GameUIController : MonoBehaviour
 			yield return null;
 		}
 		scoreTxt.text = score.ToString () + "%";
+		if (score >= 100) {
+			scoreTxt.color = Color.green;
+			scoreLabelTxt.color = Color.green;
+		}
 	}
 
 	public void LoadNextScene ()
@@ -192,14 +203,8 @@ public class GameUIController : MonoBehaviour
 	// Manage the dialogs that have to be loaded for each level
 	void InstantiateDialogs ()
 	{
-		/*dialName = GameObject.Find ("Canvas/" + this.name + "/DialogPanel/Name").GetComponent<Text> ();
-		dialPortrait = GameObject.Find ("Canvas/" + this.name + "/DialogPanel/Portrait").GetComponent<Image> ();
-		dialText = GameObject.Find ("Canvas/" + this.name + "/DialogPanel/TextScroll/Viewport/Content/Text").GetComponent<Text> ();*/
 		dialogDico = new Dictionary<DialogEnum,Dialog> ();
-		// Get Level from Scene name
-		string sceneName = SceneManager.GetActiveScene ().name;
-		LevelEnum lvlEnum = (LevelEnum)Enum.Parse (typeof(LevelEnum), sceneName);
-		switch (lvlEnum) {
+		switch (level.id) {
 		case LevelEnum.level_1_story:
 			Sprite portraitLeo = Resources.Load ("Portraits/leo", typeof(Sprite)) as Sprite;
 			List<DialogLine> dl = new List<DialogLine> () {
