@@ -6,13 +6,13 @@ public class WaspController : AbstractEnemy
 	public float respawnDartTime = 1.5f;
 	public Transform dartPrefab;
 
-	Animator animator;
+	//Animator animator;
 	SpriteRenderer dartSprite;
 
-	void Awake ()
+	/*void Awake ()
 	{
 		animator = GetComponent<Animator> ();
-	}
+	}*/
 
 	// Use this for initialization
 	protected override void Start ()

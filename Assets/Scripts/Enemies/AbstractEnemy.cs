@@ -11,11 +11,13 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 	public float selfBumpMultiplier = 0f;
 	public Vector2 bumpOnCollision = new Vector2 (-2, 3);
 	public bool isAtacking = false;
+	public AudioClip dyingSound;
 
 	protected bool facingRight = false;
 	protected Rigidbody2D rb;
 	protected Transform groundCheck, startLoS, wallCheckTop, wallCheckBottom;
 	protected bool isMoving = true, isBumped = false;
+	protected Animator animator;
 
 
 	// Use this for initialization
@@ -26,6 +28,7 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 		startLoS = transform.Find ("lineOfSight").transform;
 		wallCheckTop = transform.Find ("wallCheckTop").transform;
 		wallCheckBottom = transform.Find ("wallCheckBottom").transform;
+		animator = GetComponent<Animator> ();
 	}
 
 	// Update is called once per frame
@@ -106,7 +109,7 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 	{
 		this.life -= damage;
 		if (life <= 0) {
-			GameObject.Destroy (this.gameObject);
+			Die ();
 			return;
 		}
 		if (selfBumpMultiplier > 0 && bumpVelocity != Vector2.zero) {
@@ -124,6 +127,19 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 		isBumped = true;
 		yield return new WaitForSeconds (timeBeingBumped);
 		isBumped = false;
+	}
+
+	public virtual void Die ()
+	{
+		isMoving = false;
+		animator.SetTrigger ("die");
+		this.gameObject.layer = LayerMask.NameToLayer ("Transparent");
+		GetComponent<AudioSource> ().PlayOneShot (dyingSound);
+	}
+
+	public void Destroy ()
+	{
+		GameObject.Destroy (this.gameObject);
 	}
 
 

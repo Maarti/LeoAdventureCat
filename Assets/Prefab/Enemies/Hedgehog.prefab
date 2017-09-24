@@ -71,6 +71,7 @@ GameObject:
   - component: {fileID: 58288568795870744}
   - component: {fileID: 114596979016469798}
   - component: {fileID: 95247959109548684}
+  - component: {fileID: 82201220496467632}
   m_Layer: 14
   m_Name: Hedgehog
   m_TagString: Untagged
@@ -465,6 +466,86 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.0075576752}
   serializedVersion: 2
   m_Radius: 0.14506285
+--- !u!82 &82201220496467632
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1132440440126518}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!95 &95247959109548684
 Animator:
   serializedVersion: 3
@@ -501,11 +582,12 @@ MonoBehaviour:
     m_Bits: 256
   speed: 0.8
   lineOfSight: 2
-  damageOnCollision: 1
   life: 1
+  damageOnCollision: 1
   selfBumpMultiplier: 1
   bumpOnCollision: {x: -2, y: 3}
   isAtacking: 0
+  dyingSound: {fileID: 8300000, guid: 8ef9dd12d78e0aa498e73b398526a51c, type: 3}
   chargeVelocity: 3.2
   chargeCooldown: 0.5
 --- !u!212 &212089399801149754
