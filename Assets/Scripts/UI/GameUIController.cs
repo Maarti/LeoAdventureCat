@@ -231,6 +231,18 @@ public class GameUIController : MonoBehaviour
 				new DialogLine ("IN_PROGRESS", "LEO", portraitLeo)
 			};
 			dialogDico.Add (DialogEnum.in_progress, new Dialog (dl));
+			dl = new List<DialogLine> () {
+				new DialogLine ("FIRST_HEDGEHOG_1", "LEO", portraitLeo)
+			};
+			dialogDico.Add (DialogEnum.first_hedgehog_1, new Dialog (dl));
+			dl = new List<DialogLine> () {
+				new DialogLine ("FIRST_HEDGEHOG_2", "LEO", portraitLeo)
+			};
+			dialogDico.Add (DialogEnum.first_hedgehog_2, new Dialog (dl));
+			dl = new List<DialogLine> () {
+				new DialogLine ("FIRST_SQUIRREL", "LEO", portraitLeo)
+			};
+			dialogDico.Add (DialogEnum.first_squirrel, new Dialog (dl));
 			break;
 		default:
 			break;
@@ -295,5 +307,8 @@ public enum DialogEnum
 	tuto_kittyz,
 	tuto_ennemy,
 	tuto_checkpoint,
-	in_progress
+	in_progress,
+	first_hedgehog_1,
+	first_hedgehog_2,
+	first_squirrel
 }
