@@ -5,7 +5,7 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 {
 
 	public LayerMask groundLayer, playerLayer;
-	public float speed = 1, lineOfSight = 2;
+	public float speed = 1f, lineOfSight = 2f;
 	public int life = 2, damageOnCollision = 1;
 	// 0 = no bump taken
 	public float selfBumpMultiplier = 0f;
@@ -112,16 +112,15 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 		this.life -= damage;
 		if (life <= 0) {
 			Die ();
-			return;
-		}
-		GetComponent<AudioSource> ().PlayOneShot (dyingSound);
-		if (selfBumpMultiplier > 0 && bumpVelocity != Vector2.zero) {
-			if ((transform.position.x - attacker.transform.position.x) > 0) // if attacker come from the left, bump to right
+		} else {
+			if (selfBumpMultiplier > 0 && bumpVelocity != Vector2.zero) {
+				if ((transform.position.x - attacker.transform.position.x) > 0) // if attacker come from the left, bump to right
 				bumpVelocity.x *= -1;
-			bumpVelocity *= this.selfBumpMultiplier;
-			animator.SetTrigger ("hit");
-			rb.velocity = bumpVelocity;
-			StartCoroutine (BeingBump (bumpTime * selfBumpMultiplier));
+				bumpVelocity *= this.selfBumpMultiplier;
+				animator.SetTrigger ("hit");
+				rb.velocity = bumpVelocity;
+				StartCoroutine (BeingBump (bumpTime * selfBumpMultiplier));
+			}
 		}
 	}
 
@@ -138,8 +137,10 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 	{
 		isMoving = false;
 		animator.SetTrigger ("die");
+		lineOfSight = 0f;
 		this.gameObject.layer = LayerMask.NameToLayer ("Transparent");
 		GetComponent<AudioSource> ().PlayOneShot (dyingSound);
+		GameObject.Destroy (this.gameObject, 5f);
 	}
 
 	// Called by the dying animation when finished
