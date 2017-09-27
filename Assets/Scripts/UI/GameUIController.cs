@@ -56,7 +56,7 @@ public class GameUIController : MonoBehaviour
 	void InitScores (bool gameFinished = false)
 	{
 		kittyzTxt.text = gc.kittyzCollected.ToString ();
-		timeTxt.text = Mathf.RoundToInt (gc.levelTimer).ToString ();
+		timeTxt.text = Mathf.CeilToInt (gc.levelTimer).ToString ();
 		lifeTxt.text = gc.lifeLost.ToString ();
 		if (gameFinished) {
 			pauseTitle.GetComponent<LocalizationUIText> ().enabled = false;
