@@ -243,6 +243,10 @@ public class GameUIController : MonoBehaviour
 				new DialogLine ("FIRST_SQUIRREL", "LEO", portraitLeo)
 			};
 			dialogDico.Add (DialogEnum.first_squirrel, new Dialog (dl));
+			dl = new List<DialogLine> () {
+				new DialogLine ("DOG_CATCHER_START", "LEO", portraitLeo)
+			};
+			dialogDico.Add (DialogEnum.dog_catcher_start, new Dialog (dl));
 			break;
 		default:
 			break;
@@ -310,5 +314,6 @@ public enum DialogEnum
 	in_progress,
 	first_hedgehog_1,
 	first_hedgehog_2,
-	first_squirrel
+	first_squirrel,
+	dog_catcher_start
 }

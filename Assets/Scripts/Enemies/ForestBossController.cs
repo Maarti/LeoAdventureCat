@@ -6,7 +6,6 @@ public class ForestBossController : MonoBehaviour, IDefendable
 {
 	public float waitingBetweenPhases = 4f;
 	public int life = 40;
-	//public GameObject weapon;
 	public Transform nutPrefab;
 	int currentPhase = 0, previousPhase = 0;
 	bool waitingForNextPhase = false;
@@ -55,9 +54,7 @@ public class ForestBossController : MonoBehaviour, IDefendable
 	{
 		Debug.Log ("begin AspriationPhase");
 		animator.SetTrigger ("absorb");
-		//weapon.SetActive (true);
 		yield return new WaitForSeconds (5f);
-		//weapon.SetActive (false);
 		StopAbsorb ();
 		currentPhase = 0;
 		previousPhase = 1;
@@ -111,9 +108,11 @@ public class ForestBossController : MonoBehaviour, IDefendable
 
 	public void Defend (GameObject attacker, int damage, Vector2 bumpVelocity, float bumpTime)
 	{
-		this.life -= damage;
-		if (life <= 0)
-			Die ();
+		if (life > 0) {
+			this.life -= damage;
+			if (life <= 0)
+				Die ();
+		}
 		Debug.Log ("boss attacked, life = " + life);
 	}
 
