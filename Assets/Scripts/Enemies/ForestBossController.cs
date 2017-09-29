@@ -6,13 +6,14 @@ public class ForestBossController : MonoBehaviour, IDefendable
 {
 	public float waitingBetweenPhases = 4f;
 	public int life = 40;
-	public GameObject weapon;
+	//public GameObject weapon;
 	public Transform nutPrefab;
 	int currentPhase = 0, previousPhase = 0;
 	bool waitingForNextPhase = false;
-	GameObject player;
+	GameObject player, attackPointEffector;
 	Rigidbody2D playerRb;
 	Transform projectilePosition;
+	Animator animator;
 
 
 	// Use this for initialization
@@ -20,7 +21,10 @@ public class ForestBossController : MonoBehaviour, IDefendable
 	{
 		player = GameObject.FindWithTag ("Player");
 		playerRb = player.GetComponent<Rigidbody2D> ();
-		projectilePosition = transform.Find ("Body/ProjectilePosition").transform;
+		animator = GetComponent<Animator> ();
+		projectilePosition = transform.Find ("Body/Arm2/ProjectilePosition");
+		attackPointEffector = transform.Find ("Body/Weapon/AttackPointEffector").gameObject;
+		attackPointEffector.SetActive (false);
 	}
 	
 	// Update is called once per frame
@@ -50,12 +54,27 @@ public class ForestBossController : MonoBehaviour, IDefendable
 	IEnumerator AspirationPhase ()
 	{
 		Debug.Log ("begin AspriationPhase");
-		weapon.SetActive (true);
+		animator.SetTrigger ("absorb");
+		//weapon.SetActive (true);
 		yield return new WaitForSeconds (5f);
-		weapon.SetActive (false);
+		//weapon.SetActive (false);
+		StopAbsorb ();
 		currentPhase = 0;
 		previousPhase = 1;
 		Debug.Log ("end AspriationPhase");
+	}
+
+	//called by animator
+	void StartAbsorb ()
+	{
+		animator.SetBool ("isAbsorbing", true);
+		attackPointEffector.SetActive (true);
+	}
+
+	void StopAbsorb ()
+	{
+		animator.SetBool ("isAbsorbing", false);
+		attackPointEffector.SetActive (false);
 	}
 
 	IEnumerator ThrowingPhase ()
@@ -63,17 +82,23 @@ public class ForestBossController : MonoBehaviour, IDefendable
 		Debug.Log ("begin ThrowingPhase");
 		int nbThrown = 0;
 		while (nbThrown < 3) {
-			Transform nutProjectile = (Transform)Instantiate (nutPrefab, projectilePosition.position, projectilePosition.rotation);
-			nutProjectile.GetComponent<ProjectileController> ().timeToLive = 2f;
-			Vector2 nutForce = new Vector2 (1, 3);
-			nutForce.x = (player.transform.position.x - nutProjectile.transform.position.x) + playerRb.velocity.x;
-			nutProjectile.GetComponent<Rigidbody2D> ().velocity = nutForce;
+			animator.SetTrigger ("throw");
 			nbThrown++;
 			yield return new WaitForSeconds (1f);
 		}
 		currentPhase = 0;
 		previousPhase = 2;
 		Debug.Log ("end ThrowingPhase");
+	}
+
+	// called by animator
+	void ThrowPojectile ()
+	{
+		Transform nutProjectile = (Transform)Instantiate (nutPrefab, projectilePosition.position, projectilePosition.rotation);
+		nutProjectile.GetComponent<ProjectileController> ().timeToLive = 2f;
+		Vector2 nutForce = new Vector2 (1, 3);
+		nutForce.x = (player.transform.position.x - nutProjectile.transform.position.x) + playerRb.velocity.x;
+		nutProjectile.GetComponent<Rigidbody2D> ().velocity = nutForce;
 	}
 
 
@@ -88,7 +113,13 @@ public class ForestBossController : MonoBehaviour, IDefendable
 	{
 		this.life -= damage;
 		if (life <= 0)
-			GameObject.Destroy (this.gameObject);
+			Die ();
 		Debug.Log ("boss attacked, life = " + life);
+	}
+
+	void Die ()
+	{
+		animator.SetTrigger ("die");
+		Physics2D.IgnoreCollision (GetComponent<Collider2D> (), player.GetComponent<Collider2D> ());
 	}
 }
