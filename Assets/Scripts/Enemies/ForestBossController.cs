@@ -114,8 +114,8 @@ public class ForestBossController : MonoBehaviour, IDefendable
 			this.life -= damage;
 			if (life <= 0)
 				Die ();
-			//else
-			//	animator.SetTrigger ("hit");
+			else
+				animator.SetTrigger ("hit");
 			//StartCoroutine ("FadeToRed", .25f);
 		}
 		Debug.Log ("boss attacked, life = " + life);
