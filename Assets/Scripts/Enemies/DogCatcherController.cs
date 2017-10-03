@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ForestBossController : MonoBehaviour, IDefendable
+public class DogCatcherController : MonoBehaviour, IDefendable
 {
 	public float waitingBetweenPhases = 4f;
 	public int life = 40;
 	public Transform nutPrefab;
 	int currentPhase = 0, previousPhase = 0;
-	bool waitingForNextPhase = false;
+	bool waitingForNextPhase = false, facingRight = false;
 	GameObject player, attackPointEffector;
 	Rigidbody2D playerRb;
 	Transform projectilePosition;
 	Animator animator;
-	SpriteRenderer[] sprites;
+	float lastTimeCollision = -2f;
 
 
 	// Use this for initialization
@@ -25,7 +25,6 @@ public class ForestBossController : MonoBehaviour, IDefendable
 		projectilePosition = transform.Find ("Body/Arm2/ProjectilePosition");
 		attackPointEffector = transform.Find ("Body/Weapon/AttackPointEffector").gameObject;
 		attackPointEffector.SetActive (false);
-		this.sprites = GetComponentsInChildren <SpriteRenderer> ();
 	}
 	
 	// Update is called once per frame
@@ -36,7 +35,6 @@ public class ForestBossController : MonoBehaviour, IDefendable
 				Invoke ("BeginNextPhase", waitingBetweenPhases);
 				waitingForNextPhase = true;
 			}
-
 		}
 	}
 
@@ -102,10 +100,12 @@ public class ForestBossController : MonoBehaviour, IDefendable
 
 
 	// Bump player if touched
-	void OnCollisionEnter2D (Collision2D other)
+	void OnCollisionStay2D (Collision2D other)
 	{
-		if (other.transform.tag == "Player")
+		if (other.transform.tag == "Player" && Time.time - lastTimeCollision >= 2f) {
 			other.gameObject.GetComponent<PlayerController> ().Defend (this.gameObject, 1, new Vector2 (-3, 2), 0.5f);
+			lastTimeCollision = Time.time;
+		}
 	}
 
 	public void Defend (GameObject attacker, int damage, Vector2 bumpVelocity, float bumpTime)
@@ -127,31 +127,15 @@ public class ForestBossController : MonoBehaviour, IDefendable
 		Physics2D.IgnoreCollision (GetComponent<Collider2D> (), player.GetComponent<Collider2D> ());
 	}
 
-	/*IEnumerator FadeToRed (float time)
+	public void Flip ()
 	{
-		Color newColor = sprites [0].color;
-		for (float t = 0.0f; t <= 1f; t += Time.deltaTime / time) {
-			foreach (SpriteRenderer sprite in this.sprites) {
-				newColor.g = Mathf.Lerp (1, 0, t);
-				newColor.b = Mathf.Lerp (1, 0, t);
-				sprite.color = newColor;
-			}
-			yield return null;
-		}
-		for (float t = 0.0f; t <= 1f; t += Time.deltaTime / time) {
-			foreach (SpriteRenderer sprite in this.sprites) {
-				newColor.g = Mathf.Lerp (0, 1, t);
-				newColor.b = Mathf.Lerp (0, 1, t);
-				sprite.color = newColor;
-			}
-			yield return null;
-		}
-		newColor
-		foreach (SpriteRenderer sprite in this.sprites) {
-			sprite.color.g = 1f;
-			sprite.color.b = 1f;
-		}
-		yield return null;
+		facingRight = !facingRight;
+		Vector3 theScale = new Vector3 (transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+		transform.localScale = theScale;
+	}
 
-	}*/
+	public void Run (bool run = true)
+	{
+		animator.SetBool ("isRunning", run);
+	}
 }
