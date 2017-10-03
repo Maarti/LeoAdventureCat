@@ -123,6 +123,8 @@ public class DogCatcherController : MonoBehaviour, IDefendable
 
 	void Die ()
 	{
+		StopAbsorb ();
+		StopCoroutine ("ThrowingPhase");
 		animator.SetTrigger ("die");
 		Physics2D.IgnoreCollision (GetComponent<Collider2D> (), player.GetComponent<Collider2D> ());
 	}

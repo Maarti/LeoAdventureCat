@@ -207,6 +207,7 @@ public class GameUIController : MonoBehaviour
 		switch (level.id) {
 		case LevelEnum.level_1_story:
 			Sprite portraitLeo = Resources.Load ("Portraits/leo", typeof(Sprite)) as Sprite;
+			Sprite portraitDogCatcher = Resources.Load ("Portraits/dogcatcher", typeof(Sprite)) as Sprite;
 			List<DialogLine> dl = new List<DialogLine> () {
 				new DialogLine ("TUTO_JUMP", "LEO", portraitLeo)
 			};
@@ -244,7 +245,7 @@ public class GameUIController : MonoBehaviour
 			};
 			dialogDico.Add (DialogEnum.first_squirrel, new Dialog (dl));
 			dl = new List<DialogLine> () {
-				new DialogLine ("DOG_CATCHER_START", "LEO", portraitLeo)
+				new DialogLine ("DOG_CATCHER_START", "DOG_CATCHER", portraitDogCatcher)
 			};
 			dialogDico.Add (DialogEnum.dog_catcher_start, new Dialog (dl));
 			break;
