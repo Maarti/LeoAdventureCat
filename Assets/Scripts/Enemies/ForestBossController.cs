@@ -13,6 +13,7 @@ public class ForestBossController : MonoBehaviour, IDefendable
 	Rigidbody2D playerRb;
 	Transform projectilePosition;
 	Animator animator;
+	SpriteRenderer[] sprites;
 
 
 	// Use this for initialization
@@ -24,6 +25,7 @@ public class ForestBossController : MonoBehaviour, IDefendable
 		projectilePosition = transform.Find ("Body/Arm2/ProjectilePosition");
 		attackPointEffector = transform.Find ("Body/Weapon/AttackPointEffector").gameObject;
 		attackPointEffector.SetActive (false);
+		this.sprites = GetComponentsInChildren <SpriteRenderer> ();
 	}
 	
 	// Update is called once per frame
@@ -112,6 +114,9 @@ public class ForestBossController : MonoBehaviour, IDefendable
 			this.life -= damage;
 			if (life <= 0)
 				Die ();
+			//else
+			//	animator.SetTrigger ("hit");
+			//StartCoroutine ("FadeToRed", .25f);
 		}
 		Debug.Log ("boss attacked, life = " + life);
 	}
@@ -121,4 +126,32 @@ public class ForestBossController : MonoBehaviour, IDefendable
 		animator.SetTrigger ("die");
 		Physics2D.IgnoreCollision (GetComponent<Collider2D> (), player.GetComponent<Collider2D> ());
 	}
+
+	/*IEnumerator FadeToRed (float time)
+	{
+		Color newColor = sprites [0].color;
+		for (float t = 0.0f; t <= 1f; t += Time.deltaTime / time) {
+			foreach (SpriteRenderer sprite in this.sprites) {
+				newColor.g = Mathf.Lerp (1, 0, t);
+				newColor.b = Mathf.Lerp (1, 0, t);
+				sprite.color = newColor;
+			}
+			yield return null;
+		}
+		for (float t = 0.0f; t <= 1f; t += Time.deltaTime / time) {
+			foreach (SpriteRenderer sprite in this.sprites) {
+				newColor.g = Mathf.Lerp (0, 1, t);
+				newColor.b = Mathf.Lerp (0, 1, t);
+				sprite.color = newColor;
+			}
+			yield return null;
+		}
+		newColor
+		foreach (SpriteRenderer sprite in this.sprites) {
+			sprite.color.g = 1f;
+			sprite.color.b = 1f;
+		}
+		yield return null;
+
+	}*/
 }
