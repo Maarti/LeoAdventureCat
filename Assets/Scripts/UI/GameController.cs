@@ -72,7 +72,8 @@ public class GameController : MonoBehaviour
 		gameFinished = true;
 		gamePaused = true;
 		Time.timeScale = 0f;
-		pc.StartMoving (0f);	
+		pc.StartMoving (0f);
+		ApplicationController.ac.FinishLevel (this.level.id, Mathf.FloorToInt (CalculateScore ()));
 	}
 
 	public void PlayerInjured (int dmg)
