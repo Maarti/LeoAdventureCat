@@ -97,12 +97,19 @@ public class GameUIController : MonoBehaviour
 		pausePanel.SetActive (pause);
 		if (pause)
 			InitScores ();
-		if (mobileController)
-			mobileController.SetActive (!pause);
+		//if (mobileController)
+		//mobileController.SetActive (!pause);
+		DisplayMobileController (!pause);
 
 		// Pause the game if not yet paused
 		if (gc.gamePaused != pause)
 			gc.PauseGame (pause);
+	}
+
+	public void DisplayMobileController (bool setActive = true)
+	{
+		if (mobileController)
+			mobileController.SetActive (setActive);
 	}
 
 	public void EndGame ()

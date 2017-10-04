@@ -134,6 +134,7 @@ public class DogCatcherController : MonoBehaviour, IDefendable
 		facingRight = !facingRight;
 		Vector3 theScale = new Vector3 (transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
 		transform.localScale = theScale;
+		Debug.Log ("Fliped to " + transform.localScale.x);
 	}
 
 	public void Run (bool run = true)

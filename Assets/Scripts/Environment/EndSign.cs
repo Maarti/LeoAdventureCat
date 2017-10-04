@@ -5,17 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class EndSign : MonoBehaviour
 {
-
-	//public LevelEnum levelToLoad = LevelEnum.level_1_01;
 	public LevelEnum currentLevel = LevelEnum.level_1_01;
-	GameUIController guic;
+	protected GameUIController guic;
 
-	void Start ()
+	protected virtual void Start ()
 	{
 		guic = GameObject.Find ("Canvas/GameUI").GetComponent<GameUIController> ();
 	}
 
-	void OnTriggerEnter2D (Collider2D other)
+	protected virtual void OnTriggerEnter2D (Collider2D other)
 	{
 		if (other.gameObject.tag == "Player") {
 			//ApplicationController.ac.FinishLevel (currentLevel, Mathf.FloorToInt (GameController.gc.CalculateScore ()));
