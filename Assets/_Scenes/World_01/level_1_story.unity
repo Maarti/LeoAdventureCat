@@ -1515,7 +1515,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 459328528}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 83.74, y: 0.143, z: -0.5}
+  m_LocalPosition: {x: 82.873, y: 0.143, z: -0.5}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children:
   - {fileID: 1919675222}
@@ -3993,6 +3993,36 @@ GameObject:
   m_PrefabParentObject: {fileID: 1922764698045222, guid: 0fc1f61d586eb1a4aab04cd2fe6c4b27,
     type: 2}
   m_PrefabInternal: {fileID: 2028707351}
+--- !u!114 &1399757379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1399757378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1399757382}
+          m_MethodName: DisplayDialog
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  delegates: []
 --- !u!114 &1399757382
 MonoBehaviour:
   m_ObjectHideFlags: 0
