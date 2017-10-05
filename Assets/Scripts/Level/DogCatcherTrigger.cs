@@ -8,15 +8,17 @@ public class DogCatcherTrigger : MonoBehaviour
 	public DialogEnum dialog;
 	public float moveSpeed;
 	public Transform endBossPosition;
+	public AudioClip bossMusic;
 	GameUIController guic;
-	bool arrived = false, isBossInitialized = false, isTriggered = false, isRunning = false;
-	GameObject player, boss;
+	bool arrived = false, isBossInitialized = false, isTriggered = false, isRunning = false, musicChanged = false;
+	GameObject player, boss, gc;
 	DogCatcherController bossCtrlr;
 
 
 	void Start ()
 	{
 		guic = GameObject.Find ("Canvas/GameUI").GetComponent<GameUIController> ();
+		gc = GameObject.Find ("GameController");
 		player = GameObject.FindWithTag ("Player");
 		boss = GameObject.Find ("Boss");
 		bossCtrlr = boss.GetComponent<DogCatcherController> ();
@@ -28,6 +30,7 @@ public class DogCatcherTrigger : MonoBehaviour
 	void Update ()
 	{
 		if (isTriggered) {	
+			ChangeMusic ();
 			//player.GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
 			if (!arrived) {
 				Physics2D.IgnoreCollision (boss.GetComponent<Collider2D> (), player.GetComponent<Collider2D> (), true);
@@ -68,6 +71,17 @@ public class DogCatcherTrigger : MonoBehaviour
 			bossCtrlr.Flip ();
 			bossCtrlr.Run ();
 			isRunning = true;
+		}
+	}
+
+	void ChangeMusic ()
+	{
+		if (!musicChanged) {
+			AudioSource audioSource = gc.GetComponent<AudioSource> ();
+			audioSource.Stop ();
+			audioSource.clip = bossMusic;
+			audioSource.Play ();
+			musicChanged = true;
 		}
 	}
 }

@@ -247,11 +247,10 @@ public class GameUIController : MonoBehaviour
 				new DialogLine ("TUTO_ENNEMY_2", "LEO", portraitLeo)
 			};
 			dialogDico.Add (DialogEnum.tuto_ennemy, new Dialog (dl));
-			/* to delete*/
 			dl = new List<DialogLine> () {
-				new DialogLine ("IN_PROGRESS", "LEO", portraitLeo)
+				new DialogLine ("TUTO_CHECKPOINT", "LEO", portraitLeo)
 			};
-			dialogDico.Add (DialogEnum.in_progress, new Dialog (dl));
+			dialogDico.Add (DialogEnum.tuto_checkpoint, new Dialog (dl));
 			dl = new List<DialogLine> () {
 				new DialogLine ("FIRST_HEDGEHOG_1", "LEO", portraitLeo)
 			};
