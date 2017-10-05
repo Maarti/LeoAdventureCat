@@ -14,7 +14,7 @@ public class GameUIController : MonoBehaviour
 	GameController gc;
 	Text kittyzTxt, timeTxt, lifeTxt, scoreTxt, targetKittyzTxt, targetTimeTxt, targetLifeTxt, scoreLabelTxt;
 	bool /*isStarted = false,*/ targetsInited = false;
-	GameObject lifeBar, buttons_1, buttonNext, buttonResume, pauseTitle;
+	GameObject lifeBar, buttons_1, buttonNext, buttonResume, pauseTitle, topUI, checkpointController;
 	RectTransform blocScore;
 	Dictionary<DialogEnum,Dialog> dialogDico;
 	Level level;
@@ -41,6 +41,7 @@ public class GameUIController : MonoBehaviour
 		scoreTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/TotalScore").GetComponent<Text> ();
 		scoreLabelTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/LabelScore").GetComponent<Text> ();
 		//TopUI
+		topUI = GameObject.Find ("Canvas/" + this.name + "/TopUI");
 		lifeBar = GameObject.Find ("Canvas/" + this.name + "/TopUI/LifeBar");
 		//Targets
 		targetKittyzTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreKittyz/Target").GetComponent<Text> ();
@@ -48,6 +49,8 @@ public class GameUIController : MonoBehaviour
 		targetLifeTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreLife/Target").GetComponent<Text> ();
 		//LevelTitle
 		GameObject.Find ("Canvas/" + this.name + "/LevelTitle").GetComponent<Text> ().text = level.GetFullName ();
+		//Checkpoints
+		checkpointController = GameObject.Find ("CheckPointController");
 
 		InstantiateDialogs ();
 		//isStarted = true;
@@ -114,7 +117,7 @@ public class GameUIController : MonoBehaviour
 
 	public void DisplayTopUI (bool setActive = true)
 	{
-		GameObject.Find ("Canvas/" + this.name + "/TopUI").SetActive (setActive);
+		topUI.SetActive (setActive);
 	}
 
 	public void EndGame ()
@@ -129,15 +132,18 @@ public class GameUIController : MonoBehaviour
 			mobileController.SetActive (false);
 	}
 
-	public void ReloadScene ()
+	public void ReloadScene (bool fromCheckpoint = false)
 	{
 		PauseGame (false);
+		if (!fromCheckpoint)
+			Destroy (checkpointController);
 		SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
 	}
 
 	public void LoadMainMenu ()
 	{
 		PauseGame (false);
+		Destroy (checkpointController);
 		SceneManager.LoadScene ("main_menu");
 	}
 
@@ -187,6 +193,7 @@ public class GameUIController : MonoBehaviour
 		Dialog dialog = dialogDico [dialogEnum];
 		gc.DisplayDialog (true); // pause the game
 		dialogPanel.SetActive (true);
+		DisplayTopUI (false);
 		dialogPanel.GetComponent<DialogController> ().dialog = dialog;
 		dialogPanel.GetComponent<DialogController> ().DisplayDialog ();
 
@@ -210,6 +217,7 @@ public class GameUIController : MonoBehaviour
 	{	
 		gc.DisplayDialog (false);
 		dialogPanel.SetActive (false);	
+		DisplayTopUI ();
 	}
 
 	// Manage the dialogs that have to be loaded for each level

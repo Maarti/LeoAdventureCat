@@ -68,7 +68,7 @@ public class ForestSpecialEnd : EndSign
 		bossCtrlr.Run ();
 		while (boss.transform.position != doorPosition.transform.position) {
 			boss.transform.position = Vector3.MoveTowards (boss.transform.position, doorPosition.position, Time.deltaTime * 3f);
-			player.transform.position = Vector3.MoveTowards (player.transform.position, doorPosition.position, Time.deltaTime * 3f);
+			player.transform.position = Vector3.MoveTowards (player.transform.position, doorPosition.position, Time.deltaTime * 3.5f);
 			yield return null;
 		}
 		bossCtrlr.Run (false);
@@ -107,7 +107,7 @@ public class ForestSpecialEnd : EndSign
 
 		// Van go to right faster
 		while (van.transform.position != vanRightPosition.position) {
-			van.transform.position = Vector3.MoveTowards (van.transform.position, vanRightPosition.position, Time.deltaTime * 6f);
+			van.transform.position = Vector3.MoveTowards (van.transform.position, vanRightPosition.position, Time.deltaTime * 7f);
 			yield return null;
 		}
 

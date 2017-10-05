@@ -46,8 +46,6 @@ public class GameController : MonoBehaviour
 			if (checkpointController.levelEnum == lvlEnum)
 				checkpointController.Load ();
 			else
-				// TODO : don't destroy but reset
-				//Destroy (checkpointControllerObject);
 				checkpointController.Reset (lvlEnum);
 		}
 	}
@@ -131,14 +129,14 @@ public class GameController : MonoBehaviour
 		return finalScore;
 	}
 
-	public void ReloadScene ()
+	public void ReloadScene (bool fromCheckpoint = false)
 	{
-		guic.ReloadScene ();
+		guic.ReloadScene (fromCheckpoint);
 	}
 
 	public void GameOver ()
 	{
-		ReloadScene ();
+		ReloadScene (true);
 	}
 
 	public void DisplayDialog (bool pauseGame = true)

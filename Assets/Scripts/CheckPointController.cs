@@ -50,7 +50,7 @@ public class CheckPointController : MonoBehaviour
 	void TeleportPlayerToCheckpoint ()
 	{
 		GameObject player = GameObject.FindWithTag ("Player");
-		GameObject checkpoint = GameObject.Find (checkpointName);
+		GameObject checkpoint = GameObject.Find (checkpointName + "/Spawn");
 		player.transform.position = checkpoint.transform.position;
 	}
 
