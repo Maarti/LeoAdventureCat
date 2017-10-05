@@ -12,7 +12,8 @@ public class CameraController : MonoBehaviour
 	void Start ()
 	{
 		player = GameObject.FindWithTag ("Player");
-		offset = transform.position - player.transform.position;
+		//offset = transform.position - player.transform.position;
+		offset = new Vector3 (0.16f, -0.36f, -10.5f);
 	}
 	
 	// LateUpdate is called after Update

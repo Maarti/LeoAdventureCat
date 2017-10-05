@@ -34,6 +34,7 @@ public class KittyzController : MonoBehaviour
 		isCollected = true;
 		GetComponent<Collider2D> ().enabled = false;
 		transform.parent.gameObject.GetComponent<Animator> ().SetTrigger ("collected");
+		CheckPointController.cc.KittyzCollected (this.transform.parent.name);
 		audioSource.PlayOneShot (audioSource.clip);
 		Destroy (gameObject, 1f);
 	}
