@@ -34,9 +34,20 @@ public class GameController : MonoBehaviour
 		LevelEnum lvlEnum = (LevelEnum)Enum.Parse (typeof(LevelEnum), sceneName); 
 		this.level = ApplicationController.ac.levels [lvlEnum];	
 
+		// Init target
 		targetKittyz = level.targetKittyz;
 		targetTime = level.targetTime;
 		targetLife = level.targetLife;
+
+		// Load checkpoint if exists for this level
+		GameObject checkpointControllerObject = GameObject.Find ("CheckPointController");
+		if (checkpointControllerObject) {
+			CheckPointController checkpointController = checkpointControllerObject.GetComponent<CheckPointController> ();
+			if (checkpointController.levelEnum = lvlEnum)
+				checkpointController.Load ();
+			else
+				Destroy (checkpointControllerObject);
+		}
 	}
 
 	void Update ()
