@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class DestroyIfNotMobile : MonoBehaviour
 {
-	public float fadeTo = 0.25f, waitBeforeFade = 6f, speedFade = 0.2f;
+	public float fadeTo = 0.3f, waitBeforeFade = 6f, speedFade = 0.2f;
 
 	#if !UNITY_ANDROID && !UNITY_IPHONE && !UNITY_BLACKBERRY && !UNITY_WINRT || UNITY_EDITOR
 	void Start ()

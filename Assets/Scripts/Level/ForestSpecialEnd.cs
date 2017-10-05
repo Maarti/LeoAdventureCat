@@ -6,11 +6,13 @@ using UnityEngine.SceneManagement;
 public class ForestSpecialEnd : EndSign
 {
 
+	public AudioClip carDoorSound, carIdleSound;
 	GameObject boss, player, van;
 	Transform doorPosition, drivingPosition, vanLeftPosition, vanRightPosition;
 	Animator bossAnim, vanAnim;
 	DogCatcherController bossCtrlr;
 	bool isTriggered = false;
+	AudioSource audioSource;
 
 	protected override void Start ()
 	{
@@ -25,6 +27,7 @@ public class ForestSpecialEnd : EndSign
 		vanAnim = van.GetComponent<Animator> ();
 		vanLeftPosition = GameObject.Find ("Triggers/VanLeftPosition").transform;
 		vanRightPosition = GameObject.Find ("Triggers/VanRightPosition").transform;
+		audioSource = GetComponent<AudioSource> ();
 	}
 
 	protected override void OnTriggerEnter2D (Collider2D other)
@@ -75,10 +78,12 @@ public class ForestSpecialEnd : EndSign
 
 		// Boss open rear door and drop stuff
 		vanAnim.SetTrigger ("openDoor");
+		PlaySound (carDoorSound);
 		yield return new WaitForSeconds (1f);
 		boss.transform.Find ("Body/Weapon").gameObject.SetActive (false);
 		boss.transform.Find ("Body/Bag").gameObject.SetActive (false);
-		yield return new WaitForSeconds (2f);
+		yield return new WaitForSeconds (1.6f);
+		PlaySound (carDoorSound);
 
 		// Boss go to drive seat
 		bossCtrlr.Run ();
@@ -89,11 +94,13 @@ public class ForestSpecialEnd : EndSign
 		bossCtrlr.Run (false);
 		boss.transform.Find ("Body/UpLeg").gameObject.SetActive (false);
 		boss.transform.Find ("Body/UpLeg2").gameObject.SetActive (false);
+		PlaySound (carDoorSound);
 		boss.transform.parent = van.transform;
 		yield return new WaitForSeconds (1f);
 
 		// Van start
 		vanAnim.SetTrigger ("startRolling");
+		PlaySound (carIdleSound, true);
 
 		// Van go to left
 		while (van.transform.position != vanLeftPosition.position) {
@@ -106,12 +113,24 @@ public class ForestSpecialEnd : EndSign
 		van.transform.localScale = newScale;
 
 		// Van go to right faster
+		PlaySound (carIdleSound, true, 1.2f);
 		while (van.transform.position != vanRightPosition.position) {
 			van.transform.position = Vector3.MoveTowards (van.transform.position, vanRightPosition.position, Time.deltaTime * 7f);
 			yield return null;
 		}
 
 		// Score panel
+		audioSource.Stop ();
 		guic.EndGame ();
+	}
+
+	void PlaySound (AudioClip audioClip, bool loop = false, float pitch = 1f, float volume = 1f)
+	{
+		audioSource.Stop ();
+		audioSource.clip = audioClip;
+		audioSource.loop = loop;
+		audioSource.pitch = pitch;
+		audioSource.volume = volume;
+		audioSource.Play ();
 	}
 }
