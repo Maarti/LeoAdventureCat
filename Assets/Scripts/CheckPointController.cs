@@ -6,7 +6,7 @@ public class CheckPointController : MonoBehaviour
 {
 
 	public static CheckPointController cc;
-	public float levelTimer;
+	public float levelTimer = 0f;
 	public string checkpointName = "null";
 	public LevelEnum levelEnum;
 	public int lifeLost = 0, kittyzCollected = 0;
@@ -65,6 +65,16 @@ public class CheckPointController : MonoBehaviour
 	public void KittyzCollected (string kittyzObjectName)
 	{
 		this.kittyzDestroyed.Add (kittyzObjectName);
+	}
+
+	public void Reset (LevelEnum levelEnum)
+	{
+		this.levelEnum = levelEnum;
+		this.levelTimer = 0f;
+		this.checkpointName = "null";
+		this.lifeLost = 0;
+		this.kittyzCollected = 0;
+		this.kittyzDestroyed = new List<string> ();
 	}
 
 }

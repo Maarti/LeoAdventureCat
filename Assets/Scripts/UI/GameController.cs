@@ -47,7 +47,8 @@ public class GameController : MonoBehaviour
 				checkpointController.Load ();
 			else
 				// TODO : don't destroy but reset
-				Destroy (checkpointControllerObject);
+				//Destroy (checkpointControllerObject);
+				checkpointController.Reset (lvlEnum);
 		}
 	}
 
