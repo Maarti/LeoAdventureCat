@@ -40,6 +40,8 @@ public class DogCatcherController : MonoBehaviour, IDefendable
 
 	void BeginNextPhase ()
 	{		
+		if (life <= 0)
+			return;
 		if (previousPhase == 1) {
 			this.currentPhase = 2;
 			StartCoroutine (ThrowingPhase ());
@@ -66,12 +68,14 @@ public class DogCatcherController : MonoBehaviour, IDefendable
 	{
 		animator.SetBool ("isAbsorbing", true);
 		attackPointEffector.SetActive (true);
+		Debug.Log ("start Abs");
 	}
 
 	public void StopAbsorb ()
 	{
 		animator.SetBool ("isAbsorbing", false);
 		attackPointEffector.SetActive (false);
+		Debug.Log ("stop Abs");
 	}
 
 	IEnumerator ThrowingPhase ()
@@ -124,7 +128,8 @@ public class DogCatcherController : MonoBehaviour, IDefendable
 	void Die ()
 	{
 		StopAbsorb ();
-		StopCoroutine ("ThrowingPhase");
+		//StopCoroutine ("ThrowingPhase");
+		StopAllCoroutines ();
 		animator.SetTrigger ("die");
 		Physics2D.IgnoreCollision (GetComponent<Collider2D> (), player.GetComponent<Collider2D> ());
 	}

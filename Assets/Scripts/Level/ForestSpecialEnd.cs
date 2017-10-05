@@ -7,9 +7,10 @@ public class ForestSpecialEnd : EndSign
 {
 
 	GameObject boss, player, van;
-	Transform doorPosition, drivingPosition;
+	Transform doorPosition, drivingPosition, vanLeftPosition, vanRightPosition;
 	Animator bossAnim, vanAnim;
 	DogCatcherController bossCtrlr;
+	bool isTriggered = false;
 
 	protected override void Start ()
 	{
@@ -22,14 +23,20 @@ public class ForestSpecialEnd : EndSign
 		drivingPosition = GameObject.Find ("Van/BossDrivingPosition").transform;
 		van = GameObject.Find ("Van");
 		vanAnim = van.GetComponent<Animator> ();
+		vanLeftPosition = GameObject.Find ("Triggers/VanLeftPosition").transform;
+		vanRightPosition = GameObject.Find ("Triggers/VanRightPosition").transform;
 	}
 
 	protected override void OnTriggerEnter2D (Collider2D other)
 	{
-		if (other.gameObject.tag == "Player") {
+		if (other.gameObject.tag == "Player" && !isTriggered) {
+			isTriggered = true;
 			GameController.gc.gameFinished = true;
 			guic.DisplayMobileController (false);
 			Physics2D.IgnoreCollision (boss.GetComponent<Collider2D> (), player.GetComponent<Collider2D> (), true);
+			foreach (Collider2D col in van.GetComponentsInChildren<Collider2D> ()) {
+				Physics2D.IgnoreCollision (col, player.GetComponent<Collider2D> (), true);
+			}
 			StartCoroutine (EndingAnimation ());
 		}
 	}
@@ -42,7 +49,7 @@ public class ForestSpecialEnd : EndSign
 
 		// Boss start absorbing
 		bossAnim.SetTrigger ("absorb");
-		yield return new WaitForSeconds (2f);
+		yield return new WaitForSeconds (3f);
 
 		// Cat "disapear"
 		SpriteRenderer[] playerSprites = player.GetComponentsInChildren<SpriteRenderer> ();
@@ -66,21 +73,43 @@ public class ForestSpecialEnd : EndSign
 
 		// Boss open rear door and drop stuff
 		vanAnim.SetTrigger ("openDoor");
-		yield return new WaitForSeconds (0.8f);
+		yield return new WaitForSeconds (1f);
 		boss.transform.Find ("Body/Weapon").gameObject.SetActive (false);
 		boss.transform.Find ("Body/Bag").gameObject.SetActive (false);
-		yield return new WaitForSeconds (1f);
+		yield return new WaitForSeconds (2f);
 
 		// Boss go to drive seat
+		bossCtrlr.Run ();
 		while (boss.transform.position != drivingPosition.position) {
 			boss.transform.position = Vector3.MoveTowards (boss.transform.position, drivingPosition.position, Time.deltaTime * 1.5f);
 			yield return null;
 		}
+		bossCtrlr.Run (false);
 		boss.transform.Find ("Body/UpLeg").gameObject.SetActive (false);
 		boss.transform.Find ("Body/UpLeg2").gameObject.SetActive (false);
+		boss.transform.parent = van.transform;
+		yield return new WaitForSeconds (1f);
 
 		// Van start
 		vanAnim.SetTrigger ("startRolling");
 
+		// Van go to left
+		while (van.transform.position != vanLeftPosition.position) {
+			van.transform.position = Vector3.MoveTowards (van.transform.position, vanLeftPosition.position, Time.deltaTime * 1.5f);
+			yield return null;
+		}
+
+		// Van flip
+		Vector3 newScale = new Vector3 (van.transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+		van.transform.localScale = newScale;
+
+		// Van go to right faster
+		while (van.transform.position != vanRightPosition.position) {
+			van.transform.position = Vector3.MoveTowards (van.transform.position, vanRightPosition.position, Time.deltaTime * 6f);
+			yield return null;
+		}
+
+		// Score panel
+		guic.EndGame ();
 	}
 }
