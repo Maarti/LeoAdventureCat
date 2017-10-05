@@ -112,10 +112,15 @@ public class GameUIController : MonoBehaviour
 			mobileController.SetActive (setActive);
 	}
 
+	public void DisplayTopUI (bool setActive = true)
+	{
+		GameObject.Find ("Canvas/" + this.name + "/TopUI").SetActive (setActive);
+	}
+
 	public void EndGame ()
 	{
 		gc.EndGame ();
-		GameObject.Find ("Canvas/" + this.name + "/TopUI").SetActive (false);
+		DisplayTopUI (false);
 		buttons_1.SetActive (false);
 		blocScore.offsetMax = new Vector2 (blocScore.offsetMax.x, -100);
 		pausePanel.SetActive (true);

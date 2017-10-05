@@ -33,6 +33,8 @@ public class ForestSpecialEnd : EndSign
 			isTriggered = true;
 			GameController.gc.gameFinished = true;
 			guic.DisplayMobileController (false);
+			guic.DisplayTopUI (false);
+			player.GetComponent<PlayerController> ().StartMoving (0f);
 			Physics2D.IgnoreCollision (boss.GetComponent<Collider2D> (), player.GetComponent<Collider2D> (), true);
 			foreach (Collider2D col in van.GetComponentsInChildren<Collider2D> ()) {
 				Physics2D.IgnoreCollision (col, player.GetComponent<Collider2D> (), true);
