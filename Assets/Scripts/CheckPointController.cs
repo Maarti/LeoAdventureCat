@@ -7,10 +7,10 @@ public class CheckPointController : MonoBehaviour
 
 	public static CheckPointController cc;
 	public float levelTimer;
-	public string checkointName;
+	public string checkpointName = "null";
 	public LevelEnum levelEnum;
 	public int lifeLost = 0, kittyzCollected = 0;
-	public string[] kittyzDestroyed;
+	public List<string> kittyzDestroyed = new List<string> ();
 
 	void Awake ()
 	{
@@ -24,9 +24,11 @@ public class CheckPointController : MonoBehaviour
 
 	public void Load ()
 	{
-		DestroyKittyz ();
-		LoadScores ();
-		TeleportPlayerToCheckpoint ();
+		if (checkpointName != "null") {
+			DestroyKittyz ();
+			LoadScores ();
+			TeleportPlayerToCheckpoint ();
+		}
 	}
 
 	void LoadScores ()
@@ -39,15 +41,30 @@ public class CheckPointController : MonoBehaviour
 	void DestroyKittyz ()
 	{
 		foreach (string kittyzName in kittyzDestroyed) {
-			Destroy (GameObject.Find (kittyzName));
+			GameObject kittyz = GameObject.Find (kittyzName);
+			if (kittyz)
+				Destroy (kittyz);
 		}
 	}
 
 	void TeleportPlayerToCheckpoint ()
 	{
 		GameObject player = GameObject.FindWithTag ("Player");
-		GameObject checkpoint = GameObject.Find (checkointName);
+		GameObject checkpoint = GameObject.Find (checkpointName);
 		player.transform.position = checkpoint.transform.position;
+	}
+
+	public void Check (string checkpointName)
+	{
+		this.checkpointName = checkpointName;
+		this.lifeLost = GameController.gc.lifeLost;
+		this.kittyzCollected = GameController.gc.kittyzCollected;
+		this.levelTimer = GameController.gc.levelTimer;
+	}
+
+	public void KittyzCollected (string kittyzObjectName)
+	{
+		this.kittyzDestroyed.Add (kittyzObjectName);
 	}
 
 }
