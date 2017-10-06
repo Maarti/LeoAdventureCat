@@ -10,7 +10,8 @@ public class CheckPointController : MonoBehaviour
 	public string checkpointName = "null";
 	public LevelEnum levelEnum;
 	public int lifeLost = 0, kittyzCollected = 0;
-	public List<string> kittyzDestroyed = new List<string> ();
+	public List<string> savedKittyzDestroyed = new List<string> ();
+	public List<string> temporaryKittyzDestroyed = new List<string> ();
 
 	void Awake ()
 	{
@@ -40,7 +41,7 @@ public class CheckPointController : MonoBehaviour
 
 	void DestroyKittyz ()
 	{
-		foreach (string kittyzName in kittyzDestroyed) {
+		foreach (string kittyzName in savedKittyzDestroyed) {
 			GameObject kittyz = GameObject.Find (kittyzName);
 			if (kittyz)
 				Destroy (kittyz);
@@ -60,11 +61,13 @@ public class CheckPointController : MonoBehaviour
 		this.lifeLost = GameController.gc.lifeLost;
 		this.kittyzCollected = GameController.gc.kittyzCollected;
 		this.levelTimer = GameController.gc.levelTimer;
+		// copy list by value, not reference
+		this.savedKittyzDestroyed = new List<string> (this.temporaryKittyzDestroyed);
 	}
 
 	public void KittyzCollected (string kittyzObjectName)
 	{
-		this.kittyzDestroyed.Add (kittyzObjectName);
+		this.temporaryKittyzDestroyed.Add (kittyzObjectName);
 	}
 
 	public void Reset (LevelEnum levelEnum)
@@ -74,7 +77,8 @@ public class CheckPointController : MonoBehaviour
 		this.checkpointName = "null";
 		this.lifeLost = 0;
 		this.kittyzCollected = 0;
-		this.kittyzDestroyed = new List<string> ();
+		this.savedKittyzDestroyed = new List<string> ();
+		this.temporaryKittyzDestroyed = new List<string> ();
 	}
 
 }
