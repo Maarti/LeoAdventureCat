@@ -35,6 +35,11 @@ public class PlayerController : MonoBehaviour, IDefendable
 
 	void Update ()
 	{
+		
+	}
+
+	void FixedUpdate ()
+	{
 		#if !UNITY_ANDROID && !UNITY_IPHONE && !UNITY_BLACKBERRY && !UNITY_WINRT || UNITY_EDITOR
 		Move (Input.GetAxisRaw ("Horizontal"));
 		if (Input.GetButtonDown ("Jump"))
@@ -42,17 +47,14 @@ public class PlayerController : MonoBehaviour, IDefendable
 		else if (Input.GetButtonUp ("Jump"))
 			StopJump ();
 		#else
-			Move (hInput);
+		Move (hInput);
 		#endif
 
 		#if !UNITY_ANDROID && !UNITY_IPHONE && !UNITY_BLACKBERRY && !UNITY_WINRT || UNITY_EDITOR
 		if (Input.GetButtonDown ("Fire1"))
 			Attack ();
 		#endif
-	}
 
-	void FixedUpdate ()
-	{
 		isGrounded = Physics2D.OverlapArea (checkGroundTop.position, checkGroundBottom.position, playerMask);
 		animator.SetBool ("isGrounded", isGrounded);
 		animator.SetFloat ("y.velocity", rb.velocity.y);
@@ -79,6 +81,8 @@ public class PlayerController : MonoBehaviour, IDefendable
 			Flip ();
 		else if (horizonalInput < 0 && facingRight)
 			Flip ();
+
+		Debug.Log ("x velocity = " + rb.velocity.x);
 	}
 
 	public void Jump ()
