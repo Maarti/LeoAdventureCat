@@ -85,7 +85,8 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 	}
 
 	// Bump player if touched
-	void OnCollisionEnter2D (Collision2D other)
+	//void OnCollisionEnter2D (Collision2D other)
+	void OnCollisionStay2D (Collision2D other)
 	{
 		if (other.transform.tag == "Player")
 			other.gameObject.GetComponent<PlayerController> ().Defend (this.gameObject, damageOnCollision, bumpOnCollision, 0.5f);

@@ -14,7 +14,7 @@ public class GameUIController : MonoBehaviour
 	GameController gc;
 	Text kittyzTxt, timeTxt, lifeTxt, scoreTxt, targetKittyzTxt, targetTimeTxt, targetLifeTxt, scoreLabelTxt, totalKittyzText;
 	bool /*isStarted = false,*/ targetsInited = false;
-	GameObject lifeBar, buttons_1, buttonNext, buttonResume, pauseTitle, topUI, checkpointController;
+	GameObject lifeBar, buttons_1, buttonNext, buttonResume, pauseTitle, topUI, checkpointController, shoplist;
 	//RectTransform blocScore;
 	Dictionary<DialogEnum,Dialog> dialogDico;
 	Level level;
@@ -31,6 +31,7 @@ public class GameUIController : MonoBehaviour
 		level = ApplicationController.ac.levels [lvlEnum];
 		//PausePanel
 		//blocScore = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores").GetComponent<RectTransform> ();
+		shoplist = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/ShopList");
 		buttons_1 = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Buttons_1");
 		totalKittyzText = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Buttons_1/KittyzPanel/KittyzText").GetComponent<Text> ();
 		buttonNext = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Buttons_2/NextLevelButton");
@@ -79,14 +80,12 @@ public class GameUIController : MonoBehaviour
 			buttonNext.SetActive (false);
 			buttonResume.SetActive (true);
 		}
-		/*GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreKittyz/Target").GetComponent<Text> ().text = "/" + gc.targetKittyz.ToString ();
-		GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreTime/Target").GetComponent<Text> ().text = "/" + gc.targetTime.ToString () + "s";
-		GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreLife/Target").GetComponent<Text> ().text = "(" + gc.targetLife.ToString () + "max)";*/
 		if (!targetsInited) {
 			targetKittyzTxt.text = "/" + gc.targetKittyz.ToString ();
 			targetTimeTxt.text = "/" + gc.targetTime.ToString () + "s";
 			targetLifeTxt.text = "(" + gc.targetLife.ToString () + " max)";
 		}
+		totalKittyzText.text = ApplicationController.ac.playerData.kittyz.ToString (); //init total kittyz
 	}
 
 	public void TooglePause ()
@@ -146,6 +145,7 @@ public class GameUIController : MonoBehaviour
 		gc.EndGame ();
 		DisplayTopUI (false);
 		buttons_1.SetActive (false);
+		shoplist.SetActive (false);
 		//blocScore.offsetMax = new Vector2 (blocScore.offsetMax.x, -100);
 		pausePanel.SetActive (true);
 		InitScores (true);
