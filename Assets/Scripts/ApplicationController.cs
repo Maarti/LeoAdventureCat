@@ -6,6 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System;
 using System.IO;
 using System.ComponentModel;
+using System.Linq;
 
 
 public class ApplicationController : MonoBehaviour
@@ -75,6 +76,9 @@ public class ApplicationController : MonoBehaviour
 		items = new Dictionary<ItemEnum, Item> ();
 		items.Add (ItemEnum.level_1_02, new Item (ItemEnum.level_1_02, "LEVEL", "LEVEL_DESC", 50, LevelEnum.level_1_02));
 		items.Add (ItemEnum.level_1_03, new Item (ItemEnum.level_1_03, "LEVEL", "LEVEL_DESC", 99, LevelEnum.level_1_03));
+		items.Add (ItemEnum.max_life_1, new Item (ItemEnum.max_life_1, "ITEM_MAX_LIFE", "ITEM_MAX_LIFE_DESC", 200));
+		items.Add (ItemEnum.max_life_2, new Item (ItemEnum.max_life_2, "ITEM_MAX_LIFE", "ITEM_MAX_LIFE_DESC", 500));
+		items.Add (ItemEnum.max_life_3, new Item (ItemEnum.max_life_3, "ITEM_MAX_LIFE", "ITEM_MAX_LIFE_DESC", 1000));
 	}
 
 	public void FinishLevel (LevelEnum level, int score = 100, bool doSave = true)
@@ -110,8 +114,14 @@ public class ApplicationController : MonoBehaviour
 				UnlockLevel (this.items [itemEnum].level, false);
 			}
 
-			if (!initMode)
+			if (!initMode) {
 				playerData.updateKittys (-price, kittyzText, false);
+
+				// if the item is a "max_life" item
+				if (Item.max_life_items.Contains (itemEnum)) {
+					this.playerData.max_life++;
+				}
+			}
 
 			if (doSave)
 				Save ();
@@ -157,7 +167,7 @@ public class ApplicationController : MonoBehaviour
 [Serializable]
 public class PlayerData
 {
-	public int dataVersion = 1, kittyz = 0, lang_id = 0;
+	public int dataVersion = 1, kittyz = 0, lang_id = 0, max_life = 3;
 	public List<LevelEnum> unlockedLvls, completedLvls;
 	public List<ItemEnum> boughtItems, equippedItems;
 	public Dictionary<LevelEnum,int> scores;
@@ -256,6 +266,7 @@ public enum LevelEnum
 
 public class Item
 {
+	public static ItemEnum[] max_life_items = { ItemEnum.max_life_1, ItemEnum.max_life_2, ItemEnum.max_life_3 };
 	public ItemEnum id;
 	public bool isBought = false, isEquipped = false;
 	public int price;
@@ -290,7 +301,10 @@ public enum ItemEnum
 {
 	none,
 	level_1_02,
-	level_1_03
+	level_1_03,
+	max_life_1,
+	max_life_2,
+	max_life_3
 }
 
 public enum DifficultyEnum
