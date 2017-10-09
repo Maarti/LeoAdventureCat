@@ -82,8 +82,6 @@ public class PlayerController : MonoBehaviour, IDefendable
 			Flip ();
 		else if (horizonalInput < 0 && facingRight)
 			Flip ();
-
-		Debug.Log ("x velocity = " + rb.velocity.x);
 	}
 
 	public void Jump ()
