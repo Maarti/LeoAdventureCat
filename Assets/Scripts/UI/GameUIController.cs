@@ -12,10 +12,10 @@ public class GameUIController : MonoBehaviour
 	public Transform heartPrefab;
 	public AudioClip scoreSound;
 	GameController gc;
-	Text kittyzTxt, timeTxt, lifeTxt, scoreTxt, targetKittyzTxt, targetTimeTxt, targetLifeTxt, scoreLabelTxt;
+	Text kittyzTxt, timeTxt, lifeTxt, scoreTxt, targetKittyzTxt, targetTimeTxt, targetLifeTxt, scoreLabelTxt, totalKittyzText;
 	bool /*isStarted = false,*/ targetsInited = false;
 	GameObject lifeBar, buttons_1, buttonNext, buttonResume, pauseTitle, topUI, checkpointController;
-	RectTransform blocScore;
+	//RectTransform blocScore;
 	Dictionary<DialogEnum,Dialog> dialogDico;
 	Level level;
 	/*Text dialName, dialText;
@@ -30,8 +30,9 @@ public class GameUIController : MonoBehaviour
 		LevelEnum lvlEnum = (LevelEnum)Enum.Parse (typeof(LevelEnum), sceneName);
 		level = ApplicationController.ac.levels [lvlEnum];
 		//PausePanel
-		blocScore = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores").GetComponent<RectTransform> ();
+		//blocScore = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores").GetComponent<RectTransform> ();
 		buttons_1 = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Buttons_1");
+		totalKittyzText = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Buttons_1/KittyzPanel/KittyzText").GetComponent<Text> ();
 		buttonNext = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Buttons_2/NextLevelButton");
 		buttonResume = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Buttons_2/ResumeButton");
 		pauseTitle = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Title");
@@ -109,6 +110,26 @@ public class GameUIController : MonoBehaviour
 			gc.PauseGame (pause);
 	}
 
+	public void BuyItem (int item)
+	{
+		switch (item) {
+		case 0: // LIFE
+			if (ApplicationController.ac.playerData.kittyz >= 5 && ApplicationController.ac.playerData.max_life > gc.pc.life) { //item price hardcoded
+				gc.PlayerInjured (-1);
+				ApplicationController.ac.playerData.updateKittys (-5, totalKittyzText, true);
+			}
+			break;
+		case 1: // CHECKPOINT
+			if (ApplicationController.ac.playerData.kittyz >= 15) { //item price hardcoded
+				ApplicationController.ac.playerData.updateKittys (-15, totalKittyzText, true);
+				ReloadScene (true);
+			}
+			break;
+		default:
+			break;
+		}
+	}
+
 	public void DisplayMobileController (bool setActive = true)
 	{
 		if (mobileController)
@@ -125,7 +146,7 @@ public class GameUIController : MonoBehaviour
 		gc.EndGame ();
 		DisplayTopUI (false);
 		buttons_1.SetActive (false);
-		blocScore.offsetMax = new Vector2 (blocScore.offsetMax.x, -100);
+		//blocScore.offsetMax = new Vector2 (blocScore.offsetMax.x, -100);
 		pausePanel.SetActive (true);
 		InitScores (true);
 		if (mobileController)

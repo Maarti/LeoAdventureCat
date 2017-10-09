@@ -12,7 +12,8 @@ public class PlayerController : MonoBehaviour, IDefendable
 	public int life = 3, damage = 1;
 
 	const int lifeMax = 10;
-	float hInput = 0, timeBeingInvincible = 1.5f;
+	float hInput = 0;
+	float timeBeingInvincible = 1.5f;
 	bool facingRight = false, isBumped = false, isInvincible = false;
 	Rigidbody2D rb;
 	Animator animator;
@@ -36,24 +37,22 @@ public class PlayerController : MonoBehaviour, IDefendable
 
 	void Update ()
 	{
-		
+		#if !UNITY_ANDROID && !UNITY_IPHONE && !UNITY_BLACKBERRY && !UNITY_WINRT || UNITY_EDITOR
+		if (Input.GetButtonDown ("Jump"))
+			Jump ();
+		else if (Input.GetButtonUp ("Jump"))
+			StopJump ();
+		if (Input.GetButtonDown ("Fire1"))
+			Attack ();
+		#endif
 	}
 
 	void FixedUpdate ()
 	{
 		#if !UNITY_ANDROID && !UNITY_IPHONE && !UNITY_BLACKBERRY && !UNITY_WINRT || UNITY_EDITOR
 		Move (Input.GetAxisRaw ("Horizontal"));
-		if (Input.GetButtonDown ("Jump"))
-			Jump ();
-		else if (Input.GetButtonUp ("Jump"))
-			StopJump ();
 		#else
 		Move (hInput);
-		#endif
-
-		#if !UNITY_ANDROID && !UNITY_IPHONE && !UNITY_BLACKBERRY && !UNITY_WINRT || UNITY_EDITOR
-		if (Input.GetButtonDown ("Fire1"))
-			Attack ();
 		#endif
 
 		isGrounded = Physics2D.OverlapArea (checkGroundTop.position, checkGroundBottom.position, playerMask);

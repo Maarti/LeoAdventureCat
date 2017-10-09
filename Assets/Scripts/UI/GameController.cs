@@ -13,8 +13,8 @@ public class GameController : MonoBehaviour
 	public float levelTimer = 0f;
 	public bool gamePaused = false, gameFinished = false;
 	public Level level;
+	public PlayerController pc;
 	GameUIController guic;
-	PlayerController pc;
 	bool lifeBarInit = false;
 
 	void Awake ()
@@ -89,7 +89,10 @@ public class GameController : MonoBehaviour
 
 	public void PlayerInjured (int dmg)
 	{
-		this.lifeLost += dmg;
+		if (dmg > 0)
+			this.lifeLost += dmg;
+		else
+			this.pc.life -= dmg;
 		guic.DrawLifebar (pc.life);
 	}
 
