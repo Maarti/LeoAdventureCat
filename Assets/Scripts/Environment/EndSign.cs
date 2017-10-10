@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class EndSign : MonoBehaviour
 {
-	public LevelEnum currentLevel = LevelEnum.level_1_01;
+	//public LevelEnum currentLevel = LevelEnum.level_1_01;
 	protected GameUIController guic;
 
 	protected virtual void Start ()

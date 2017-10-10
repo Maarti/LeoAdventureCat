@@ -64,9 +64,9 @@ public class ApplicationController : MonoBehaviour
 		// Initialise all levels
 		Dictionary<LevelEnum,Level> lvls = new Dictionary<LevelEnum, Level> ();
 		lvls.Add (LevelEnum.level_1_story, new Level (LevelEnum.level_1_story, "1-", World.Forest, DifficultyEnum.EASY, 10, 135, 3, LevelEnum.level_1_01, false, true));
-		lvls.Add (LevelEnum.level_1_01, new Level (LevelEnum.level_1_01, "1-01", World.Forest, DifficultyEnum.EASY, 10, 50, 3, LevelEnum.level_1_02, false));
-		lvls.Add (LevelEnum.level_1_02, new Level (LevelEnum.level_1_02, "1-02", World.Forest, DifficultyEnum.MEDIUM, 20, 40, 3, LevelEnum.level_1_03, true));
-		lvls.Add (LevelEnum.level_1_03, new Level (LevelEnum.level_1_03, "1-03", World.Forest, DifficultyEnum.MEDIUM, 20, 34, 1, LevelEnum.level_1_01, true));
+		lvls.Add (LevelEnum.level_1_01, new Level (LevelEnum.level_1_01, "1-01", World.Forest, DifficultyEnum.EASY, 10, 50, 3, LevelEnum.level_1_story, false));
+		//lvls.Add (LevelEnum.level_1_02, new Level (LevelEnum.level_1_02, "1-02", World.Forest, DifficultyEnum.MEDIUM, 20, 40, 3, LevelEnum.level_1_03, true));
+		//lvls.Add (LevelEnum.level_1_03, new Level (LevelEnum.level_1_03, "1-03", World.Forest, DifficultyEnum.MEDIUM, 20, 34, 1, LevelEnum.level_1_01, true));
 		this.levels = lvls;
 	}
 
@@ -74,8 +74,8 @@ public class ApplicationController : MonoBehaviour
 	{
 		// Init all items
 		items = new Dictionary<ItemEnum, Item> ();
-		items.Add (ItemEnum.level_1_02, new Item (ItemEnum.level_1_02, "LEVEL", "LEVEL_DESC", 50, LevelEnum.level_1_02));
-		items.Add (ItemEnum.level_1_03, new Item (ItemEnum.level_1_03, "LEVEL", "LEVEL_DESC", 99, LevelEnum.level_1_03));
+		//items.Add (ItemEnum.level_1_02, new Item (ItemEnum.level_1_02, "LEVEL", "LEVEL_DESC", 50, LevelEnum.level_1_02));
+		//items.Add (ItemEnum.level_1_03, new Item (ItemEnum.level_1_03, "LEVEL", "LEVEL_DESC", 99, LevelEnum.level_1_03));
 		items.Add (ItemEnum.max_life_1, new Item (ItemEnum.max_life_1, "ITEM_MAX_LIFE", "ITEM_MAX_LIFE_DESC", 200));
 		items.Add (ItemEnum.max_life_2, new Item (ItemEnum.max_life_2, "ITEM_MAX_LIFE", "ITEM_MAX_LIFE_DESC", 500));
 		items.Add (ItemEnum.max_life_3, new Item (ItemEnum.max_life_3, "ITEM_MAX_LIFE", "ITEM_MAX_LIFE_DESC", 1000));
@@ -258,10 +258,18 @@ public enum LevelEnum
 {
 	none,
 	main_menu,
+	level_1_story,
 	level_1_01,
 	level_1_02,
 	level_1_03,
-	level_1_story
+	level_1_04,
+	level_1_05,
+	level_1_06,
+	level_1_07,
+	level_1_08,
+	level_1_09,
+	level_1_10
+
 }
 
 public class Item
