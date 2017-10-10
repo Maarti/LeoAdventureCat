@@ -29,6 +29,7 @@ public class CheckPointController : MonoBehaviour
 			DestroyKittyz ();
 			LoadScores ();
 			TeleportPlayerToCheckpoint ();
+			this.temporaryKittyzDestroyed = new List<string> (this.savedKittyzDestroyed);
 		}
 	}
 
