@@ -129,10 +129,12 @@ public class GameUIController : MonoBehaviour
 		}
 	}
 
-	public void DisplayMobileController (bool setActive = true)
+	public void DisplayMobileController (bool setActive = true, bool blockRayCasts = true)
 	{
-		if (mobileController)
+		if (mobileController) {
 			mobileController.SetActive (setActive);
+			mobileController.GetComponent<CanvasGroup> ().blocksRaycasts = blockRayCasts;
+		}
 	}
 
 	public void DisplayTopUI (bool setActive = true)
@@ -215,6 +217,7 @@ public class GameUIController : MonoBehaviour
 		gc.DisplayDialog (true); // pause the game
 		dialogPanel.SetActive (true);
 		DisplayTopUI (false);
+		DisplayMobileController (true, false);
 		dialogPanel.GetComponent<DialogController> ().dialog = dialog;
 		dialogPanel.GetComponent<DialogController> ().DisplayDialog ();
 
@@ -239,6 +242,7 @@ public class GameUIController : MonoBehaviour
 		gc.DisplayDialog (false);
 		dialogPanel.SetActive (false);	
 		DisplayTopUI ();
+		DisplayMobileController ();
 	}
 
 	// Manage the dialogs that have to be loaded for each level
