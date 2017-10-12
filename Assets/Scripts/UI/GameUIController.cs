@@ -258,9 +258,7 @@ public class GameUIController : MonoBehaviour
 			};
 			dialogDico.Add (DialogEnum.tuto_jump, new Dialog (dl));
 			dl = new List<DialogLine> () {
-				new DialogLine ("TUTO_ATTACK_1", "LEO", portraitLeo),
-				new DialogLine ("TUTO_ATTACK_2", "LEO", portraitLeo),
-				new DialogLine ("TUTO_ATTACK_3", "LEO", portraitLeo)
+				new DialogLine ("TUTO_ATTACK", "LEO", portraitLeo)
 			};
 			dialogDico.Add (DialogEnum.tuto_attack, new Dialog (dl));
 			dl = new List<DialogLine> () {
