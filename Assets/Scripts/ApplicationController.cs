@@ -66,7 +66,8 @@ public class ApplicationController : MonoBehaviour
 		lvls.Add (LevelEnum.level_1_story, new Level (LevelEnum.level_1_story, "1-", World.Forest, DifficultyEnum.EASY, 10, 135, 3, LevelEnum.level_1_01, false, true));
 		lvls.Add (LevelEnum.level_1_01, new Level (LevelEnum.level_1_01, "1-01", World.Forest, DifficultyEnum.EASY, 10, 90, 3, LevelEnum.level_1_02, false));
 		lvls.Add (LevelEnum.level_1_02, new Level (LevelEnum.level_1_02, "1-02", World.Forest, DifficultyEnum.EASY, 10, 90, 1, LevelEnum.level_1_03, false));
-		lvls.Add (LevelEnum.level_1_03, new Level (LevelEnum.level_1_03, "1-03", World.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_01, false));
+		lvls.Add (LevelEnum.level_1_03, new Level (LevelEnum.level_1_03, "1-03", World.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_12, false));
+		lvls.Add (LevelEnum.level_1_12, new Level (LevelEnum.level_1_12, "1-12", World.Forest, DifficultyEnum.NIGHTMAR, 40, 120, 8, LevelEnum.level_1_01, true));
 		this.levels = lvls;
 	}
 
@@ -74,8 +75,7 @@ public class ApplicationController : MonoBehaviour
 	{
 		// Init all items
 		items = new Dictionary<ItemEnum, Item> ();
-		//items.Add (ItemEnum.level_1_02, new Item (ItemEnum.level_1_02, "LEVEL", "LEVEL_DESC", 50, LevelEnum.level_1_02));
-		//items.Add (ItemEnum.level_1_03, new Item (ItemEnum.level_1_03, "LEVEL", "LEVEL_DESC", 99, LevelEnum.level_1_03));
+		items.Add (ItemEnum.level_1_12, new Item (ItemEnum.level_1_12, "LEVEL", "LEVEL_DESC", 50, LevelEnum.level_1_12));
 		items.Add (ItemEnum.max_life_1, new Item (ItemEnum.max_life_1, "ITEM_MAX_LIFE", "ITEM_MAX_LIFE_DESC", 200));
 		items.Add (ItemEnum.max_life_2, new Item (ItemEnum.max_life_2, "ITEM_MAX_LIFE", "ITEM_MAX_LIFE_DESC", 500));
 		items.Add (ItemEnum.max_life_3, new Item (ItemEnum.max_life_3, "ITEM_MAX_LIFE", "ITEM_MAX_LIFE_DESC", 1000));
@@ -268,8 +268,17 @@ public enum LevelEnum
 	level_1_07,
 	level_1_08,
 	level_1_09,
-	level_1_10
-
+	level_1_10,
+	level_1_11,
+	level_1_12,
+	level_1_13,
+	level_1_14,
+	level_1_15,
+	level_1_16,
+	level_1_17,
+	level_1_18,
+	level_1_19,
+	level_1_20
 }
 
 public class Item
@@ -308,11 +317,19 @@ public class Item
 public enum ItemEnum
 {
 	none,
-	level_1_02,
-	level_1_03,
 	max_life_1,
 	max_life_2,
-	max_life_3
+	max_life_3,
+	level_1_11,
+	level_1_12,
+	level_1_13,
+	level_1_14,
+	level_1_15,
+	level_1_16,
+	level_1_17,
+	level_1_18,
+	level_1_19,
+	level_1_20
 }
 
 public enum DifficultyEnum
