@@ -72,6 +72,11 @@ adb shell
 settings get secure android_id
 ```
 
+**Tiled2Unity : Sorting Layer**
+* [How to auto import Sorting Layer](http://www.seanba.com/megadadadventures.html)
+* Create a string custom property named `sortingLayerName` on the Tiled layer, and set it with the name of the Unity sorting layer.
+* For the collision layer, clic on the rectangle collider in the Tile Collision Editor and the `Type` property to match the physics layer in Unity.
+
 ### Graphismes
 * **Bonus/Icônes :** Filtres > Distorsion de lentille
 * Sprites : Contour avec crayon taille 2, puis selection, réduire de 1, inverser la sélection, adoucir de 2, supprimer
