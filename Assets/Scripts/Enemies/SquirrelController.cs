@@ -17,6 +17,7 @@ public class SquirrelController : MonoBehaviour, IAttackable
 	int currentNut = 0;
 	Transform losTop, losBottom, nutTransform;
 	Animator animator;
+	AudioSource audioSource;
 
 	// Use this for initialization
 	void Start ()
@@ -28,6 +29,7 @@ public class SquirrelController : MonoBehaviour, IAttackable
 		losBottom = transform.Find ("lineOfSightBottom").transform;
 		nutTransform = transform.Find ("Body").Find ("HazelNut").transform;
 		animator = GetComponent<Animator> ();
+		audioSource = GetComponent<AudioSource> ();
 	}
 
 	void Update ()
@@ -58,6 +60,7 @@ public class SquirrelController : MonoBehaviour, IAttackable
 			nutForce.x = (player.transform.position.x - nutProjectile.transform.position.x) + playerRb.velocity.x;
 		nutProjectile.GetComponent<Rigidbody2D> ().velocity = nutForce;
 		//GameObject.Destroy (nutProjectile.gameObject, nutTimeToLive);
+		audioSource.Play ();
 		StartCoroutine (RespawnNut (nutRespawnTime));
 	}
 
