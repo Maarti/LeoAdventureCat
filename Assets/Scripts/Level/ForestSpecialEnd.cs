@@ -65,7 +65,7 @@ public class ForestSpecialEnd : EndSign
 
 		// Boss stop absorbing and flip
 		bossCtrlr.StopAbsorb ();
-		bossCtrlr.GetComponent<AudioSource> ().Stop ();
+		bossCtrlr.StopAudio ();
 		yield return new WaitForSeconds (1f);
 		bossCtrlr.Flip ();
 

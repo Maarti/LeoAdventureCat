@@ -153,7 +153,7 @@ public class GameUIController : MonoBehaviour
 		//blocScore.offsetMax = new Vector2 (blocScore.offsetMax.x, -100);
 		pausePanel.SetActive (true);
 		InitScores (true);
-		audioSource.PlayOneShot (winSound);
+		audioSource.PlayOneShot (winSound, 0.5f);
 		if (mobileController)
 			mobileController.SetActive (false);
 	}

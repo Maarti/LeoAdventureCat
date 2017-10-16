@@ -7,7 +7,7 @@ public class DogCatcherController : MonoBehaviour, IDefendable
 	public float waitingBetweenPhases = 4f;
 	public int life = 40;
 	public Transform nutPrefab;
-	public AudioClip throwSound, shopVacSound;
+	public AudioClip throwSound, shopVacSound, bossHitSound;
 	int currentPhase = 0, previousPhase = 0;
 	bool waitingForNextPhase = false, facingRight = false;
 	GameObject player, attackPointEffector;
@@ -79,6 +79,7 @@ public class DogCatcherController : MonoBehaviour, IDefendable
 	{
 		animator.SetBool ("isAbsorbing", false);
 		attackPointEffector.SetActive (false);
+		Invoke ("StopAudio", 1f);
 		Debug.Log ("stop Abs");
 	}
 
@@ -126,7 +127,7 @@ public class DogCatcherController : MonoBehaviour, IDefendable
 			else {
 				animator.SetTrigger ("hit");
 				if (!audioSource.isPlaying)
-					audioSource.Play ();
+					audioSource.PlayOneShot (bossHitSound);
 			}
 		}
 		Debug.Log ("boss attacked, life = " + life);
@@ -139,9 +140,9 @@ public class DogCatcherController : MonoBehaviour, IDefendable
 		StopAllCoroutines ();
 		animator.SetTrigger ("die");
 		Physics2D.IgnoreCollision (GetComponent<Collider2D> (), player.GetComponent<Collider2D> ());
-		audioSource.pitch = 0.8f;
 		audioSource.Stop ();
-		audioSource.Play ();
+		audioSource.pitch = 0.8f;
+		audioSource.PlayOneShot (bossHitSound);
 	}
 
 	public void Flip ()
@@ -154,5 +155,10 @@ public class DogCatcherController : MonoBehaviour, IDefendable
 	public void Run (bool run = true)
 	{
 		animator.SetBool ("isRunning", run);
+	}
+
+	public void StopAudio ()
+	{
+		audioSource.Stop ();
 	}
 }
