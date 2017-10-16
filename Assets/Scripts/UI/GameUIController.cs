@@ -10,7 +10,7 @@ public class GameUIController : MonoBehaviour
 	public GameObject pausePanel, mobileController, dialogPanel;
 	public bool gamePaused = false;
 	public Transform heartPrefab;
-	public AudioClip scoreSound;
+	public AudioClip scoreSound, pauseSound, winSound;
 	GameController gc;
 	Text kittyzTxt, timeTxt, lifeTxt, scoreTxt, targetKittyzTxt, targetTimeTxt, targetLifeTxt, scoreLabelTxt, totalKittyzText;
 	bool /*isStarted = false,*/ targetsInited = false;
@@ -18,6 +18,7 @@ public class GameUIController : MonoBehaviour
 	//RectTransform blocScore;
 	Dictionary<DialogEnum,Dialog> dialogDico;
 	Level level;
+	AudioSource audioSource;
 	/*Text dialName, dialText;
 	Image dialPortrait;*/
 
@@ -55,7 +56,7 @@ public class GameUIController : MonoBehaviour
 		checkpointController = GameObject.Find ("CheckPointController");
 
 		InstantiateDialogs ();
-		//isStarted = true;
+		audioSource = GetComponent<AudioSource> ();
 	}
 
 	void InitScores (bool gameFinished = false)
@@ -91,6 +92,7 @@ public class GameUIController : MonoBehaviour
 	public void TooglePause ()
 	{
 		PauseGame (!gamePaused);
+		audioSource.PlayOneShot (pauseSound);
 	}
 
 	public void PauseGame (bool pause = true)
@@ -151,6 +153,7 @@ public class GameUIController : MonoBehaviour
 		//blocScore.offsetMax = new Vector2 (blocScore.offsetMax.x, -100);
 		pausePanel.SetActive (true);
 		InitScores (true);
+		audioSource.PlayOneShot (winSound);
 		if (mobileController)
 			mobileController.SetActive (false);
 	}
@@ -189,7 +192,7 @@ public class GameUIController : MonoBehaviour
 		float animDuration = scoreSound.length;
 		int start = 0;
 		int currentAnimScore = 0;
-		GetComponent<AudioSource> ().PlayOneShot (scoreSound);
+		audioSource.PlayOneShot (scoreSound);
 		for (float timer = 0; timer < animDuration; timer += Time.fixedDeltaTime) {
 			float progress = timer / animDuration;
 			currentAnimScore = (int)Mathf.Lerp (start, score, progress);

@@ -7,6 +7,7 @@ public class DogCatcherController : MonoBehaviour, IDefendable
 	public float waitingBetweenPhases = 4f;
 	public int life = 40;
 	public Transform nutPrefab;
+	public AudioClip throwSound, shopVacSound;
 	int currentPhase = 0, previousPhase = 0;
 	bool waitingForNextPhase = false, facingRight = false;
 	GameObject player, attackPointEffector;
@@ -14,6 +15,7 @@ public class DogCatcherController : MonoBehaviour, IDefendable
 	Transform projectilePosition;
 	Animator animator;
 	float lastTimeCollision = -2f;
+	AudioSource audioSource;
 
 
 	// Use this for initialization
@@ -25,6 +27,7 @@ public class DogCatcherController : MonoBehaviour, IDefendable
 		projectilePosition = transform.Find ("Body/Arm2/ProjectilePosition");
 		attackPointEffector = transform.Find ("Body/Weapon/AttackPointEffector").gameObject;
 		attackPointEffector.SetActive (false);
+		audioSource = GetComponent<AudioSource> ();
 	}
 	
 	// Update is called once per frame
@@ -68,6 +71,7 @@ public class DogCatcherController : MonoBehaviour, IDefendable
 	{
 		animator.SetBool ("isAbsorbing", true);
 		attackPointEffector.SetActive (true);
+		audioSource.PlayOneShot (shopVacSound);
 		Debug.Log ("start Abs");
 	}
 
@@ -100,6 +104,7 @@ public class DogCatcherController : MonoBehaviour, IDefendable
 		Vector2 nutForce = new Vector2 (1, 3);
 		nutForce.x = (player.transform.position.x - nutProjectile.transform.position.x) + playerRb.velocity.x;
 		nutProjectile.GetComponent<Rigidbody2D> ().velocity = nutForce;
+		audioSource.PlayOneShot (throwSound, 0.5f);
 	}
 
 
@@ -118,9 +123,11 @@ public class DogCatcherController : MonoBehaviour, IDefendable
 			this.life -= damage;
 			if (life <= 0)
 				Die ();
-			else
+			else {
 				animator.SetTrigger ("hit");
-			//StartCoroutine ("FadeToRed", .25f);
+				if (!audioSource.isPlaying)
+					audioSource.Play ();
+			}
 		}
 		Debug.Log ("boss attacked, life = " + life);
 	}
@@ -132,6 +139,9 @@ public class DogCatcherController : MonoBehaviour, IDefendable
 		StopAllCoroutines ();
 		animator.SetTrigger ("die");
 		Physics2D.IgnoreCollision (GetComponent<Collider2D> (), player.GetComponent<Collider2D> ());
+		audioSource.pitch = 0.8f;
+		audioSource.Stop ();
+		audioSource.Play ();
 	}
 
 	public void Flip ()

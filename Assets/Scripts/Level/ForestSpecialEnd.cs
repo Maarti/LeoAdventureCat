@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class ForestSpecialEnd : EndSign
 {
 
-	public AudioClip carDoorSound, carIdleSound;
+	public AudioClip carDoorSound, carIdleSound, scaryBossAwake;
 	GameObject boss, player, van;
 	Transform doorPosition, drivingPosition, vanLeftPosition, vanRightPosition;
 	Animator bossAnim, vanAnim;
@@ -49,6 +49,7 @@ public class ForestSpecialEnd : EndSign
 	IEnumerator EndingAnimation ()
 	{
 		// Boss wake up and flip to player
+		PlaySound (scaryBossAwake);
 		bossAnim.SetTrigger ("wakeUp");
 		yield return new WaitForSeconds (2f);
 
@@ -64,6 +65,7 @@ public class ForestSpecialEnd : EndSign
 
 		// Boss stop absorbing and flip
 		bossCtrlr.StopAbsorb ();
+		bossCtrlr.GetComponent<AudioSource> ().Stop ();
 		yield return new WaitForSeconds (1f);
 		bossCtrlr.Flip ();
 
