@@ -4,7 +4,7 @@ using System.Collections;
 public class MouthController : MonoBehaviour
 {
 
-	public AudioClip jumpAudio, biteAudio, hitAudio;
+	public AudioClip jumpAudio, biteAudio, hitAudio, dieAudio;
 
 	AudioSource audioSource;
 	SpriteRenderer sprite;
@@ -38,13 +38,16 @@ public class MouthController : MonoBehaviour
 			audioSource.pitch = Random.Range (0.9f, 1.1f);
 			audio = hitAudio;
 			break;
+		case "die":
+			audio = dieAudio;
+			break;
 		default:
 			return;
 		}
 
 		if (audioSource.isPlaying)
-			audioSource.Stop ();						//stop playing current sound
-		audioSource.PlayOneShot (audio);			//play audio
+			audioSource.Stop ();					 //stop playing current sound
+		audioSource.PlayOneShot (audio);			 //play audio
 		StartCoroutine (CloseMouthIn (audio.length));//close mouth when finished
 	}
 

@@ -144,7 +144,6 @@ public class PlayerController : MonoBehaviour, IDefendable
 				StartCoroutine (BeingBump (bumpTime));
 			}
 			GetInjured (damage);
-			mouth.Meowing ("hit");
 			StartCoroutine (BeingInvincible ());
 		}
 	}
@@ -186,8 +185,11 @@ public class PlayerController : MonoBehaviour, IDefendable
 		dmg = Mathf.Clamp (dmg, 0, life);
 		this.life -= dmg;
 		GameController.gc.PlayerInjured (dmg);
-		if (this.life <= 0)
+		if (this.life <= 0) {
+			mouth.Meowing ("die");
 			GameController.gc.GameOver ();
+		} else
+			mouth.Meowing ("hit");
 	}
 
 	public void CollectKittyz (int amount = 1)

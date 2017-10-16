@@ -192,7 +192,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4899083772966332}
-  - component: {fileID: 212518055913517130}
   - component: {fileID: 114619710614098886}
   - component: {fileID: 50458380817664932}
   - component: {fileID: 61689391394710506}
@@ -567,7 +566,8 @@ MonoBehaviour:
   selfBumpMultiplier: 2
   bumpOnCollision: {x: -2, y: 3}
   isAtacking: 0
-  dyingSound: {fileID: 8300000, guid: 8ef9dd12d78e0aa498e73b398526a51c, type: 3}
+  dyingSound: {fileID: 8300000, guid: 8d8faa9672e63354cb79f6be01daf755, type: 3}
+  introSound: {fileID: 8300000, guid: a92e5c9fa9921104bbfedf79612ff031, type: 3}
 --- !u!212 &212295063055523960
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -693,48 +693,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
---- !u!212 &212518055913517130
-SpriteRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1796974937458474}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
 --- !u!212 &212589500901151116
 SpriteRenderer:

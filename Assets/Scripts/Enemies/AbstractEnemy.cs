@@ -11,13 +11,15 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 	public float selfBumpMultiplier = 0f;
 	public Vector2 bumpOnCollision = new Vector2 (-2, 3);
 	public bool isAtacking = false;
-	public AudioClip dyingSound;
+	public AudioClip dyingSound, introSound;
 
-	protected bool facingRight = false;
+	protected bool facingRight = false, introSoundPlayed = false;
 	protected Rigidbody2D rb;
 	protected Transform groundCheck, startLoS, wallCheckTop, wallCheckBottom;
 	protected bool isMoving = true, isBumped = false;
 	protected Animator animator;
+	protected Renderer childRenderer;
+	protected AudioSource audioSource;
 
 
 	// Use this for initialization
@@ -29,9 +31,10 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 		wallCheckTop = transform.Find ("wallCheckTop").transform;
 		wallCheckBottom = transform.Find ("wallCheckBottom").transform;
 		animator = GetComponent<Animator> ();
+		childRenderer = GetComponentInChildren<Renderer> ();
+		audioSource = GetComponent<AudioSource> ();
 	}
 
-	// Update is called once per frame
 	protected virtual void FixedUpdate ()
 	{
 		if (life <= 0)
@@ -40,6 +43,16 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 			Patrol ();
 		if (!isAtacking && CheckLoS ())
 			Attack ();
+	}
+
+	// Update is called once per frame
+	protected virtual void Update ()
+	{
+		//Play sound if it enter in camera field
+		if (!introSoundPlayed && introSound != null && childRenderer.isVisible) {
+			audioSource.PlayOneShot (introSound);
+			introSoundPlayed = true;
+		}
 	}
 
 	public GameObject CheckLoS ()
@@ -140,7 +153,7 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 		animator.SetTrigger ("die");
 		lineOfSight = 0f;
 		this.gameObject.layer = LayerMask.NameToLayer ("Transparent");
-		GetComponent<AudioSource> ().PlayOneShot (dyingSound);
+		audioSource.PlayOneShot (dyingSound);
 		GameObject.Destroy (this.gameObject, 5f);
 	}
 

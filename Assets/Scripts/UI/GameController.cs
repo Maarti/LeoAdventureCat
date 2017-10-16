@@ -139,6 +139,12 @@ public class GameController : MonoBehaviour
 
 	public void GameOver ()
 	{
+		Invoke ("ReloadSceneDelay", 2f);
+	}
+
+	// TO DELETE when GameOver menu will be implemented
+	void ReloadSceneDelay ()
+	{
 		ReloadScene (true);
 	}
 
