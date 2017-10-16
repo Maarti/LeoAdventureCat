@@ -108,7 +108,7 @@ public class GameController : MonoBehaviour
 		float kittyzScore = (float)kittyzCollected / targetKittyz;
 
 		// Time score
-		const float timeFlexibility = 2;
+		const float timeFlexibility = 1.5;
 		float timeScore = 0f;
 		if (levelTimer <= targetTime)
 			timeScore = 1f;
@@ -118,7 +118,7 @@ public class GameController : MonoBehaviour
 			timeScore = (targetTime * timeFlexibility - levelTimer) / (targetTime * timeFlexibility - targetTime);
 
 		// Life score
-		const float lifeFlexibility = 3;
+		const float lifeFlexibility = 2;
 		float lifeScore = 0f;
 		if (lifeLost <= targetLife)
 			lifeScore = 1f;
