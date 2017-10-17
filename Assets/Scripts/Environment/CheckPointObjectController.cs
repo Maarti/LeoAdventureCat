@@ -19,6 +19,7 @@ public class CheckPointObjectController : MonoBehaviour
 			CheckPointController.cc.Check (this.gameObject.name);
 			isActivated = true;
 			animator.SetTrigger ("checked");
+			GetComponent<AudioSource> ().Play ();
 		}
 	}
 }
