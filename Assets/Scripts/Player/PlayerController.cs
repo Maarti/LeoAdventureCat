@@ -135,6 +135,8 @@ public class PlayerController : MonoBehaviour, IDefendable
 
 	public void Defend (GameObject attacker, int damage, Vector2 bumpVelocity, float bumpTime)
 	{
+		if (life <= 0) // don't take damge when dead
+			return;
 		if (!isInvincible || attacker.name == "Boundary") {
 			if (bumpVelocity != Vector2.zero) {
 				if ((transform.position.x - attacker.transform.position.x) > 0) // if attacker come from the left, bump to right
@@ -144,7 +146,8 @@ public class PlayerController : MonoBehaviour, IDefendable
 				StartCoroutine (BeingBump (bumpTime));
 			}
 			GetInjured (damage);
-			StartCoroutine (BeingInvincible ());
+			if (life > 0)
+				StartCoroutine (BeingInvincible ());
 		}
 	}
 
@@ -186,10 +189,18 @@ public class PlayerController : MonoBehaviour, IDefendable
 		this.life -= dmg;
 		GameController.gc.PlayerInjured (dmg);
 		if (this.life <= 0) {
-			mouth.Meowing ("die");
-			GameController.gc.GameOver ();
+			Die ();
 		} else
 			mouth.Meowing ("hit");
+	}
+
+	void Die ()
+	{
+		mouth.Meowing ("die");
+		animator.SetBool ("isDead", true);
+		animator.SetTrigger ("die"); // trigger + bool to prevent animator to play death multiple times
+		GameController.gc.GameOver ();
+		StartMoving (0f);
 	}
 
 	public void CollectKittyz (int amount = 1)
