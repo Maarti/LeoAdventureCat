@@ -139,14 +139,9 @@ public class GameController : MonoBehaviour
 
 	public void GameOver ()
 	{
-		Invoke ("ReloadSceneDelay", 2f);
+		guic.GameOver ();
 	}
 
-	// TO DELETE when GameOver menu will be implemented
-	void ReloadSceneDelay ()
-	{
-		ReloadScene (true);
-	}
 
 	public void DisplayDialog (bool pauseGame = true)
 	{

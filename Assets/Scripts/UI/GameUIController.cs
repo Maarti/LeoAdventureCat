@@ -59,7 +59,7 @@ public class GameUIController : MonoBehaviour
 		audioSource = GetComponent<AudioSource> ();
 	}
 
-	void InitScores (bool gameFinished = false)
+	void InitScores (bool gameFinished = false, bool gameOver = false)
 	{
 		kittyzTxt.text = gc.kittyzCollected.ToString ();
 		timeTxt.text = Mathf.CeilToInt (gc.levelTimer).ToString ();
@@ -75,6 +75,13 @@ public class GameUIController : MonoBehaviour
 			buttonNext.GetComponent<Button> ().interactable = (nextLevel.id != gc.level.id) ? true : false;
 			int score = Mathf.FloorToInt (gc.CalculateScore ());
 			StartCoroutine ("animScore", score);
+		} else if (gameOver) {
+			pauseTitle.GetComponent<LocalizationUIText> ().key = "GAME_OVER";/* enabled = false;
+			pauseTitle.GetComponent<Text> ().text = LocalizationManager.Instance.GetText ("COMPLETED");*/
+			scoreTxt.enabled = false;
+			scoreLabelTxt.enabled = false;
+			buttonNext.SetActive (false);
+			buttonResume.SetActive (false);
 		} else {
 			scoreTxt.enabled = false;
 			scoreLabelTxt.enabled = false;
@@ -156,6 +163,22 @@ public class GameUIController : MonoBehaviour
 		audioSource.PlayOneShot (winSound, 0.5f);
 		if (mobileController)
 			mobileController.SetActive (false);
+	}
+
+	public void GameOver ()
+	{
+		DisplayTopUI (false);
+		if (mobileController)
+			mobileController.SetActive (false);
+		StartCoroutine (DisplayGameOverMenu ());
+	}
+
+	IEnumerator DisplayGameOverMenu ()
+	{
+		GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/ShopList/LifeItemPanel/BuyButton").GetComponent<Button> ().interactable = false;
+		yield return new WaitForSeconds (2f);
+		pausePanel.SetActive (true);
+		InitScores (false, true);
 	}
 
 	public void ReloadScene (bool fromCheckpoint = false)
