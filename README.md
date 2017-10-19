@@ -54,15 +54,12 @@ Autrement, vous pouvez participer simplement en regardant une publicité à trav
 ## Memo
 
 ### Planning prévisionnel
-* 03/09 : prototype chat (animé, maintenable)
-* 10/09 :  level prototype
-			+ level creating method
-			+ level background parallax
-			+ UI command
-			+ Android prototype
-* 17/09 :  Create real project
-			+ Game Menu
-* 24/09 :  Dessiner tous les levels
+* 22/10 : 10 forest level teminated
+* 29/10 : world 2 tiles
+* 05/11 : world 2 intro + characters
+* 12/11 : world 2 finished
+* 26/11 : world 3 finished
+* 09/12 : world 4 finished / game launched
 
 ### Remember
 **Use adb logcat :**
