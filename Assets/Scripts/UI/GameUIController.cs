@@ -4,21 +4,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using GoogleMobileAds.Api;
 
 public class GameUIController : MonoBehaviour
 {
 	public GameObject pausePanel, mobileController, dialogPanel;
-	public bool gamePaused = false;
+	public bool gamePaused = false, gameFinished = false;
 	public Transform heartPrefab;
 	public AudioClip scoreSound, pauseSound, winSound;
 	GameController gc;
 	Text kittyzTxt, timeTxt, lifeTxt, scoreTxt, targetKittyzTxt, targetTimeTxt, targetLifeTxt, scoreLabelTxt, totalKittyzText;
-	bool /*isStarted = false,*/ targetsInited = false;
+	bool targetsInited = false, interstitialWatched = false;
 	GameObject lifeBar, buttons_1, buttonNext, buttonResume, pauseTitle, topUI, checkpointController, shoplist;
-	//RectTransform blocScore;
 	Dictionary<DialogEnum,Dialog> dialogDico;
 	Level level;
 	AudioSource audioSource;
+	InterstitialAd interstitial;
+	ActionEnum actionOnEnd = ActionEnum.main_menu;
 	/*Text dialName, dialText;
 	Image dialPortrait;*/
 
@@ -57,6 +59,7 @@ public class GameUIController : MonoBehaviour
 
 		InstantiateDialogs ();
 		audioSource = GetComponent<AudioSource> ();
+		CreateInterstitial ();
 	}
 
 	void InitScores (bool gameFinished = false, bool gameOver = false)
@@ -153,6 +156,7 @@ public class GameUIController : MonoBehaviour
 
 	public void EndGame ()
 	{
+		gameFinished = true;
 		gc.EndGame ();
 		DisplayTopUI (false);
 		buttons_1.SetActive (false);
@@ -183,17 +187,25 @@ public class GameUIController : MonoBehaviour
 
 	public void ReloadScene (bool fromCheckpoint = false)
 	{
-		PauseGame (false);
-		if (!fromCheckpoint)
-			Destroy (checkpointController);
-		SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
+		if (gameFinished && !interstitialWatched) {
+			EndGameAction (ActionEnum.restart_level);
+		} else {
+			PauseGame (false);
+			if (!fromCheckpoint)
+				Destroy (checkpointController);
+			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
+		}
 	}
 
 	public void LoadMainMenu ()
 	{
-		PauseGame (false);
-		Destroy (checkpointController);
-		SceneManager.LoadScene ("main_menu");
+		if (gameFinished && !interstitialWatched) {
+			EndGameAction (ActionEnum.main_menu);
+		} else {
+			PauseGame (false);
+			Destroy (checkpointController);
+			SceneManager.LoadScene ("main_menu");
+		}
 	}
 
 	public void DrawLifebar (int nbHearts)
@@ -231,10 +243,96 @@ public class GameUIController : MonoBehaviour
 
 	public void LoadNextScene ()
 	{
-		Time.timeScale = 1f;
-		Level nextLevel = gc.level.GetNextUnlockedLevel ();
-		SceneManager.LoadScene (nextLevel.id.ToString ());
+		if (gameFinished && !interstitialWatched) {
+			EndGameAction (ActionEnum.next_level);
+		} else {
+			Time.timeScale = 1f;
+			Level nextLevel = gc.level.GetNextUnlockedLevel ();
+			SceneManager.LoadScene (nextLevel.id.ToString ());
+		}
 	}
+
+	/*****************************************************************************/
+	/*							ADS												 */
+	/*****************************************************************************/
+
+	// On game end, play interstitial then do action button
+	void EndGameAction (ActionEnum action)
+	{
+		this.actionOnEnd = action;
+		ShowInterstitial ();
+	}
+
+	void CreateInterstitial ()
+	{
+		Debug.Log ("CREATE INTERSTITIAL");
+		string adUnitIdInterstitial = Config.adUnitIdInterstitial;
+		this.interstitial = new InterstitialAd (adUnitIdInterstitial);
+
+		interstitial.OnAdFailedToLoad += HandleOnAdFailedToLoad;
+		interstitial.OnAdClosed += HandleOnAdFinished;
+		interstitial.OnAdLeavingApplication += HandleOnAdFinished;
+		RequestInterstitial ();
+	}
+
+	void RequestInterstitial ()
+	{
+		Debug.Log ("RESUEST INTERSTITIAL");
+		if (this.interstitial == null || !this.interstitial.IsLoaded ()) {
+			AdRequest request = new AdRequest.Builder ()	
+				.AddTestDevice (AdRequest.TestDeviceSimulator)
+				.AddTestDevice (Config.myTestDevice1) 
+				.AddTestDevice (Config.myTestDevice1Caps) 
+				.AddTestDevice (Config.myTestDevice2) 
+				.AddTestDevice (Config.myTestDevice3)
+				.AddTestDevice (Config.myTestDevice4)
+				.AddTestDevice (Config.myTestDevice5)
+				.Build ();
+			interstitial.LoadAd (request);
+		}
+	}
+
+	void ShowInterstitial ()
+	{		
+		if (this.interstitial.IsLoaded ()) {
+			interstitial.Show ();
+		} else {
+			HandleOnAdFinished (this, null);
+		}
+	}
+
+	void HandleOnAdFailedToLoad (object sender, EventArgs args)
+	{
+		RequestInterstitial ();
+		Debug.Log ("HandleOnAdFailedToLoad");
+	}
+
+	void HandleOnAdFinished (object sender, EventArgs args)
+	{
+		this.interstitial.Destroy ();
+		this.interstitial = null;
+		interstitialWatched = true;
+		Debug.Log ("HandleOnAdFinished " + actionOnEnd.ToString () + "sender=" + sender.ToString ());
+		switch (actionOnEnd) {
+		case ActionEnum.main_menu:
+			LoadMainMenu ();
+			break;
+		case ActionEnum.restart_level:
+			ReloadScene ();
+			break;
+		case ActionEnum.next_level:
+			LoadNextScene ();
+			break;
+		default:
+			LoadMainMenu ();
+			break;
+		}
+
+	}
+
+	/*****************************************************************************/
+	/*							DIALOGS											 */
+	/*****************************************************************************/
 
 	// display a line of a Dialog. Return false if the dialog is finished.
 	public void DisplayDialog (DialogEnum dialogEnum)
@@ -246,21 +344,6 @@ public class GameUIController : MonoBehaviour
 		DisplayMobileController (true, false);
 		dialogPanel.GetComponent<DialogController> ().dialog = dialog;
 		dialogPanel.GetComponent<DialogController> ().DisplayDialog ();
-
-		/*if (dialog.isFinished) {
-			gc.DisplayDialog (false);
-			dialogPanel.SetActive (false);
-			return false;
-		} else {
-			gc.DisplayDialog (true); // pause the game
-			DialogLine dl = dialog.ReadLine ();
-			dialogPanel.SetActive (true);
-			dialName.text = LocalizationManager.Instance.GetText (dl.nameStringId);
-			dialText.text = LocalizationManager.Instance.GetText (dl.textStringId);
-			dialPortrait.sprite = dl.portrait;
-			return true;
-		}*/
-
 	}
 
 	public void FinishDialog ()
@@ -321,6 +404,7 @@ public class GameUIController : MonoBehaviour
 			break;
 		}
 	}
+		
 }
 
 
@@ -386,3 +470,11 @@ public enum DialogEnum
 	first_squirrel,
 	dog_catcher_start
 }
+
+public enum ActionEnum
+{
+	main_menu,
+	restart_level,
+	next_level
+}
+

@@ -1,4 +1,7 @@
-﻿using System;
+﻿// https://developers.google.com/admob/unity/start
+// https://developers.google.com/admob/unity/rewarded-video
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

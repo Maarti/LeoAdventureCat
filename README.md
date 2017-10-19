@@ -65,6 +65,12 @@ Autrement, vous pouvez participer simplement en regardant une publicité à trav
 * 24/09 :  Dessiner tous les levels
 
 ### Remember
+**Use adb logcat :**
+Launch Command Prompt at adb.exe location (*C:\Users\[username]\AppData\Local\Android\android-sdk\platform-tools*) then type : 
+```
+adb logcat -s Unity ActivityManager PackageManager dalvikvm DEBUG
+```
+
 **Get device ID or AdMob :**
 Launch Command Prompt at adb.exe location (*C:\Users\[username]\AppData\Local\Android\android-sdk\platform-tools*) then type : 
 ```
