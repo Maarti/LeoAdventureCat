@@ -266,7 +266,8 @@ public class GameUIController : MonoBehaviour
 	void CreateInterstitial ()
 	{
 		Debug.Log ("CREATE INTERSTITIAL");
-		string adUnitIdInterstitial = Config.adUnitIdInterstitial;
+		//string adUnitIdInterstitial = Config.adUnitIdInterstitial;
+		string adUnitIdInterstitial = "ca-app-pub-3940256099942544/1033173712"; // test ad
 		this.interstitial = new InterstitialAd (adUnitIdInterstitial);
 
 		interstitial.OnAdFailedToLoad += HandleOnAdFailedToLoad;
@@ -283,10 +284,7 @@ public class GameUIController : MonoBehaviour
 				.AddTestDevice (AdRequest.TestDeviceSimulator)
 				.AddTestDevice (Config.myTestDevice1) 
 				.AddTestDevice (Config.myTestDevice1Caps) 
-				.AddTestDevice (Config.myTestDevice2) 
-				.AddTestDevice (Config.myTestDevice3)
-				.AddTestDevice (Config.myTestDevice4)
-				.AddTestDevice (Config.myTestDevice5)
+			                    //.AddTestDevice (Config.myTestDevice2) 
 				.Build ();
 			interstitial.LoadAd (request);
 		}

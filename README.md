@@ -72,11 +72,13 @@ adb logcat -s Unity ActivityManager PackageManager dalvikvm DEBUG
 ```
 
 **Get device ID or AdMob :**
+See [doc](https://developers.google.com/admob/android/test-ads)
 Launch Command Prompt at adb.exe location (*C:\Users\[username]\AppData\Local\Android\android-sdk\platform-tools*) then type : 
 ```
 adb shell
 settings get secure android_id
 ```
+
 
 **Tiled2Unity : Sorting Layer**
 * [How to auto import Sorting Layer](http://www.seanba.com/megadadadventures.html)
