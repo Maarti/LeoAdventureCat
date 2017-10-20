@@ -265,7 +265,6 @@ public class GameUIController : MonoBehaviour
 
 	void CreateInterstitial ()
 	{
-		Debug.Log ("CREATE INTERSTITIAL");
 		//string adUnitIdInterstitial = Config.adUnitIdInterstitial;
 		string adUnitIdInterstitial = "ca-app-pub-3940256099942544/1033173712"; // test ad
 		this.interstitial = new InterstitialAd (adUnitIdInterstitial);
@@ -278,7 +277,6 @@ public class GameUIController : MonoBehaviour
 
 	void RequestInterstitial ()
 	{
-		Debug.Log ("RESUEST INTERSTITIAL");
 		if (this.interstitial == null || !this.interstitial.IsLoaded ()) {
 			AdRequest request = new AdRequest.Builder ()	
 				.AddTestDevice (AdRequest.TestDeviceSimulator)
@@ -302,7 +300,6 @@ public class GameUIController : MonoBehaviour
 	void HandleOnAdFailedToLoad (object sender, EventArgs args)
 	{
 		RequestInterstitial ();
-		Debug.Log ("HandleOnAdFailedToLoad");
 	}
 
 	void HandleOnAdFinished (object sender, EventArgs args)
@@ -310,7 +307,6 @@ public class GameUIController : MonoBehaviour
 		this.interstitial.Destroy ();
 		this.interstitial = null;
 		interstitialWatched = true;
-		Debug.Log ("HandleOnAdFinished " + actionOnEnd.ToString () + "sender=" + sender.ToString ());
 		switch (actionOnEnd) {
 		case ActionEnum.main_menu:
 			LoadMainMenu ();
