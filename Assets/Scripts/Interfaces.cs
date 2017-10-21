@@ -19,3 +19,8 @@ public interface IPatroller
 {
 	void Patrol ();
 }
+
+public interface IGlider
+{
+	Vector3 GetHangGliderPosition ();
+}

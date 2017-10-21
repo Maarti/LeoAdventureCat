@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerController : MonoBehaviour, IDefendable
+public class PlayerController : MonoBehaviour, IDefendable, IGlider
 {
 
 	public Transform scratchPrefab;
@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour, IDefendable
 	public bool isGrounded = false, canMoveInAir = true;
 	public Vector2 offensiveBumpVelocity = new Vector2 (-1.5f, 0.5f);
 	public int life = 3, damage = 1;
+	public Vector3 hangGliderPosition;
 
 	const int lifeMax = 10;
 	float hInput = 0;
@@ -206,5 +207,10 @@ public class PlayerController : MonoBehaviour, IDefendable
 	public void CollectKittyz (int amount = 1)
 	{
 		GameController.gc.CollectKittyz (amount);
+	}
+
+	public Vector3 GetHangGliderPosition ()
+	{
+		return this.hangGliderPosition;
 	}
 }
