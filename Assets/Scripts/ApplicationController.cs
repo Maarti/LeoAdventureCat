@@ -69,7 +69,7 @@ public class ApplicationController : MonoBehaviour
 		lvls.Add (LevelEnum.level_1_03, new Level (LevelEnum.level_1_03, "1-03", World.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_06, false));
 		//lvls.Add (LevelEnum.level_1_04, new Level (LevelEnum.level_1_04, "1-04", World.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_12, false));
 		//lvls.Add (LevelEnum.level_1_05, new Level (LevelEnum.level_1_05, "1-05", World.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_12, false));
-		lvls.Add (LevelEnum.level_1_06, new Level (LevelEnum.level_1_06, "1-06", World.Forest, DifficultyEnum.HARD, 20, 80, 3, LevelEnum.level_1_11, false));
+		lvls.Add (LevelEnum.level_1_06, new Level (LevelEnum.level_1_06, "1-06", World.Forest, DifficultyEnum.HARD, 25, 125, 3, LevelEnum.level_1_11, false));
 		//lvls.Add (LevelEnum.level_1_07, new Level (LevelEnum.level_1_07, "1-07", World.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_12, false));
 		//lvls.Add (LevelEnum.level_1_08, new Level (LevelEnum.level_1_08, "1-08", World.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_12, false));
 		//lvls.Add (LevelEnum.level_1_09, new Level (LevelEnum.level_1_09, "1-09", World.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_12, false));
