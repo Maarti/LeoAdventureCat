@@ -9,11 +9,14 @@ public class HangGliderController : MonoBehaviour
 	PlayerController pc;
 	bool isGliding = false;
 	Rigidbody2D rb;
+	AudioSource audioSource;
+	Animator anim;
 
 	// Use this for initialization
 	void Start ()
 	{
-		
+		audioSource = GetComponent<AudioSource> ();
+		anim = GetComponentInParent<Animator> ();
 	}
 	
 	// Update is called once per frame
@@ -36,16 +39,20 @@ public class HangGliderController : MonoBehaviour
 	{
 		isGliding = true;
 		GetComponent<Collider2D> ().enabled = false;
-		this.transform.parent = glider.transform;
-		transform.localPosition = glider.GetComponent<IGlider> ().GetHangGliderPosition ();
+		anim.SetTrigger ("start_glide");
+		this.transform.parent.parent = glider.transform;
+		transform.parent.localPosition = glider.GetComponent<IGlider> ().GetHangGliderPosition ();
 		rb = glider.GetComponent<Rigidbody2D> ();
 		originalDrag = rb.drag;
 		rb.drag = glideDrag;
+
+		audioSource.Play ();
 	}
 
 	void StopGlid ()
 	{
 		rb.drag = originalDrag;
+		audioSource.Stop ();
 		Destroy (this.gameObject);
 	}
 }
