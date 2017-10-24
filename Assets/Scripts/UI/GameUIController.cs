@@ -312,7 +312,7 @@ public class GameUIController : MonoBehaviour
 			LoadMainMenu ();
 			break;
 		case ActionEnum.restart_level:
-			ReloadScene ();
+			ReloadScene (false);
 			break;
 		case ActionEnum.next_level:
 			LoadNextScene ();
