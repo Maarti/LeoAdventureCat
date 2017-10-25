@@ -1,3 +1,9 @@
+## [1.14.1] - 2017-10-02
+### Fixed
+- Apple Application Loader product catalog exporter now correctly exports tab-separated values for catalogs containing more than one product
+- JSONSerializer - Unity 5.3 build-time regression - missing "type" field on ProductDescription. Field is available in 5.4 and higher.
+- FakeStore - uses Product.storeSpecificId instead of Product.id when reporting purchase failures
+
 ## [1.14.0] - 2017-09-18
 ### Added
 - Codeless IAP - Added an `IAPListener` Component to extend Codeless IAP functionality. Normally with Codeless IAP, purchase events are dispatched to an `IAPButton` UI Component that is associated with a particular product. The `IAPListener` does not show any UI. It will receive purchase events that do not correspond to any active `IAPButton`.
