@@ -181,11 +181,9 @@ public class GameUIController : MonoBehaviour
 	IEnumerator DisplayGameOverMenu ()
 	{
 		isGameOver = true;
-		//GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/ShopList/LifeItemPanel/BuyButton").GetComponent<Button> ().interactable = false;
 		yield return new WaitForSeconds (1f);
-		//pausePanel.SetActive (true);
-		//InitScores (false, true);
 		gameoverPanel.SetActive (true);
+		//countdon before reload from checkpoint
 		for (int i = 5; i > 0; i--) {
 			checkpointCountdown.text = "(" + i.ToString () + ")";
 			yield return new WaitForSeconds (1f);
@@ -196,27 +194,15 @@ public class GameUIController : MonoBehaviour
 
 	public void ReloadScene (bool fromCheckpoint = false)
 	{
-		Debug.Log ("reload");
 		StopCoroutine (DisplayGameOverMenu ());
 		if (gameFinished && !interstitialWatched) {
-			Debug.Log ("reload 1");
 			EndGameAction (ActionEnum.restart_level);
 		} else if (isGameOver && fromCheckpoint && !interstitialWatched) {
-			Debug.Log ("reload 2");
 			EndGameAction (ActionEnum.restart_from_checkpoint);
 		} else {
-			Debug.Log ("reload 3");
 			PauseGame (false);
-			if (!fromCheckpoint) {
-				Debug.Log ("reload destroy " + checkpointController);
-				//Destroy (checkpointController.gameObject);
+			if (!fromCheckpoint)
 				checkpointController.GetComponent<CheckPointController> ().Reset (this.level.id);
-				if (checkpointController)
-					Debug.Log ("reload destroyed " + checkpointController);
-				GameObject.Destroy (checkpointController);
-				GameObject go = GameObject.Find ("CheckPointController");
-				Debug.Log ("go " + go);
-			}
 			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
 		}
 	}
