@@ -63,7 +63,7 @@ public class ApplicationController : MonoBehaviour
 	{
 		// Initialise all levels
 		Dictionary<LevelEnum,Level> lvls = new Dictionary<LevelEnum, Level> ();
-		lvls.Add (LevelEnum.level_1_story, new Level (LevelEnum.level_1_story, "1-", World.Forest, DifficultyEnum.EASY, 10, 135, 3, LevelEnum.level_1_01, false, true));
+		lvls.Add (LevelEnum.level_1_story, new Level (LevelEnum.level_1_story, "1-", World.Forest, DifficultyEnum.EASY, 10, 135, 3, LevelEnum.level_2_story, false, true));
 		lvls.Add (LevelEnum.level_1_01, new Level (LevelEnum.level_1_01, "1-01", World.Forest, DifficultyEnum.EASY, 10, 90, 3, LevelEnum.level_1_02, false));
 		lvls.Add (LevelEnum.level_1_02, new Level (LevelEnum.level_1_02, "1-02", World.Forest, DifficultyEnum.EASY, 10, 45, 0, LevelEnum.level_1_03, false));
 		lvls.Add (LevelEnum.level_1_03, new Level (LevelEnum.level_1_03, "1-03", World.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_06, false));
@@ -76,6 +76,7 @@ public class ApplicationController : MonoBehaviour
 		//lvls.Add (LevelEnum.level_1_10, new Level (LevelEnum.level_1_10, "1-10", World.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_12, false));
 		lvls.Add (LevelEnum.level_1_11, new Level (LevelEnum.level_1_11, "1-11", World.Forest, DifficultyEnum.MEDIUM, 15, 55, 1, LevelEnum.level_1_12, true));
 		lvls.Add (LevelEnum.level_1_12, new Level (LevelEnum.level_1_12, "1-12", World.Forest, DifficultyEnum.NIGHTMAR, 40, 120, 8, LevelEnum.level_1_01, true));
+		lvls.Add (LevelEnum.level_2_story, new Level (LevelEnum.level_2_story, "2-", World.AnimalPound, DifficultyEnum.EASY, 10, 135, 3, LevelEnum.level_1_01, false, true));
 		this.levels = lvls;
 	}
 
@@ -287,7 +288,28 @@ public enum LevelEnum
 	level_1_17,
 	level_1_18,
 	level_1_19,
-	level_1_20
+	level_1_20,
+	level_2_story,
+	level_2_01,
+	level_2_02,
+	level_2_03,
+	level_2_04,
+	level_2_05,
+	level_2_06,
+	level_2_07,
+	level_2_08,
+	level_2_09,
+	level_2_10,
+	level_2_11,
+	level_2_12,
+	level_2_13,
+	level_2_14,
+	level_2_15,
+	level_2_16,
+	level_2_17,
+	level_2_18,
+	level_2_19,
+	level_2_20
 }
 
 public class Item
