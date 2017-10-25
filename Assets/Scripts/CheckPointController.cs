@@ -15,6 +15,7 @@ public class CheckPointController : MonoBehaviour
 
 	void Awake ()
 	{
+		Debug.Log ("cp awake name=" + checkpointName);
 		if (cc == null) {
 			DontDestroyOnLoad (gameObject);
 			cc = this;
@@ -25,7 +26,8 @@ public class CheckPointController : MonoBehaviour
 
 	public void Load ()
 	{
-		if (checkpointName != "null") {
+		Debug.Log ("cp load name=" + checkpointName);
+		if (checkpointName != "null") {			
 			DestroyKittyz ();
 			LoadScores ();
 			TeleportPlayerToCheckpoint ();

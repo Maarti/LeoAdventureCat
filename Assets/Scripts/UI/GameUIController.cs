@@ -8,13 +8,13 @@ using GoogleMobileAds.Api;
 
 public class GameUIController : MonoBehaviour
 {
-	public GameObject pausePanel, mobileController, dialogPanel;
+	public GameObject pausePanel, mobileController, dialogPanel, gameoverPanel;
 	public bool gamePaused = false, gameFinished = false;
 	public Transform heartPrefab;
 	public AudioClip scoreSound, pauseSound, winSound;
 	GameController gc;
-	Text kittyzTxt, timeTxt, lifeTxt, scoreTxt, targetKittyzTxt, targetTimeTxt, targetLifeTxt, scoreLabelTxt, totalKittyzText;
-	bool targetsInited = false, interstitialWatched = false;
+	Text kittyzTxt, timeTxt, lifeTxt, scoreTxt, targetKittyzTxt, targetTimeTxt, targetLifeTxt, scoreLabelTxt, totalKittyzText, checkpointCountdown;
+	bool targetsInited = false, interstitialWatched = false, isGameOver = false;
 	GameObject lifeBar, buttons_1, buttonNext, buttonResume, pauseTitle, topUI, checkpointController, shoplist;
 	Dictionary<DialogEnum,Dialog> dialogDico;
 	Level level;
@@ -45,6 +45,8 @@ public class GameUIController : MonoBehaviour
 		lifeTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreLife/Score").GetComponent<Text> ();
 		scoreTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/TotalScore").GetComponent<Text> ();
 		scoreLabelTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/LabelScore").GetComponent<Text> ();
+		//GameOverPanel
+		checkpointCountdown = GameObject.Find ("Canvas/" + this.name + "/GameOverPanel/Countdown/CheckpointCountdown").GetComponent<Text> ();
 		//TopUI
 		topUI = GameObject.Find ("Canvas/" + this.name + "/TopUI");
 		lifeBar = GameObject.Find ("Canvas/" + this.name + "/TopUI/LifeBar");
@@ -78,13 +80,12 @@ public class GameUIController : MonoBehaviour
 			buttonNext.GetComponent<Button> ().interactable = (nextLevel.id != gc.level.id) ? true : false;
 			int score = Mathf.FloorToInt (gc.CalculateScore ());
 			StartCoroutine ("animScore", score);
-		} else if (gameOver) {
-			pauseTitle.GetComponent<LocalizationUIText> ().key = "GAME_OVER";/* enabled = false;
-			pauseTitle.GetComponent<Text> ().text = LocalizationManager.Instance.GetText ("COMPLETED");*/
+			/*} else if (gameOver) {
+			pauseTitle.GetComponent<LocalizationUIText> ().key = "GAME_OVER";
 			scoreTxt.enabled = false;
 			scoreLabelTxt.enabled = false;
 			buttonNext.SetActive (false);
-			buttonResume.SetActive (false);
+			buttonResume.SetActive (false);*/
 		} else {
 			scoreTxt.enabled = false;
 			scoreLabelTxt.enabled = false;
@@ -179,26 +180,50 @@ public class GameUIController : MonoBehaviour
 
 	IEnumerator DisplayGameOverMenu ()
 	{
-		GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/ShopList/LifeItemPanel/BuyButton").GetComponent<Button> ().interactable = false;
-		yield return new WaitForSeconds (2f);
-		pausePanel.SetActive (true);
-		InitScores (false, true);
+		isGameOver = true;
+		//GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/ShopList/LifeItemPanel/BuyButton").GetComponent<Button> ().interactable = false;
+		yield return new WaitForSeconds (1f);
+		//pausePanel.SetActive (true);
+		//InitScores (false, true);
+		gameoverPanel.SetActive (true);
+		for (int i = 5; i > 0; i--) {
+			checkpointCountdown.text = "(" + i.ToString () + ")";
+			yield return new WaitForSeconds (1f);
+		}
+		checkpointCountdown.text = "(0)";
+		ReloadScene (true);
 	}
 
 	public void ReloadScene (bool fromCheckpoint = false)
 	{
+		Debug.Log ("reload");
+		StopCoroutine (DisplayGameOverMenu ());
 		if (gameFinished && !interstitialWatched) {
+			Debug.Log ("reload 1");
 			EndGameAction (ActionEnum.restart_level);
+		} else if (isGameOver && fromCheckpoint && !interstitialWatched) {
+			Debug.Log ("reload 2");
+			EndGameAction (ActionEnum.restart_from_checkpoint);
 		} else {
+			Debug.Log ("reload 3");
 			PauseGame (false);
-			if (!fromCheckpoint)
-				Destroy (checkpointController);
+			if (!fromCheckpoint) {
+				Debug.Log ("reload destroy " + checkpointController);
+				//Destroy (checkpointController.gameObject);
+				checkpointController.GetComponent<CheckPointController> ().Reset (this.level.id);
+				if (checkpointController)
+					Debug.Log ("reload destroyed " + checkpointController);
+				GameObject.Destroy (checkpointController);
+				GameObject go = GameObject.Find ("CheckPointController");
+				Debug.Log ("go " + go);
+			}
 			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
 		}
 	}
 
 	public void LoadMainMenu ()
 	{
+		StopCoroutine (DisplayGameOverMenu ());
 		if (gameFinished && !interstitialWatched) {
 			EndGameAction (ActionEnum.main_menu);
 		} else {
@@ -313,6 +338,9 @@ public class GameUIController : MonoBehaviour
 			break;
 		case ActionEnum.restart_level:
 			ReloadScene (false);
+			break;
+		case ActionEnum.restart_from_checkpoint:
+			ReloadScene (true);
 			break;
 		case ActionEnum.next_level:
 			LoadNextScene ();
@@ -469,6 +497,7 @@ public enum ActionEnum
 {
 	main_menu,
 	restart_level,
-	next_level
+	next_level,
+	restart_from_checkpoint
 }
 

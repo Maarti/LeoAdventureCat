@@ -80,6 +80,7 @@ public class DogCatcherTrigger : MonoBehaviour
 			AudioSource audioSource = gc.GetComponent<AudioSource> ();
 			audioSource.Stop ();
 			audioSource.clip = bossMusic;
+			audioSource.volume = .5f;
 			audioSource.Play ();
 			musicChanged = true;
 		}

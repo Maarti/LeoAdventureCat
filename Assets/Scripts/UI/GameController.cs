@@ -43,6 +43,7 @@ public class GameController : MonoBehaviour
 		GameObject checkpointControllerObject = GameObject.Find ("CheckPointController");
 		if (checkpointControllerObject) {
 			CheckPointController checkpointController = checkpointControllerObject.GetComponent<CheckPointController> ();
+			Debug.Log ("gamecontroller start lvlenum=" + lvlEnum.ToString ());
 			if (checkpointController.levelEnum == lvlEnum)
 				checkpointController.Load ();
 			else
