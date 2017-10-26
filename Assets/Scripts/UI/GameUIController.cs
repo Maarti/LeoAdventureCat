@@ -338,6 +338,16 @@ public class GameUIController : MonoBehaviour
 
 	}
 
+	public enum ActionEnum
+	{
+		main_menu,
+		restart_level,
+		next_level,
+		restart_from_checkpoint
+	}
+
+
+
 	/*****************************************************************************/
 	/*							DIALOGS											 */
 	/*****************************************************************************/
@@ -362,10 +372,11 @@ public class GameUIController : MonoBehaviour
 		DisplayMobileController ();
 	}
 
-	// Manage the dialogs that have to be loaded for each level
+	// Get the dialogs that have to be loaded for this level
 	void InstantiateDialogs ()
 	{
-		dialogDico = new Dictionary<DialogEnum,Dialog> ();
+		dialogDico = Dialog.InstantiateDialogs (level.id);
+		/*dialogDico = new Dictionary<DialogEnum,Dialog> ();
 		switch (level.id) {
 		case LevelEnum.level_1_story:
 			Sprite portraitLeo = Resources.Load ("Portraits/leo", typeof(Sprite)) as Sprite;
@@ -410,7 +421,7 @@ public class GameUIController : MonoBehaviour
 			break;
 		default:
 			break;
-		}
+		}*/
 	}
 		
 }
@@ -419,7 +430,7 @@ public class GameUIController : MonoBehaviour
 /*****************************************************************************/
 /*							DIALOG CLASSES									 */
 /*****************************************************************************/
-public class DialogLine
+/*public class DialogLine
 {
 	public Sprite portrait;
 	public string nameStringId, textStringId;
@@ -477,13 +488,5 @@ public enum DialogEnum
 	first_hedgehog_2,
 	first_squirrel,
 	dog_catcher_start
-}
-
-public enum ActionEnum
-{
-	main_menu,
-	restart_level,
-	next_level,
-	restart_from_checkpoint
-}
+}*/
 
