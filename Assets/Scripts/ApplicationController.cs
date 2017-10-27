@@ -65,8 +65,8 @@ public class ApplicationController : MonoBehaviour
 	{
 		// Initialise all worlds
 		Dictionary<WorldEnum,World> worlds = new Dictionary<WorldEnum, World> ();
-		worlds.Add (WorldEnum.Forest, new World (WorldEnum.Forest, "FOREST", false));
-		worlds.Add (WorldEnum.AnimalPound, new World (WorldEnum.AnimalPound, "ANIMAL_POUND", true));
+		worlds.Add (WorldEnum.Forest, new World (WorldEnum.Forest, "1_FOREST", false));
+		worlds.Add (WorldEnum.AnimalPound, new World (WorldEnum.AnimalPound, "2_ANIMAL_POUND", true));
 		this.worlds = worlds;
 	}
 

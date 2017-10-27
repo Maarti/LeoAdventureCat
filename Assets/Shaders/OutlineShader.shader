@@ -1,7 +1,7 @@
 ﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
 //http://www.shaderslab.com/demo-15---sprite-outline.html
-Shader "Unlit/OutlineShader"{
+Shader "Custom/OutlineShader"{
     Properties {
         _MainTex ("Base (RGB)", 2D) = "white" {}
         _Color ("Color", Color) = (1, 1, 1, 1)
