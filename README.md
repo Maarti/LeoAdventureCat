@@ -85,6 +85,7 @@ settings get secure android_id
 ### Graphismes
 * **Bonus/Icônes :** Filtres > Distorsion de lentille
 * Sprites : Contour avec crayon taille 2, puis selection, réduire de 1, inverser la sélection, adoucir de 2, supprimer
+* LockedWorldImage : Filtre > Flou > Pixelisation > pixel size : 20
 
 ## Resources
 * [How to animate a cat walking cycle](https://www.youtube.com/watch?v=dYCGMdQgs-I)

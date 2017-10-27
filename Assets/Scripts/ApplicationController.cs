@@ -87,7 +87,7 @@ public class ApplicationController : MonoBehaviour
 		//lvls.Add (LevelEnum.level_1_10, new Level (LevelEnum.level_1_10, "1-10", World.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_12, false));
 		lvls.Add (LevelEnum.level_1_11, new Level (LevelEnum.level_1_11, "1-11", WorldEnum.Forest, DifficultyEnum.MEDIUM, 15, 55, 1, LevelEnum.level_1_12, true));
 		lvls.Add (LevelEnum.level_1_12, new Level (LevelEnum.level_1_12, "1-12", WorldEnum.Forest, DifficultyEnum.NIGHTMAR, 40, 120, 8, LevelEnum.level_1_01, true));
-		lvls.Add (LevelEnum.level_2_story, new Level (LevelEnum.level_2_story, "2-", WorldEnum.AnimalPound, DifficultyEnum.EASY, 10, 135, 3, LevelEnum.level_1_01, true, true));
+		lvls.Add (LevelEnum.level_2_story, new Level (LevelEnum.level_2_story, "2-", WorldEnum.AnimalPound, DifficultyEnum.EASY, 10, 135, 3, LevelEnum.level_1_01, false, true));
 		this.levels = lvls;
 	}
 
@@ -105,9 +105,15 @@ public class ApplicationController : MonoBehaviour
 
 	public void FinishLevel (LevelEnum level, int score = 100, bool doSave = true)
 	{
-		if (this.levels [level].score < score)
-			this.levels [level].score = score;
+		Level lvl = this.levels [level];
+		if (lvl.score < score)
+			lvl.score = score;
 		this.playerData.setScore (level, score);
+
+		// If level is a story, unlock the next world
+		if (lvl.isStory)
+			UnlockWorld (this.levels [lvl.nextLevel].world.id);
+
 		if (doSave)
 			Save ();
 	}
