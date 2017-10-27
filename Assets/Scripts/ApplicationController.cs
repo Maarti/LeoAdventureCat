@@ -14,6 +14,7 @@ public class ApplicationController : MonoBehaviour
 
 	public static ApplicationController ac;
 	public PlayerData playerData;
+	public Dictionary<WorldEnum,World> worlds;
 	public Dictionary<LevelEnum,Level> levels;
 	public Dictionary<ItemEnum,Item> items;
 
@@ -25,6 +26,7 @@ public class ApplicationController : MonoBehaviour
 		} else if (ac != this) {
 			Destroy (gameObject);
 		}
+		initWorlds ();
 		initLevels ();
 		initItems ();
 		Load ();
@@ -59,24 +61,33 @@ public class ApplicationController : MonoBehaviour
 		MergeData ();
 	}
 
+	void initWorlds ()
+	{
+		// Initialise all worlds
+		Dictionary<WorldEnum,World> worlds = new Dictionary<WorldEnum, World> ();
+		worlds.Add (WorldEnum.Forest, new World (WorldEnum.Forest, "FOREST", false));
+		worlds.Add (WorldEnum.AnimalPound, new World (WorldEnum.AnimalPound, "ANIMAL_POUND", true));
+		this.worlds = worlds;
+	}
+
 	void initLevels ()
 	{
 		// Initialise all levels
 		Dictionary<LevelEnum,Level> lvls = new Dictionary<LevelEnum, Level> ();
-		lvls.Add (LevelEnum.level_1_story, new Level (LevelEnum.level_1_story, "1-", World.Forest, DifficultyEnum.EASY, 10, 135, 3, LevelEnum.level_2_story, false, true));
-		lvls.Add (LevelEnum.level_1_01, new Level (LevelEnum.level_1_01, "1-01", World.Forest, DifficultyEnum.EASY, 10, 90, 3, LevelEnum.level_1_02, false));
-		lvls.Add (LevelEnum.level_1_02, new Level (LevelEnum.level_1_02, "1-02", World.Forest, DifficultyEnum.EASY, 10, 45, 0, LevelEnum.level_1_03, false));
-		lvls.Add (LevelEnum.level_1_03, new Level (LevelEnum.level_1_03, "1-03", World.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_06, false));
+		lvls.Add (LevelEnum.level_1_story, new Level (LevelEnum.level_1_story, "1-", WorldEnum.Forest, DifficultyEnum.EASY, 10, 135, 3, LevelEnum.level_2_story, false, true));
+		lvls.Add (LevelEnum.level_1_01, new Level (LevelEnum.level_1_01, "1-01", WorldEnum.Forest, DifficultyEnum.EASY, 10, 90, 3, LevelEnum.level_1_02, false));
+		lvls.Add (LevelEnum.level_1_02, new Level (LevelEnum.level_1_02, "1-02", WorldEnum.Forest, DifficultyEnum.EASY, 10, 45, 0, LevelEnum.level_1_03, false));
+		lvls.Add (LevelEnum.level_1_03, new Level (LevelEnum.level_1_03, "1-03", WorldEnum.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_06, false));
 		//lvls.Add (LevelEnum.level_1_04, new Level (LevelEnum.level_1_04, "1-04", World.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_12, false));
 		//lvls.Add (LevelEnum.level_1_05, new Level (LevelEnum.level_1_05, "1-05", World.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_12, false));
-		lvls.Add (LevelEnum.level_1_06, new Level (LevelEnum.level_1_06, "1-06", World.Forest, DifficultyEnum.HARD, 25, 125, 3, LevelEnum.level_1_11, false));
+		lvls.Add (LevelEnum.level_1_06, new Level (LevelEnum.level_1_06, "1-06", WorldEnum.Forest, DifficultyEnum.HARD, 25, 125, 3, LevelEnum.level_1_11, false));
 		//lvls.Add (LevelEnum.level_1_07, new Level (LevelEnum.level_1_07, "1-07", World.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_12, false));
 		//lvls.Add (LevelEnum.level_1_08, new Level (LevelEnum.level_1_08, "1-08", World.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_12, false));
 		//lvls.Add (LevelEnum.level_1_09, new Level (LevelEnum.level_1_09, "1-09", World.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_12, false));
 		//lvls.Add (LevelEnum.level_1_10, new Level (LevelEnum.level_1_10, "1-10", World.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_12, false));
-		lvls.Add (LevelEnum.level_1_11, new Level (LevelEnum.level_1_11, "1-11", World.Forest, DifficultyEnum.MEDIUM, 15, 55, 1, LevelEnum.level_1_12, true));
-		lvls.Add (LevelEnum.level_1_12, new Level (LevelEnum.level_1_12, "1-12", World.Forest, DifficultyEnum.NIGHTMAR, 40, 120, 8, LevelEnum.level_1_01, true));
-		lvls.Add (LevelEnum.level_2_story, new Level (LevelEnum.level_2_story, "2-", World.AnimalPound, DifficultyEnum.EASY, 10, 135, 3, LevelEnum.level_1_01, false, true));
+		lvls.Add (LevelEnum.level_1_11, new Level (LevelEnum.level_1_11, "1-11", WorldEnum.Forest, DifficultyEnum.MEDIUM, 15, 55, 1, LevelEnum.level_1_12, true));
+		lvls.Add (LevelEnum.level_1_12, new Level (LevelEnum.level_1_12, "1-12", WorldEnum.Forest, DifficultyEnum.NIGHTMAR, 40, 120, 8, LevelEnum.level_1_01, true));
+		lvls.Add (LevelEnum.level_2_story, new Level (LevelEnum.level_2_story, "2-", WorldEnum.AnimalPound, DifficultyEnum.EASY, 10, 135, 3, LevelEnum.level_1_01, true, true));
 		this.levels = lvls;
 	}
 
@@ -89,6 +100,7 @@ public class ApplicationController : MonoBehaviour
 		items.Add (ItemEnum.max_life_1, new Item (ItemEnum.max_life_1, "ITEM_MAX_LIFE", "ITEM_MAX_LIFE_DESC", 200));
 		items.Add (ItemEnum.max_life_2, new Item (ItemEnum.max_life_2, "ITEM_MAX_LIFE", "ITEM_MAX_LIFE_DESC", 500));
 		items.Add (ItemEnum.max_life_3, new Item (ItemEnum.max_life_3, "ITEM_MAX_LIFE", "ITEM_MAX_LIFE_DESC", 1000));
+		items.Add (ItemEnum.level_2_story, new Item (ItemEnum.level_2_story, "LEVEL", "LEVEL_DESC", 50, LevelEnum.level_2_story));
 	}
 
 	public void FinishLevel (LevelEnum level, int score = 100, bool doSave = true)
@@ -98,6 +110,15 @@ public class ApplicationController : MonoBehaviour
 		this.playerData.setScore (level, score);
 		if (doSave)
 			Save ();
+	}
+
+	public void UnlockWorld (WorldEnum worldEnum, bool doSave = true)
+	{		
+		ApplicationController.ac.worlds [worldEnum].isLocked = false;
+		if (!this.playerData.unlockedWorld.Contains (worldEnum))
+			this.playerData.unlockedWorld.Add (worldEnum);
+		if (doSave)
+			Save ();		
 	}
 
 	public void UnlockLevel (LevelEnum level, bool doSave = true)
@@ -157,6 +178,9 @@ public class ApplicationController : MonoBehaviour
 	// Merge initial data with the saved data of the player
 	public void MergeData ()
 	{
+		foreach (WorldEnum worldEnum in playerData.unlockedWorld) {
+			UnlockWorld (worldEnum, false);
+		}
 		foreach (LevelEnum lvlEnum in playerData.unlockedLvls) {
 			UnlockLevel (lvlEnum, false);
 		}
@@ -178,18 +202,19 @@ public class ApplicationController : MonoBehaviour
 public class PlayerData
 {
 	public int dataVersion = 1, kittyz = 0, lang_id = 0, max_life = 3;
-	public List<LevelEnum> unlockedLvls, completedLvls;
+	public List<LevelEnum> unlockedLvls;
 	public List<ItemEnum> boughtItems, equippedItems;
+	public List<WorldEnum> unlockedWorld;
 	public Dictionary<LevelEnum,int> scores;
 	public bool isMute = false;
 
 	public PlayerData ()
 	{		
 		unlockedLvls = new List<LevelEnum> ();
-		completedLvls = new List<LevelEnum> ();
 		boughtItems = new List<ItemEnum> ();
 		equippedItems = new List<ItemEnum> ();
 		scores = new Dictionary<LevelEnum, int> ();
+		unlockedWorld = new List<WorldEnum> (){ WorldEnum.Forest };
 		// lang_id is initialized in Load()				
 	}
 
@@ -224,12 +249,12 @@ public class Level
 	public DifficultyEnum difficulty;
 	public LevelEnum nextLevel;
 
-	public Level (LevelEnum id, string name, World world, DifficultyEnum difficulty, int targetKittyz, int targetTime,
+	public Level (LevelEnum id, string name, WorldEnum world, DifficultyEnum difficulty, int targetKittyz, int targetTime,
 	              int targetLife, LevelEnum nexLevel, bool isLocked = true, bool isStory = false)
 	{
 		this.id = id;
 		this.name = name;
-		this.world = world;
+		this.world = ApplicationController.ac.worlds [world];
 		this.isLocked = isLocked;
 		this.difficulty = difficulty;
 		this.targetKittyz = targetKittyz;
@@ -256,12 +281,38 @@ public class Level
 		} while(nextLvl.isLocked && nextLvl.nextLevel != LevelEnum.none && nextLvl.nextLevel != LevelEnum.main_menu);
 		return nextLvl;
 	}
+
+	public static bool isWorldLocked (LevelEnum levelEnum)
+	{
+		return ApplicationController.ac.levels [levelEnum].isWorldLocked ();
+	}
+
+	public bool isWorldLocked ()
+	{
+		return this.world.isLocked;
+	}
 }
 
-public enum World : int
+public class World
+{
+	public WorldEnum id;
+	public string name;
+	public bool isLocked;
+
+	public World (WorldEnum id, string name, bool isLocked)
+	{
+		this.id = id;
+		this.name = name;
+		this.isLocked = isLocked;
+	}
+}
+
+public enum WorldEnum : int
 {
 	Forest = 1,
-	AnimalPound = 2
+	AnimalPound = 2,
+	City = 3,
+	House = 4
 }
 
 public enum LevelEnum
@@ -360,7 +411,8 @@ public enum ItemEnum
 	level_1_17,
 	level_1_18,
 	level_1_19,
-	level_1_20
+	level_1_20,
+	level_2_story
 }
 
 public enum DifficultyEnum

@@ -9,6 +9,7 @@ public class RatController : MonoBehaviour
 	Rigidbody2D rb;
 	bool facingRight = true;
 	Animator animator;
+	float hInput;
 
 
 	void Awake ()

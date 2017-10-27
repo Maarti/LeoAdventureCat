@@ -32,6 +32,12 @@ public class ShopItemController : MonoBehaviour
 	{
 		if (itemEnum != ItemEnum.none) {
 			item = ApplicationController.ac.items [itemEnum];
+			if (item.level != LevelEnum.none) {
+				if (Level.isWorldLocked (item.level)) {
+					Destroy (this.gameObject);
+					return;
+				}
+			}
 			itemNameText.text = item.GetName ();
 			itemDescText.text = item.GetDesc ();
 			itemPriceText.text = item.price.ToString ();
