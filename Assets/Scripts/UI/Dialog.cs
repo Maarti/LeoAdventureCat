@@ -44,41 +44,43 @@ public class Dialog
 		case LevelEnum.level_1_story:
 			Sprite portraitLeo = Resources.Load ("Portraits/leo", typeof(Sprite)) as Sprite;
 			Sprite portraitDogCatcher = Resources.Load ("Portraits/dogcatcher", typeof(Sprite)) as Sprite;
+			AudioClip catSound = Resources.Load ("Sound/cat_jump", typeof(AudioClip)) as AudioClip;
+			AudioClip dogCatcherSound = Resources.Load ("Sound/dog_catcher_hit", typeof(AudioClip)) as AudioClip;
 			List<DialogLine> dl = new List<DialogLine> () {
-				new DialogLine ("TUTO_JUMP", "LEO", portraitLeo)
+				new DialogLine ("TUTO_JUMP", "LEO", portraitLeo, catSound)
 			};
 			dialogDico.Add (DialogEnum.tuto_jump, new Dialog (dl));
 			dl = new List<DialogLine> () {
-				new DialogLine ("TUTO_ATTACK", "LEO", portraitLeo)
+				new DialogLine ("TUTO_ATTACK", "LEO", portraitLeo, catSound)
 			};
 			dialogDico.Add (DialogEnum.tuto_attack, new Dialog (dl));
 			dl = new List<DialogLine> () {
-				new DialogLine ("TUTO_KITTYZ", "LEO", portraitLeo)
+				new DialogLine ("TUTO_KITTYZ", "LEO", portraitLeo, catSound)
 			};
 			dialogDico.Add (DialogEnum.tuto_kittyz, new Dialog (dl));
 			dl = new List<DialogLine> () {
-				new DialogLine ("TUTO_ENNEMY_1", "LEO", portraitLeo),
-				new DialogLine ("TUTO_ENNEMY_2", "LEO", portraitLeo)
+				new DialogLine ("TUTO_ENNEMY_1", "LEO", portraitLeo, catSound),
+				new DialogLine ("TUTO_ENNEMY_2", "LEO", portraitLeo, catSound)
 			};
 			dialogDico.Add (DialogEnum.tuto_ennemy, new Dialog (dl));
 			dl = new List<DialogLine> () {
-				new DialogLine ("TUTO_CHECKPOINT", "LEO", portraitLeo)
+				new DialogLine ("TUTO_CHECKPOINT", "LEO", portraitLeo, catSound)
 			};
 			dialogDico.Add (DialogEnum.tuto_checkpoint, new Dialog (dl));
 			dl = new List<DialogLine> () {
-				new DialogLine ("FIRST_HEDGEHOG_1", "LEO", portraitLeo)
+				new DialogLine ("FIRST_HEDGEHOG_1", "LEO", portraitLeo, catSound)
 			};
 			dialogDico.Add (DialogEnum.first_hedgehog_1, new Dialog (dl));
 			dl = new List<DialogLine> () {
-				new DialogLine ("FIRST_HEDGEHOG_2", "LEO", portraitLeo)
+				new DialogLine ("FIRST_HEDGEHOG_2", "LEO", portraitLeo, catSound)
 			};
 			dialogDico.Add (DialogEnum.first_hedgehog_2, new Dialog (dl));
 			dl = new List<DialogLine> () {
-				new DialogLine ("FIRST_SQUIRREL", "LEO", portraitLeo)
+				new DialogLine ("FIRST_SQUIRREL", "LEO", portraitLeo, catSound)
 			};
 			dialogDico.Add (DialogEnum.first_squirrel, new Dialog (dl));
 			dl = new List<DialogLine> () {
-				new DialogLine ("DOG_CATCHER_START", "DOG_CATCHER", portraitDogCatcher)
+				new DialogLine ("DOG_CATCHER_START", "DOG_CATCHER", portraitDogCatcher, dogCatcherSound)
 			};
 			dialogDico.Add (DialogEnum.dog_catcher_start, new Dialog (dl));
 			break;
@@ -93,13 +95,16 @@ public class Dialog
 public class DialogLine
 {
 	public Sprite portrait;
+	public AudioClip audio = null;
 	public string nameStringId, textStringId;
 
-	public DialogLine (string textStringId, string nameStringId, Sprite portrait)
+	public DialogLine (string textStringId, string nameStringId, Sprite portrait, AudioClip audio = null)
 	{
 		this.textStringId = textStringId;
 		this.nameStringId = nameStringId;
 		this.portrait = portrait;
+		if (audio != null)
+			this.audio = audio;
 	}
 }
 

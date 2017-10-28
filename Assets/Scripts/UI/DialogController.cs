@@ -10,6 +10,7 @@ public class DialogController : MonoBehaviour
 	Text dialName, dialText;
 	Image dialPortrait;
 	bool isStarted = false;
+	AudioSource audioSource;
 
 	void Start ()
 	{
@@ -18,6 +19,7 @@ public class DialogController : MonoBehaviour
 			dialName = transform.Find ("Name").gameObject.GetComponent<Text> ();// GameObject.Find ("Canvas/" + this.name + "/DialogPanel/Name").GetComponent<Text> ();
 			dialPortrait = transform.Find ("Portrait").gameObject.GetComponent <Image> ();// GameObject.Find("Canvas/" + this.name + "/DialogPanel/Portrait").GetComponent<Image> ();
 			dialText = transform.Find ("TextScroll/Viewport/Content/Text").gameObject.GetComponent <Text> (); //GameObject.Find ("Canvas/" + this.name + "/DialogPanel/TextScroll/Viewport/Content/Text").GetComponent<Text> ();
+			audioSource = GetComponent<AudioSource> ();
 			isStarted = true;
 		}
 	}
@@ -33,8 +35,9 @@ public class DialogController : MonoBehaviour
 			dialName.text = LocalizationManager.Instance.GetText (dl.nameStringId);
 			dialText.text = LocalizationManager.Instance.GetText (dl.textStringId);
 			dialPortrait.sprite = dl.portrait;
+			if (dl.audio != null)
+				this.audioSource.PlayOneShot (dl.audio);
 		}
-
 	}
 }
 
