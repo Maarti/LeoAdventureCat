@@ -147,6 +147,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 82477453854793084, guid: a3a3f337524ed3747b58d3765b077815,
+        type: 2}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 3b198b7702c69ae46bfa7f7a7811ea9a, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a3a3f337524ed3747b58d3765b077815, type: 2}
   m_IsPrefabParent: 0
@@ -1487,7 +1492,7 @@ HingeJoint2D:
   m_Enabled: 1
   serializedVersion: 4
   m_EnableCollision: 0
-  m_ConnectedRigidBody: {fileID: 1805723261}
+  m_ConnectedRigidBody: {fileID: 480969039}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 0
@@ -2960,7 +2965,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!68 &869191245
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -8555,9 +8560,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.004005015, y: -0.21155119}
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Radius: 0.25351566
 --- !u!50 &1804405183
 Rigidbody2D:
   serializedVersion: 4
@@ -8607,11 +8612,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1747630741
+  m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.553, g: 0.17162065, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: c2b3aef42a82ff7418914cdfb5db204d, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -8627,7 +8632,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1804405181}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.852, y: 2.053, z: -0.025390625}
+  m_LocalPosition: {x: 5.804, y: 2.167, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
