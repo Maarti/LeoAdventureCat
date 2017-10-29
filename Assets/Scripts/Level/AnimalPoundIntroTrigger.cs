@@ -56,6 +56,7 @@ public class AnimalPoundIntroTrigger : MonoBehaviour
 
 				// Trap triggered
 				if (!trapTriggered) {
+					ratAnim.SetBool ("isEating", ratIsEating);
 					lastRopeJoint.connectedBody = rat.GetComponent<Rigidbody2D> ();
 					weight.GetComponent<Rigidbody2D> ().mass = 40f;
 					ratRb.isKinematic = false;
