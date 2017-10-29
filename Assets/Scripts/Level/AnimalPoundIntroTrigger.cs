@@ -49,7 +49,6 @@ public class AnimalPoundIntroTrigger : MonoBehaviour
 					ratIsEating = true;
 					waitingTimeIsSet = true;
 				}
-				Debug.Log ("startWaitingTime=" + startWaitingTime + " time=" + Time.time);
 				if ((Time.time - startWaitingTime) < 4f)
 					return;
 				else
