@@ -40,6 +40,7 @@ public class AnimalPoundLiberationTrigger : MonoBehaviour
 					rat.transform.position = Vector3.MoveTowards (rat.transform.position, chairUp.position, Time.deltaTime * ratSpeed);
 					ratAnim.SetFloat ("speed", ratSpeed);
 				} else {
+					ratAnim.SetBool ("gotKey", true);
 					RatFlip ();
 					state++;
 				}
@@ -73,10 +74,12 @@ public class AnimalPoundLiberationTrigger : MonoBehaviour
 					startWaitingTime = Time.time;
 					waitingTimeIsSet = true;
 				} else {
-					if ((Time.time - startWaitingTime) < 4f)
+					if ((Time.time - startWaitingTime) < 2f)
 						return;
-					else
+					else {
+						ratAnim.SetBool ("gotKey", false);
 						state++;					
+					}
 				}
 			}
 
