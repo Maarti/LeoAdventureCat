@@ -5,10 +5,12 @@ using UnityEngine;
 public class AnimalPoundLiberationTrigger : MonoBehaviour
 {
 	public GameObject rat, rope, cage;
-	public Transform chairDown, chairUp, frontCage;
+	public Transform chairDown, chairUp, frontCage, runOut;
 	public float ratSpeed;
-	bool ratLiberated = false, inFrontOfCage = false, ratFacingRight = false;
+	bool ratLiberated = false, inFrontOfCage = false, ratFacingRight = false, isCageOpen = false;
+	bool waitingTimeIsSet = false;
 	int state = 0;
+	float startWaitingTime;
 	Animator ratAnim;
 
 	// Use this for initialization
@@ -58,6 +60,42 @@ public class AnimalPoundLiberationTrigger : MonoBehaviour
 			else if (state == 3) {
 				if (rat.transform.position != frontCage.position) {
 					rat.transform.position = Vector3.MoveTowards (rat.transform.position, frontCage.position, Time.deltaTime * ratSpeed);
+					ratAnim.SetFloat ("speed", ratSpeed);
+				} else {
+					ratAnim.SetFloat ("speed", 0f);
+					state++;
+				}
+			}
+
+			// Waiting 2s
+			else if (state == 4) {
+				if (!waitingTimeIsSet) {
+					startWaitingTime = Time.time;
+					waitingTimeIsSet = true;
+				} else {
+					if ((Time.time - startWaitingTime) < 4f)
+						return;
+					else
+						state++;					
+				}
+			}
+
+			// Rat open cage
+			else if (state == 5) {
+				if (!isCageOpen) {
+					cage.GetComponent<Animator> ().SetBool ("isOpened", true);
+					isCageOpen = true;
+				} else {
+					RatFlip ();
+					ratSpeed = 2.5f;
+					state++;
+				}
+			}
+
+			// Rat run out
+			else if (state == 6) {
+				if (rat.transform.position != runOut.position) {
+					rat.transform.position = Vector3.MoveTowards (rat.transform.position, runOut.position, Time.deltaTime * ratSpeed);
 					ratAnim.SetFloat ("speed", ratSpeed);
 				} else {
 					ratAnim.SetFloat ("speed", 0f);
