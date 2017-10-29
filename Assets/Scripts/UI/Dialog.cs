@@ -39,14 +39,21 @@ public class Dialog
 	// Manage the dialogs that have to be loaded for each level
 	public static Dictionary<DialogEnum,Dialog> InstantiateDialogs (LevelEnum levelEnum)
 	{
+		Sprite portraitLeo, portraitDogCatcher, portraitRat;
+		AudioClip catSound, dogCatcherSound, ratSound;
+		List<DialogLine> dl;
 		Dictionary<DialogEnum,Dialog> dialogDico = new Dictionary<DialogEnum,Dialog> ();
+
 		switch (levelEnum) {
+
+		/* LEVEL 01-STORY */
 		case LevelEnum.level_1_story:
-			Sprite portraitLeo = Resources.Load ("Portraits/leo", typeof(Sprite)) as Sprite;
-			Sprite portraitDogCatcher = Resources.Load ("Portraits/dogcatcher", typeof(Sprite)) as Sprite;
-			AudioClip catSound = Resources.Load ("Sound/cat_jump", typeof(AudioClip)) as AudioClip;
-			AudioClip dogCatcherSound = Resources.Load ("Sound/dog_catcher_hit", typeof(AudioClip)) as AudioClip;
-			List<DialogLine> dl = new List<DialogLine> () {
+			portraitLeo = Resources.Load ("Portraits/leo", typeof(Sprite)) as Sprite;
+			portraitDogCatcher = Resources.Load ("Portraits/dogcatcher", typeof(Sprite)) as Sprite;
+			catSound = Resources.Load ("Sound/cat_jump", typeof(AudioClip)) as AudioClip;
+			dogCatcherSound = Resources.Load ("Sound/dog_catcher_hit", typeof(AudioClip)) as AudioClip;
+
+			dl = new List<DialogLine> () {
 				new DialogLine ("TUTO_JUMP", "LEO", portraitLeo, catSound)
 			};
 			dialogDico.Add (DialogEnum.tuto_jump, new Dialog (dl));
@@ -83,6 +90,19 @@ public class Dialog
 				new DialogLine ("DOG_CATCHER_START", "DOG_CATCHER", portraitDogCatcher, dogCatcherSound)
 			};
 			dialogDico.Add (DialogEnum.dog_catcher_start, new Dialog (dl));
+			break;
+
+		/* LEVEL 02-STORY */
+		case LevelEnum.level_2_story:
+			portraitLeo = Resources.Load ("Portraits/leo", typeof(Sprite)) as Sprite;
+			portraitRat = Resources.Load ("Portraits/leo", typeof(Sprite)) as Sprite;
+			catSound = Resources.Load ("Sound/cat_jump", typeof(AudioClip)) as AudioClip;
+			ratSound = Resources.Load ("Sound/rat_squeak", typeof(AudioClip)) as AudioClip;
+
+			dl = new List<DialogLine> () {
+				new DialogLine ("TUTO_JUMP", "LEO", portraitRat, ratSound)
+			};
+			dialogDico.Add (DialogEnum.tuto_jump, new Dialog (dl));
 			break;
 		default:
 			break;
