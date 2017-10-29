@@ -81,7 +81,8 @@ public class AnimalPoundIntroTrigger : MonoBehaviour
 					guic.DisplayDialog (DialogEnum.rat_asks_help);
 					ratAskedHelp = true;
 				}
-			}
+			} else if (ratAskedHelp)
+				Destroy (this.gameObject);
 		}
 
 	}

@@ -106,7 +106,11 @@ public class AnimalPoundLiberationTrigger : MonoBehaviour
 					ratAnim.SetFloat ("speed", 0f);
 					state++;
 				}
-			}
+			} 
+
+			// Destroy
+			else if (state == 7)
+				Destroy (this.gameObject);
 
 		}
 	}
