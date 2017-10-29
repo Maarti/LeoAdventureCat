@@ -95,14 +95,26 @@ public class Dialog
 		/* LEVEL 02-STORY */
 		case LevelEnum.level_2_story:
 			portraitLeo = Resources.Load ("Portraits/leo", typeof(Sprite)) as Sprite;
-			portraitRat = Resources.Load ("Portraits/leo", typeof(Sprite)) as Sprite;
+			portraitRat = Resources.Load ("Portraits/croc", typeof(Sprite)) as Sprite;
 			catSound = Resources.Load ("Sound/cat_jump", typeof(AudioClip)) as AudioClip;
 			ratSound = Resources.Load ("Sound/rat_squeak", typeof(AudioClip)) as AudioClip;
 
 			dl = new List<DialogLine> () {
-				new DialogLine ("TUTO_JUMP", "LEO", portraitRat, ratSound)
+				new DialogLine ("RAT_ASKS_HELP", "CROC", portraitRat, ratSound)
 			};
-			dialogDico.Add (DialogEnum.tuto_jump, new Dialog (dl));
+			dialogDico.Add (DialogEnum.rat_asks_help, new Dialog (dl));
+			dl = new List<DialogLine> () {
+				new DialogLine ("RAT_THANKS_CAT", "CROC", portraitRat, ratSound)
+			};
+			dialogDico.Add (DialogEnum.rat_thanks_cat, new Dialog (dl));
+			dl = new List<DialogLine> () {
+				new DialogLine ("RAT_ASKS_FOLLOW", "CROC", portraitRat, ratSound)
+			};
+			dialogDico.Add (DialogEnum.rat_asks_follow, new Dialog (dl));
+			dl = new List<DialogLine> () {
+				new DialogLine ("RAT_ASKS_WAIT", "CROC", portraitRat, ratSound)
+			};
+			dialogDico.Add (DialogEnum.rat_asks_wait, new Dialog (dl));
 			break;
 		default:
 			break;
@@ -139,6 +151,10 @@ public enum DialogEnum
 	first_hedgehog_1,
 	first_hedgehog_2,
 	first_squirrel,
-	dog_catcher_start
+	dog_catcher_start,
+	rat_asks_help,
+	rat_thanks_cat,
+	rat_asks_follow,
+	rat_asks_wait
 }
 	

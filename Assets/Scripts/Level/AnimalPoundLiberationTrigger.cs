@@ -12,13 +12,14 @@ public class AnimalPoundLiberationTrigger : MonoBehaviour
 	int state = 0;
 	float startWaitingTime;
 	Animator ratAnim;
+	GameUIController guic;
 
 	// Use this for initialization
 	void Start ()
 	{
 		ratAnim = rat.GetComponent<Animator> ();
+		guic = GameObject.Find ("Canvas/GameUI").GetComponent<GameUIController> ();
 	}
-
 
 	void FixedUpdate ()
 	{
@@ -89,6 +90,7 @@ public class AnimalPoundLiberationTrigger : MonoBehaviour
 					cage.GetComponent<Animator> ().SetBool ("isOpened", true);
 					isCageOpen = true;
 				} else {
+					guic.DisplayDialog (DialogEnum.rat_asks_follow);
 					RatFlip ();
 					ratSpeed = 2.5f;
 					state++;
@@ -114,6 +116,7 @@ public class AnimalPoundLiberationTrigger : MonoBehaviour
 	{
 		GameObject obj = other.gameObject;
 		if (obj.name == "Rat") {
+			ratAnim.SetBool ("isHanging", false);
 			StartCoroutine (DestroyRope ());
 		}
 	}
@@ -134,6 +137,8 @@ public class AnimalPoundLiberationTrigger : MonoBehaviour
 		}
 		Destroy (rope.gameObject);
 		yield return new WaitForSeconds (1f);
+		guic.DisplayDialog (DialogEnum.rat_thanks_cat);
+		yield return new WaitForSeconds (.5f);
 		RatFlip ();
 		rat.GetComponent<Rigidbody2D> ().isKinematic = true;
 		ratLiberated = true;
