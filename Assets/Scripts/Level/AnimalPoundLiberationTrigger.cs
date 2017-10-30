@@ -7,7 +7,7 @@ public class AnimalPoundLiberationTrigger : MonoBehaviour
 	public GameObject rat, rope, cage;
 	public Transform chairDown, chairUp, frontCage, runOut;
 	public float ratSpeed;
-	bool ratLiberated = false, inFrontOfCage = false, ratFacingRight = false, isCageOpen = false;
+	bool ratLiberated = false, ratFacingRight = false, isCageOpen = false;
 	bool waitingTimeIsSet = false;
 	int state = 0;
 	float startWaitingTime;

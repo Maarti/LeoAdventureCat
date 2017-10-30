@@ -10,7 +10,7 @@ public class AnimalPoundIntroTrigger : MonoBehaviour
 	public float ratSpeed = 2f;
 	public HingeJoint2D lastRopeJoint;
 	bool isTriggered = false, ratFacingRight = true, waitingTimeIsSet = false;
-	bool ratStarted = false, ratArrivedAtCheese = false, ratIsEating = false, trapTriggered = false, ratAskedHelp = false;
+	bool ratArrivedAtCheese = false, ratIsEating = false, trapTriggered = false, ratAskedHelp = false;
 	Animator ratAnim;
 	float startWaitingTime;
 	Rigidbody2D ratRb;
@@ -27,7 +27,7 @@ public class AnimalPoundIntroTrigger : MonoBehaviour
 
 	void FixedUpdate ()
 	{
-		if (isTriggered = true) {
+		if (isTriggered) {
 
 			// Rat run to cheese
 			if (!ratArrivedAtCheese) {
