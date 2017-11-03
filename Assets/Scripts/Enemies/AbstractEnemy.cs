@@ -16,7 +16,7 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 	protected bool facingRight = false, introSoundPlayed = false;
 	protected Rigidbody2D rb;
 	protected Transform groundCheck, startLoS, wallCheckTop, wallCheckBottom;
-	protected bool isMoving = true, isBumped = false;
+	public bool isMoving = true, isBumped = false;
 	protected Animator animator;
 	protected Renderer childRenderer;
 	protected AudioSource audioSource;

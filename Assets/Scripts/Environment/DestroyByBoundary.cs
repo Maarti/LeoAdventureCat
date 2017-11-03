@@ -10,7 +10,9 @@ public class DestroyByBoundary : MonoBehaviour
 		if (obj.tag == "Player") {
 			PlayerController pc = other.GetComponent<PlayerController> ();
 			pc.Defend (gameObject, pc.life, Vector2.zero, 0f);
-		} else
+		} else if (obj.tag == "AoE")
+			return;
+		else
 			Destroy (other.gameObject);
 	}
 
