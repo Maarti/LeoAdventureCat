@@ -5,7 +5,7 @@ using UnityEngine;
 public class BarkingDogController : AbstractEnemy
 {
 	public float gruntingTime = 1f, attackCooldown = 1f;
-	Collider2D barkCollider;
+	public AudioClip growlingClip, barkClip;
 
 	protected override void Start ()
 	{
@@ -35,9 +35,11 @@ public class BarkingDogController : AbstractEnemy
 	{
 		// Begin grunting
 		animator.SetBool ("isGrunting", true);
+		PlayGrowlingSound ();
 		yield return new WaitForSeconds (gruntingTime);
 
 		// Bark
+		StopSound ();
 		animator.SetBool ("isGrunting", false);
 
 		// Return to patroling
@@ -46,25 +48,22 @@ public class BarkingDogController : AbstractEnemy
 		isMoving = true;
 	}
 
-
-
-	/*	IEnumerator ChargeCooldown ()
+	public void PlayBarkSound ()
 	{
-		yield return new WaitForSeconds (chargeCooldown);
-		isAtacking = false;
-		isMoving = true;
-		while (speed > speedInit) {
-			speed -= Time.deltaTime * chargeVelocity; //deceleration
-			yield return null;
-		}
-		speed = speedInit;
-		animator.SetBool ("charging", false);
-	}*/
+		audioSource.Stop ();
+		audioSource.PlayOneShot (barkClip);
+	}
 
-	/*public override void Defend (GameObject attacker, int damage, Vector2 bumpVelocity, float bumpTime)
+	void PlayGrowlingSound ()
 	{
-		//invincible if charging
-		if (!isAtacking)
-			base.Defend (attacker, damage, bumpVelocity, bumpTime);
-	}*/
+		audioSource.Stop ();
+		audioSource.loop = true;
+		audioSource.clip = growlingClip;
+		audioSource.Play ();
+	}
+
+	void StopSound ()
+	{
+		audioSource.Stop ();
+	}
 }

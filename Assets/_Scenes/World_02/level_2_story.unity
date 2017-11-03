@@ -8354,12 +8354,14 @@ MonoBehaviour:
   selfBumpMultiplier: 0
   bumpOnCollision: {x: -2, y: 3}
   isAtacking: 0
-  dyingSound: {fileID: 8300000, guid: 750b8a32d15544745bedd8a95b85079e, type: 3}
-  introSound: {fileID: 8300000, guid: 75f8c882d41cba544a7125759c0af4a7, type: 3}
+  dyingSound: {fileID: 0}
+  introSound: {fileID: 0}
   isMoving: 1
   isBumped: 0
   gruntingTime: 1
   attackCooldown: 1
+  growlingClip: {fileID: 8300000, guid: 3707a931fb393f34e8d89de560634a91, type: 3}
+  barkClip: {fileID: 8300000, guid: b47ca5fb8a3f4d446a9ffd9a33a9e47c, type: 3}
 --- !u!50 &1180457243
 Rigidbody2D:
   serializedVersion: 4
