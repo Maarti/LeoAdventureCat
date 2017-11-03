@@ -17,6 +17,12 @@ public class BarkingDogController : AbstractEnemy
 		base.FixedUpdate ();
 	}
 
+	protected override void Update ()
+	{
+		base.Update ();
+		animator.SetFloat ("x.velocity", Mathf.Abs (rb.velocity.x));
+	}
+
 	public override void Attack ()
 	{
 		base.Attack ();
