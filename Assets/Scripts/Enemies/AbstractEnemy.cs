@@ -16,7 +16,7 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 	protected bool facingRight = false, introSoundPlayed = false;
 	protected Rigidbody2D rb;
 	protected Transform groundCheck, startLoS, wallCheckTop, wallCheckBottom;
-	public bool isMoving = true, isBumped = false;
+	protected bool isMoving = true, isBumped = false;
 	protected Animator animator;
 	protected Renderer childRenderer;
 	protected AudioSource audioSource;
@@ -153,6 +153,7 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 		animator.SetTrigger ("die");
 		lineOfSight = 0f;
 		this.gameObject.layer = LayerMask.NameToLayer ("Transparent");
+		audioSource.Stop ();
 		audioSource.PlayOneShot (dyingSound);
 		GameObject.Destroy (this.gameObject, 5f);
 	}

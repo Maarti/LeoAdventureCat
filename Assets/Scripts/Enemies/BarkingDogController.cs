@@ -39,7 +39,7 @@ public class BarkingDogController : AbstractEnemy
 		yield return new WaitForSeconds (gruntingTime);
 
 		// Bark
-		StopSound ();
+		//StopSound ();
 		animator.SetBool ("isGrunting", false);
 
 		// Return to patroling
