@@ -66,4 +66,11 @@ public class BarkingDogController : AbstractEnemy
 	{
 		audioSource.Stop ();
 	}
+
+	public override void Die ()
+	{
+		// we add "isAlive" boolean to each animation from "Any state" so they are not played when dead
+		animator.SetBool ("isAlive", false);
+		base.Die ();
+	}
 }
