@@ -127,11 +127,11 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 		if (life <= 0) {
 			Die ();
 		} else {
+			animator.SetTrigger ("hit");
 			if (selfBumpMultiplier > 0 && bumpVelocity != Vector2.zero) {
 				if ((transform.position.x - attacker.transform.position.x) > 0) // if attacker come from the left, bump to right
 				bumpVelocity.x *= -1;
 				bumpVelocity *= this.selfBumpMultiplier;
-				animator.SetTrigger ("hit");
 				rb.velocity = bumpVelocity;
 				StartCoroutine (BeingBump (bumpTime * selfBumpMultiplier));
 			}
