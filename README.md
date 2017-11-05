@@ -116,4 +116,5 @@ settings get secure android_id
 
 ## Credits
 * Icons made by Smashicons from flaticon.com
-* Font made by Vanessa Bays
+* Most of music made by Kevin MacLeod (incompetech.com)
+* UI (panel and buttons) made by Cameron Tatz (@CamTatz)
