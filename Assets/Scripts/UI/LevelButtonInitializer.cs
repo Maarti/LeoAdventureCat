@@ -60,7 +60,8 @@ public class LevelButtonInitializer : MonoBehaviour
 
 	public void LoadThisLevel ()
 	{
-		SceneManager.LoadScene (levelEnum.ToString ());
+		//SceneManager.LoadScene (levelEnum.ToString ());
+		SceneLoader.LoadSceneWithLoadingScreen (levelEnum.ToString ());
 	}
 
 }

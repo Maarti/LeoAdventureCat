@@ -203,7 +203,8 @@ public class GameUIController : MonoBehaviour
 			PauseGame (false);
 			if (!fromCheckpoint)
 				checkpointController.GetComponent<CheckPointController> ().Reset (this.level.id);
-			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
+			//SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
+			SceneLoader.LoadSceneWithLoadingScreen (SceneManager.GetActiveScene ().name);
 		}
 	}
 
@@ -215,7 +216,8 @@ public class GameUIController : MonoBehaviour
 		} else {
 			PauseGame (false);
 			Destroy (checkpointController);
-			SceneManager.LoadScene ("main_menu");
+			//SceneManager.LoadScene ("main_menu");
+			SceneLoader.LoadSceneWithLoadingScreen ("main_menu");
 		}
 	}
 
@@ -259,7 +261,8 @@ public class GameUIController : MonoBehaviour
 		} else {
 			Time.timeScale = 1f;
 			Level nextLevel = gc.level.GetNextUnlockedLevel ();
-			SceneManager.LoadScene (nextLevel.id.ToString ());
+			//SceneManager.LoadScene (nextLevel.id.ToString ());
+			SceneLoader.LoadSceneWithLoadingScreen (nextLevel.id.ToString ());
 		}
 	}
 
@@ -300,12 +303,16 @@ public class GameUIController : MonoBehaviour
 	}
 
 	void ShowInterstitial ()
-	{		
+	{	
+		#if !UNITY_ANDROID && !UNITY_IPHONE && !UNITY_BLACKBERRY && !UNITY_WINRT || UNITY_EDITOR
+		HandleOnAdFinished (this, null);
+		#else
 		if (this.interstitial.IsLoaded ()) {
 			interstitial.Show ();
 		} else {
 			HandleOnAdFinished (this, null);
 		}
+		#endif
 	}
 
 	void HandleOnAdFailedToLoad (object sender, EventArgs args)
@@ -376,117 +383,6 @@ public class GameUIController : MonoBehaviour
 	void InstantiateDialogs ()
 	{
 		dialogDico = Dialog.InstantiateDialogs (level.id);
-		/*dialogDico = new Dictionary<DialogEnum,Dialog> ();
-		switch (level.id) {
-		case LevelEnum.level_1_story:
-			Sprite portraitLeo = Resources.Load ("Portraits/leo", typeof(Sprite)) as Sprite;
-			Sprite portraitDogCatcher = Resources.Load ("Portraits/dogcatcher", typeof(Sprite)) as Sprite;
-			List<DialogLine> dl = new List<DialogLine> () {
-				new DialogLine ("TUTO_JUMP", "LEO", portraitLeo)
-			};
-			dialogDico.Add (DialogEnum.tuto_jump, new Dialog (dl));
-			dl = new List<DialogLine> () {
-				new DialogLine ("TUTO_ATTACK", "LEO", portraitLeo)
-			};
-			dialogDico.Add (DialogEnum.tuto_attack, new Dialog (dl));
-			dl = new List<DialogLine> () {
-				new DialogLine ("TUTO_KITTYZ", "LEO", portraitLeo)
-			};
-			dialogDico.Add (DialogEnum.tuto_kittyz, new Dialog (dl));
-			dl = new List<DialogLine> () {
-				new DialogLine ("TUTO_ENNEMY_1", "LEO", portraitLeo),
-				new DialogLine ("TUTO_ENNEMY_2", "LEO", portraitLeo)
-			};
-			dialogDico.Add (DialogEnum.tuto_ennemy, new Dialog (dl));
-			dl = new List<DialogLine> () {
-				new DialogLine ("TUTO_CHECKPOINT", "LEO", portraitLeo)
-			};
-			dialogDico.Add (DialogEnum.tuto_checkpoint, new Dialog (dl));
-			dl = new List<DialogLine> () {
-				new DialogLine ("FIRST_HEDGEHOG_1", "LEO", portraitLeo)
-			};
-			dialogDico.Add (DialogEnum.first_hedgehog_1, new Dialog (dl));
-			dl = new List<DialogLine> () {
-				new DialogLine ("FIRST_HEDGEHOG_2", "LEO", portraitLeo)
-			};
-			dialogDico.Add (DialogEnum.first_hedgehog_2, new Dialog (dl));
-			dl = new List<DialogLine> () {
-				new DialogLine ("FIRST_SQUIRREL", "LEO", portraitLeo)
-			};
-			dialogDico.Add (DialogEnum.first_squirrel, new Dialog (dl));
-			dl = new List<DialogLine> () {
-				new DialogLine ("DOG_CATCHER_START", "DOG_CATCHER", portraitDogCatcher)
-			};
-			dialogDico.Add (DialogEnum.dog_catcher_start, new Dialog (dl));
-			break;
-		default:
-			break;
-		}*/
 	}
 		
 }
-
-
-/*****************************************************************************/
-/*							DIALOG CLASSES									 */
-/*****************************************************************************/
-/*public class DialogLine
-{
-	public Sprite portrait;
-	public string nameStringId, textStringId;
-
-	public DialogLine (string textStringId, string nameStringId, Sprite portrait)
-	{
-		this.textStringId = textStringId;
-		this.nameStringId = nameStringId;
-		this.portrait = portrait;
-	}
-}
-
-public class Dialog
-{
-
-	public List<DialogLine> lines;
-	public int currentLine = 0;
-	public bool isFinished = false;
-
-	public Dialog (List<DialogLine> dl)
-	{
-		this.lines = dl;
-	}
-
-	public DialogLine ReadLine ()
-	{
-		int ret = 0;
-		if (currentLine < lines.Count) {
-			ret = currentLine;
-			if (currentLine == 0 && isFinished == true)
-				isFinished = false;
-			if (currentLine == lines.Count - 1) {
-				isFinished = true;
-				currentLine = 0;
-			} else
-				currentLine++;
-			return lines [ret];
-		} else {
-			currentLine = 0;
-			return lines [0];			
-		}
-	}
-
-}
-
-public enum DialogEnum
-{
-	tuto_jump,
-	tuto_attack,
-	tuto_kittyz,
-	tuto_ennemy,
-	tuto_checkpoint,
-	in_progress,
-	first_hedgehog_1,
-	first_hedgehog_2,
-	first_squirrel,
-	dog_catcher_start
-}*/
-
