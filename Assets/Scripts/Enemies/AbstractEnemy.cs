@@ -55,7 +55,7 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 		}
 	}
 
-	public GameObject CheckLoS ()
+	protected virtual GameObject CheckLoS ()
 	{
 		// Detecting player in line of sight
 		if (lineOfSight > 0) {
@@ -68,13 +68,13 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 		return null;
 	}
 
-	public virtual void Attack ()
+	protected virtual void Attack ()
 	{
 		isMoving = false;
 		isAtacking = true;
 	}
 
-	public void Patrol ()
+	protected void Patrol ()
 	{
 		// Detecting ground and walls
 		if (!detectGround () || detectWall ())
