@@ -12098,6 +12098,7 @@ GameObject:
   - component: {fileID: 1994440099}
   - component: {fileID: 1994440098}
   - component: {fileID: 1994440103}
+  - component: {fileID: 1994440104}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -12181,7 +12182,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1994440097}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e6a3305a99d8d3642be1656f536f360f, type: 3}
   m_Name: 
@@ -12190,6 +12191,32 @@ MonoBehaviour:
   yMax: 6.8
   xMin: 6
   xMax: 90
+--- !u!114 &1994440104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1994440097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9108fd5a0c6c22243982792565fa71bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  yMin: 1.5
+  yMax: 6.8
+  xMin: 6
+  xMax: 29
+  offset: {x: 0, y: 0, z: -10.5}
+  floors:
+  - playerYMax: 3.5
+    yMin: 1.5
+    yMax: 1.9
+  - playerYMax: 4.5
+    yMin: 3.5
+    yMax: 999
+  - playerYMax: 999
+    yMin: 6.35
+    yMax: 999
 --- !u!1 &2027892157
 GameObject:
   m_ObjectHideFlags: 0
