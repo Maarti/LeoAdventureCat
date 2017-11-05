@@ -24,3 +24,8 @@ public interface IGlider
 {
 	Vector3 GetHangGliderPosition ();
 }
+
+public interface ICollisionDetectionListener
+{
+	void CollisionDetected (Collider2D collider);
+}

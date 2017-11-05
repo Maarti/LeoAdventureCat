@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BarkingDogController : AbstractEnemy
+public class BarkingDogController : AbstractEnemy, ICollisionDetectionListener
 {
 	public float gruntingTime = 1f, attackCooldown = 1f;
 	public AudioClip growlingClip, barkClip;
+
+	public GameObject detectedEnnemy;
+	public bool isEnnemyDetected = false;
 
 	protected override void Start ()
 	{
@@ -46,6 +49,22 @@ public class BarkingDogController : AbstractEnemy
 		yield return new WaitForSeconds (1f);
 		isAtacking = false;
 		isMoving = true;
+	}
+
+	// The LoS of the barking dog is a Circle collider, not a Raycast
+	public override GameObject CheckLoS ()
+	{
+		if (isEnnemyDetected) {
+			return detectedEnnemy;
+		} else {
+			return null;
+		}
+	}
+
+	public void CollisionDetected (Collider2D collider)
+	{
+		isEnnemyDetected = true;
+		detectedEnnemy = collider.gameObject;
 	}
 
 	public void PlayBarkSound ()

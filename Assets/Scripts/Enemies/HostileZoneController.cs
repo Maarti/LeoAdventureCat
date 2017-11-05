@@ -13,7 +13,6 @@ public class HostileZoneController : MonoBehaviour
 	{
 		Debug.Log ("bark triggered with " + other.gameObject.name);
 		string layer = LayerMask.LayerToName (other.gameObject.layer);
-		// if the ennemy has not been already hit by this attack
 		if (other.gameObject.tag == "Player") {
 			other.gameObject.GetComponent<IDefendable> ().Defend (this.gameObject, damage, bumpVelocity, bumpDuration);
 		}
