@@ -311,7 +311,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4622925472237618}
-  m_Layer: 14
+  - component: {fileID: 58264013592905046}
+  - component: {fileID: 114306928437005492}
+  m_Layer: 13
   m_Name: lineOfSight
   m_TagString: Untagged
   m_Icon: {fileID: 8220585740371884164, guid: 0000000000000000d000000000000000, type: 0}
@@ -517,7 +519,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1931295414727382}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.41500092, y: 0.066, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4693284637640558}
@@ -632,6 +634,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!58 &58264013592905046
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1931295414727382}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 2
 --- !u!58 &58863726669476492
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -773,6 +790,19 @@ MonoBehaviour:
   damage: 1
   bumpVelocity: {x: -1, y: 2}
   bumpDuration: 0.5
+--- !u!114 &114306928437005492
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1931295414727382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98c24531cac419048b9e82a39ccdfd3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tagName: Player
+  listener: {fileID: 1726623078994208}
 --- !u!114 &114787299413379564
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -803,6 +833,8 @@ MonoBehaviour:
   attackCooldown: 1
   growlingClip: {fileID: 8300000, guid: 3707a931fb393f34e8d89de560634a91, type: 3}
   barkClip: {fileID: 8300000, guid: b47ca5fb8a3f4d446a9ffd9a33a9e47c, type: 3}
+  detectedEnnemy: {fileID: 0}
+  isEnnemyDetected: 0
 --- !u!198 &198761964209188012
 ParticleSystem:
   m_ObjectHideFlags: 1
