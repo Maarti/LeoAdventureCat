@@ -18,6 +18,17 @@ public class BarkingDogController : AbstractEnemy, ICollisionDetectionListener
 	protected override void FixedUpdate ()
 	{
 		base.FixedUpdate ();
+
+		// If ennemy is detected, we look at him
+		if (isEnnemyDetected) {
+			if (detectedEnnemy.transform.position.x >= this.gameObject.transform.position.x) {
+				if (!facingRight)
+					Flip ();
+			} else {
+				if (facingRight)
+					Flip ();
+			}
+		}
 	}
 
 	protected override void Update ()
@@ -61,10 +72,16 @@ public class BarkingDogController : AbstractEnemy, ICollisionDetectionListener
 		}
 	}
 
-	public void CollisionDetected (Collider2D collider)
+	public void CollisionEnter (Collider2D collider)
 	{
 		isEnnemyDetected = true;
 		detectedEnnemy = collider.gameObject;
+	}
+
+	public void CollisionExit (Collider2D collider)
+	{
+		isEnnemyDetected = false;
+		detectedEnnemy = null;
 	}
 
 	public void PlayBarkSound ()

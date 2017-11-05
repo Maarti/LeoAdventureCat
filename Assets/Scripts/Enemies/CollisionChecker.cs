@@ -11,8 +11,15 @@ public class CollisionChecker : MonoBehaviour
 	void OnTriggerEnter2D (Collider2D other)
 	{		
 		if (other.gameObject.tag == tagName) {
-			Debug.Log ("CollisionChecker with " + other.gameObject.name);
-			listener.GetComponent<ICollisionDetectionListener> ().CollisionDetected (other);
+			listener.GetComponent<ICollisionDetectionListener> ().CollisionEnter (other);
+		}
+
+	}
+
+	void OnTriggerExit2D (Collider2D other)
+	{		
+		if (other.gameObject.tag == tagName) {
+			listener.GetComponent<ICollisionDetectionListener> ().CollisionExit (other);
 		}
 
 	}

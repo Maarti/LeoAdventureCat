@@ -27,5 +27,7 @@ public interface IGlider
 
 public interface ICollisionDetectionListener
 {
-	void CollisionDetected (Collider2D collider);
+	void CollisionEnter (Collider2D collider);
+
+	void CollisionExit (Collider2D collider);
 }
