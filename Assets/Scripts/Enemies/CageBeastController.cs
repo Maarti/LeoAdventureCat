@@ -6,25 +6,28 @@ public class CageBeastController : MonoBehaviour
 {
 	public int damageOnCollision = 1;
 	public Vector2 bumpOnCollision = new Vector2 (-2, 3);
+	public float speed = 1f;
 
 	bool readyToAttack = false;
+	Animator animator;
 
 	// Use this for initialization
 	void Start ()
 	{
-		
-	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
-		
+		animator = GetComponent<Animator> ();
+		animator.SetFloat ("speed", speed);
 	}
 
 	void OnTriggerStay2D (Collider2D other)
 	{
 		if (readyToAttack && other.transform.tag == "Player")
-			other.gameObject.GetComponent<PlayerController> ().Defend (this.gameObject, damageOnCollision, bumpOnCollision, 0.5f);
+			Attack (other.gameObject);		
+	}
+
+	void Attack (GameObject target)
+	{
+		target.GetComponent<PlayerController> ().Defend (this.gameObject, damageOnCollision, bumpOnCollision, 0.5f);
+		animator.SetTrigger ("attack");
 	}
 
 	public void isReadyToAttack ()
