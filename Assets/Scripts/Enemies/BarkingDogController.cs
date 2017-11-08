@@ -72,10 +72,14 @@ public class BarkingDogController : AbstractEnemy, ICollisionDetectionListener
 		}
 	}
 
+	// Called by HostileZoneController when player collids
 	public void CollisionEnter (Collider2D collider)
 	{
-		isEnnemyDetected = true;
-		detectedEnnemy = collider.gameObject;
+		// Attack only if the dog is visible on screen
+		if (childRenderer.isVisible) {
+			isEnnemyDetected = true;
+			detectedEnnemy = collider.gameObject;
+		}
 	}
 
 	public void CollisionExit (Collider2D collider)
