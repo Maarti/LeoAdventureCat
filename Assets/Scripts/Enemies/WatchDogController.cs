@@ -39,10 +39,11 @@ public class WatchDogController : MonoBehaviour
 		}
 	}
 
-	void ResetBall ()
+	public void ResetBall ()
 	{
 		if (!ballIsCaught) {
 			ballRb.isKinematic = false;
+			ballRb.velocity = Vector2.zero;
 			ballRb.transform.position = spawn.position;
 		}
 	}
@@ -71,5 +72,6 @@ public class WatchDogController : MonoBehaviour
 		}
 		theDog.GetComponent<Animator> ().SetTrigger ("sit");
 	}
+		
 
 }

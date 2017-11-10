@@ -12,6 +12,8 @@ public class DestroyByBoundary : MonoBehaviour
 			pc.Defend (gameObject, pc.life, Vector2.zero, 0f);
 		} else if (obj.tag == "AoE")
 			return;
+		else if (obj.tag == "Ball")
+			obj.GetComponent<BouncingBallController> ().Reset ();
 		else
 			Destroy (other.gameObject);
 	}
