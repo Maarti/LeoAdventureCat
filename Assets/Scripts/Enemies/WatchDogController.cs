@@ -44,6 +44,8 @@ public class WatchDogController : MonoBehaviour
 		if (!ballIsCaught) {
 			ballRb.isKinematic = false;
 			ballRb.velocity = Vector2.zero;
+			ballRb.angularVelocity = 0f;
+			ballRb.rotation = 0f;
 			ballRb.transform.position = spawn.position;
 		}
 	}
