@@ -4,28 +4,28 @@ using UnityEngine;
 
 public class WatchDogController : MonoBehaviour
 {
-	public GameObject theBall;
-	public GameObject theDog;
-	public Transform spawn;
-	public Transform dogTarget;
-
+	GameObject theBall, theDog;
 	Rigidbody2D ballRb;
-	Transform mouthBall;
+	Transform mouthBall, spawn, dogTarget, ballAreaTop, ballAreaBottom;
 	bool ballIsCaught = false;
 
 
 	void Start ()
 	{
+		theDog = transform.Find ("WatchDog").gameObject;
+		theBall = transform.Find ("BouncingBall").gameObject;
 		ballRb = theBall.GetComponent<Rigidbody2D> ();
 		mouthBall = theDog.transform.Find ("Body/Head/Mouth/MouthBall");
+		spawn = transform.Find ("BallSpawn");
+		dogTarget = transform.Find ("DogTarget");
+		ballAreaTop = transform.Find ("BallAreaTop");
+		ballAreaBottom = transform.Find ("BallAreaBottom");
 	}
 
 	void Update ()
 	{
-		if (!ballIsCaught && ballRb.IsSleeping ())
+		if (!ballIsCaught && (ballRb.IsSleeping () || !IsBallInArea ()))
 			ResetBall ();
-
-
 	}
 
 	void OnTriggerEnter2D (Collider2D other)
@@ -72,6 +72,14 @@ public class WatchDogController : MonoBehaviour
 		}
 		theDog.GetComponent<Animator> ().SetTrigger ("sit");
 	}
-		
+
+	bool IsBallInArea ()
+	{
+		return (
+		    theBall.transform.position.x >= ballAreaTop.position.x
+		    && theBall.transform.position.x <= ballAreaBottom.position.x
+		    && theBall.transform.position.y < ballAreaTop.position.y
+		    && theBall.transform.position.y > ballAreaBottom.position.y);
+	}
 
 }
