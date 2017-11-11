@@ -20,7 +20,7 @@ public class BarkingDogController : AbstractEnemy, ICollisionDetectionListener
 		base.FixedUpdate ();
 
 		// If ennemy is detected, we look at him
-		if (isEnnemyDetected) {
+		if (isEnnemyDetected && life > 0) {
 			if (detectedEnnemy.transform.position.x >= this.gameObject.transform.position.x) {
 				if (!facingRight)
 					Flip ();
