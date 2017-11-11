@@ -31,12 +31,20 @@ public class AnimalPoundRatStopTrigger : MonoBehaviour
 		// Rat say stop
 		else if (state == 1) {
 			guic.DisplayDialog (DialogEnum.rat_asks_wait);
+			cat.GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
 			RatFlip ();
 			state++;
 		} 
 
 		// Rat run to chair / Disable UI
-		else if (state == 2) {			
+		else if (state == 2) {		
+			guic.DisplayMobileController (false);
+			guic.DisplayTopUI (false);
+			state++;
+		}
+
+		// Rat run to chair / Disable UI
+		else if (state == 3) {			
 			if (rat.transform.position != chairDown.position) {
 				rat.transform.position = Vector3.MoveTowards (rat.transform.position, chairDown.position, Time.deltaTime * ratSpeed);
 				ratAnim.SetFloat ("speed", ratSpeed);
@@ -48,19 +56,20 @@ public class AnimalPoundRatStopTrigger : MonoBehaviour
 		} 
 
 		// Rat run to cat
-		else if (state == 3) {
+		else if (state == 4) {
 			if (rat.transform.position.x != ratLocation.position.x) {
 				Vector3 target = new Vector3 (ratLocation.position.x, rat.transform.position.y, rat.transform.position.z);
 				rat.transform.position = Vector3.MoveTowards (rat.transform.position, target, Time.deltaTime * ratSpeed);
 				ratAnim.SetFloat ("speed", ratSpeed);
 			} else {
 				ratAnim.SetFloat ("speed", 0f);
+				guic.DisplayDialog (DialogEnum.rat_ready);
 				state++;
 			}
 		}
 
 		// Rat jump on cat and eat cheese
-		else if (state == 4) {
+		else if (state == 5) {
 			rat.GetComponent<Collider2D> ().enabled = false;
 			Vector3 ratScale = rat.transform.localScale;
 			rat.transform.position = ratLocation.position;
@@ -68,12 +77,14 @@ public class AnimalPoundRatStopTrigger : MonoBehaviour
 			rat.transform.localScale = ratScale;
 			ratAnim.SetBool ("gotMouthCheese", false);
 			ratAnim.SetBool ("isEating", true);
-			guic.DisplayDialog (DialogEnum.rat_ready);
+			//guic.DisplayDialog (DialogEnum.rat_ready);
+			guic.DisplayMobileController ();
+			guic.DisplayTopUI ();
 			state++;
 		}
 
 		// Destroy
-		else if (state == 5)
+		else if (state == 6)
 			Destroy (this.gameObject);
 
 		
