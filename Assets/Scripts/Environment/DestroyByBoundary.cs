@@ -10,7 +10,7 @@ public class DestroyByBoundary : MonoBehaviour
 		if (obj.tag == "Player") {
 			PlayerController pc = other.GetComponent<PlayerController> ();
 			pc.Defend (gameObject, pc.life, Vector2.zero, 0f);
-		} else if (obj.tag == "AoE")
+		} else if (obj.tag == "AoE" || obj.tag == "Rat")
 			return;
 		else if (obj.tag == "Ball")
 			obj.GetComponent<BouncingBallController> ().Reset ();
