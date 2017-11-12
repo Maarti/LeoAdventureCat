@@ -58,7 +58,7 @@ public abstract class AbstractEnemy : MonoBehaviour, IAttackable, ISentinel, IPa
 	public virtual GameObject CheckLoS ()
 	{
 		// Detecting player in line of sight
-		if (lineOfSight > 0) {
+		if (lineOfSight > 0f) {
 			Vector2 direction = (facingRight) ? Vector2.right : Vector2.left;
 			RaycastHit2D ray = Physics2D.Raycast (startLoS.position, direction, lineOfSight, playerLayer);
 			Debug.DrawRay (startLoS.position, direction * lineOfSight, Color.red);
