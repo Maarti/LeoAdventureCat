@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class WatchDogController : MonoBehaviour
 {
-	GameObject theBall, theDog;
+    GameObject theBall, theDog;
 	Rigidbody2D ballRb;
 	Transform mouthBall, spawn, dogTarget, ballAreaTop, ballAreaBottom;
-	bool ballIsCaught = false;
+    bool ballIsCaught = false, isResetting = false;
 
 
 	void Start ()
@@ -24,8 +24,30 @@ public class WatchDogController : MonoBehaviour
 
 	void Update ()
 	{
-		if (!ballIsCaught && (ballRb.IsSleeping () || !IsBallInArea ()))
-			ResetBall ();
+        if (!isResetting)
+        {
+            if (!ballIsCaught && (ballRb.IsSleeping() || !IsBallInArea()))
+                ResetBall();
+        }
+        else
+        {
+            theBall.transform.position = Vector3.Lerp(theBall.transform.position, spawn.position, 0.1f);
+            Debug.Log("After Lerp ball = " + theBall.transform.position+"   spawn = "+ spawn.position.x);
+            float diff = Mathf.Abs(spawn.position.x - theBall.transform.position.x) +
+                            Mathf.Abs(spawn.position.y - theBall.transform.position.y);
+
+            //if(spawn.position == theBall.transform.position)
+            if (diff < 0.01f)
+            {
+                isResetting = false;
+                ballRb.isKinematic = false;
+                ballRb.velocity = Vector2.zero;
+                ballRb.angularVelocity = 0f;
+                ballRb.rotation = 0f;
+                theBall.layer = LayerMask.NameToLayer("Destructible");
+                ballRb.transform.position = spawn.position;
+            }
+        }
 	}
 
 	void OnTriggerEnter2D (Collider2D other)
@@ -34,19 +56,20 @@ public class WatchDogController : MonoBehaviour
 			ballIsCaught = true;	
 			StartCoroutine (BallMoveToDog ());
 			theDog.GetComponent<Animator> ().SetTrigger ("catchBall");
-
-
 		}
 	}
 
 	public void ResetBall ()
 	{
 		if (!ballIsCaught) {
-			ballRb.isKinematic = false;
+            isResetting = true;
+			ballRb.isKinematic = true;
 			ballRb.velocity = Vector2.zero;
 			ballRb.angularVelocity = 0f;
 			ballRb.rotation = 0f;
-			ballRb.transform.position = spawn.position;
+            theBall.layer = LayerMask.NameToLayer("Transparent");
+			//ballRb.transform.position = spawn.position;
+
 		}
 	}
 
