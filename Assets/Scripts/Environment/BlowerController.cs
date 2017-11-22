@@ -5,7 +5,9 @@ using UnityEngine;
 public class BlowerController : MonoBehaviour {
 
     public GameObject aoe;
-    public float waitingTime=3f, blowingTime = 1.5f;
+    public float waitingTime=2f, blowingTime = 3f;
+    public int damage = 1;
+    public Vector2 bumpOnCollision = new Vector2(-1f, -1f);
     Animator animator;
     float startWaitingTime, startBlowingTime;
     bool isWaiting = true, isBlowing=false;
@@ -56,5 +58,11 @@ public class BlowerController : MonoBehaviour {
         isBlowing = false;
         aoe.SetActive(false);
         startWaitingTime = Time.fixedTime;
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.transform.tag == "Player")
+            collision.gameObject.GetComponent<PlayerController>().Defend(this.gameObject, damage, bumpOnCollision, 0.5f);
     }
 }
