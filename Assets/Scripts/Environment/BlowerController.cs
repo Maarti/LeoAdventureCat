@@ -4,19 +4,24 @@ using UnityEngine;
 
 public class BlowerController : MonoBehaviour {
 
-    public GameObject aoe;
+    public GameObject effectArea;
+    public GameObject smoke;
     public float waitingTime=2f, blowingTime = 3f;
     public int damage = 1;
     public Vector2 bumpOnCollision = new Vector2(-1f, -1f);
     Animator animator;
     float startWaitingTime, startBlowingTime;
     bool isWaiting = true, isBlowing=false;
+    ParticleSystem prtcle;
+    AreaEffector2D aoe;
 
 	// Use this for initialization
 	void Start () {
         animator = GetComponent<Animator>();
         startWaitingTime = Time.fixedTime;
         startBlowingTime = Time.fixedTime;
+        prtcle = smoke.GetComponent<ParticleSystem>();
+        aoe = effectArea.GetComponent<AreaEffector2D>();
     }
 	
 	// Update is called once per frame
@@ -50,13 +55,17 @@ public class BlowerController : MonoBehaviour {
     {
         startBlowingTime = Time.fixedTime;
         isBlowing = true;
-        aoe.SetActive(true);
+        //aoe.SetActive(true);
+        prtcle.Play();
+        aoe.enabled = true;
     }
 
     void StopBlowing()
     {
         isBlowing = false;
-        aoe.SetActive(false);
+        //aoe.SetActive(false);
+        prtcle.Stop();
+        aoe.enabled = false;
         startWaitingTime = Time.fixedTime;
     }
 
