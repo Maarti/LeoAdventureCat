@@ -54,7 +54,8 @@ public class CheckPointController : MonoBehaviour
 	{
 		GameObject player = GameObject.FindWithTag ("Player");
 		GameObject checkpoint = GameObject.Find (checkpointName + "/Spawn");
-		player.transform.position = checkpoint.transform.position;
+        // we keep the player Z axis
+		player.transform.position = new Vector3(checkpoint.transform.position.x, checkpoint.transform.position.y, player.transform.position.z);
 	}
 
 	public void Check (string checkpointName)
