@@ -23,7 +23,8 @@ public class BlowerController : MonoBehaviour {
         startBlowingTime = Time.fixedTime;
         prtcle = smoke.GetComponent<ParticleSystem>();
         aoe = effectArea.GetComponent<AreaEffector2D>();
-        audio = transform.Find("Audio").gameObject.GetComponent<AudioSource>();
+        //audio = transform.Find("Audio").gameObject.GetComponent<AudioSource>(); // changed audioListener from camera to cat
+        audio = GetComponent<AudioSource>();
         StopBlowing();
     }
 	
