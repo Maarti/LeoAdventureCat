@@ -470,6 +470,7 @@ GameObject:
   - component: {fileID: 114582104091004738}
   - component: {fileID: 58542338686862058}
   - component: {fileID: 50359060593916616}
+  - component: {fileID: 81236138726122142}
   m_Layer: 8
   m_Name: Cat
   m_TagString: Player
@@ -1127,6 +1128,13 @@ CircleCollider2D:
   m_Offset: {x: 0.06, y: -0.1}
   serializedVersion: 2
   m_Radius: 0.44365615
+--- !u!81 &81236138726122142
+AudioListener:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1856916475770188}
+  m_Enabled: 0
 --- !u!82 &82736947787131902
 AudioSource:
   m_ObjectHideFlags: 1
