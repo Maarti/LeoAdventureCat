@@ -119,7 +119,15 @@ public class Dialog
 				new DialogLine ("RAT_READY", "CROC", portraitRat, ratSound)
 			};
 			dialogDico.Add (DialogEnum.rat_ready, new Dialog (dl));
-			break;
+            dl = new List<DialogLine>() {
+                new DialogLine ("RAT_FINISHED_CHEESE", "CROC", portraitRat, ratSound)
+            };
+            dialogDico.Add(DialogEnum.rat_finished_cheese, new Dialog(dl));
+            dl = new List<DialogLine>() {
+                new DialogLine ("RAT_GO_TO_VENTILATION", "CROC", portraitRat, ratSound)
+            };
+            dialogDico.Add(DialogEnum.rat_go_to_ventilation, new Dialog(dl));
+            break;
 		default:
 			break;
 		}
@@ -160,6 +168,8 @@ public enum DialogEnum
 	rat_thanks_cat,
 	rat_asks_follow,
 	rat_asks_wait,
-	rat_ready
+	rat_ready,
+    rat_finished_cheese,
+    rat_go_to_ventilation
 }
 	
