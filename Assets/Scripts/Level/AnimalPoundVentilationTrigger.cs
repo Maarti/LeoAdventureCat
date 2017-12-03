@@ -30,10 +30,10 @@ public class AnimalPoundVentilationTrigger : MonoBehaviour
         if (state == 0)
             return;
 
-        // MoveCamera
+        // Rat speaks + move camera
         else if (state == 1)
         {
-            //guic.DisplayDialog(DialogEnum.rat_go_to_ventilation);
+            guic.DisplayDialog(DialogEnum.rat_go_to_ventilation);
             ventilGC.InitCamera();
             cat.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             state++;
@@ -146,7 +146,7 @@ public class AnimalPoundVentilationTrigger : MonoBehaviour
             }
             else
             {
-                guic.DisplayDialog(DialogEnum.rat_go_to_ventilation);
+                guic.DisplayDialog(DialogEnum.rat_start_ventilation_game);
                 ventilGC.StartGame();
                 state++;
             }

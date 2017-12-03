@@ -27,6 +27,7 @@ public class VentilationSwitchController : MonoBehaviour
 
     void Enable()
     {
+        ratRb.velocity = direction;
         animator.SetBool("enabled", true);
         DisableOthers();
         audio.Play();
