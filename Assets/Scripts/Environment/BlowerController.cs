@@ -9,6 +9,7 @@ public class BlowerController : MonoBehaviour {
     public float waitingTime=2f, blowingTime = 3f;
     public int damage = 1;
     public Vector2 bumpOnCollision = new Vector2(-1f, -1f);
+    public bool manualTrigger=false;
     Animator animator;
     float startWaitingTime, startBlowingTime;
     bool isWaiting = true, isBlowing=false;
@@ -29,6 +30,8 @@ public class BlowerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (manualTrigger)
+            return;
         if (isWaiting)
         {
             if (Time.fixedTime - startWaitingTime >= waitingTime)
@@ -74,7 +77,7 @@ public class BlowerController : MonoBehaviour {
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.transform.tag == "Player")
+        if (damage > 0 && collision.gameObject.transform.tag == "Player")
             collision.gameObject.GetComponent<PlayerController>().Defend(this.gameObject, damage, bumpOnCollision, 0.5f);
     }
 }

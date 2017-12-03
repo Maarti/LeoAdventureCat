@@ -6,9 +6,9 @@ public class VentilationGameController : MonoBehaviour {
 
     public GameObject[] switches;
     public Vector3 cameraPosition = new Vector3(5.6f,18.2f,-11f);
-    public GameObject catBoundary, ratBoundary;
+    public GameObject catBoundary, ratBoundary, finalBlower;
     GameObject cam;
-    public bool isPlaying = false, isCameraInit=false;
+    bool isPlaying = false, isCameraInit=false;
     Rigidbody2D ratRb;
     Coroutine camRoutine = null;
 
@@ -53,6 +53,11 @@ public class VentilationGameController : MonoBehaviour {
         ratRb.gameObject.GetComponent<Animator>().SetBool("isFloating", false);
         // deactivate all switches
         EnableSwitches(false);
+        // activate final blower
+        finalBlower.GetComponent<BlowerController>().StartBlowing();
+        finalBlower.GetComponent<BlowerController>().damage = 1;
+        finalBlower.transform.Find("Burner/RightFire").gameObject.SetActive(true);
+        finalBlower.transform.Find("Burner/LeftFire").gameObject.SetActive(true);
     }
 
     public void InitCamera()
