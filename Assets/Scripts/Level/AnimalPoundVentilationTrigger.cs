@@ -13,6 +13,7 @@ public class AnimalPoundVentilationTrigger : MonoBehaviour
     int state = 0;
     Animator ratAnim;
     GameUIController guic;
+    VentilationGameController ventilGC;
 
     // Use this for initialization
     void Start()
@@ -21,6 +22,7 @@ public class AnimalPoundVentilationTrigger : MonoBehaviour
         ratAnim = rat.GetComponent<Animator>();
         guic = GameObject.Find("Canvas/GameUI").GetComponent<GameUIController>();
         cat = GameObject.FindGameObjectWithTag("Player");
+        ventilGC = GameObject.Find("VentilationGame").GetComponent<VentilationGameController>();
     }
 
     void FixedUpdate()
@@ -28,10 +30,11 @@ public class AnimalPoundVentilationTrigger : MonoBehaviour
         if (state == 0)
             return;
 
-        // Rat speaks
+        // MoveCamera
         else if (state == 1)
         {
-            guic.DisplayDialog(DialogEnum.rat_go_to_ventilation);
+            //guic.DisplayDialog(DialogEnum.rat_go_to_ventilation);
+            ventilGC.InitCamera();
             cat.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             state++;
         }
@@ -143,6 +146,8 @@ public class AnimalPoundVentilationTrigger : MonoBehaviour
             }
             else
             {
+                guic.DisplayDialog(DialogEnum.rat_go_to_ventilation);
+                ventilGC.StartGame();
                 state++;
             }
         }

@@ -32,7 +32,6 @@ public class WatchDogController : MonoBehaviour
         else
         {
             theBall.transform.position = Vector3.Lerp(theBall.transform.position, spawn.position, 0.1f);
-            Debug.Log("After Lerp ball = " + theBall.transform.position+"   spawn = "+ spawn.position.x);
             float diff = Mathf.Abs(spawn.position.x - theBall.transform.position.x) +
                             Mathf.Abs(spawn.position.y - theBall.transform.position.y);
 
