@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class FallingLampController : MonoBehaviour
 {
@@ -11,17 +9,13 @@ public class FallingLampController : MonoBehaviour
 	Transform leftStartLoS, rightStartLoS;
 	public bool isFalling = false, hasFallen = false;
 	Animator animator;
-	Rigidbody2D rb;
-	//HingeJoint2D wireJoint;
 
 	// Use this for initialization
 	void Start ()
 	{
 		animator = transform.parent.gameObject.GetComponent<Animator> ();
-		rb = GetComponent<Rigidbody2D> ();
 		leftStartLoS = transform.Find ("LeftStartLoS");
 		rightStartLoS = transform.Find ("RightStartLoS");
-		//wireJoint = transform.Find ("Wire").gameObject.GetComponent<HingeJoint2D> ();
 	}
 	
 	// Update is called once per frame
@@ -31,10 +25,6 @@ public class FallingLampController : MonoBehaviour
 			animator.SetBool ("switch", false);
 			isFalling = true;
 		}
-		/*if (isFalling && rb.velocity.y <= 0f) {
-			isFalling = false;
-			hasFallen = true;
-		}*/
 	}
 
 	GameObject CheckLoS ()

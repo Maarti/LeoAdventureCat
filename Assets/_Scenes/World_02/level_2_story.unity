@@ -999,7 +999,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4606848376125686, guid: 84d80bffeeb92f24a913eeab630c9c1b, type: 2}
       propertyPath: m_LocalScale.y
-      value: -1
+      value: -1.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114285320174156188, guid: 84d80bffeeb92f24a913eeab630c9c1b,
+        type: 2}
+      propertyPath: collidWithRat
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 84d80bffeeb92f24a913eeab630c9c1b, type: 2}
@@ -2385,6 +2390,11 @@ Prefab:
     - target: {fileID: 4606848376125686, guid: 84d80bffeeb92f24a913eeab630c9c1b, type: 2}
       propertyPath: m_LocalScale.y
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114285320174156188, guid: 84d80bffeeb92f24a913eeab630c9c1b,
+        type: 2}
+      propertyPath: collidWithRat
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 84d80bffeeb92f24a913eeab630c9c1b, type: 2}
@@ -4870,6 +4880,11 @@ Prefab:
       propertyPath: m_Name
       value: Spikes (41)
       objectReference: {fileID: 0}
+    - target: {fileID: 114285320174156188, guid: 84d80bffeeb92f24a913eeab630c9c1b,
+        type: 2}
+      propertyPath: collidWithRat
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 84d80bffeeb92f24a913eeab630c9c1b, type: 2}
   m_IsPrefabParent: 0
@@ -5638,9 +5653,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 636b19e9eb167c740938efb361c17de2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  switches:
+  - {fileID: 1985885679}
+  - {fileID: 1574641145}
+  - {fileID: 1423948089}
+  - {fileID: 1195271401}
+  - {fileID: 1266917033}
   cameraPosition: {x: 5.6, y: 18.2, z: -11}
   catBoundary: {fileID: 290886764}
   ratBoundary: {fileID: 48473421}
+  isPlaying: 0
+  isCameraInit: 0
 --- !u!1 &592307465
 GameObject:
   m_ObjectHideFlags: 0
@@ -7938,7 +7961,7 @@ Prefab:
     - target: {fileID: 224822713004870162, guid: 0fc1f61d586eb1a4aab04cd2fe6c4b27,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -20
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224958401050415172, guid: 0fc1f61d586eb1a4aab04cd2fe6c4b27,
         type: 2}
@@ -7958,7 +7981,7 @@ Prefab:
     - target: {fileID: 224958401050415172, guid: 0fc1f61d586eb1a4aab04cd2fe6c4b27,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -20
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224206901344682312, guid: 0fc1f61d586eb1a4aab04cd2fe6c4b27,
         type: 2}
@@ -7978,7 +8001,7 @@ Prefab:
     - target: {fileID: 224206901344682312, guid: 0fc1f61d586eb1a4aab04cd2fe6c4b27,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -20
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0fc1f61d586eb1a4aab04cd2fe6c4b27, type: 2}
@@ -8109,6 +8132,11 @@ Prefab:
     - target: {fileID: 4606848376125686, guid: 84d80bffeeb92f24a913eeab630c9c1b, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 114285320174156188, guid: 84d80bffeeb92f24a913eeab630c9c1b,
+        type: 2}
+      propertyPath: collidWithRat
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 84d80bffeeb92f24a913eeab630c9c1b, type: 2}
@@ -9407,6 +9435,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4606848376125686, guid: 84d80bffeeb92f24a913eeab630c9c1b, type: 2}
       propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114285320174156188, guid: 84d80bffeeb92f24a913eeab630c9c1b,
+        type: 2}
+      propertyPath: collidWithRat
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -10656,7 +10689,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -14479,6 +14512,7 @@ MonoBehaviour:
   - {fileID: 1574641145}
   - {fileID: 1985885679}
   direction: {x: 0.35, y: 0}
+  isFinalPoint: 0
 --- !u!61 &1195271405
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -15109,6 +15143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   switches: []
   direction: {x: 0, y: 0}
+  isFinalPoint: 1
 --- !u!61 &1266917036
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -15396,7 +15431,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4606848376125686, guid: 84d80bffeeb92f24a913eeab630c9c1b, type: 2}
       propertyPath: m_LocalScale.y
-      value: -2
+      value: -1.8
       objectReference: {fileID: 0}
     - target: {fileID: 4606848376125686, guid: 84d80bffeeb92f24a913eeab630c9c1b, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -15405,6 +15440,11 @@ Prefab:
     - target: {fileID: 4606848376125686, guid: 84d80bffeeb92f24a913eeab630c9c1b, type: 2}
       propertyPath: m_LocalScale.x
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114285320174156188, guid: 84d80bffeeb92f24a913eeab630c9c1b,
+        type: 2}
+      propertyPath: collidWithRat
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 84d80bffeeb92f24a913eeab630c9c1b, type: 2}
@@ -16354,6 +16394,7 @@ MonoBehaviour:
   - {fileID: 1195271401}
   - {fileID: 1985885679}
   direction: {x: 0, y: -0.35}
+  isFinalPoint: 0
 --- !u!82 &1423948095
 AudioSource:
   m_ObjectHideFlags: 0
@@ -20719,6 +20760,11 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114285320174156188, guid: 84d80bffeeb92f24a913eeab630c9c1b,
+        type: 2}
+      propertyPath: collidWithRat
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 84d80bffeeb92f24a913eeab630c9c1b, type: 2}
   m_IsPrefabParent: 0
@@ -20853,6 +20899,7 @@ MonoBehaviour:
   - {fileID: 1195271401}
   - {fileID: 1985885679}
   direction: {x: 0, y: 0.35}
+  isFinalPoint: 0
 --- !u!61 &1574641149
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -30326,6 +30373,11 @@ Prefab:
       propertyPath: m_Name
       value: Spikes (55)
       objectReference: {fileID: 0}
+    - target: {fileID: 114285320174156188, guid: 84d80bffeeb92f24a913eeab630c9c1b,
+        type: 2}
+      propertyPath: collidWithRat
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 84d80bffeeb92f24a913eeab630c9c1b, type: 2}
   m_IsPrefabParent: 0
@@ -31832,6 +31884,7 @@ MonoBehaviour:
   - {fileID: 1574641145}
   - {fileID: 1195271401}
   direction: {x: -0.35, y: 0}
+  isFinalPoint: 0
 --- !u!61 &1985885683
 BoxCollider2D:
   m_ObjectHideFlags: 0

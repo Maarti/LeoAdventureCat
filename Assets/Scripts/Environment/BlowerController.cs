@@ -14,7 +14,7 @@ public class BlowerController : MonoBehaviour {
     bool isWaiting = true, isBlowing=false;
     ParticleSystem prtcle;
     AreaEffector2D aoe;
-    AudioSource audio;
+    AudioSource audioSource;
 
 	// Use this for initialization
 	void Start () {
@@ -23,8 +23,7 @@ public class BlowerController : MonoBehaviour {
         startBlowingTime = Time.fixedTime;
         prtcle = smoke.GetComponent<ParticleSystem>();
         aoe = effectArea.GetComponent<AreaEffector2D>();
-        //audio = transform.Find("Audio").gameObject.GetComponent<AudioSource>(); // changed audioListener from camera to cat
-        audio = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
         StopBlowing();
     }
 	
@@ -59,20 +58,18 @@ public class BlowerController : MonoBehaviour {
     {
         startBlowingTime = Time.fixedTime;
         isBlowing = true;
-        //aoe.SetActive(true);
         prtcle.Play();
         aoe.enabled = true;
-        audio.Play();
+        audioSource.Play();
     }
 
     void StopBlowing()
     {
         isBlowing = false;
-        //aoe.SetActive(false);
         prtcle.Stop();
         aoe.enabled = false;
         startWaitingTime = Time.fixedTime;
-        audio.Stop();
+        audioSource.Stop();
     }
 
     private void OnTriggerStay2D(Collider2D collision)

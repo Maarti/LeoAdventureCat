@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class HostileZoneController : MonoBehaviour
 {
@@ -11,8 +9,6 @@ public class HostileZoneController : MonoBehaviour
 
 	void OnTriggerEnter2D (Collider2D other)
 	{
-		Debug.Log ("bark triggered with " + other.gameObject.name);
-		string layer = LayerMask.LayerToName (other.gameObject.layer);
 		if (other.gameObject.tag == "Player") {
 			other.gameObject.GetComponent<IDefendable> ().Defend (this.gameObject, damage, bumpVelocity, bumpDuration);
 		}

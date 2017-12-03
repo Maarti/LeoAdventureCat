@@ -1,48 +1,79 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class VentilationSwitchController : MonoBehaviour
 {
     public GameObject[] switches;
     public Vector2 direction;
+    public bool isFinalPoint = false;
+    bool isActive = false;
     Rigidbody2D ratRb;
     Animator animator;
-    AudioSource audio;
+    AudioSource audioSource;
 
     // Use this for initialization
     void Start()
     {
         animator = GetComponent<Animator>();
-        audio = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
         ratRb = GameObject.FindGameObjectWithTag("Rat").GetComponent<Rigidbody2D>();
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Player")
-            Enable();
+        // if Player activates a switch
+        if (isActive && !isFinalPoint && other.gameObject.tag == "Player")
+        {
+            Enable();               // animate it
+            StartMove();            // move rat
+
+            
+        }
+        // if Rat reaches the objective
+        else if (isActive && isFinalPoint && other.gameObject.tag == "Rat")
+        {
+            GameObject.Find("VentilationGame").GetComponent<VentilationGameController>().EndGame();
+        }
     }
 
-
+    // animate the switch and stop all the others
     void Enable()
     {
-        ratRb.velocity = direction;
-        animator.SetBool("enabled", true);
+        if (!animator.GetBool("enabled"))
+        {
+            audioSource.Play();
+            animator.SetBool("enabled", true);            
+        }
         DisableOthers();
-        audio.Play();
     }
 
+    // stop the switch animation
     public void Disable()
     {
         animator.SetBool("enabled", false);
     }
 
+    // move the rat
+    void StartMove()
+    {
+        ratRb.velocity = direction;
+    }
+
+    // tell if the switch is ready to receive collisions or not
+    public void Activate(bool active)
+    {
+        isActive = active;
+        if (!active)
+            Disable();
+    }
+
+    // disable all the other switches
     void DisableOthers()
     {
-        foreach(GameObject ventil in switches)
+        VentilationSwitchController ctrlr;
+        foreach (GameObject ventil in switches)
         {
-            ventil.GetComponent<VentilationSwitchController>().Disable();
+            ctrlr = ventil.GetComponent<VentilationSwitchController>();
+            ctrlr.Disable();
         }
     }
 }
