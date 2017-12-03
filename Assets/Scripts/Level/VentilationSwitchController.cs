@@ -2,9 +2,10 @@
 
 public class VentilationSwitchController : MonoBehaviour
 {
-    public GameObject[] switches;
+    public GameObject[] switches, particles;
     public Vector2 direction;
     public bool isFinalPoint = false;
+    public GameObject particle;
     bool isActive = false;
     Rigidbody2D ratRb;
     Animator animator;
@@ -43,6 +44,8 @@ public class VentilationSwitchController : MonoBehaviour
             audioSource.Play();
             animator.SetBool("enabled", true);            
         }
+        if (particle)
+            particle.SetActive(true);
         DisableOthers();
     }
 
@@ -50,6 +53,8 @@ public class VentilationSwitchController : MonoBehaviour
     public void Disable()
     {
         animator.SetBool("enabled", false);
+        if(particle)
+            particle.SetActive(false);
     }
 
     // move the rat
@@ -63,7 +68,9 @@ public class VentilationSwitchController : MonoBehaviour
     {
         isActive = active;
         if (!active)
-            Disable();
+        {
+            Disable();   
+        }
     }
 
     // disable all the other switches

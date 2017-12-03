@@ -25,7 +25,7 @@ public class DialogController : MonoBehaviour
 	}
 
 	public void DisplayDialog ()
-	{	
+	{
 		if (!isStarted)
 			Start ();
 		if (dialog.isFinished) {

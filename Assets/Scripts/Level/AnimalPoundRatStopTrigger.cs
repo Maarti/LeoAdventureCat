@@ -25,7 +25,7 @@ public class AnimalPoundRatStopTrigger : MonoBehaviour
 
 	void FixedUpdate ()
 	{
-		if (state == 0)
+        if (state == 0)
 			return;
 		
 		// Rat say stop
@@ -36,16 +36,18 @@ public class AnimalPoundRatStopTrigger : MonoBehaviour
 			state++;
 		} 
 
-		// Rat run to chair / Disable UI
-		else if (state == 2) {		
+		// Disable UI
+		else if (state == 2) {
 			guic.DisplayMobileController (false);
 			guic.DisplayTopUI (false);
 			state++;
 		}
 
 		// Rat run to chair / Disable UI
-		else if (state == 3) {			
-			if (rat.transform.position != chairDown.position) {
+		else if (state == 3) {
+            guic.DisplayMobileController(false);
+            guic.DisplayTopUI(false);
+            if (rat.transform.position != chairDown.position) {
 				rat.transform.position = Vector3.MoveTowards (rat.transform.position, chairDown.position, Time.deltaTime * ratSpeed);
 				ratAnim.SetFloat ("speed", ratSpeed);
 			} else {

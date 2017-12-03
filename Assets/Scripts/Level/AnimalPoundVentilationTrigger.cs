@@ -65,6 +65,8 @@ public class AnimalPoundVentilationTrigger : MonoBehaviour
         // Rat jumps to ceiling
         else if (state == 4)
         {
+            guic.DisplayMobileController(false);
+            guic.DisplayTopUI(false);
             if (rat.transform.position != ceiling.position)
             {
                 rat.transform.position = Vector3.MoveTowards(rat.transform.position, ceiling.position, Time.deltaTime * ratSpeed*4);

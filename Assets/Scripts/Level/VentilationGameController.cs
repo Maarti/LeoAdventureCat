@@ -54,10 +54,10 @@ public class VentilationGameController : MonoBehaviour {
         // deactivate all switches
         EnableSwitches(false);
         // activate final blower
-        finalBlower.GetComponent<BlowerController>().StartBlowing();
         finalBlower.GetComponent<BlowerController>().damage = 1;
         finalBlower.transform.Find("Burner/RightFire").gameObject.SetActive(true);
         finalBlower.transform.Find("Burner/LeftFire").gameObject.SetActive(true);
+        finalBlower.GetComponent<BlowerController>().StartBlowing();
     }
 
     public void InitCamera()
