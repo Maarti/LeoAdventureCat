@@ -2616,13 +2616,11 @@ Prefab:
       propertyPath: m_Layer
       value: 12
       objectReference: {fileID: 0}
-    - target: {fileID: 23633014597134482, guid: a65de96e6ef8b9a449aa47bc92df43f6,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: m_SortingLayerID
       value: -316188217
       objectReference: {fileID: 0}
-    - target: {fileID: 23633014597134482, guid: a65de96e6ef8b9a449aa47bc92df43f6,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: m_SortingLayer
       value: -2
       objectReference: {fileID: 0}
@@ -2666,7 +2664,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1946753732215836, guid: a65de96e6ef8b9a449aa47bc92df43f6, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1094726621207776, guid: a65de96e6ef8b9a449aa47bc92df43f6, type: 2}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -2855,7 +2857,7 @@ ParticleSystem:
   looping: 1
   prewarm: 1
   playOnAwake: 1
-  useUnscaledTime: 0
+  useUnscaledTime: 1
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
   startDelay:
@@ -8527,7 +8529,7 @@ ParticleSystem:
   looping: 1
   prewarm: 1
   playOnAwake: 1
-  useUnscaledTime: 0
+  useUnscaledTime: 1
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
   startDelay:
@@ -12656,6 +12658,7 @@ MonoBehaviour:
   catBoundary: {fileID: 290886764}
   ratBoundary: {fileID: 48473421}
   finalBlower: {fileID: 1776100958}
+  particlesUp: {fileID: 486747830}
 --- !u!1 &592307465
 GameObject:
   m_ObjectHideFlags: 0
@@ -21627,7 +21630,7 @@ MonoBehaviour:
   particles:
   - {fileID: 1238894991}
   - {fileID: 486747830}
-  direction: {x: 0.35, y: 0}
+  direction: {x: 0.5, y: 0}
   isFinalPoint: 0
   particle: {fileID: 269080267}
 --- !u!61 &1195271405
@@ -22170,7 +22173,7 @@ ParticleSystem:
   looping: 1
   prewarm: 1
   playOnAwake: 1
-  useUnscaledTime: 0
+  useUnscaledTime: 1
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
   startDelay:
@@ -26859,7 +26862,7 @@ MonoBehaviour:
   particles:
   - {fileID: 269080267}
   - {fileID: 1238894991}
-  direction: {x: 0, y: -0.35}
+  direction: {x: 0, y: -0.5}
   isFinalPoint: 0
   particle: {fileID: 486747830}
 --- !u!82 &1423948095
@@ -31368,7 +31371,7 @@ MonoBehaviour:
   particles:
   - {fileID: 269080267}
   - {fileID: 1238894991}
-  direction: {x: 0, y: 0.35}
+  direction: {x: 0, y: 0.5}
   isFinalPoint: 0
   particle: {fileID: 486747830}
 --- !u!61 &1574641149
@@ -42398,7 +42401,7 @@ MonoBehaviour:
   particles:
   - {fileID: 269080267}
   - {fileID: 486747830}
-  direction: {x: -0.35, y: 0}
+  direction: {x: -0.5, y: 0}
   isFinalPoint: 0
   particle: {fileID: 1238894991}
 --- !u!61 &1985885683

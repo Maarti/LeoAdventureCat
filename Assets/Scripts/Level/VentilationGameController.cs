@@ -6,7 +6,7 @@ public class VentilationGameController : MonoBehaviour {
 
     public GameObject[] switches;
     public Vector3 cameraPosition = new Vector3(5.6f,18.2f,-11f);
-    public GameObject catBoundary, ratBoundary, finalBlower;
+    public GameObject catBoundary, ratBoundary, finalBlower, particlesUp;
     GameObject cam;
     bool isPlaying = false, isCameraInit=false;
     Rigidbody2D ratRb;
@@ -35,6 +35,8 @@ public class VentilationGameController : MonoBehaviour {
         ratRb.gravityScale = 0f;
         // activate all switches
         EnableSwitches(true);
+        // activate particules
+        particlesUp.SetActive(true);
     }
 
     public void EndGame()

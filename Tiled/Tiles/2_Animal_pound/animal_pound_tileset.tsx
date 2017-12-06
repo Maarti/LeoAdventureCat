@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset name="tileset_animal_pound" tilewidth="128" tileheight="128" tilecount="23" columns="0">
+<tileset name="tileset_animal_pound" tilewidth="128" tileheight="128" tilecount="24" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
- <tile id="1">
-  <image width="128" height="128" source="wall1.png"/>
- </tile>
  <tile id="6">
   <image width="128" height="128" source="window_1.png"/>
  </tile>
@@ -131,5 +128,11 @@
     <polyline points="0.0222222,0.311111 27,4 58,16.6667 84.3333,37 103.667,63 114.333,91.3333 116.067,116.978 128,117 128,-11 0,-11 0,0.3125"/>
    </object>
   </objectgroup>
+ </tile>
+ <tile id="47">
+  <image width="128" height="128" source="wall2.png"/>
+ </tile>
+ <tile id="48">
+  <image width="128" height="128" source="wall3.png"/>
  </tile>
 </tileset>
