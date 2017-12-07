@@ -24,7 +24,6 @@ public class SceneLoader : MonoBehaviour
 			// Activate one character to display
 			GameObject character = characters [Random.Range (0, characters.Length)];
 			character.SetActive (true);
-			Debug.Log ("loading screen character = " + character.name);
 
 			// Animate character
 			AnimateCharacter (character);
@@ -53,7 +52,6 @@ public class SceneLoader : MonoBehaviour
 			// I multiply the progress by 110 (and not 100) because the progress is stuck at 0.9 (=> 90%), so now it's 99%.
 			int progress = Mathf.Clamp (Mathf.RoundToInt (asyncLoad.progress * 110), 0, 100);
 			progressText.text = progress.ToString () + "%";
-			Debug.Log ("loading : " + progress.ToString () + "%");
 			yield return null;
 		}
 	}

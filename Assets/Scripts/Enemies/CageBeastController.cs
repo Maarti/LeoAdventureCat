@@ -37,7 +37,6 @@ public class CageBeastController : MonoBehaviour
 
 		//display slash
 		slash.transform.position = target.transform.position;
-		Debug.Log ("ready to attack = " + readyToAttack.ToString ());
 		Color slashColor = slash.GetComponent<SpriteRenderer> ().color;
 		slashColor.a = 1f;
 		slash.GetComponent<SpriteRenderer> ().color = slashColor;

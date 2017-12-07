@@ -57,13 +57,11 @@ public class DogCatcherController : MonoBehaviour, IDefendable
 
 	IEnumerator AspirationPhase ()
 	{
-		Debug.Log ("begin AspriationPhase");
 		animator.SetTrigger ("absorb");
 		yield return new WaitForSeconds (5f);
 		StopAbsorb ();
 		currentPhase = 0;
 		previousPhase = 1;
-		Debug.Log ("end AspriationPhase");
 	}
 
 	//called by animator
@@ -72,7 +70,6 @@ public class DogCatcherController : MonoBehaviour, IDefendable
 		animator.SetBool ("isAbsorbing", true);
 		attackPointEffector.SetActive (true);
 		audioSource.PlayOneShot (shopVacSound);
-		Debug.Log ("start Abs");
 	}
 
 	public void StopAbsorb ()
@@ -80,12 +77,10 @@ public class DogCatcherController : MonoBehaviour, IDefendable
 		animator.SetBool ("isAbsorbing", false);
 		attackPointEffector.SetActive (false);
 		Invoke ("StopAudio", 1f);
-		Debug.Log ("stop Abs");
 	}
 
 	IEnumerator ThrowingPhase ()
 	{
-		Debug.Log ("begin ThrowingPhase");
 		int nbThrown = 0;
 		while (nbThrown < 3) {
 			animator.SetTrigger ("throw");
@@ -94,7 +89,6 @@ public class DogCatcherController : MonoBehaviour, IDefendable
 		}
 		currentPhase = 0;
 		previousPhase = 2;
-		Debug.Log ("end ThrowingPhase");
 	}
 
 	// called by animator
@@ -130,7 +124,6 @@ public class DogCatcherController : MonoBehaviour, IDefendable
 					audioSource.PlayOneShot (bossHitSound);
 			}
 		}
-		Debug.Log ("boss attacked, life = " + life);
 	}
 
 	void Die ()
