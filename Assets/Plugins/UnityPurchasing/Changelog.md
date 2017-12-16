@@ -1,8 +1,24 @@
+## [1.15.0] - 2017-11-13
+### Added
+- IAP Updates - GUI to control plugin updates in Window > Unity IAP > IAP Updates menu. Supports viewing changelog, skipping this update, disabling automatic updates, and showing current version number. Writes preferences to Assets/Plugins/UnityPurchasing/Resources/IAPUpdaterPreferences.json.
+
+# Changed
+- IAP Demo - Improved UI and cleaned up code in the IAP Demo sample scene
+- Version Log - Changed logging of Unity IAP version (e.g. "1.15.0") to be only at runtime and not while in the Editor
+
+### Fixed
+- Facebook - Correctly handles situations where the number of available products exceeds the Facebook server response page size 
+- Updater will no longer prompt for updates when Unity is running in batch mode
+- Gradle - Include and relocate sample Proguard configuration file to Assets/Plugins/UnityPurchasing/Android/proguard-user.txt.OPTIONAL.txt; was missing from 1.13.2
+- Security - Upgrades project to autogenerate UnityChannelTangle class if missing when GooglePlayTangle obfuscated secret receipt validation support class is present.
+- UnityIAPUpdater - Fix a FormatException sensitivity for DateTime parsing
+- Xiaomi Catalog - Fix a NullReferenceException seen when exporting an empty catalog
+- Xiaomi Receipt Validation - Fix missing UnityChannelTangle class for Unity IAP projects which used receipt validation
+
 ## [1.14.1] - 2017-10-02
 ### Fixed
 - Apple Application Loader product catalog exporter now correctly exports tab-separated values for catalogs containing more than one product
 - JSONSerializer - Unity 5.3 build-time regression - missing "type" field on ProductDescription. Field is available in 5.4 and higher.
-- FakeStore - uses Product.storeSpecificId instead of Product.id when reporting purchase failures
 
 ## [1.14.0] - 2017-09-18
 ### Added

@@ -1,11 +1,14 @@
 <linker>
-	<assembly fullname="UnityEngine.Purchasing">
-		<type fullname="UnityEngine.Purchasing.Extension.IPurchasingBinder" preserve="all"/>
-	</assembly>
-	<assembly fullname="Stores">
-		<type fullname="UnityEngine.Purchasing.CloudCatalogImpl" preserve="all"/>
-	</assembly>
-	<assembly fullname="mscorlib">
-		<type fullname="System.Security.Cryptography.*" preserve="all"/>
-	</assembly>
+    <assembly fullname="UnityEngine.Purchasing">
+        <type fullname="UnityEngine.Purchasing.Extension.IPurchasingBinder" preserve="all"/>
+    </assembly>
+    <assembly fullname="Stores">
+        <type fullname="UnityEngine.Purchasing.CloudCatalogImpl" preserve="all"/>
+        <type fullname="UnityEngine.Purchasing.Promo" preserve="fields">
+            <method name="InitiatePromoPurchase" />
+        </type>
+    </assembly>
+    <assembly fullname="mscorlib">
+        <type fullname="System.Security.Cryptography.*" preserve="all"/>
+    </assembly>
 </linker>
