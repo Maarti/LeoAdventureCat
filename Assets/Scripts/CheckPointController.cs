@@ -92,16 +92,24 @@ public class CheckPointController : MonoBehaviour
 			GameObject.Destroy (GameObject.Find ("Triggers/intro_trigger"));
 			GameObject.Destroy (GameObject.Find ("Triggers/liberation_trigger"));
 			GameObject.Destroy (GameObject.Find ("Triggers/stop_trigger"));
-			// rat on cat
-			GameObject rat = GameObject.FindGameObjectWithTag ("Rat");
-			rat.GetComponent<Collider2D> ().enabled = false;
-			Vector3 ratScale = rat.transform.localScale;
-			Transform ratLocation = GameObject.Find ("Cat/Body/RatLocation").transform;
-			rat.transform.position = ratLocation.position;
-			rat.transform.parent = ratLocation;
-			rat.transform.localScale = ratScale;
-			rat.GetComponent<Animator> ().SetBool ("gotMouthCheese", false);
-			rat.GetComponent<Animator> ().SetBool ("isEating", true);
+            // rat on cat
+            if (!checkpointName.Equals("Checkpoint_end"))
+            {
+                GameObject rat = GameObject.FindGameObjectWithTag("Rat");
+                rat.GetComponent<Collider2D>().enabled = false;
+                Vector3 ratScale = rat.transform.localScale;
+                Transform ratLocation = GameObject.Find("Cat/Body/RatLocation").transform;
+                rat.transform.position = ratLocation.position;
+                rat.transform.parent = ratLocation;
+                rat.transform.localScale = ratScale;
+                rat.GetComponent<Animator>().SetBool("gotMouthCheese", false);
+                rat.GetComponent<Animator>().SetBool("isEating", true);
+            }
+            // rat at the end
+            else
+            {
+                GameObject rat = GameObject.FindGameObjectWithTag("Rat");
+            }
 			break;
 		default:
 			break;
