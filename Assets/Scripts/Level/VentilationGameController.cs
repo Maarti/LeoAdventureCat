@@ -7,6 +7,7 @@ public class VentilationGameController : MonoBehaviour {
     public GameObject[] switches;
     public Vector3 cameraPosition = new Vector3(5.6f,18.2f,-11f);
     public GameObject catBoundary, ratBoundary, finalBlower, particlesUp;
+    public Transform ratEndPosition;
     GameObject cam;
     bool isPlaying = false, isCameraInit=false;
     Rigidbody2D ratRb;
@@ -17,10 +18,6 @@ public class VentilationGameController : MonoBehaviour {
         cameraPosition.z = cam.transform.position.z;
         ratRb = GameObject.FindGameObjectWithTag("Rat").GetComponent<Rigidbody2D>();
     }
-	
-	void Update () {
-		
-	}
 
     public void StartGame()
     {
@@ -49,7 +46,6 @@ public class VentilationGameController : MonoBehaviour {
         Destroy(catBoundary);
         Destroy(ratBoundary);
         // rat
-        //ratRb.isKinematic = true;
         ratRb.gravityScale = 1f;
         ratRb.velocity = Vector2.zero;
         ratRb.gameObject.GetComponent<Animator>().SetBool("isFloating", false);
@@ -60,6 +56,8 @@ public class VentilationGameController : MonoBehaviour {
         finalBlower.transform.Find("Burner/RightFire").gameObject.SetActive(true);
         finalBlower.transform.Find("Burner/LeftFire").gameObject.SetActive(true);
         finalBlower.GetComponent<BlowerController>().StartBlowing();
+        // teleport rat
+        StartCoroutine(TeleportRat());
     }
 
     public void InitCamera()
@@ -90,5 +88,13 @@ public class VentilationGameController : MonoBehaviour {
             ctrlr = ventil.GetComponent<VentilationSwitchController>();
             ctrlr.Activate(activate);
         }
+    }
+
+    // Wait 1s then teleport rat at the end
+    IEnumerator TeleportRat()
+    {
+        yield return new WaitForSeconds(1f);
+        ratRb.isKinematic = true;
+        ratRb.gameObject.transform.position = ratEndPosition.position;
     }
 }

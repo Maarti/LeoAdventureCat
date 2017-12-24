@@ -56,6 +56,8 @@ public class CheckPointController : MonoBehaviour
 		GameObject checkpoint = GameObject.Find (checkpointName + "/Spawn");
         // we keep the player Z axis
 		player.transform.position = new Vector3(checkpoint.transform.position.x, checkpoint.transform.position.y, player.transform.position.z);
+        // also teleport camera to player
+        Camera.main.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, Camera.main.transform.position.z);
 	}
 
 	public void Check (string checkpointName)
@@ -109,7 +111,8 @@ public class CheckPointController : MonoBehaviour
             else
             {
                 GameObject rat = GameObject.FindGameObjectWithTag("Rat");
-            }
+                rat.transform.position = GameObject.Find("BossManager/RatDownPosition").transform.position;
+                }
 			break;
 		default:
 			break;
