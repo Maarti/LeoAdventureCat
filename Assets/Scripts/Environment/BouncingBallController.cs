@@ -30,7 +30,7 @@ public class BouncingBallController : MonoBehaviour, IDefendable
 	public void Defend (GameObject attacker, int damage, Vector2 attackerBumpVelocity, float bumpTime)
 	{
 		if (bumpVelocity != Vector2.zero && !rb.isKinematic) {
-			if ((transform.position.x - attacker.transform.position.x) > 0) // if attacker come from the left, bump to right
+			if ((transform.position.x - attacker.transform.position.x) > 0) // if attacker comes from the left, bump to right
 					bumpVelocity.x *= -1;
 			rb.velocity = bumpVelocity;
 		}			
