@@ -111,8 +111,10 @@ public class CheckPointController : MonoBehaviour
             else
             {
                 GameObject rat = GameObject.FindGameObjectWithTag("Rat");
-                rat.transform.position = GameObject.Find("BossManager/RatDownPosition").transform.position;
-                }
+                rat.transform.position = GameObject.Find("BossManager/RatUpPosition").transform.position;
+                Vector3 theScale = new Vector3(Mathf.Abs(rat.transform.localScale.x) * -1, rat.transform.localScale.y, rat.transform.localScale.z);
+                rat.transform.localScale = theScale;
+            }
 			break;
 		default:
 			break;

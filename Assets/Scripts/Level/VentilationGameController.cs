@@ -9,7 +9,7 @@ public class VentilationGameController : MonoBehaviour {
     public GameObject catBoundary, ratBoundary, finalBlower, particlesUp;
     public Transform ratEndPosition;
     GameObject cam;
-    bool isPlaying = false, isCameraInit=false;
+    bool isCameraInit=false;
     Rigidbody2D ratRb;
     Coroutine camRoutine = null;
 
@@ -95,6 +95,10 @@ public class VentilationGameController : MonoBehaviour {
     {
         yield return new WaitForSeconds(1f);
         ratRb.isKinematic = true;
-        ratRb.gameObject.transform.position = ratEndPosition.position;
+        Transform ratT = ratRb.gameObject.transform;
+        ratT.position = ratEndPosition.position;
+        // facing to left
+        Vector3 theScale = new Vector3(Mathf.Abs(ratT.localScale.x) * -1, ratT.localScale.y, ratT.localScale.z);
+        ratT.localScale = theScale;
     }
 }
