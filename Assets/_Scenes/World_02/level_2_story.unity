@@ -236,6 +236,34 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7b214c5696f61c34e9e6218a89e012e7, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &29870400
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 29870401}
+  m_Layer: 0
+  m_Name: RatUpPipePosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &29870401
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 29870400}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 8.779, y: 1.5389996, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1373502327}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &32124104
 GameObject:
   m_ObjectHideFlags: 0
@@ -447,7 +475,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 50495601}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.351, y: 1.5, z: 0}
+  m_LocalPosition: {x: 6.519, y: 1.5, z: 0}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children:
   - {fileID: 491060077}
@@ -1508,7 +1536,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 105077213}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.245, y: 1.561, z: 0}
+  m_LocalPosition: {x: 8.245, y: 1.539, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1373502327}
@@ -18827,6 +18855,7 @@ GameObject:
   m_Component:
   - component: {fileID: 428665701}
   - component: {fileID: 428665702}
+  - component: {fileID: 428665703}
   m_Layer: 0
   m_Name: rat_start_bulldog
   m_TagString: Untagged
@@ -18841,7 +18870,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 428665700}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 23, y: 21, z: 0}
+  m_LocalPosition: {x: 24.5, y: 21, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1029870778}
@@ -18872,6 +18901,28 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.05, y: 2.9361992}
   m_EdgeRadius: 0
+--- !u!114 &428665703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 428665700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ff65bd7a4b1774987991230caadc78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dog: {fileID: 50495601}
+  ball: {fileID: 1718456247}
+  boundary: {fileID: 1571813905}
+  ratDown: {fileID: 1799489314}
+  ratUp: {fileID: 105077214}
+  ratDownPipe: {fileID: 777394606}
+  ratUpPipe: {fileID: 29870401}
+  dogDown: {fileID: 1585992246}
+  dogUp: {fileID: 1834075528}
+  dogSpeed: 1
+  dogWaitingTime: 3
 --- !u!1 &435027733
 GameObject:
   m_ObjectHideFlags: 0
@@ -19393,8 +19444,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 480969035}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 15, y: 0.1426482, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 28.245, y: 21.539, z: 0}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children:
   - {fileID: 228564255}
   - {fileID: 218601248}
@@ -24198,7 +24249,7 @@ MonoBehaviour:
   ratBoundary: {fileID: 48473421}
   finalBlower: {fileID: 1776100958}
   particlesUp: {fileID: 486747830}
-  ratEndPosition: {fileID: 1799489314}
+  ratEndPosition: {fileID: 105077214}
 --- !u!1 &592307465
 GameObject:
   m_ObjectHideFlags: 0
@@ -26624,6 +26675,34 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cb8c35e7245eb17468a909f6f4241449, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &777394605
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 777394606}
+  m_Layer: 0
+  m_Name: RatDownPipePosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &777394606
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 777394605}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 8.628, y: 1.252, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1373502327}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &779703257 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4693284637640558, guid: 7b214c5696f61c34e9e6218a89e012e7,
@@ -44126,6 +44205,8 @@ Transform:
   - {fileID: 1718456248}
   - {fileID: 1834075528}
   - {fileID: 1585992246}
+  - {fileID: 29870401}
+  - {fileID: 777394606}
   m_Father: {fileID: 0}
   m_RootOrder: 36
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -49707,7 +49788,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1585992245}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.176, y: 1.5, z: 0}
+  m_LocalPosition: {x: 7.35, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1373502327}
@@ -54195,7 +54276,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1718456247}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.7719994, y: 1.07, z: 0}
+  m_LocalPosition: {x: 8.08, y: 1.535, z: 0}
   m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_Children: []
   m_Father: {fileID: 1373502327}
@@ -54213,8 +54294,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0144a6a94cd20b54fb421608f301b2d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bumpVelocity: {x: 0, y: 3}
-  xDecelaration: 1
+  bumpVelocity: {x: 0, y: 4}
+  xDecelaration: 0.5
 --- !u!58 &1718456250
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -54265,7 +54346,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300028, guid: bbfb08366f2b62a429ba8fb65d94f318, type: 3}
-  m_Color: {r: 0.5147059, g: 0.5147059, b: 0.5147059, a: 1}
+  m_Color: {r: 0.72794116, g: 0.72794116, b: 0.72794116, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -54282,7 +54363,7 @@ Rigidbody2D:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1718456247}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -60392,11 +60473,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4711834656892576, guid: f6feff851a78c7048acd05b95cafa38a, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 12.9
+      value: 23.45
       objectReference: {fileID: 0}
     - target: {fileID: 4711834656892576, guid: f6feff851a78c7048acd05b95cafa38a, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.89
+      value: 21.5
       objectReference: {fileID: 0}
     - target: {fileID: 4711834656892576, guid: f6feff851a78c7048acd05b95cafa38a, type: 2}
       propertyPath: m_LocalPosition.z

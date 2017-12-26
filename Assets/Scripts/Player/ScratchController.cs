@@ -56,6 +56,7 @@ public class ScratchController : MonoBehaviour
 	void OnTriggerEnter2D (Collider2D other)
 	{
 		string layer = LayerMask.LayerToName (other.gameObject.layer);
+        Debug.Log("scratch : " + other.gameObject);
 		// if the ennemy has not been already hit by this attack
 		if ((layer == "Destructible" || layer == "Enemy") && !ennemiesHit.Contains (other.name)) {
 			ennemiesHit.Add (other.name);

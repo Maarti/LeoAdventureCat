@@ -6,19 +6,21 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
 {
 	public GameObject dog, ball, boundary;
 	public Transform ratDown, ratUp, ratDownPipe, ratUpPipe, dogDown, dogUp;
-    public float dogSpeed = 1f;
-    GameObject rat;
+    public float dogSpeed = 1f, dogWaitingTime = 3f;
+    GameObject rat, cat;
 	bool ratFacingRight = false, dogFacingRight = true;
 	bool waitingTimeIsSet = false;
 	int state = -1;
 	float startWaitingTime;
 	Animator ratAnim, dogAnim;
 	GameUIController guic;
+    const float ratSpeed = 1f;
 
 	// Use this for initialization
 	void Start ()
 	{
         rat = GameObject.FindGameObjectWithTag("Rat");
+        cat = GameObject.FindGameObjectWithTag("Player");
         ratAnim = rat.GetComponent<Animator> ();
         dogAnim = dog.GetComponent<Animator>();
 		guic = GameObject.Find ("Canvas/GameUI").GetComponent<GameUIController> ();
@@ -26,97 +28,125 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
 
 	void FixedUpdate ()
 	{
-		if (state>0) {
-			// Rat run to chair
-			/*if (state == 0) {
-				if (rat.transform.position != chairDown.position) {
-					rat.transform.position = Vector3.MoveTowards (rat.transform.position, chairDown.position, Time.deltaTime * ratSpeed);
-					ratAnim.SetFloat ("speed", ratSpeed);
-				} else {
-					rat.transform.Rotate (Vector3.forward * 90);
-					state++;
-				}
-			}
+        if (state <= 0)
+            return;
+        
+        // 
+        else if (state == 1)
+        {
+            dogAnim.SetFloat("x.velocity", dogSpeed);
+            ratAnim.SetFloat("speed", ratSpeed);
+            RatFlip();
+            state++;
+        }
 
-			// Rat run to key
-			else if (state == 1) {
-				if (rat.transform.position != chairUp.position) {
-					rat.transform.position = Vector3.MoveTowards (rat.transform.position, chairUp.position, Time.deltaTime * ratSpeed);
-					ratAnim.SetFloat ("speed", ratSpeed);
-				} else {
-					ratAnim.SetBool ("gotKey", true);
-					RatFlip ();
-					state++;
-				}
-			} 
+        // dog goes up AND rat run into pipe
+        else if (state == 2)
+        {
+            if (dog.transform.position != dogUp.position) {
+                rat.transform.position = Vector3.MoveTowards(rat.transform.position, ratUpPipe.position, Time.deltaTime * ratSpeed);
+                dog.transform.position = Vector3.MoveTowards(dog.transform.position, dogUp.position, Time.deltaTime * dogSpeed);
+            }
+            else {
+                rat.transform.position = ratDownPipe.position;
+                dogAnim.SetFloat("x.velocity", 0f);
+                dogAnim.SetBool("goUp", true);
+                RatFlip();
+                state++;
+            }
+        }
 
-			// Rat run to chair
-			else if (state == 2) {
-				if (rat.transform.position != chairDown.position) {
-					rat.transform.position = Vector3.MoveTowards (rat.transform.position, chairDown.position, Time.deltaTime * ratSpeed);
-					ratAnim.SetFloat ("speed", ratSpeed);
-				} else {
-					rat.transform.Rotate (Vector3.back * 90);
-					state++;
-				}
-			} 
+        // rat goes down
+        else if (state == 3)
+        {
+            if (rat.transform.position != ratDown.position)
+                rat.transform.position = Vector3.MoveTowards(rat.transform.position, ratDown.position, Time.deltaTime * ratSpeed);
+            else
+            {
+                ratAnim.SetFloat("speed", 0f);
+                dogAnim.SetBool("isGrowling", true);
+                state++;
+            }
+        }
 
-			// Rat run to cage
-			else if (state == 3) {
-				if (rat.transform.position != frontCage.position) {
-					rat.transform.position = Vector3.MoveTowards (rat.transform.position, frontCage.position, Time.deltaTime * ratSpeed);
-					ratAnim.SetFloat ("speed", ratSpeed);
-				} else {
-					ratAnim.SetFloat ("speed", 0f);
-					state++;
-				}
-			}
+        // wait 3s
+        else if (state == 4)
+        {
+            if (!waitingTimeIsSet)
+            {
+                startWaitingTime = Time.time;
+                waitingTimeIsSet = true;
+            }
+            else
+            {
+                if ((Time.time - startWaitingTime) < dogWaitingTime)
+                    return;
+                else
+                {
+                    RatFlip();
+                    ratAnim.SetFloat("speed", ratSpeed);
+                    dogAnim.SetBool("goUp",false);
+                    dogAnim.SetBool("isGrowling", false);
+                    state++;
+                    waitingTimeIsSet = false;
+                }
+            }
+        }
 
-			// Waiting 2s
-			else if (state == 4) {
-				if (!waitingTimeIsSet) {
-					startWaitingTime = Time.time;
-					waitingTimeIsSet = true;
-				} else {
-					if ((Time.time - startWaitingTime) < 2f)
-						return;
-					else {
-						ratAnim.SetBool ("gotKey", false);
-						state++;					
-					}
-				}
-			}
+        // dog goes down / rat run into pipe
+        else if (state == 5)
+        {
+            if (dog.transform.position != dogDown.position && rat.transform.position != ratDownPipe.position)
+            {
+                rat.transform.position = Vector3.MoveTowards(rat.transform.position, ratDownPipe.position, Time.deltaTime * ratSpeed);
+                dog.transform.position = Vector3.MoveTowards(dog.transform.position, dogDown.position, Time.deltaTime * dogSpeed);
+            }
+            else
+            {
+                rat.transform.position = ratUpPipe.position;
+                dogAnim.SetBool("goDown", true);
+                RatFlip();
+                state++;
+            }
+        }
 
-			// Rat open cage
-			else if (state == 5) {
-				if (!isCageOpen) {
-					cage.GetComponent<Animator> ().SetBool ("isOpened", true);
-					isCageOpen = true;
-				} else {
-					guic.DisplayDialog (DialogEnum.rat_asks_follow);
-					RatFlip ();
-					ratSpeed = 2.5f;
-					state++;
-				}
-			}
+        // rat goes up
+        else if (state == 6)
+        {
+            if (rat.transform.position != ratUp.position)
+                rat.transform.position = Vector3.MoveTowards(rat.transform.position, ratUp.position, Time.deltaTime * ratSpeed);
+            else
+            {
+                ratAnim.SetFloat("speed", 0f);
+                dogAnim.SetBool("isGrowling", true);
+                state++;
+            }
+        }
 
-			// Rat run out
-			else if (state == 6) {
-				if (rat.transform.position != runOut.position) {
-					rat.transform.position = Vector3.MoveTowards (rat.transform.position, runOut.position, Time.deltaTime * ratSpeed);
-					ratAnim.SetFloat ("speed", ratSpeed);
-				} else {
-					ratAnim.SetFloat ("speed", 0f);
-					state++;
-				}
-			} 
-
-			// Destroy
-			else if (state == 7)
-				Destroy (this.gameObject);
-*/
-		}
-	}
+        // wait 3s
+        else if (state == 7)
+        {
+            if (!waitingTimeIsSet)
+            {
+                startWaitingTime = Time.time;
+                waitingTimeIsSet = true;
+            }
+            else
+            {
+                if ((Time.time - startWaitingTime) < dogWaitingTime)
+                    return;
+                else
+                {
+                    ratAnim.SetFloat("speed", ratSpeed);
+                    dogAnim.SetBool("goDown", false);
+                    dogAnim.SetBool("isGrowling", false);
+                    state=1;
+                    waitingTimeIsSet = false;
+                }
+            }
+        }
+        
+    }
 
 
 	void OnTriggerEnter2D (Collider2D other)
@@ -132,6 +162,7 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
         // disable UI        
         guic.DisplayMobileController(false);
         guic.DisplayTopUI(false);
+        cat.GetComponent<PlayerController>().StartMoving(0f);
 
         // throw ball
         ball.GetComponent<Rigidbody2D>().isKinematic = false;
@@ -149,20 +180,7 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
         guic.DisplayMobileController();
         guic.DisplayTopUI();
 
-        // dog run to rat AND rat run into pipe
-        dogAnim.SetFloat("x.velocity", dogSpeed);
-        ratAnim.SetFloat("speed", 1.5f);
-        RatFlip();
-        while (dog.transform.position != dogUp.position)
-        {
-            rat.transform.position = Vector3.MoveTowards(rat.transform.position, ratUpPipe.position, Time.deltaTime *1.5f);
-            dog.transform.position = Vector3.MoveTowards(dog.transform.position, dogUp.position, Time.deltaTime * dogSpeed);
-            yield return null;
-        }
-        rat.transform.position = ratDownPipe.position;
-        ratAnim.SetFloat("speed", 0f);
-        dogAnim.SetFloat("x.velocity", 0f);
-        dogAnim.SetBool("goUp", true);
+        
 
         state++;
         yield return null;
