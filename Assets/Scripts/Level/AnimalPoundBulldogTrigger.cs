@@ -15,6 +15,7 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
 	Animator ratAnim, dogAnim;
 	GameUIController guic;
     const float ratSpeed = 1f;
+    BulldogBossController bossCtrlr;
 
 	// Use this for initialization
 	void Start ()
@@ -24,6 +25,7 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
         ratAnim = rat.GetComponent<Animator> ();
         dogAnim = dog.GetComponent<Animator>();
 		guic = GameObject.Find ("Canvas/GameUI").GetComponent<GameUIController> ();
+        bossCtrlr = dog.GetComponent<BulldogBossController>();
 	}
 
 	void FixedUpdate ()
@@ -140,12 +142,43 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
                     ratAnim.SetFloat("speed", ratSpeed);
                     dogAnim.SetBool("goDown", false);
                     dogAnim.SetBool("isGrowling", false);
-                    state=1;
+                    state++;
                     waitingTimeIsSet = false;
                 }
             }
         }
         
+        // dog chases cat
+        else if (state == 8)
+        {
+            bossCtrlr.ChaseCat();
+            dogAnim.SetFloat("x.velocity", bossCtrlr.speed);
+            dogAnim.SetBool("isGrowling", true);
+            state++;
+        }
+
+        // wait 10s
+        else if (state == 9)
+        {
+            if (!waitingTimeIsSet)
+            {
+                startWaitingTime = Time.time;
+                waitingTimeIsSet = true;
+            }
+            else
+            {
+                if ((Time.time - startWaitingTime) < 10f)
+                    return;
+                else
+                {
+                    bossCtrlr.StopChaseCat();
+                    dogAnim.SetBool("isGrowling", false);
+                    state = 1;
+                    waitingTimeIsSet = false;
+                }
+            }
+        }
+
     }
 
 
@@ -186,8 +219,16 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
         yield return null;
     }
 
-    void DogFlip()
+    void DogFaceRight()
     {
+        if(!bossCtrlr.isFacingRight)
+            bossCtrlr.Flip();
+    }
+
+    void DogFaceLeft()
+    {
+        if (bossCtrlr.isFacingRight)
+            bossCtrlr.Flip();
     }
 
     void RatFlip ()

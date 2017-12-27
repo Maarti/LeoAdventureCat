@@ -4,14 +4,34 @@ public class BulldogBossController : MonoBehaviour, IDefendable
 {
     public int life = 100, damageOnCollision =1;
     public Vector2 bumpOnCollision = new Vector2(-2, 2);
+    public float speed = 1f;
+    public bool isFacingRight = true;
     Animator animator;
     AudioSource audioSource;
+    int state = 0;          // 0 = attack rat / 1 = attack cat
+    GameObject cat;
+    
 
     void Start()
     {
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
+        cat = GameObject.FindGameObjectWithTag("Player");
     }
+
+    void FixedUpdate()
+    {
+        // chase cat
+        if (state == 1)
+        {
+            Vector3 target = new Vector3(cat.transform.position.x, this.transform.position.y, this.transform.position.z);
+            this.transform.position = Vector3.MoveTowards(this.transform.position, target, speed/100);
+            if ((target.x < this.transform.position.x && isFacingRight) ||
+                (target.x > this.transform.position.x && !isFacingRight))
+                Flip();
+        }
+    }
+
     void OnCollisionStay2D(Collision2D other)
     {
         if (other.transform.tag == "Player")
@@ -35,5 +55,22 @@ public class BulldogBossController : MonoBehaviour, IDefendable
         audioSource.Stop();
         //audioSource.PlayOneShot(dyingSound);
         //GameObject.Destroy(this.gameObject, 5f);
+    }
+
+    public void ChaseCat()
+    {
+        this.state = 1;
+    }
+
+    public void StopChaseCat()
+    {
+        this.state = 0;
+    }
+
+    public void Flip()
+    {
+        isFacingRight = !isFacingRight;
+        Vector3 theScale = new Vector3(this.transform.localScale.x * -1, this.transform.localScale.y, this.transform.localScale.z);
+        this.transform.localScale = theScale;
     }
 }

@@ -458,12 +458,15 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 50495602}
+  - component: {fileID: 50495607}
   - component: {fileID: 50495604}
-  - component: {fileID: 50495603}
   - component: {fileID: 50495605}
-  m_Layer: 0
+  - component: {fileID: 50495603}
+  - component: {fileID: 50495606}
+  - component: {fileID: 50495608}
+  m_Layer: 14
   m_Name: BulldogBoss
-  m_TagString: Untagged
+  m_TagString: AoE
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -561,6 +564,122 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.0058632, y: 1}
   m_EdgeRadius: 0
+--- !u!82 &50495606
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 50495601}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+--- !u!114 &50495607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 50495601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b82cada08e6abe49ab42fb0fc29a7e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  life: 300
+  damageOnCollision: 1
+  bumpOnCollision: {x: -2, y: 2}
+  speed: 4
+  isFacingRight: 1
+--- !u!50 &50495608
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 50495601}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 6
 --- !u!1001 &54543235
 Prefab:
   m_ObjectHideFlags: 0
@@ -974,7 +1093,7 @@ GameObject:
   m_Component:
   - component: {fileID: 83689571}
   - component: {fileID: 83689572}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Machoire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5095,7 +5214,7 @@ GameObject:
   m_Component:
   - component: {fileID: 127823258}
   - component: {fileID: 127823259}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: BackBabine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23080,7 +23199,7 @@ GameObject:
   m_Component:
   - component: {fileID: 491060077}
   - component: {fileID: 491060078}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23186,7 +23305,7 @@ GameObject:
   m_Component:
   - component: {fileID: 495181472}
   - component: {fileID: 495181473}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: FrontPaw3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23257,7 +23376,7 @@ GameObject:
   m_Component:
   - component: {fileID: 497804343}
   - component: {fileID: 497804344}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: BackEar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23491,7 +23610,7 @@ GameObject:
   m_Component:
   - component: {fileID: 509584955}
   - component: {fileID: 509584956}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: FrontEar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24589,7 +24708,7 @@ GameObject:
   m_Component:
   - component: {fileID: 641479619}
   - component: {fileID: 641479620}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: BackPaw3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24660,7 +24779,7 @@ GameObject:
   m_Component:
   - component: {fileID: 643544063}
   - component: {fileID: 643544064}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25343,7 +25462,7 @@ GameObject:
   m_Component:
   - component: {fileID: 684921655}
   - component: {fileID: 684921656}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Tail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26867,7 +26986,7 @@ GameObject:
   m_Component:
   - component: {fileID: 815609095}
   - component: {fileID: 815609096}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: BackPaw2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28172,7 +28291,7 @@ GameObject:
   m_Component:
   - component: {fileID: 911911465}
   - component: {fileID: 911911466}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: FrontPaw2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28669,7 +28788,7 @@ GameObject:
   m_Component:
   - component: {fileID: 965420147}
   - component: {fileID: 965420148}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: BackPaw2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28741,7 +28860,7 @@ GameObject:
   m_Component:
   - component: {fileID: 970222991}
   - component: {fileID: 970222992}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: FrontPaw2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29601,7 +29720,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1027319966}
   - component: {fileID: 1027319967}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: BackPaw2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29761,7 +29880,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1045370675}
   - component: {fileID: 1045370676}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Collar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34629,7 +34748,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1171698441}
   - component: {fileID: 1171698442}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: FrontBabine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42497,7 +42616,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1246320968}
   - component: {fileID: 1246320969}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44945,7 +45064,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1444061222}
   - component: {fileID: 1444061223}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: FrontPaw2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45575,7 +45694,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1498105194}
   - component: {fileID: 1498105195}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: FrontPaw1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49703,7 +49822,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1582518009}
   - component: {fileID: 1582518010}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: BackPaw1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54186,7 +54305,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1718109043}
   - component: {fileID: 1718109044}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: BackPaw3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59624,7 +59743,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1865844686}
   - component: {fileID: 1865844687}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: FrontPaw3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
