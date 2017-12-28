@@ -5,8 +5,9 @@ using UnityEngine;
 public class AnimalPoundBulldogTrigger : MonoBehaviour
 {
 	public GameObject dog, ball, boundary;
-	public Transform ratDown, ratUp, ratDownPipe, ratUpPipe, dogDown, dogUp;
+	public Transform ratDown, ratUp, ratDownPipe, ratUpPipe, dogDown, dogUp, platformPrefab;
     public float dogSpeed = 1f, dogWaitingTime = 3f;
+    public const int nbPlatforms = 10;
     GameObject rat, cat;
 	bool ratFacingRight = false, dogFacingRight = true;
 	bool waitingTimeIsSet = false;
@@ -154,14 +155,15 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
         else if (state == 8)
         {
             nbLoop = 0;
-            bossCtrlr.ChaseCat();
-            dogAnim.SetFloat("x.velocity", bossCtrlr.speed);
+            //bossCtrlr.ChaseCat();
+            //dogAnim.SetFloat("x.velocity", bossCtrlr.speed);
             dogAnim.SetBool("isGrowling", true);
+            StartCoroutine(ThrowingPlatforms());
             state++;
         }
 
         // wait 10s
-        else if (state == 9)
+        /*else if (state == 9)
         {
             if (!waitingTimeIsSet)
             {
@@ -176,11 +178,11 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
                 {
                     bossCtrlr.StopChaseCat();
                     dogAnim.SetBool("isGrowling", false);
-                    state = 1;
+                    state++;
                     waitingTimeIsSet = false;
                 }
             }
-        }
+        }*/
 
     }
 
@@ -217,6 +219,26 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
         guic.DisplayTopUI();
         
         state++;
+        yield return null;
+    }
+
+    IEnumerator ThrowingPlatforms()
+    {
+        int platformCount = 0;
+        while (platformCount < nbPlatforms)
+        {
+            Vector3 position = new Vector3(23f, 22f);
+            Quaternion rota = new Quaternion();
+            Transform platform = (Transform)Instantiate(platformPrefab, position, rota);
+            platform.GetComponent<FallingPlatform>().Trigger();
+            platformCount++;
+            yield return new WaitForSeconds(1.4f);
+            if (platformCount == 1)
+                bossCtrlr.ChaseCat();
+        }
+        bossCtrlr.StopChaseCat();
+        dogAnim.SetBool("isGrowling", false);
+        state = 1;
         yield return null;
     }
 
