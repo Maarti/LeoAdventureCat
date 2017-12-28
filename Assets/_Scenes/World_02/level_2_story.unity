@@ -19040,7 +19040,7 @@ MonoBehaviour:
   ratUpPipe: {fileID: 29870401}
   dogDown: {fileID: 1585992246}
   dogUp: {fileID: 1834075528}
-  dogSpeed: 1
+  dogSpeed: 3
   dogWaitingTime: 3
 --- !u!1 &435027733
 GameObject:
@@ -27387,7 +27387,7 @@ Prefab:
     - target: {fileID: 224822713004870162, guid: 0fc1f61d586eb1a4aab04cd2fe6c4b27,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 224958401050415172, guid: 0fc1f61d586eb1a4aab04cd2fe6c4b27,
         type: 2}
@@ -27407,7 +27407,7 @@ Prefab:
     - target: {fileID: 224958401050415172, guid: 0fc1f61d586eb1a4aab04cd2fe6c4b27,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 224206901344682312, guid: 0fc1f61d586eb1a4aab04cd2fe6c4b27,
         type: 2}
@@ -27427,7 +27427,7 @@ Prefab:
     - target: {fileID: 224206901344682312, guid: 0fc1f61d586eb1a4aab04cd2fe6c4b27,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 224558889469315040, guid: 0fc1f61d586eb1a4aab04cd2fe6c4b27,
         type: 2}
@@ -49336,6 +49336,7 @@ GameObject:
   - component: {fileID: 1571813906}
   - component: {fileID: 1571813908}
   - component: {fileID: 1571813907}
+  - component: {fileID: 1571813909}
   m_Layer: 0
   m_Name: BossBoundary
   m_TagString: Untagged
@@ -49390,6 +49391,31 @@ EdgeCollider2D:
   m_Points:
   - {x: 8.090605, y: 3.9753647}
   - {x: 8.06732, y: 0.9694004}
+--- !u!61 &1571813909
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1571813905}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 9.957754, y: 2.7385998}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 3.750534, y: 3.4807053}
+  m_EdgeRadius: 0
 --- !u!1 &1572190823
 GameObject:
   m_ObjectHideFlags: 0

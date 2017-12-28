@@ -10,7 +10,8 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
     GameObject rat, cat;
 	bool ratFacingRight = false, dogFacingRight = true;
 	bool waitingTimeIsSet = false;
-	int state = -1;
+	int state = -1, nbLoop=0;
+    const int nbLoopTotal = 2; // nb times to look for rat before chase cat
 	float startWaitingTime;
 	Animator ratAnim, dogAnim;
 	GameUIController guic;
@@ -33,9 +34,10 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
         if (state <= 0)
             return;
         
-        // 
+        // init anim
         else if (state == 1)
         {
+            DogFaceRight();
             dogAnim.SetFloat("x.velocity", dogSpeed);
             ratAnim.SetFloat("speed", ratSpeed);
             RatFlip();
@@ -47,13 +49,14 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
         {
             if (dog.transform.position != dogUp.position) {
                 rat.transform.position = Vector3.MoveTowards(rat.transform.position, ratUpPipe.position, Time.deltaTime * ratSpeed);
-                dog.transform.position = Vector3.MoveTowards(dog.transform.position, dogUp.position, Time.deltaTime * dogSpeed);
+                dog.transform.position = Vector3.MoveTowards(dog.transform.position, dogUp.position, Time.deltaTime * dogSpeed/2);
             }
             else {
                 rat.transform.position = ratDownPipe.position;
                 dogAnim.SetFloat("x.velocity", 0f);
                 dogAnim.SetBool("goUp", true);
                 RatFlip();
+                nbLoop++;
                 state++;
             }
         }
@@ -101,7 +104,7 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
             if (dog.transform.position != dogDown.position && rat.transform.position != ratDownPipe.position)
             {
                 rat.transform.position = Vector3.MoveTowards(rat.transform.position, ratDownPipe.position, Time.deltaTime * ratSpeed);
-                dog.transform.position = Vector3.MoveTowards(dog.transform.position, dogDown.position, Time.deltaTime * dogSpeed);
+                dog.transform.position = Vector3.MoveTowards(dog.transform.position, dogDown.position, Time.deltaTime * dogSpeed/2);
             }
             else
             {
@@ -139,11 +142,10 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
                     return;
                 else
                 {
-                    ratAnim.SetFloat("speed", ratSpeed);
                     dogAnim.SetBool("goDown", false);
                     dogAnim.SetBool("isGrowling", false);
-                    state++;
                     waitingTimeIsSet = false;
+                    state = (nbLoop >= nbLoopTotal) ? state+1 : 1;
                 }
             }
         }
@@ -151,6 +153,7 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
         // dog chases cat
         else if (state == 8)
         {
+            nbLoop = 0;
             bossCtrlr.ChaseCat();
             dogAnim.SetFloat("x.velocity", bossCtrlr.speed);
             dogAnim.SetBool("isGrowling", true);
@@ -212,9 +215,7 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
         // display ui
         guic.DisplayMobileController();
         guic.DisplayTopUI();
-
         
-
         state++;
         yield return null;
     }

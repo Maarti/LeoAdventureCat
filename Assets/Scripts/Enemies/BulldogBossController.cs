@@ -25,12 +25,25 @@ public class BulldogBossController : MonoBehaviour, IDefendable
         if (state == 1)
         {
             Vector3 target = new Vector3(cat.transform.position.x, this.transform.position.y, this.transform.position.z);
-            this.transform.position = Vector3.MoveTowards(this.transform.position, target, speed/100);
             if ((target.x < this.transform.position.x && isFacingRight) ||
-                (target.x > this.transform.position.x && !isFacingRight))
+                    (target.x > this.transform.position.x && !isFacingRight))
                 Flip();
+
+            // if dog is away from cat 
+            if (Mathf.Abs(this.transform.position.x-target.x)>0.67f)
+            {   
+                this.transform.position = Vector3.MoveTowards(this.transform.position, target, speed / 100);
+                animator.SetFloat("x.velocity", speed);
+            }
+            // if dog is near cat
+            else
+            {
+                animator.SetFloat("x.velocity", 0);
+                animator.SetTrigger("attack");
+            }
         }
     }
+
 
     void OnCollisionStay2D(Collision2D other)
     {
