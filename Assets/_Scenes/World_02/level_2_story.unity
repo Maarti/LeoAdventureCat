@@ -655,7 +655,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b82cada08e6abe49ab42fb0fc29a7e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 300
+  life: 200
   damageOnCollision: 1
   bumpOnCollision: {x: -2, y: 2}
   speed: 4
@@ -18974,8 +18974,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 428665701}
-  - component: {fileID: 428665702}
   - component: {fileID: 428665703}
+  - component: {fileID: 428665702}
   m_Layer: 0
   m_Name: rat_start_bulldog
   m_TagString: Untagged
@@ -19045,8 +19045,8 @@ MonoBehaviour:
     type: 2}
   minPlatformZone: {fileID: 970964400}
   maxPlatformZone: {fileID: 1372332026}
-  dogSpeed: 3
-  dogWaitingTime: 3
+  dogSpeed: 2
+  dogWaitingTime: 2.2
 --- !u!1 &435027733
 GameObject:
   m_ObjectHideFlags: 0
@@ -44275,7 +44275,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1372332025}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5, y: 4.5, z: 0}
+  m_LocalPosition: {x: 6, y: 4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1373502327}
@@ -50521,7 +50521,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 971663140
+  randomSeed: -27462129
   InitialModule:
     serializedVersion: 3
     enabled: 1

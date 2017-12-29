@@ -7,8 +7,8 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
 	public GameObject dog, ball, boundary;
 	public Transform ratDown, ratUp, ratDownPipe, ratUpPipe, dogDown, dogUp, platformPrefab;
     public Transform minPlatformZone, maxPlatformZone;  // zone where the platforms are thrown
-    public float dogSpeed = 1f;         // dog speed during rat phase
-    public float dogWaitingTime = 3f;   // time dog waits each time when it looks for rat
+    public float dogSpeed = 2.5f;         // dog speed during rat phase
+    public float dogWaitingTime = 2.2f; // time dog waits each time when it looks for rat
 
     Transform startPlatform;            // starting position from where the platforms are thrown
     const int nbLoopTotal = 2;          // nb times to look for rat before chase cat
@@ -56,7 +56,7 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
         {
             if (dog.transform.position != dogUp.position) {
                 rat.transform.position = Vector3.MoveTowards(rat.transform.position, ratUpPipe.position, Time.deltaTime * ratSpeed);
-                dog.transform.position = Vector3.MoveTowards(dog.transform.position, dogUp.position, Time.deltaTime * dogSpeed/2);
+                dog.transform.position = Vector3.MoveTowards(dog.transform.position, dogUp.position, Time.deltaTime * dogSpeed);
             }
             else {
                 rat.transform.position = ratDownPipe.position;
@@ -81,7 +81,7 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
             }
         }
 
-        // wait 3s
+        // wait
         else if (state == 4)
         {
             if (!waitingTimeIsSet)
@@ -111,7 +111,7 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
             if (dog.transform.position != dogDown.position && rat.transform.position != ratDownPipe.position)
             {
                 rat.transform.position = Vector3.MoveTowards(rat.transform.position, ratDownPipe.position, Time.deltaTime * ratSpeed);
-                dog.transform.position = Vector3.MoveTowards(dog.transform.position, dogDown.position, Time.deltaTime * dogSpeed/2);
+                dog.transform.position = Vector3.MoveTowards(dog.transform.position, dogDown.position, Time.deltaTime);
             }
             else
             {
@@ -161,36 +161,10 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
         else if (state == 8)
         {
             nbLoop = 0;
-            //bossCtrlr.ChaseCat();
-            //dogAnim.SetFloat("x.velocity", bossCtrlr.speed);
             StartCoroutine(ThrowingPlatforms());
             state++;
         }
-
-        // wait 10s
-        /*else if (state == 9)
-        {
-            if (!waitingTimeIsSet)
-            {
-                startWaitingTime = Time.time;
-                waitingTimeIsSet = true;
-            }
-            else
-            {
-                if ((Time.time - startWaitingTime) < 10f)
-                    return;
-                else
-                {
-                    bossCtrlr.StopChaseCat();
-                    dogAnim.SetBool("isGrowling", false);
-                    state++;
-                    waitingTimeIsSet = false;
-                }
-            }
-        }*/
-
     }
-
 
 	void OnTriggerEnter2D (Collider2D other)
 	{
@@ -301,9 +275,6 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
         // if cat is jumping, lower the y
         if (!cat.GetComponent<PlayerController>().isGrounded)
             position.y -= 1f;
-        // allow lower position if y is negative
-        //if (position.y < 0)
-        //    position.y *= 1.5f;
         // position around the cat
         position +=  cat.transform.position;
         // clamp position inside the limit zone

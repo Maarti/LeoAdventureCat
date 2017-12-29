@@ -37,6 +37,7 @@ public class FallingPlatform : MonoBehaviour
         else
             GetComponent<Animator>().enabled = false;
         GetComponent<Rigidbody2D> ().isKinematic = false;
+        Destroy(this.gameObject, 4f);
 	}
 
     IEnumerator FadeToBlack()
