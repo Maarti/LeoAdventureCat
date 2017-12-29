@@ -6,7 +6,8 @@ public class FallingPlatform : MonoBehaviour
 {
 
 	public float timeBeforeFall = 1f;
-    public bool fallOnCollision = true;
+    public bool fallOnCollision = true, fadeToBlack = false;
+    float startTime;
     
 	void OnCollisionEnter2D (Collision2D other)
 	{
@@ -22,6 +23,11 @@ public class FallingPlatform : MonoBehaviour
         else
             GetComponent<Animator>().SetTrigger("collision");
         Invoke("Fall", timeBeforeFall);
+        if (fadeToBlack)
+        {
+            startTime = Time.time;
+            StartCoroutine(FadeToBlack());
+        }
     }
 
 	void Fall ()
@@ -32,4 +38,18 @@ public class FallingPlatform : MonoBehaviour
             GetComponent<Animator>().enabled = false;
         GetComponent<Rigidbody2D> ().isKinematic = false;
 	}
+
+    IEnumerator FadeToBlack()
+    {
+        SpriteRenderer sprite = GetComponentInChildren<SpriteRenderer>();
+        Color color = sprite.color;
+        float coeff = 0f;
+        while (coeff < 1f)
+        {
+            color.r = color.g = color.b = Mathf.Lerp(1f, 0.33f, coeff); 
+            sprite.color = color;
+            coeff = Mathf.Clamp((Time.time - startTime) / timeBeforeFall, 0f, 1f);
+            yield return null;
+        }
+    }
 }
