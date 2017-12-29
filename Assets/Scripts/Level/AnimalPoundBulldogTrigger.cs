@@ -6,16 +6,19 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
 {
 	public GameObject dog, ball, boundary;
 	public Transform ratDown, ratUp, ratDownPipe, ratUpPipe, dogDown, dogUp, platformPrefab;
-    public Transform minPlatformZone, maxPlatformZone;
-    public float dogSpeed = 1f, dogWaitingTime = 3f;
-    const int nbPlatforms = 200;
-    Transform startPlatform;
+    public Transform minPlatformZone, maxPlatformZone;  // zone where the platforms are thrown
+    public float dogSpeed = 1f;         // dog speed during rat phase
+    public float dogWaitingTime = 3f;   // time dog waits each time when it looks for rat
+
+    Transform startPlatform;            // starting position from where the platforms are thrown
+    const int nbLoopTotal = 2;          // nb times to look for rat before chase cat
+    const int nbPlatforms = 20;         // nb platforms to throw during each platform phase
+
     GameObject rat, cat;
-	bool ratFacingRight = false, dogFacingRight = true;
-	bool waitingTimeIsSet = false;
-	int state = -1, nbLoop=0;
-    const int nbLoopTotal = 1; // nb times to look for rat before chase cat
-	float startWaitingTime;
+    bool ratFacingRight = false;
+    bool waitingTimeIsSet = false;
+    int state = -1, nbLoop = 0;
+    float startWaitingTime;
 	Animator ratAnim, dogAnim;
 	GameUIController guic;
     const float ratSpeed = 1f;
@@ -160,7 +163,6 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
             nbLoop = 0;
             //bossCtrlr.ChaseCat();
             //dogAnim.SetFloat("x.velocity", bossCtrlr.speed);
-            dogAnim.SetBool("isGrowling", true);
             StartCoroutine(ThrowingPlatforms());
             state++;
         }
@@ -225,30 +227,31 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
         yield return null;
     }
 
+    // Start the platfrm phase : rat throws platform to help cat
     IEnumerator ThrowingPlatforms()
     {
         int platformCount = 0;
         while (platformCount < nbPlatforms)
         {
-            //Vector3 target = new Vector3(23f+Random.Range(-1f,1f) , 21.7f+Random.Range(0f,0.5f));
             Vector3 target = GetPlatformPosition();
             Quaternion rota = new Quaternion();
             Transform platform = (Transform)Instantiate(platformPrefab, ratUp.position, rota);
+            platform.localScale = new Vector3(Random.Range(.5f, 1.5f), platform.localScale.y, platform.localScale.z);
+            ratAnim.SetTrigger("tail_throw");
             StartCoroutine(CurveThrow(platform.gameObject,target));
             platformCount++;
            // if (platformCount % 2 != 0)
                 yield return new WaitForSeconds(.9f);
           //  else
            //     yield return null;
-           /* if (platformCount == 1)
-                bossCtrlr.ChaseCat();*/
+           if (platformCount == 1)bossCtrlr.ChaseCat();
         }
         bossCtrlr.StopChaseCat();
-        dogAnim.SetBool("isGrowling", false);
         state = 1;
         yield return null;
     }
 
+    // Moves a platform from startPlatform to target with a spherical path
     IEnumerator CurveThrow(GameObject platform, Vector3 target)
     {
         Rigidbody2D rb = platform.GetComponent<Rigidbody2D>();
@@ -262,15 +265,8 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
             float fracComplete = (Time.time - startTime) / journeyTime;
             platform.transform.position = Vector3.Slerp(startRelCenter, targetRelCenter, fracComplete);
             platform.transform.position += center;
-
-
-
-            /* platform.transform.position = Vector3.Slerp(ratUp.position, target, time);
-            time = Mathf.Clamp(time + Time.deltaTime, 0f, 1f);
-             Debug.Log("target=" + target + "  platform=" + platform.transform.position+"    time="+time);*/
             yield return null;
         }
-
         platform.GetComponent<FallingPlatform>().Trigger();
         yield return null;
     }
@@ -294,6 +290,7 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
 		rat.transform.localScale = theScale;		
 	}
 
+    // Search a position for platform reachable by the cat
     Vector3 GetPlatformPosition()
     {
         // random position in a circle of 1 (because cat jump height is 1)
@@ -305,8 +302,8 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
         if (!cat.GetComponent<PlayerController>().isGrounded)
             position.y -= 1f;
         // allow lower position if y is negative
-        if (position.y < 0)
-            position.y *= 1.5f;
+        //if (position.y < 0)
+        //    position.y *= 1.5f;
         // position around the cat
         position +=  cat.transform.position;
         // clamp position inside the limit zone

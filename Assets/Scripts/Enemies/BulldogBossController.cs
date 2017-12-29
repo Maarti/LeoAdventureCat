@@ -4,12 +4,13 @@ public class BulldogBossController : MonoBehaviour, IDefendable
 {
     public int life = 100, damageOnCollision =1;
     public Vector2 bumpOnCollision = new Vector2(-2, 2);
-    public float speed = 1f;
+    public float speed = 1f, timeBetweenAttack = 1.5f;
     public bool isFacingRight = true;
     Animator animator;
     AudioSource audioSource;
     int state = 0;          // 0 = attack rat / 1 = attack cat
     GameObject cat;
+    float lastAttackTime = 0f;
     
 
     void Start()
@@ -24,31 +25,43 @@ public class BulldogBossController : MonoBehaviour, IDefendable
         // chase cat
         if (state == 1)
         {
-            Vector3 target = new Vector3(cat.transform.position.x, this.transform.position.y, this.transform.position.z);
-            if ((target.x < this.transform.position.x && isFacingRight) ||
-                    (target.x > this.transform.position.x && !isFacingRight))
-                Flip();
+            if ((Time.time - lastAttackTime) > timeBetweenAttack)
+            {
+                Vector3 target = new Vector3(cat.transform.position.x, this.transform.position.y, this.transform.position.z);
+                if ((target.x < this.transform.position.x && isFacingRight) ||
+                        (target.x > this.transform.position.x && !isFacingRight))
+                    Flip();
 
-            // if dog is away from cat 
-            if (Mathf.Abs(this.transform.position.x-target.x)>0.67f)
-            {   
-                this.transform.position = Vector3.MoveTowards(this.transform.position, target, speed / 100);
-                animator.SetFloat("x.velocity", speed);
+                // if dog is away from cat 
+                if (Mathf.Abs(this.transform.position.x - target.x) > 0.67f)
+                {
+                    this.transform.position = Vector3.MoveTowards(this.transform.position, target, speed / 100);
+                    animator.SetFloat("x.velocity", speed);
+                    animator.SetBool("isGrowling", false);
+                }
+                // if dog is near cat
+                else
+                {
+                    animator.SetFloat("x.velocity", 0);
+                    animator.SetBool("isGrowling", true);
+                }
             }
-            // if dog is near cat
+            // is waiting after attack
             else
             {
                 animator.SetFloat("x.velocity", 0);
-                animator.SetTrigger("attack");
             }
         }
     }
-
-
+    
     void OnCollisionStay2D(Collision2D other)
     {
         if (other.transform.tag == "Player")
+        {
+            animator.SetTrigger("attack");
             other.gameObject.GetComponent<PlayerController>().Defend(this.gameObject, damageOnCollision, bumpOnCollision, 0.5f);
+            lastAttackTime = Time.time;
+        }
     }
 
     public virtual void Defend(GameObject attacker, int damage, Vector2 bumpVelocity, float bumpTime)
@@ -78,6 +91,7 @@ public class BulldogBossController : MonoBehaviour, IDefendable
     public void StopChaseCat()
     {
         this.state = 0;
+        animator.SetBool("isGrowling", false);
     }
 
     public void Flip()

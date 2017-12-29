@@ -46,7 +46,7 @@ public class FallingPlatform : MonoBehaviour
         float coeff = 0f;
         while (coeff < 1f)
         {
-            color.r = color.g = color.b = Mathf.Lerp(1f, 0.33f, coeff); 
+            color.r = color.g = color.b = Mathf.Lerp(1f, 0.25f, coeff); 
             sprite.color = color;
             coeff = Mathf.Clamp((Time.time - startTime) / timeBeforeFall, 0f, 1f);
             yield return null;
