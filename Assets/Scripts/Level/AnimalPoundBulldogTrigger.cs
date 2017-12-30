@@ -34,6 +34,7 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
 		guic = GameObject.Find ("Canvas/GameUI").GetComponent<GameUIController> ();
         bossCtrlr = dog.GetComponent<BulldogBossController>();
         startPlatform = ratUp;
+        bossCtrlr.OnDeath += OnBossDeath;
 	}
 
 	void FixedUpdate ()
@@ -271,7 +272,6 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
         Vector3 position = Random.insideUnitCircle;
         // increase x position
         position.x *= 1.5f;
-        Debug.Log("position=" + position);
         // if cat is jumping, lower the y
         if (!cat.GetComponent<PlayerController>().isGrounded)
             position.y -= 1f;
@@ -281,5 +281,11 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
         position.x = Mathf.Clamp(position.x, minPlatformZone.position.x, maxPlatformZone.position.x);
         position.y = Mathf.Clamp(position.y, minPlatformZone.position.y, maxPlatformZone.position.y);
         return position;
+    }
+
+    void OnBossDeath()
+    {
+        state = 99;
+        Destroy(boundary);
     }
 }

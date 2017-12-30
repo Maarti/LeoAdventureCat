@@ -8,6 +8,8 @@ public class BulldogBossController : MonoBehaviour, IDefendable
     public bool isFacingRight = true;
     public AudioClip growlingSound, barkingSound, dyingSound;
     public GameObject stunAnimation;
+    public delegate void DeathDelegate();
+    public event DeathDelegate OnDeath;
 
     Animator animator;
     AudioSource audioSource;
@@ -26,7 +28,7 @@ public class BulldogBossController : MonoBehaviour, IDefendable
     void FixedUpdate()
     {
         // chase cat
-        if (state == 1)
+        if (state == 1 && life>0)
         {
             if ((Time.time - lastAttackTime) > timeBetweenAttack)
             {
@@ -67,7 +69,7 @@ public class BulldogBossController : MonoBehaviour, IDefendable
         }
     }
 
-    public virtual void Defend(GameObject attacker, int damage, Vector2 bumpVelocity, float bumpTime)
+    public void Defend(GameObject attacker, int damage, Vector2 bumpVelocity, float bumpTime)
     {
         this.life -= damage;
         if (life <= 0)
@@ -76,14 +78,14 @@ public class BulldogBossController : MonoBehaviour, IDefendable
             animator.SetTrigger("hit");
     }
 
-    // Called when life = 0, set transparent and launch the dying animation
-    public virtual void Die()
+    public void Die()
     {
         animator.SetTrigger("die");
         stunAnimation.SetActive(true);
         this.gameObject.layer = LayerMask.NameToLayer("Transparent");
         audioSource.Stop();
         audioSource.PlayOneShot(dyingSound);
+        OnDeath.Invoke();
     }
 
     public void ChaseCat()
