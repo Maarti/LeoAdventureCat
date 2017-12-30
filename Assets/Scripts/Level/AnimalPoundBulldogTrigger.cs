@@ -23,9 +23,10 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
 	GameUIController guic;
     const float ratSpeed = 1f;
     BulldogBossController bossCtrlr;
+    Coroutine platformCoroutine;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
 	{
         rat = GameObject.FindGameObjectWithTag("Rat");
         cat = GameObject.FindGameObjectWithTag("Player");
@@ -162,8 +163,30 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
         else if (state == 8)
         {
             nbLoop = 0;
-            StartCoroutine(ThrowingPlatforms());
+            platformCoroutine = StartCoroutine(ThrowingPlatforms());
             state++;
+        }
+
+        // dog defeated
+        else if (state == 99)
+        {
+            ratAnim.SetFloat("speed", ratSpeed);
+            if (!ratFacingRight)
+                RatFlip();
+            state++;
+        }
+        // dog defeated : at run into pipe
+        else if (state == 100)
+        {
+            Vector3 target = (rat.transform.position.y == ratUp.position.y) ? ratUpPipe.position : ratDownPipe.position;
+            if (rat.transform.position != target)
+                rat.transform.position = Vector3.MoveTowards(rat.transform.position, ratDownPipe.position, Time.deltaTime * ratSpeed);
+            else
+            {
+                rat.transform.position = ratDownPipe.position;
+                RatFlip();
+                state++;
+            }
         }
     }
 
@@ -202,7 +225,7 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
         yield return null;
     }
 
-    // Start the platfrm phase : rat throws platform to help cat
+    // Start the platform phase : rat throws platform to help cat
     IEnumerator ThrowingPlatforms()
     {
         int platformCount = 0;
@@ -285,7 +308,9 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
 
     void OnBossDeath()
     {
-        state = 99;
+        if(platformCoroutine!=null)
+            StopCoroutine(platformCoroutine);
         Destroy(boundary);
+        state = 99;
     }
 }

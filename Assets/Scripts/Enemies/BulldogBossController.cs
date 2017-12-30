@@ -72,6 +72,7 @@ public class BulldogBossController : MonoBehaviour, IDefendable
     public void Defend(GameObject attacker, int damage, Vector2 bumpVelocity, float bumpTime)
     {
         this.life -= damage;
+        animator.SetInteger("life", life);
         if (life <= 0)
             Die();
         else
@@ -80,7 +81,8 @@ public class BulldogBossController : MonoBehaviour, IDefendable
 
     public void Die()
     {
-        animator.SetTrigger("die");
+        animator.SetInteger("life", 0);
+        animator.SetFloat("x.velocity", 0);
         stunAnimation.SetActive(true);
         this.gameObject.layer = LayerMask.NameToLayer("Transparent");
         audioSource.Stop();

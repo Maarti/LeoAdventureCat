@@ -1,0 +1,127 @@
+﻿using System.Collections;
+using UnityEngine;
+
+public class AnimalPoundSpecialEnd : EndSign
+{
+    public GameObject dog;
+    public Transform endSignPlace;
+    public float speed = 3f;
+
+    bool isTriggered = false, isBossDefeated=false;
+    GameObject player, rat;
+    BulldogBossController dogCtrlr;
+
+    protected override void Start ()
+	{
+		base.Start ();
+        player = GameObject.FindWithTag("Player");
+        rat = GameObject.FindWithTag("Rat");
+        dogCtrlr = dog.GetComponent<BulldogBossController>();
+        dogCtrlr.OnDeath += OnBossDeath; // listener on boss death
+    }
+
+    void Update()
+    {
+        if (isBossDefeated && this.transform.position != endSignPlace.position)
+            this.transform.position = Vector3.MoveTowards(this.transform.position, endSignPlace.position, Time.deltaTime*speed);
+    }
+
+    protected override void OnTriggerEnter2D (Collider2D other)
+	{
+		if (other.gameObject.tag == "Player" && !isTriggered) {
+			isTriggered = true;
+			GameController.gc.gameFinished = true;
+			guic.DisplayMobileController (false);
+			guic.DisplayTopUI (false);
+			player.GetComponent<PlayerController> ().StartMoving (0f);
+			StartCoroutine (EndingAnimation ());
+		}
+	}
+
+	IEnumerator EndingAnimation ()
+	{
+		// Boss wake up and flip to player
+		/*PlaySound (scaryBossAwake);
+		bossAnim.SetTrigger ("wakeUp");
+		yield return new WaitForSeconds (2f);
+
+		// Boss start absorbing
+		bossAnim.SetTrigger ("absorb");
+		yield return new WaitForSeconds (1f);
+
+		// Cat "disapear"
+		SpriteRenderer[] playerSprites = player.GetComponentsInChildren<SpriteRenderer> ();
+		foreach (SpriteRenderer sprite in playerSprites) {
+			sprite.enabled = false;
+		}
+
+		// Boss stop absorbing and flip
+		bossCtrlr.StopAbsorb ();
+		bossCtrlr.StopAudio ();
+		yield return new WaitForSeconds (1f);
+		bossCtrlr.Flip ();
+
+		// Boss run to car
+		bossCtrlr.Run ();
+		while (boss.transform.position != doorPosition.transform.position) {
+			boss.transform.position = Vector3.MoveTowards (boss.transform.position, doorPosition.position, Time.deltaTime * 3f);
+			player.transform.position = Vector3.MoveTowards (player.transform.position, doorPosition.position, Time.deltaTime * 3.5f);
+			yield return null;
+		}
+		bossCtrlr.Run (false);
+
+		// Boss open rear door and drop stuff
+		vanAnim.SetTrigger ("openDoor");
+		PlaySound (carDoorSound);
+		yield return new WaitForSeconds (1f);
+		boss.transform.Find ("Body/Weapon").gameObject.SetActive (false);
+		boss.transform.Find ("Body/Bag").gameObject.SetActive (false);
+		yield return new WaitForSeconds (1.6f);
+		PlaySound (carDoorSound);
+
+		// Boss go to drive seat
+		bossCtrlr.Run ();
+		while (boss.transform.position != drivingPosition.position) {
+			boss.transform.position = Vector3.MoveTowards (boss.transform.position, drivingPosition.position, Time.deltaTime * 1.5f);
+			yield return null;
+		}
+		bossCtrlr.Run (false);
+		boss.transform.Find ("Body/UpLeg").gameObject.SetActive (false);
+		boss.transform.Find ("Body/UpLeg2").gameObject.SetActive (false);
+		PlaySound (carDoorSound);
+		boss.transform.parent = van.transform;
+		yield return new WaitForSeconds (1f);
+
+		// Van start
+		vanAnim.SetTrigger ("startRolling");
+		PlaySound (carIdleSound, true);
+
+		// Van go to left
+		while (van.transform.position != vanLeftPosition.position) {
+			van.transform.position = Vector3.MoveTowards (van.transform.position, vanLeftPosition.position, Time.deltaTime * 1.5f);
+			yield return null;
+		}
+
+		// Van flip
+		Vector3 newScale = new Vector3 (van.transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+		van.transform.localScale = newScale;
+
+		// Van go to right faster
+		PlaySound (carIdleSound, true, 1.2f);
+		while (van.transform.position != vanRightPosition.position) {
+			van.transform.position = Vector3.MoveTowards (van.transform.position, vanRightPosition.position, Time.deltaTime * 7f);
+			yield return null;
+		}*/
+
+		// Score panel
+		guic.EndGame ();
+        yield return null;
+	}
+
+    // Triggered when boss is defeated
+    void OnBossDeath()
+    {
+        isBossDefeated = true;
+    }
+
+}
