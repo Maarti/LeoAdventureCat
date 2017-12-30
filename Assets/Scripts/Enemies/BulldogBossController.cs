@@ -6,6 +6,9 @@ public class BulldogBossController : MonoBehaviour, IDefendable
     public Vector2 bumpOnCollision = new Vector2(-2, 2);
     public float speed = 1f, timeBetweenAttack = 1.5f;
     public bool isFacingRight = true;
+    public AudioClip growlingSound, barkingSound, dyingSound;
+    public GameObject stunAnimation;
+
     Animator animator;
     AudioSource audioSource;
     int state = 0;          // 0 = attack rat / 1 = attack cat
@@ -77,10 +80,10 @@ public class BulldogBossController : MonoBehaviour, IDefendable
     public virtual void Die()
     {
         animator.SetTrigger("die");
+        stunAnimation.SetActive(true);
         this.gameObject.layer = LayerMask.NameToLayer("Transparent");
         audioSource.Stop();
-        //audioSource.PlayOneShot(dyingSound);
-        //GameObject.Destroy(this.gameObject, 5f);
+        audioSource.PlayOneShot(dyingSound);
     }
 
     public void ChaseCat()
@@ -99,5 +102,27 @@ public class BulldogBossController : MonoBehaviour, IDefendable
         isFacingRight = !isFacingRight;
         Vector3 theScale = new Vector3(this.transform.localScale.x * -1, this.transform.localScale.y, this.transform.localScale.z);
         this.transform.localScale = theScale;
+    }
+
+    void PlayBarkSound()
+    {
+        audioSource.Stop();
+        audioSource.PlayOneShot(barkingSound);
+    }
+
+    void PlayGrowlingSound()
+    {
+        if (!audioSource.isPlaying)
+        {
+            audioSource.Stop();
+            audioSource.loop = true;
+            audioSource.clip = growlingSound;
+            audioSource.Play();
+        }
+    }
+
+    void StopSound()
+    {
+        audioSource.Stop();
     }
 }
