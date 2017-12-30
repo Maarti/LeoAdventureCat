@@ -3,27 +3,30 @@ using UnityEngine;
 
 public class AnimalPoundSpecialEnd : EndSign
 {
-    public GameObject dog;
-    public Transform endSignPlace;
-    public float speed = 3f;
+    public GameObject dog, hangGlider;
+    public Transform endSignPlace, ratDownPos, poleDownPos, poleUpPos, ratFinishPos, hangGliderPos;
+    public float signSpeed = 3f, ratSpeed = 2f;
 
     bool isTriggered = false, isBossDefeated=false;
-    GameObject player, rat;
+    GameObject cat, rat, cam;
     BulldogBossController dogCtrlr;
+    Animator ratAnim, catAnim;
 
     protected override void Start ()
 	{
 		base.Start ();
-        player = GameObject.FindWithTag("Player");
+        cat = GameObject.FindWithTag("Player");
         rat = GameObject.FindWithTag("Rat");
+        ratAnim = rat.GetComponent<Animator>();
         dogCtrlr = dog.GetComponent<BulldogBossController>();
         dogCtrlr.OnDeath += OnBossDeath; // listener on boss death
+        cam = GameObject.FindGameObjectWithTag("MainCamera");
     }
 
     void Update()
     {
         if (isBossDefeated && this.transform.position != endSignPlace.position)
-            this.transform.position = Vector3.MoveTowards(this.transform.position, endSignPlace.position, Time.deltaTime*speed);
+            this.transform.position = Vector3.MoveTowards(this.transform.position, endSignPlace.position, Time.deltaTime*signSpeed);
     }
 
     protected override void OnTriggerEnter2D (Collider2D other)
@@ -33,95 +36,102 @@ public class AnimalPoundSpecialEnd : EndSign
 			GameController.gc.gameFinished = true;
 			guic.DisplayMobileController (false);
 			guic.DisplayTopUI (false);
-			player.GetComponent<PlayerController> ().StartMoving (0f);
-			StartCoroutine (EndingAnimation ());
+			cat.GetComponent<PlayerController> ().StartMoving (0f);
+			StartCoroutine (RatEndingAnimation ());
 		}
 	}
 
-	IEnumerator EndingAnimation ()
+	IEnumerator RatEndingAnimation ()
 	{
-		// Boss wake up and flip to player
-		/*PlaySound (scaryBossAwake);
-		bossAnim.SetTrigger ("wakeUp");
-		yield return new WaitForSeconds (2f);
+        // rat goes to pole
+        hangGlider.SetActive(true);
+        ratAnim.SetFloat("speed", ratSpeed);
+        while(rat.transform.position != ratDownPos.position)
+        {
+            rat.transform.position = Vector3.MoveTowards(rat.transform.position, ratDownPos.position, Time.deltaTime * ratSpeed);
+            yield return null;
+        }
+        RatFlip();
+        while (rat.transform.position != poleDownPos.position)
+        {
+            rat.transform.position = Vector3.MoveTowards(rat.transform.position, poleDownPos.position, Time.deltaTime * ratSpeed);
+            yield return null;
+        }
+        RatFlip();
 
-		// Boss start absorbing
-		bossAnim.SetTrigger ("absorb");
-		yield return new WaitForSeconds (1f);
-
-		// Cat "disapear"
-		SpriteRenderer[] playerSprites = player.GetComponentsInChildren<SpriteRenderer> ();
-		foreach (SpriteRenderer sprite in playerSprites) {
-			sprite.enabled = false;
-		}
-
-		// Boss stop absorbing and flip
-		bossCtrlr.StopAbsorb ();
-		bossCtrlr.StopAudio ();
-		yield return new WaitForSeconds (1f);
-		bossCtrlr.Flip ();
-
-		// Boss run to car
-		bossCtrlr.Run ();
-		while (boss.transform.position != doorPosition.transform.position) {
-			boss.transform.position = Vector3.MoveTowards (boss.transform.position, doorPosition.position, Time.deltaTime * 3f);
-			player.transform.position = Vector3.MoveTowards (player.transform.position, doorPosition.position, Time.deltaTime * 3.5f);
-			yield return null;
-		}
-		bossCtrlr.Run (false);
-
-		// Boss open rear door and drop stuff
-		vanAnim.SetTrigger ("openDoor");
-		PlaySound (carDoorSound);
-		yield return new WaitForSeconds (1f);
-		boss.transform.Find ("Body/Weapon").gameObject.SetActive (false);
-		boss.transform.Find ("Body/Bag").gameObject.SetActive (false);
-		yield return new WaitForSeconds (1.6f);
-		PlaySound (carDoorSound);
-
-		// Boss go to drive seat
-		bossCtrlr.Run ();
-		while (boss.transform.position != drivingPosition.position) {
-			boss.transform.position = Vector3.MoveTowards (boss.transform.position, drivingPosition.position, Time.deltaTime * 1.5f);
-			yield return null;
-		}
-		bossCtrlr.Run (false);
-		boss.transform.Find ("Body/UpLeg").gameObject.SetActive (false);
-		boss.transform.Find ("Body/UpLeg2").gameObject.SetActive (false);
-		PlaySound (carDoorSound);
-		boss.transform.parent = van.transform;
-		yield return new WaitForSeconds (1f);
-
-		// Van start
-		vanAnim.SetTrigger ("startRolling");
-		PlaySound (carIdleSound, true);
-
-		// Van go to left
-		while (van.transform.position != vanLeftPosition.position) {
-			van.transform.position = Vector3.MoveTowards (van.transform.position, vanLeftPosition.position, Time.deltaTime * 1.5f);
-			yield return null;
-		}
-
-		// Van flip
-		Vector3 newScale = new Vector3 (van.transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
-		van.transform.localScale = newScale;
-
-		// Van go to right faster
-		PlaySound (carIdleSound, true, 1.2f);
-		while (van.transform.position != vanRightPosition.position) {
-			van.transform.position = Vector3.MoveTowards (van.transform.position, vanRightPosition.position, Time.deltaTime * 7f);
-			yield return null;
-		}*/
-
-		// Score panel
-		guic.EndGame ();
+        // rat climb to pole
+        rat.transform.Rotate(Vector3.forward * -90);
+        while (rat.transform.position != poleUpPos.position)
+        {
+            rat.transform.position = Vector3.MoveTowards(rat.transform.position, poleUpPos.position, Time.deltaTime * ratSpeed);
+            yield return null;
+        }
+        //ratAnim.SetFloat("speed", 0f);
+        rat.transform.Rotate(Vector3.forward * 90);
         yield return null;
+
+        // rat drops hang glider to cat
+        StartCoroutine(CatEndingAnimation());
+
+        // rat slide to the end
+        RatFlip();
+        ratAnim.SetBool("isTailGliding", true);
+        yield return null;
+        while (rat.transform.position != ratFinishPos.position)
+        {
+            rat.transform.position = Vector3.MoveTowards(rat.transform.position, ratFinishPos.position, Time.deltaTime * ratSpeed/1.2f);
+            yield return null;
+        }
 	}
+
+    IEnumerator CatEndingAnimation()
+    {
+        // freeze
+        cat.GetComponent<Rigidbody2D>().isKinematic = true;
+        cam.GetComponent<CameraFloorController>().enabled = false;
+        yield return null;
+
+        // hangglider fall / cat jumps
+        hangGlider.transform.parent = null;
+        cat.GetComponent<Animator>().SetBool("isHangGliding", true);
+        while (hangGlider.transform.position != hangGliderPos.position ||
+            cat.transform.position != hangGliderPos.position)
+        {
+            cat.transform.position = Vector3.MoveTowards(cat.transform.position, hangGliderPos.position, Time.deltaTime*2f);
+            hangGlider.transform.position = Vector3.MoveTowards(hangGlider.transform.position, hangGliderPos.position, Time.deltaTime);
+            yield return null;
+        }
+
+        // cat equips hangglider
+        hangGlider.transform.localScale = new Vector3(1f, 1f);
+        hangGlider.transform.rotation = Quaternion.identity;
+        yield return null;
+        hangGlider.transform.parent = cat.transform;        
+        hangGlider.transform.localPosition = cat.GetComponent<IGlider>().GetHangGliderPosition();
+        yield return null;
+
+        // cat fly to the end
+        while (cat.transform.position != ratFinishPos.position)
+        {
+            cat.transform.position = Vector3.MoveTowards(cat.transform.position, ratFinishPos.position, Time.deltaTime*1.2f);
+            yield return null;
+        }
+
+        // Score panel
+        guic.EndGame();
+        yield return null;
+    }
 
     // Triggered when boss is defeated
     void OnBossDeath()
     {
         isBossDefeated = true;
+    }
+
+    void RatFlip()
+    {
+        Vector3 theScale = new Vector3(rat.transform.localScale.x * -1, rat.transform.localScale.y, rat.transform.localScale.z);
+        rat.transform.localScale = theScale;
     }
 
 }

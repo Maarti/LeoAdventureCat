@@ -252,7 +252,6 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
     // Moves a platform from startPlatform to target with a spherical path
     IEnumerator CurveThrow(GameObject platform, Vector3 target)
     {
-        Rigidbody2D rb = platform.GetComponent<Rigidbody2D>();
         float journeyTime = .6f, startTime = Time.time;
         while (platform.transform.position != target)
         {
