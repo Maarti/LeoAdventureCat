@@ -1,13 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class LevelButtonInitializer : MonoBehaviour
 {
 	public LevelEnum levelEnum = LevelEnum.level_1_01;
-
+    public GameObject[] toDisableWhenGoToShop;
+    public GameObject shopPanel;
+    
 	Level level;
 	GameObject uiLockImage, uiScore;
 	Text uiDifficulty, uiName;
@@ -24,29 +23,44 @@ public class LevelButtonInitializer : MonoBehaviour
 			uiDifficulty = transform.Find ("Difficulty").gameObject.GetComponent<Text> ();
 		uiScore = transform.Find ("Score").gameObject;
 		button = GetComponent<Button> ();
-		InitButton ();
-		// When object is Started, OnEnable() can be called
-		isStarted = true;
-	}
+        InitButton();
+        // When object is Started, OnEnable() can be called
+        isStarted = true;
+    }
 
 	void InitButton ()
 	{
 		level = ApplicationController.ac.levels [levelEnum];
-		if (level.isLocked) {
-			// TODO : change the onclick to shop menu if level locked
-			button.interactable = false;
-			uiLockImage.SetActive (true);
+        ColorBlock cb = button.colors;
+        Color nc = cb.normalColor;
+        Color pc = cb.pressedColor;
+        Color hc = cb.highlightedColor;
+        if (level.isLocked) {
+            nc.a = .4f;
+            pc = new Color(1f, 0f, 0f, .4f);
+            hc.a = .4f;
+            uiName.color = new Color(200f / 255, 200f / 255, 200f / 255);
+            //button.interactable = false;
+            uiLockImage.SetActive (true);
 			uiScore.SetActive (false);
 		} else {
-			button.interactable = true;
-			uiLockImage.SetActive (false);
+            //button.interactable = true;
+            nc.a = 1f;
+            pc = new Color(200f/255, 200f/255, 200f/255,1f);
+            hc.a = 1f;
+            uiName.color = new Color(1f,1f,1f);
+            uiLockImage.SetActive (false);
 			uiScore.SetActive (true);
 			uiScore.GetComponent<Text> ().text = level.score.ToString () + "%";
 			if (level.score >= 100) {
-				uiScore.GetComponent<Text> ().color = Color.green; //1EFF00FF
-				uiScore.GetComponent<Text> ().resizeTextForBestFit = true;
+				uiScore.GetComponent<Text> ().color = new Color(158f/255,1f,15f/255);
+                uiScore.GetComponent<Text> ().resizeTextForBestFit = true;
 			}
 		}
+        cb.normalColor = nc;
+        cb.highlightedColor = hc;
+        cb.pressedColor = pc;
+        button.colors = cb;
 		if (!level.isStory)
 			uiDifficulty.text = LocalizationManager.Instance.GetText (level.difficulty.ToString ());
 		uiName.text = level.GetFullName ();
@@ -60,8 +74,14 @@ public class LevelButtonInitializer : MonoBehaviour
 
 	public void LoadThisLevel ()
 	{
-		//SceneManager.LoadScene (levelEnum.ToString ());
-		SceneLoader.LoadSceneWithLoadingScreen (levelEnum.ToString ());
+        level = ApplicationController.ac.levels[levelEnum];
+        if (level.isLocked) // go to shop
+        {
+            foreach (GameObject g in toDisableWhenGoToShop)
+                g.SetActive(false);
+            shopPanel.SetActive(true);
+        }else
+            SceneLoader.LoadSceneWithLoadingScreen (levelEnum.ToString ());
 	}
 
 }

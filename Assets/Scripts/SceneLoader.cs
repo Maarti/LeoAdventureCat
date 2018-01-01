@@ -58,7 +58,6 @@ public class SceneLoader : MonoBehaviour
 
 	void AnimateCharacter (GameObject character)
 	{
-        Debug.Log("char=" + character.name);
         switch (character.name) {
 		case "Cat":
 			character.GetComponent<Animator> ().SetFloat ("speed", 1f);
@@ -67,8 +66,7 @@ public class SceneLoader : MonoBehaviour
 			character.GetComponent<Animator> ().SetFloat ("x.velocity", 1f);
 			break;
         case "WatchDog":
-                Debug.Log("entered" );
-                character.GetComponent<Animator>().SetBool("isPlaying", true);
+            character.GetComponent<Animator>().SetBool("isPlaying", true);
             break;
         default:
 			break;
