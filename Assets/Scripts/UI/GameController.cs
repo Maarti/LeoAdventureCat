@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-//using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Analytics;
 
 public class GameController : MonoBehaviour
 {
@@ -84,7 +82,15 @@ public class GameController : MonoBehaviour
 		gamePaused = true;
 		Time.timeScale = 0f;
 		pc.StartMoving (0f);
-		ApplicationController.ac.FinishLevel (this.level.id, Mathf.FloorToInt (CalculateScore ()));
+        int score = Mathf.FloorToInt(CalculateScore());
+        ApplicationController.ac.FinishLevel (this.level.id, score);
+        AnalyticsResult ar = Analytics.CustomEvent("LevelFinished_" + this.level.name, new Dictionary<string, object> {
+            {"score", score},
+            { "life_lost",lifeLost },
+            {"kittys_collected",kittyzCollected },
+            {"time",levelTimer }
+        });
+        Debug.Log("Analytics LevelFinished :" + ar);
 	}
 
 	public void PlayerInjured (int dmg)
@@ -140,7 +146,9 @@ public class GameController : MonoBehaviour
 	public void GameOver ()
 	{
 		guic.GameOver ();
-	}
+        AnalyticsResult ar = Analytics.CustomEvent("GameOver_" + this.level.name, pc.gameObject.transform.position);
+        Debug.Log("Analytics GameOver :" + ar);
+    }
 
 
 	public void DisplayDialog (bool pauseGame = true)

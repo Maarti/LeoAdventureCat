@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using GoogleMobileAds.Api;
+using UnityEngine.Analytics;
 
 public class GameUIController : MonoBehaviour
 {
@@ -129,7 +130,14 @@ public class GameUIController : MonoBehaviour
 			if (ApplicationController.ac.playerData.kittyz >= 5 && ApplicationController.ac.playerData.max_life > gc.pc.life) { //item price hardcoded
 				gc.PlayerInjured (-1);
 				ApplicationController.ac.playerData.updateKittys (-5, totalKittyzText, true);
-			}
+                AnalyticsResult ar = Analytics.CustomEvent("LifeBought_" + this.level.name, new Dictionary<string, object> {
+                    {"current_life", gc.pc.life},
+                    {"life_lost",gc.lifeLost },
+                    {"total_kittys",ApplicationController.ac.playerData.kittyz},
+                    {"position",gc.pc.transform.position}
+                });
+                Debug.Log("Analytics LifeBought :" + ar);
+            }
 			break;
 		case 1: // CHECKPOINT
 			if (ApplicationController.ac.playerData.kittyz >= 15) { //item price hardcoded
