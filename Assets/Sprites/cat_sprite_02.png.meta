@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 94a557adcf0308845ba01a42a6410604
-timeCreated: 1504206088
+timeCreated: 1514904389
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -22,14 +22,19 @@ TextureImporter:
     21300030: cat_sprite_02_15
     21300032: cat_sprite_02_16
     21300034: cat_sprite_02_17
-  serializedVersion: 2
+    21300036: cat_sprite_02_18
+    21300038: cat_sprite_open_eye
+    21300040: cat_sprite_closed_eye
+  serializedVersion: 4
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
+    sRGBTexture: 1
     linearTexture: 0
-    correctGamma: 0
     fadeOut: 0
     borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
     mipMapFadeDistanceStart: 1
     mipMapFadeDistanceEnd: 3
   bumpmap:
@@ -39,23 +44,22 @@ TextureImporter:
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
-  generateCubemap: 0
+  generateCubemap: 6
   cubemapConvolution: 0
-  cubemapConvolutionSteps: 7
-  cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -1
   maxTextureSize: 2048
   textureSettings:
+    serializedVersion: 2
     filterMode: -1
     aniso: 16
     mipBias: -1
-    wrapMode: 1
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
-  rGBM: 0
   compressionQuality: 50
-  allowsAlphaSplitting: 0
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
@@ -63,10 +67,23 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 300
+  alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
   textureType: 8
-  buildTargetSettings: []
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -81,7 +98,14 @@ TextureImporter:
       alignment: 9
       pivot: {x: 0.5746398, y: 0.114360176}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
+      outline:
+      - - {x: -7, y: 24}
+        - {x: -16, y: 24}
+        - {x: -16, y: -24}
+        - {x: 16, y: -24}
+        - {x: 16, y: -8}
+        - {x: -1, y: 20}
+      physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
       name: cat_sprite_02_1
@@ -94,7 +118,15 @@ TextureImporter:
       alignment: 9
       pivot: {x: 0.44028804, y: 0.1732742}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
+      outline:
+      - - {x: -15, y: 26.5}
+        - {x: -15, y: -15.5}
+        - {x: -12, y: -20.5}
+        - {x: 3, y: -26.5}
+        - {x: 15, y: -26.5}
+        - {x: 15, y: -5.5}
+        - {x: -3, y: 26.5}
+      physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
       name: cat_sprite_02_2
@@ -107,7 +139,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
+      outline:
+      - - {x: 75, y: 57.5}
+        - {x: 59, y: 58.5}
+        - {x: -107, y: 58.5}
+        - {x: -114, y: 42.5}
+        - {x: -114, y: -26.095367}
+        - {x: -87.52585, y: -47.33914}
+        - {x: -59.760895, y: -57.323303}
+        - {x: -38.301697, y: -58.5}
+        - {x: 114, y: -58.5}
+        - {x: 114, y: 21.5}
+        - {x: 102, y: 55.5}
+      physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
       name: cat_sprite_02_3
@@ -120,7 +164,16 @@ TextureImporter:
       alignment: 9
       pivot: {x: 0.87431395, y: 0.11494146}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
+      outline:
+      - - {x: -64, y: 53.5}
+        - {x: -67, y: 47.5}
+        - {x: -67, y: -31.5}
+        - {x: -51, y: -53.5}
+        - {x: 59, y: -53.5}
+        - {x: 67, y: -37.5}
+        - {x: 67, y: 49.5}
+        - {x: 49, y: 53.5}
+      physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
       name: cat_sprite_02_4
@@ -133,7 +186,16 @@ TextureImporter:
       alignment: 9
       pivot: {x: 0.11568604, y: 0.42356026}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
+      outline:
+      - - {x: -22.5, y: 13.5}
+        - {x: -22.5, y: -10.5}
+        - {x: -21.5, y: -13.5}
+        - {x: 4.5, y: -13.5}
+        - {x: 21.5, y: -10.5}
+        - {x: 22.5, y: -7.5}
+        - {x: 22.5, y: 6.5}
+        - {x: 13.5, y: 13.5}
+      physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
       name: cat_sprite_02_5
@@ -146,7 +208,16 @@ TextureImporter:
       alignment: 9
       pivot: {x: 0.5242075, y: 0.95381105}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
+      outline:
+      - - {x: -32, y: 37.5}
+        - {x: -37, y: 34.5}
+        - {x: -37, y: -10.5}
+        - {x: -36, y: -17.5}
+        - {x: -26, y: -37.5}
+        - {x: 23, y: -37.5}
+        - {x: 37, y: -29.5}
+        - {x: 37, y: 37.5}
+      physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
       name: cat_sprite_02_6
@@ -159,7 +230,14 @@ TextureImporter:
       alignment: 9
       pivot: {x: 0.5099518, y: 0.9625575}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
+      outline:
+      - - {x: -30, y: 35.5}
+        - {x: -30, y: -34.5}
+        - {x: -23, y: -35.5}
+        - {x: 21, y: -35.5}
+        - {x: 30, y: -25.5}
+        - {x: 30, y: 35.5}
+      physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
       name: cat_sprite_02_7
@@ -172,7 +250,15 @@ TextureImporter:
       alignment: 9
       pivot: {x: 0.3939921, y: 0.08224156}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
+      outline:
+      - - {x: -6, y: 23}
+        - {x: -21, y: 5}
+        - {x: -21, y: -23}
+        - {x: 13, y: -23}
+        - {x: 21, y: -11}
+        - {x: 21, y: 21}
+        - {x: 20, y: 23}
+      physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
       name: cat_sprite_02_8
@@ -185,7 +271,14 @@ TextureImporter:
       alignment: 9
       pivot: {x: 0.6559816, y: 0.15449484}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
+      outline:
+      - - {x: -22, y: 19}
+        - {x: -22, y: -7}
+        - {x: -19, y: -19}
+        - {x: 22, y: -19}
+        - {x: 22, y: 3}
+        - {x: 9, y: 19}
+      physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
       name: cat_sprite_02_9
@@ -198,7 +291,16 @@ TextureImporter:
       alignment: 9
       pivot: {x: 0.45223027, y: 0.9691657}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
+      outline:
+      - - {x: -37.5, y: 35}
+        - {x: -37.5, y: 1}
+        - {x: -32.5, y: -22}
+        - {x: -17.5, y: -35}
+        - {x: 30.5, y: -35}
+        - {x: 37.5, y: -28}
+        - {x: 37.5, y: 11}
+        - {x: 31.5, y: 35}
+      physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
       name: cat_sprite_02_10
@@ -211,7 +313,17 @@ TextureImporter:
       alignment: 9
       pivot: {x: 0.33595613, y: 0.8832261}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
+      outline:
+      - - {x: -25.5, y: 33.5}
+        - {x: -45.5, y: 27.5}
+        - {x: -45.5, y: -8.5}
+        - {x: -40.5, y: -15.5}
+        - {x: -16.5, y: -33.5}
+        - {x: 36.5, y: -33.5}
+        - {x: 45.5, y: -30.5}
+        - {x: 45.5, y: 10.5}
+        - {x: 28.5, y: 33.5}
+      physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
       name: cat_sprite_02_11
@@ -224,7 +336,13 @@ TextureImporter:
       alignment: 9
       pivot: {x: 0.46487516, y: 0.18485345}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
+      outline:
+      - - {x: -17, y: 36}
+        - {x: -17, y: -31}
+        - {x: -11, y: -36}
+        - {x: 17, y: -36}
+        - {x: 17, y: 36}
+      physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
       name: cat_sprite_02_12
@@ -237,7 +355,18 @@ TextureImporter:
       alignment: 9
       pivot: {x: 0.52059025, y: 0.93291205}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
+      outline:
+      - - {x: -29, y: 34}
+        - {x: -29, y: 5}
+        - {x: -18, y: -39}
+        - {x: -15, y: -40}
+        - {x: 12, y: -40}
+        - {x: 18, y: -37}
+        - {x: 29, y: 10}
+        - {x: 29, y: 40}
+        - {x: -2, y: 40}
+        - {x: -20, y: 38}
+      physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
       name: cat_sprite_02_13
@@ -250,7 +379,16 @@ TextureImporter:
       alignment: 9
       pivot: {x: 0.4164029, y: 0.8771284}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
+      outline:
+      - - {x: -11, y: 38}
+        - {x: -25, y: 23}
+        - {x: -25, y: -11}
+        - {x: -20, y: -36}
+        - {x: -13, y: -38}
+        - {x: 23, y: -38}
+        - {x: 25, y: -30}
+        - {x: 25, y: 38}
+      physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
       name: cat_sprite_02_14
@@ -263,7 +401,16 @@ TextureImporter:
       alignment: 9
       pivot: {x: 0.121823885, y: 0.37855208}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
+      outline:
+      - - {x: -6.5, y: 29.5}
+        - {x: -30.5, y: 14.5}
+        - {x: -30.5, y: -29.5}
+        - {x: -1.5, y: -29.5}
+        - {x: 8.5, y: -27.5}
+        - {x: 30.5, y: -0.5}
+        - {x: 30.5, y: 22.5}
+        - {x: 22.5, y: 29.5}
+      physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
       name: cat_sprite_02_15
@@ -276,7 +423,13 @@ TextureImporter:
       alignment: 9
       pivot: {x: 0.57464, y: 0.5770481}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
+      outline:
+      - - {x: -24, y: 15.5}
+        - {x: -24, y: -15.5}
+        - {x: 16, y: -15.5}
+        - {x: 24, y: -7.5}
+        - {x: 24, y: 15.5}
+      physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
       name: cat_sprite_02_16
@@ -289,7 +442,15 @@ TextureImporter:
       alignment: 9
       pivot: {x: 0.5972056, y: 0.5205904}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
+      outline:
+      - - {x: -13.5, y: 14.5}
+        - {x: -21.5, y: 7.5}
+        - {x: -21.5, y: -14.5}
+        - {x: 13.5, y: -14.5}
+        - {x: 21.5, y: -7.5}
+        - {x: 21.5, y: 10.5}
+        - {x: 17.5, y: 14.5}
+      physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
       name: cat_sprite_02_17
@@ -302,9 +463,67 @@ TextureImporter:
       alignment: 9
       pivot: {x: 0.13358584, y: 0.46555072}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 12, y: 24}
+        - {x: -3, y: 26}
+        - {x: -23, y: 26}
+        - {x: -23, y: -26}
+        - {x: 14, y: -26}
+        - {x: 23, y: -21}
+        - {x: 23, y: 13}
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: cat_sprite_02_18
+      rect:
+        serializedVersion: 2
+        x: 188
+        y: 338
+        width: 27
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -8.5, y: 6}
+        - {x: -13.5, y: 3}
+        - {x: -13.5, y: -5}
+        - {x: -12.5, y: -6}
+        - {x: 10.5, y: -6}
+        - {x: 13.5, y: -4}
+        - {x: 13.5, y: 6}
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: cat_sprite_open_eye
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 361
+        width: 24
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: cat_sprite_closed_eye
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 315
+        width: 24
+        height: 22
+      alignment: 9
+      pivot: {x: 0.35632578, y: 0.48724642}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
       tessellationDetail: 0
     outline: []
+    physicsShape: []
   spritePackingTag: 
   userData: 
   assetBundleName: 
