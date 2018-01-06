@@ -5,6 +5,8 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System;
 using System.IO;
 using System.Linq;
+using GooglePlayGames;
+using UnityEngine.SocialPlatforms;
 
 
 public class ApplicationController : MonoBehaviour
@@ -110,8 +112,18 @@ public class ApplicationController : MonoBehaviour
 			lvl.score = score;
 		this.playerData.setScore (level, score);
 
-		// If level is a story, unlock the next world
-		if (lvl.isStory)
+        // Update Google Play Games Leaderboard
+        if (doSave && PlayGamesPlatform.Instance.IsAuthenticated())
+        {
+            int totalScore = GetTotalScore();
+            Social.ReportScore(score, "CgkIk_u-oIMHEAIQAQ", (bool success) =>
+            {
+                Debug.Log("Report Score :" + score + " => " + success);
+            });
+        }
+
+        // If level is a story, unlock the next world
+        if (lvl.isStory)
 			UnlockWorld (this.levels [lvl.nextLevel].world.id);
 
 		if (doSave)
@@ -201,6 +213,15 @@ public class ApplicationController : MonoBehaviour
 		}
 	}
 
+    int GetTotalScore()
+    {
+        int total = 0;
+        foreach(KeyValuePair<LevelEnum,Level> lvl in levels)
+        {
+            total += lvl.Value.score;
+        }
+        return total;
+    }
 }
 
 
