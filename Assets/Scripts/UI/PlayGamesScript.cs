@@ -4,50 +4,56 @@ using UnityEngine;
 
 public class PlayGamesScript : MonoBehaviour
 {
-
-    // Use this for initialization
-    void Start()
+     
+    public void ShowAllLeaderboards()
     {
-        PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder().Build();
-        PlayGamesPlatform.InitializeInstance(config);
-        PlayGamesPlatform.DebugLogEnabled = true;
-        PlayGamesPlatform.Activate();
-        Debug.Log("started");
-        SignIn();
+        PlayGamesScript.ShowLeaderboardsUI();
+    }
+    public void ShowOverallLeaderboards()
+    {
+        PlayGamesScript.ShowSpecificLeaderboardsUI(Config.LEADERBOARD_OVERALL_SCORE);
     }
 
+    public void ShowAchievements()
+    {
+        PlayGamesScript.ShowAchievementsUI();
+    }
+
+    #region StaticMethods
     public static void SignIn()
     {
-        Debug.Log("signin");
-        Social.localUser.Authenticate((bool success) => {
-            Debug.Log("authenticate=" + success);
+       /* Authentication will show the required consent dialogs.If the user
+        * has already signed into the game in the past, this process will 
+        * be silent and the user will not have to interact with any dialogs.*/
+       Social.localUser.Authenticate((bool success) => {
+            Debug.Log("Google Play Games : authenticate=" + success);
         });
     }
 
-
     public static void UnlockAchievement(string id)
     {
-        Social.ReportProgress(id, 100, success => { });
+        if (PlayGamesPlatform.Instance.IsAuthenticated())
+            Social.ReportProgress(id, 100, success => { });
     }
 
     public static void IncrementAchievement(string id, int stepsToIncrement)
     {
-        PlayGamesPlatform.Instance.IncrementAchievement(id, stepsToIncrement, success => { });
+        if (PlayGamesPlatform.Instance.IsAuthenticated())
+            PlayGamesPlatform.Instance.IncrementAchievement(id, stepsToIncrement, success => { });
     }
 
     public static void ShowAchievementsUI()
     {
-        Social.ShowAchievementsUI();
-    }
-
-    public void ShowLeaderboards()
-    {
-        PlayGamesScript.ShowLeaderboardsUI();
+        if (PlayGamesPlatform.Instance.IsAuthenticated())
+            Social.ShowAchievementsUI();
+        else
+            SignIn();
     }
 
     public static void AddScoreToLeaderboard(string leaderboardId, long score)
     {
-        Social.ReportScore(score, leaderboardId, success => { });
+        if (PlayGamesPlatform.Instance.IsAuthenticated())
+            Social.ReportScore(score, leaderboardId, success => { });
     }
 
     public static void ShowLeaderboardsUI()
@@ -57,6 +63,15 @@ public class PlayGamesScript : MonoBehaviour
         else
             SignIn();
     }
+
+    public static void ShowSpecificLeaderboardsUI(string id)
+    {
+        if (PlayGamesPlatform.Instance.IsAuthenticated())
+            PlayGamesPlatform.Instance.ShowLeaderboardUI(id);
+        else
+            SignIn();
+    }
+    #endregion 
 
 
 }

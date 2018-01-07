@@ -24,7 +24,15 @@
 
 public static class GPGSIds
 {
+        public const string achievement_perfectionist_5 = "CgkIk_u-oIMHEAIQBw"; // <GPGSID>
+        public const string achievement_kittyz_rush_10 = "CgkIk_u-oIMHEAIQAg"; // <GPGSID>
+        public const string achievement_kittyz_rush_1000 = "CgkIk_u-oIMHEAIQBQ"; // <GPGSID>
+        public const string achievement_perfectionist_20 = "CgkIk_u-oIMHEAIQCQ"; // <GPGSID>
+        public const string achievement_kittyz_rush_500 = "CgkIk_u-oIMHEAIQBA"; // <GPGSID>
+        public const string achievement_kittyz_rush_100 = "CgkIk_u-oIMHEAIQAw"; // <GPGSID>
+        public const string achievement_perfectionist_10 = "CgkIk_u-oIMHEAIQCA"; // <GPGSID>
         public const string leaderboard_overall_score = "CgkIk_u-oIMHEAIQAQ"; // <GPGSID>
+        public const string achievement_perfectionist_1 = "CgkIk_u-oIMHEAIQBg"; // <GPGSID>
 
 }
 

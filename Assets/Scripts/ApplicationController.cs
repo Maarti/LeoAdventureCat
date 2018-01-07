@@ -6,7 +6,6 @@ using System;
 using System.IO;
 using System.Linq;
 using GooglePlayGames;
-using UnityEngine.SocialPlatforms;
 
 
 public class ApplicationController : MonoBehaviour
@@ -108,8 +107,8 @@ public class ApplicationController : MonoBehaviour
 	public void FinishLevel (LevelEnum level, int score = 100, bool doSave = true)
 	{
 		Level lvl = this.levels [level];
-		if (lvl.score < score)
-			lvl.score = score;
+        if (lvl.score < score)
+            lvl.score = score;
 		this.playerData.setScore (level, score);
 
         // Update Google Play Games Leaderboard
@@ -258,8 +257,19 @@ public class PlayerData
 	public void setScore (LevelEnum lvl, int score)
 	{
 		if (this.scores.ContainsKey (lvl)) {
-			if (this.scores [lvl] < score)
-				this.scores [lvl] = Mathf.Clamp (score, 0, 100);
+            if (this.scores[lvl] < score)
+            {
+                this.scores[lvl] = Mathf.Clamp(score, 0, 100);
+                
+                // Achievements
+                if (score >= 100)
+                {
+                    PlayGamesScript.IncrementAchievement(Config.PERFECTIONIST_1, 1);
+                    PlayGamesScript.IncrementAchievement(Config.PERFECTIONIST_5, 1);
+                    PlayGamesScript.IncrementAchievement(Config.PERFECTIONIST_10, 1);
+                    PlayGamesScript.IncrementAchievement(Config.PERFECTIONIST_20, 1);
+                }                
+            }
 		} else {
 			this.scores.Add (lvl, Mathf.Clamp (score, 0, 100));
 		}

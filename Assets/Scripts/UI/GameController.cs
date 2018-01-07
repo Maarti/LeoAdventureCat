@@ -104,9 +104,13 @@ public class GameController : MonoBehaviour
 
 	public void CollectKittyz (int amount = 1)
 	{
-		kittyzCollected += amount;	
-		ApplicationController.ac.playerData.updateKittys (1);	
-	}
+		kittyzCollected += amount;
+        ApplicationController.ac.playerData.updateKittys(1);
+        PlayGamesScript.IncrementAchievement(Config.KITTYZ_RUSH_10, amount);
+        PlayGamesScript.IncrementAchievement(Config.KITTYZ_RUSH_100, amount);
+        PlayGamesScript.IncrementAchievement(Config.KITTYZ_RUSH_500, amount);
+        PlayGamesScript.IncrementAchievement(Config.KITTYZ_RUSH_1000, amount);
+    }
 
 	public float CalculateScore ()
 	{
