@@ -53,7 +53,10 @@ public class PlayGamesScript : MonoBehaviour
     public static void AddScoreToLeaderboard(string leaderboardId, long score)
     {
         if (PlayGamesPlatform.Instance.IsAuthenticated())
-            Social.ReportScore(score, leaderboardId, success => { });
+            Social.ReportScore(score, leaderboardId, (bool success) =>
+            {
+                Debug.Log("Report Score :" + score + " => " + success);
+            });       
     }
 
     public static void ShowLeaderboardsUI()

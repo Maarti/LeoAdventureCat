@@ -112,13 +112,10 @@ public class ApplicationController : MonoBehaviour
 		this.playerData.setScore (level, score);
 
         // Update Google Play Games Leaderboard
-        if (doSave && PlayGamesPlatform.Instance.IsAuthenticated())
+        if (doSave)
         {
             int totalScore = GetTotalScore();
-            Social.ReportScore(score, "CgkIk_u-oIMHEAIQAQ", (bool success) =>
-            {
-                Debug.Log("Report Score :" + score + " => " + success);
-            });
+            PlayGamesScript.AddScoreToLeaderboard(Config.LEADERBOARD_OVERALL_SCORE, totalScore);
         }
 
         // If level is a story, unlock the next world
