@@ -84,6 +84,18 @@ public class GameController : MonoBehaviour
 		pc.StartMoving (0f);
         int score = Mathf.FloorToInt(CalculateScore());
         ApplicationController.ac.FinishLevel (this.level.id, score);
+
+        // Achievements
+        if (lifeLost == 0)
+        {
+            PlayGamesScript.IncrementAchievement(Config.INTOUCHABLE_5,1);
+            PlayGamesScript.IncrementAchievement(Config.INTOUCHABLE_25, 1);
+            PlayGamesScript.IncrementAchievement(Config.INTOUCHABLE_50, 1);
+            PlayGamesScript.IncrementAchievement(Config.INTOUCHABLE_100, 1);
+        }
+
+
+        // Analytics
         AnalyticsResult ar = Analytics.CustomEvent("LevelFinished_" + this.level.name, new Dictionary<string, object> {
             {"score", score},
             { "life_lost",lifeLost },
