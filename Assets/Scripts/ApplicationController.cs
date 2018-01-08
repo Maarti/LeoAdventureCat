@@ -271,7 +271,8 @@ public class PlayerData
                     totalFullCompletedLvls++;
             }
             // compare it with the achievement current value and add the difference if necessary
-            int achvmtValue = PlayGamesScript.GetAchievementValue(Config.PERFECTIONIST_20);
+            //int achvmtValue = PlayGamesScript.GetAchievementValue(Config.PERFECTIONIST_20);
+            int achvmtValue = PlayGamesScript.perfectionnistCurrentValue;
             int diff = totalFullCompletedLvls - achvmtValue;
             Debug.Log("PlayerData.setScore : totalFullCompletedLvls=" + totalFullCompletedLvls + " achvmtValue="+achvmtValue+" diff="+diff);
             if (achvmtValue >= 0 && diff > 0)
@@ -280,6 +281,8 @@ public class PlayerData
                 PlayGamesScript.IncrementAchievement(Config.PERFECTIONIST_5, diff);
                 PlayGamesScript.IncrementAchievement(Config.PERFECTIONIST_10, diff);
                 PlayGamesScript.IncrementAchievement(Config.PERFECTIONIST_20, diff);
+                PlayGamesScript.perfectionnistCurrentValue = totalFullCompletedLvls;
+                Debug.Log("new perfectionnistCurrentValue="+ PlayGamesScript.perfectionnistCurrentValue);
             }
         }
 

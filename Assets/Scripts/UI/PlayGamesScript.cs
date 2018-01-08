@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayGamesScript : MonoBehaviour
 {
-     
+    public static int perfectionnistCurrentValue = -1;
+
     public void ShowAllLeaderboards()
     {
         PlayGamesScript.ShowLeaderboardsUI();
@@ -26,8 +27,10 @@ public class PlayGamesScript : MonoBehaviour
         * has already signed into the game in the past, this process will 
         * be silent and the user will not have to interact with any dialogs.*/
        Social.localUser.Authenticate((bool success) => {
-            Debug.Log("Google Play Games : authenticate=" + success);
-        });
+           Debug.Log("Google Play Games : authenticate=" + success);
+           perfectionnistCurrentValue = GetAchievementValue(Config.PERFECTIONIST_20);
+           Debug.Log("init perfectionnistCurrentValue=" + PlayGamesScript.perfectionnistCurrentValue);
+       });
     }
 
     #region Achievements

@@ -26,9 +26,17 @@ public static class GPGSIds
 {
         public const string achievement_perfectionist_5 = "CgkIk_u-oIMHEAIQBw"; // <GPGSID>
         public const string achievement_kittyz_rush_10 = "CgkIk_u-oIMHEAIQAg"; // <GPGSID>
+        public const string achievement_the_intouchable_100 = "CgkIk_u-oIMHEAIQDw"; // <GPGSID>
+        public const string achievement_teamwork = "CgkIk_u-oIMHEAIQEQ"; // <GPGSID>
+        public const string achievement_nosy = "CgkIk_u-oIMHEAIQDA"; // <GPGSID>
+        public const string achievement_the_intouchable_25 = "CgkIk_u-oIMHEAIQDQ"; // <GPGSID>
+        public const string achievement_dont_claim_victory_too_quickly = "CgkIk_u-oIMHEAIQEA"; // <GPGSID>
+        public const string achievement_the_intouchable_5 = "CgkIk_u-oIMHEAIQCg"; // <GPGSID>
+        public const string achievement_im_freeee = "CgkIk_u-oIMHEAIQCw"; // <GPGSID>
         public const string achievement_kittyz_rush_1000 = "CgkIk_u-oIMHEAIQBQ"; // <GPGSID>
         public const string achievement_perfectionist_20 = "CgkIk_u-oIMHEAIQCQ"; // <GPGSID>
         public const string achievement_kittyz_rush_500 = "CgkIk_u-oIMHEAIQBA"; // <GPGSID>
+        public const string achievement_the_intouchable_50 = "CgkIk_u-oIMHEAIQDg"; // <GPGSID>
         public const string achievement_kittyz_rush_100 = "CgkIk_u-oIMHEAIQAw"; // <GPGSID>
         public const string achievement_perfectionist_10 = "CgkIk_u-oIMHEAIQCA"; // <GPGSID>
         public const string leaderboard_overall_score = "CgkIk_u-oIMHEAIQAQ"; // <GPGSID>

@@ -55,7 +55,12 @@ public class WatchDogController : MonoBehaviour
 			ballIsCaught = true;	
 			StartCoroutine (BallMoveToDog ());
 			theDog.GetComponent<Animator> ().SetTrigger ("catchBall");
-		}
+            //Achievement
+            PlayGamesScript.UnlockAchievement(Config.BRING_BALL_1);
+            PlayGamesScript.IncrementAchievement(Config.BRING_BALL_10,1);
+            PlayGamesScript.IncrementAchievement(Config.BRING_BALL_50, 1);
+            PlayGamesScript.IncrementAchievement(Config.BRING_BALL_100, 1);
+        }
 	}
 
 	public void ResetBall ()
