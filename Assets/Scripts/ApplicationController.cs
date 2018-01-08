@@ -253,24 +253,37 @@ public class PlayerData
 
 	public void setScore (LevelEnum lvl, int score)
 	{
-		if (this.scores.ContainsKey (lvl)) {
+        score = Mathf.Clamp(score, 0, 100);
+        if (this.scores.ContainsKey (lvl)) {
             if (this.scores[lvl] < score)
+                this.scores[lvl] = score;
+		} else
+			this.scores.Add (lvl, score);
+
+        // Achievements
+        if (score >= 100 && PlayGamesPlatform.Instance.IsAuthenticated())
+        {
+            // get total number of fully completed levels
+            int totalFullCompletedLvls = 0;
+            foreach (KeyValuePair<LevelEnum, int> oneScore in scores)
             {
-                this.scores[lvl] = Mathf.Clamp(score, 0, 100);
-                
-                // Achievements
-                if (score >= 100)
-                {
-                    PlayGamesScript.IncrementAchievement(Config.PERFECTIONIST_1, 1);
-                    PlayGamesScript.IncrementAchievement(Config.PERFECTIONIST_5, 1);
-                    PlayGamesScript.IncrementAchievement(Config.PERFECTIONIST_10, 1);
-                    PlayGamesScript.IncrementAchievement(Config.PERFECTIONIST_20, 1);
-                }                
+                if (oneScore.Value >= 100)
+                    totalFullCompletedLvls++;
             }
-		} else {
-			this.scores.Add (lvl, Mathf.Clamp (score, 0, 100));
-		}
-	}
+            // compare it with the achievement current value and add the difference if necessary
+            int achvmtValue = PlayGamesScript.GetAchievementValue(Config.PERFECTIONIST_20);
+            int diff = totalFullCompletedLvls - achvmtValue;
+            Debug.Log("PlayerData.setScore : totalFullCompletedLvls=" + totalFullCompletedLvls + " achvmtValue="+achvmtValue+" diff="+diff);
+            if (achvmtValue >= 0 && diff > 0)
+            {
+                PlayGamesScript.UnlockAchievement(Config.PERFECTIONIST_1);
+                PlayGamesScript.IncrementAchievement(Config.PERFECTIONIST_5, diff);
+                PlayGamesScript.IncrementAchievement(Config.PERFECTIONIST_10, diff);
+                PlayGamesScript.IncrementAchievement(Config.PERFECTIONIST_20, diff);
+            }
+        }
+
+    }
 }
 
 public class Level

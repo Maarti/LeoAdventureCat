@@ -33,9 +33,9 @@ public class PlayGamesScript : MonoBehaviour
     public static void UnlockAchievement(string id)
     {
         if (PlayGamesPlatform.Instance.IsAuthenticated())
-            Social.ReportProgress(id, 100, success => { });
+            Social.ReportProgress(id, 100.0f, success => { });        
     }
-
+    
     public static void IncrementAchievement(string id, int stepsToIncrement)
     {
         if (PlayGamesPlatform.Instance.IsAuthenticated())
@@ -48,6 +48,18 @@ public class PlayGamesScript : MonoBehaviour
             Social.ShowAchievementsUI();
         else
             SignIn();
+    }
+
+    // Return the current step value of an incremental achievement
+    public static int GetAchievementValue(string id)
+    {
+        if (PlayGamesPlatform.Instance.IsAuthenticated())
+        {
+            Achievement a = PlayGamesPlatform.Instance.GetAchievement(id);
+            if (a.IsIncremental)
+                return a.CurrentSteps;
+        }
+        return -1;
     }
 
     public static void AddScoreToLeaderboard(string leaderboardId, long score)
