@@ -136,6 +136,8 @@ public class DogCatcherController : MonoBehaviour, IDefendable
 		audioSource.Stop ();
 		audioSource.pitch = 0.8f;
 		audioSource.PlayOneShot (bossHitSound);
+        // Achievement
+        PlayGamesScript.UnlockAchievement(Config.DEFEAT_DOGCATCHER);
 	}
 
 	public void Flip ()

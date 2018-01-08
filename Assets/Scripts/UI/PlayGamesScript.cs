@@ -30,6 +30,7 @@ public class PlayGamesScript : MonoBehaviour
         });
     }
 
+    #region Achievements
     public static void UnlockAchievement(string id)
     {
         if (PlayGamesPlatform.Instance.IsAuthenticated())
@@ -62,6 +63,21 @@ public class PlayGamesScript : MonoBehaviour
         return -1;
     }
 
+    // Return 0 if locked, 1 if unlocked, -1 if not c0nnected
+    public static int IsAchievementUnlocked(string id)
+    {
+        if (PlayGamesPlatform.Instance.IsAuthenticated())
+        {
+            if (PlayGamesPlatform.Instance.GetAchievement(id).IsUnlocked)
+                return 1;
+            else
+                return 0;
+        }
+        return -1;
+    }
+    #endregion
+
+    #region LeaderBoard
     public static void AddScoreToLeaderboard(string leaderboardId, long score)
     {
         if (PlayGamesPlatform.Instance.IsAuthenticated())
@@ -86,7 +102,9 @@ public class PlayGamesScript : MonoBehaviour
         else
             SignIn();
     }
-    #endregion 
+    #endregion
+
+    #endregion
 
 
 }

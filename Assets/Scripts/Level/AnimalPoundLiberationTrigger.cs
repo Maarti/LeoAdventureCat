@@ -146,6 +146,9 @@ public class AnimalPoundLiberationTrigger : MonoBehaviour
 		RatFlip ();
 		rat.GetComponent<Rigidbody2D> ().isKinematic = true;
 		ratLiberated = true;
+
+        // Achievement "free Croc"
+        PlayGamesScript.UnlockAchievement(Config.IM_FREE);
 	}
 
 

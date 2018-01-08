@@ -88,6 +88,8 @@ public class BulldogBossController : MonoBehaviour, IDefendable
         audioSource.Stop();
         audioSource.PlayOneShot(dyingSound);
         OnDeath.Invoke();
+        // Achievement
+        PlayGamesScript.UnlockAchievement(Config.DEFEAT_BULLDOG);
     }
 
     public void ChaseCat()
