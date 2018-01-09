@@ -2,6 +2,8 @@
 using GooglePlayGames.BasicApi;
 using UnityEngine;
 
+// Documentation : https://github.com/playgameservices/play-games-plugin-for-unity
+
 public class PlayGamesScript : MonoBehaviour
 {
     public static int perfectionnistCurrentValue = -1;

@@ -13,8 +13,7 @@ public class MainMenuController : MonoBehaviour
     private void Start()
     {
         helpScrollRect = helpScrollView.GetComponent<ScrollRect>();
-        // Preload shop ad
-
+        LoadAd();
     }
 
     void Update ()
