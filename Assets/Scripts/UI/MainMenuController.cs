@@ -1,5 +1,6 @@
 ﻿using UnityEngine.UI;
 using UnityEngine;
+using GoogleMobileAds.Api;
 
 public class MainMenuController : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class MainMenuController : MonoBehaviour
     private void Start()
     {
         helpScrollRect = helpScrollView.GetComponent<ScrollRect>();
+        // Preload shop ad
+
     }
 
     void Update ()
@@ -39,5 +42,15 @@ public class MainMenuController : MonoBehaviour
     public void UntrackHelpAchievement()
     {
         trackHelpAchievement = false;
+    }
+
+    // Pre-load ad video in shop menu
+    void LoadAd()
+    {
+        if (!RewardBasedVideoAd.Instance.IsLoaded())
+        {
+            AdRequest request = new AdRequest.Builder().Build();
+            RewardBasedVideoAd.Instance.LoadAd(request, Config.adUnitId);
+        }
     }
 }

@@ -2,10 +2,7 @@
 // https://developers.google.com/admob/unity/rewarded-video
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using GoogleMobileAds;
 using GoogleMobileAds.Api;
 using UnityEngine.UI;
 
@@ -47,15 +44,15 @@ public class AdController : MonoBehaviour
 
 	public void RequestRewardBasedVideo ()
 	{
-		string adUnitId = "ca-app-pub-3940256099942544/5224354917"; //testing ID
-		//string adUnitId = Config.adUnitId;
+		//string adUnitId = "ca-app-pub-3940256099942544/5224354917"; //testing ID
+		string adUnitId = Config.adUnitId;
 
 		rewardBasedVideo = RewardBasedVideoAd.Instance;
 
 		AdRequest request = new AdRequest.Builder ()
-			.AddTestDevice (AdRequest.TestDeviceSimulator)       // Simulator.
-			.AddTestDevice (Config.myTestDevice1) 
-			.AddTestDevice (Config.myTestDevice1Caps) 
+			//.AddTestDevice (AdRequest.TestDeviceSimulator)       // Simulator.
+			//.AddTestDevice (Config.myTestDevice1) 
+			//.AddTestDevice (Config.myTestDevice1Caps) 
 			.Build ();
 		rewardBasedVideo.LoadAd (request, adUnitId);
 
