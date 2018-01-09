@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class ShopItemController : MonoBehaviour
@@ -45,10 +43,7 @@ public class ShopItemController : MonoBehaviour
 				itemBuyButton.GetComponent<Button> ().interactable = false;
 				itemPrice.SetActive (false);
 				itemBuyButton.transform.Find ("Image").GetComponent<Image> ().sprite = boughtImg;
-				//itemBuyButton.gameObject.SetActive (false);
-				//itemBuyButton.GetComponentInChildren<Text> ().text = LocalizationManager.Instance.GetText ("BOUGHT");
-			} else {
-				//itemBuyButton.GetComponentInChildren<Text> ().text = LocalizationManager.Instance.GetText ("BUY");
+                GetComponent<RectTransform>().SetAsLastSibling(); // move the item at the end of the list
 			}
 		}
 	}

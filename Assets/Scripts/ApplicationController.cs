@@ -77,7 +77,7 @@ public class ApplicationController : MonoBehaviour
 		Dictionary<LevelEnum,Level> lvls = new Dictionary<LevelEnum, Level> ();
 		lvls.Add (LevelEnum.level_1_story, new Level (LevelEnum.level_1_story, "1-", WorldEnum.Forest, DifficultyEnum.EASY, 10, 135, 3, LevelEnum.level_2_story, false, true));
 		lvls.Add (LevelEnum.level_1_01, new Level (LevelEnum.level_1_01, "1-01", WorldEnum.Forest, DifficultyEnum.EASY, 10, 90, 3, LevelEnum.level_1_02, false));
-		lvls.Add (LevelEnum.level_1_02, new Level (LevelEnum.level_1_02, "1-02", WorldEnum.Forest, DifficultyEnum.EASY, 10, 45, 0, LevelEnum.level_1_03, false));
+		lvls.Add (LevelEnum.level_1_02, new Level (LevelEnum.level_1_02, "1-02", WorldEnum.Forest, DifficultyEnum.EASY, 10, 48, 0, LevelEnum.level_1_03, false));
 		lvls.Add (LevelEnum.level_1_03, new Level (LevelEnum.level_1_03, "1-03", WorldEnum.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_06, false));
 		//lvls.Add (LevelEnum.level_1_04, new Level (LevelEnum.level_1_04, "1-04", World.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_12, false));
 		//lvls.Add (LevelEnum.level_1_05, new Level (LevelEnum.level_1_05, "1-05", World.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_12, false));
