@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class HelpItemController : MonoBehaviour {
 
     public WorldEnum worldEnum;
-    public GameObject lockImg,beastTxt;
+    public GameObject lockImg,beastTxt,beastImg;
+    public Sprite interroImg;
     World world;
     bool isStarted = false;
 
@@ -21,6 +23,7 @@ public class HelpItemController : MonoBehaviour {
         {
             beastTxt.SetActive(false);
             lockImg.SetActive(true);
+            beastImg.GetComponent<Image>().sprite = interroImg;
         }
         else
         {
