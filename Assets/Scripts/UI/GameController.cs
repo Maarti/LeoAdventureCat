@@ -93,6 +93,12 @@ public class GameController : MonoBehaviour
             PlayGamesScript.IncrementAchievement(Config.INTOUCHABLE_50, 1);
             PlayGamesScript.IncrementAchievement(Config.INTOUCHABLE_100, 1);
         }
+        if(this.level.difficulty == DifficultyEnum.NIGHTMAR)
+        {
+            PlayGamesScript.UnlockAchievement(Config.NIGHTMARE);
+            if(score >= 100)
+                PlayGamesScript.UnlockAchievement(Config.NIGHTMARE_PERFECT);
+        }
 
 
         // Analytics
@@ -162,6 +168,13 @@ public class GameController : MonoBehaviour
 	public void GameOver ()
 	{
 		guic.GameOver ();
+
+        // Achievements
+        PlayGamesScript.IncrementAchievement(Config.GAME_OVER, 1);
+        if (this.level.difficulty == DifficultyEnum.NIGHTMAR)
+            PlayGamesScript.IncrementAchievement(Config.NIGHTMARE_DEATH, 1);
+        
+        // Analytics
         AnalyticsResult ar = Analytics.CustomEvent("GameOver_" + this.level.name, pc.gameObject.transform.position);
         Debug.Log("Analytics GameOver :" + ar);
     }
