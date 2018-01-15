@@ -132,7 +132,11 @@ public class ApplicationController : MonoBehaviour
 		if (!this.playerData.unlockedWorld.Contains (worldEnum))
 			this.playerData.unlockedWorld.Add (worldEnum);
 		if (doSave)
-			Save ();		
+			Save ();
+
+        // Achievements
+        if (worldEnum == WorldEnum.AnimalPound)
+            PlayGamesScript.RevealAchievement(Config.DEFEAT_BULLDOG);
 	}
 
 	public void UnlockLevel (LevelEnum level, bool doSave = true)

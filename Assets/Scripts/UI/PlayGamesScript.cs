@@ -80,6 +80,14 @@ public class PlayGamesScript : MonoBehaviour
         }
         return -1;
     }
+
+    // Reveal a hidden achievement
+    public static void RevealAchievement(string id)
+    {
+        Social.ReportProgress(id, 0.0f, (bool success) => {
+            Debug.Log("Revealing achievement " + id);
+        });
+    }
     #endregion
 
     #region LeaderBoard
