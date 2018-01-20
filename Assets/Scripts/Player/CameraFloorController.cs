@@ -10,10 +10,8 @@ public class CameraFloorController : MonoBehaviour
 
 	float smoothingInterpolateTime = 0.1f;
 	Floor currentFloor;
-	//bool isMovingSmoothly = false;
 	GameObject player;
 
-	// Use this for initialization
 	void Start ()
 	{
 		player = GameObject.FindWithTag ("Player");
@@ -25,37 +23,45 @@ public class CameraFloorController : MonoBehaviour
 		// Set the position of the camera's transform to be the same as the player's, but offset by the calculated offset distance.
 		Vector3 newPosition = player.transform.position + offset;
 		float yPlayer = player.transform.position.y;
-		foreach (Floor floor in floors) {
-			if (yPlayer < floor.playerYMax) {
-				if (currentFloor != floor) {
-					currentFloor = floor;
-					//StartCoroutine (MoveSmoothly (1f));
-				}
-				break;
-			}
-		}
+        
+        // Floors managing
+        if (floors.Length > 0) { 
+            foreach (Floor floor in floors) {
+			    if (yPlayer < floor.playerYMax) {
+				    if (currentFloor != floor) {
+					    currentFloor = floor;
+				    }
+				    break;
+			    }
+		    }
+		    if (newPosition.y < currentFloor.yMin)
+			    newPosition.y = currentFloor.yMin;
+		    else if (newPosition.y > currentFloor.yMax)
+			    newPosition.y = currentFloor.yMax;
+        }
 
-		if (newPosition.y < currentFloor.yMin)
-			newPosition.y = currentFloor.yMin;
-		else if (newPosition.y > currentFloor.yMax)
-			newPosition.y = currentFloor.yMax;
+        // Borders managing
 		if (newPosition.x < xMin)
 			newPosition.x = xMin;
 		else if (newPosition.x > xMax)
 			newPosition.x = xMax;
-		//if (isMovingSmoothly)
-		this.transform.position = Vector3.Lerp (this.transform.position, newPosition, smoothingInterpolateTime);
-		//else
-		//	this.transform.position = newPosition;
+        if (newPosition.y < yMin)
+            newPosition.y = yMin;
+        else if (newPosition.y > yMax)
+            newPosition.y = yMax;
+        
+        // Move camera smoothly
+        this.transform.position = Vector3.Lerp(this.transform.position, newPosition, smoothingInterpolateTime);
 
-	}
+        // Move the camera instantly if it is out of scope
+        bool instantMove = false;
+        if (this.transform.position.x < xMin || this.transform.position.x > xMax ||
+            this.transform.position.y < yMin || this.transform.position.y > yMax)
+            instantMove = true;
+        if (instantMove)
+            this.transform.position = newPosition;
+    }
 
-	/*IEnumerator MoveSmoothly (float time)
-	{
-		isMovingSmoothly = true;
-		yield return new WaitForSeconds (time);
-		isMovingSmoothly = false;
-	}*/
 
 	[Serializable]
 	public class Floor
