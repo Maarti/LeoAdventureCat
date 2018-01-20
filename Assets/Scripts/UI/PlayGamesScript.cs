@@ -84,9 +84,13 @@ public class PlayGamesScript : MonoBehaviour
     // Reveal a hidden achievement
     public static void RevealAchievement(string id)
     {
-        Social.ReportProgress(id, 0.0f, (bool success) => {
-            Debug.Log("Revealing achievement " + id);
-        });
+        if (PlayGamesPlatform.Instance.IsAuthenticated())
+        {
+            Social.ReportProgress(id, 0.0f, (bool success) =>
+            {
+                Debug.Log("Revealing achievement " + id);
+            });
+        }
     }
     #endregion
 
