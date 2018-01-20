@@ -1,6 +1,6 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DogCatcherController : MonoBehaviour, IDefendable
 {
@@ -8,6 +8,8 @@ public class DogCatcherController : MonoBehaviour, IDefendable
 	public int life = 40;
 	public Transform nutPrefab;
 	public AudioClip throwSound, shopVacSound, bossHitSound;
+    public Slider lifebar;
+
 	int currentPhase = 0, previousPhase = 0;
 	bool waitingForNextPhase = false, facingRight = false;
 	GameObject player, attackPointEffector;
@@ -28,6 +30,8 @@ public class DogCatcherController : MonoBehaviour, IDefendable
 		attackPointEffector = transform.Find ("Body/Weapon/AttackPointEffector").gameObject;
 		attackPointEffector.SetActive (false);
 		audioSource = GetComponent<AudioSource> ();
+        lifebar.maxValue = life;
+        lifebar.value = life;
 	}
 	
 	// Update is called once per frame
@@ -123,6 +127,7 @@ public class DogCatcherController : MonoBehaviour, IDefendable
 				if (!audioSource.isPlaying)
 					audioSource.PlayOneShot (bossHitSound);
 			}
+            lifebar.value = life;
 		}
 	}
 
@@ -136,6 +141,7 @@ public class DogCatcherController : MonoBehaviour, IDefendable
 		audioSource.Stop ();
 		audioSource.pitch = 0.8f;
 		audioSource.PlayOneShot (bossHitSound);
+        lifebar.gameObject.SetActive(false);
         // Achievement
         PlayGamesScript.UnlockAchievement(Config.DEFEAT_DOGCATCHER);
 	}

@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class DogCatcherTrigger : MonoBehaviour
 {
@@ -9,6 +8,8 @@ public class DogCatcherTrigger : MonoBehaviour
 	public float moveSpeed;
 	public Transform endBossPosition;
 	public AudioClip bossMusic;
+    public Slider bossLifebar;
+
 	GameUIController guic;
 	bool arrived = false, isBossInitialized = false, isTriggered = false, isRunning = false, musicChanged = false;
 	GameObject player, boss, gc;
@@ -57,6 +58,7 @@ public class DogCatcherTrigger : MonoBehaviour
 			isTriggered = true;
 			guic.DisplayDialog (dialog);
 			boss.SetActive (true);
+            bossLifebar.gameObject.SetActive(true);
 		}
 	}
 
