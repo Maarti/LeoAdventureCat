@@ -1,14 +1,15 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AnimalPoundBulldogTrigger : MonoBehaviour
 {
 	public GameObject dog, ball, boundary;
 	public Transform ratDown, ratUp, ratDownPipe, ratUpPipe, dogDown, dogUp, platformPrefab;
     public Transform minPlatformZone, maxPlatformZone;  // zone where the platforms are thrown
-    public float dogSpeed = 2.5f;         // dog speed during rat phase
+    public float dogSpeed = 2.5f;       // dog speed during rat phase
     public float dogWaitingTime = 2.2f; // time dog waits each time when it looks for rat
+    public Slider bossLifebar;
 
     Transform startPlatform;            // starting position from where the platforms are thrown
     const int nbLoopTotal = 2;          // nb times to look for rat before chase cat
@@ -220,6 +221,7 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
         // display ui
         guic.DisplayMobileController();
         guic.DisplayTopUI();
+        bossLifebar.gameObject.SetActive(true);
         
         state++;
         yield return null;
@@ -309,6 +311,7 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
     {
         if(platformCoroutine!=null)
             StopCoroutine(platformCoroutine);
+        bossLifebar.gameObject.SetActive(false);
         Destroy(boundary);
         state = 99;
     }

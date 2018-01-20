@@ -97,7 +97,7 @@ public class AnimalPoundSpecialEnd : EndSign
         while (hangGlider.transform.position != hangGliderPos.position ||
             cat.transform.position != hangGliderPos.position)
         {
-            cat.transform.position = Vector3.MoveTowards(cat.transform.position, hangGliderPos.position, Time.deltaTime*2f);
+            cat.transform.position = Vector3.MoveTowards(cat.transform.position, hangGliderPos.position, Time.deltaTime*1.5f);
             hangGlider.transform.position = Vector3.MoveTowards(hangGlider.transform.position, hangGliderPos.position, Time.deltaTime);
             yield return null;
         }

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class BulldogBossController : MonoBehaviour, IDefendable
 {
@@ -10,6 +11,7 @@ public class BulldogBossController : MonoBehaviour, IDefendable
     public GameObject stunAnimation;
     public delegate void DeathDelegate();
     public event DeathDelegate OnDeath;
+    public Slider lifebar;
 
     Animator animator;
     AudioSource audioSource;
@@ -23,6 +25,8 @@ public class BulldogBossController : MonoBehaviour, IDefendable
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         cat = GameObject.FindGameObjectWithTag("Player");
+        lifebar.maxValue = life;
+        lifebar.value = life;
     }
 
     void FixedUpdate()
@@ -77,6 +81,7 @@ public class BulldogBossController : MonoBehaviour, IDefendable
             Die();
         else
             animator.SetTrigger("hit");
+        lifebar.value = life;
     }
 
     public void Die()
