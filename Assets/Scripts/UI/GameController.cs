@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour
 	public PlayerController pc;
 	GameUIController guic;
 	bool lifeBarInit = false;
+    bool hasTipBeenConsulted = false;
 
 	void Awake ()
 	{
@@ -46,6 +47,9 @@ public class GameController : MonoBehaviour
 			else
 				checkpointController.Reset (lvlEnum);
 		}
+
+        // Check if we have to diplay to tip if the player get hit
+        hasTipBeenConsulted = ApplicationController.ac.IsTipAlreadyConsulted(TipEnum.BUY_LIFE);
 	}
 
 	void Update ()
@@ -113,10 +117,14 @@ public class GameController : MonoBehaviour
 
 	public void PlayerInjured (int dmg)
 	{
-		if (dmg > 0)
-			this.lifeLost += dmg;
-		else
-			this.pc.life -= dmg;
+        if (dmg > 0) {
+            this.lifeLost += dmg;
+            if (!hasTipBeenConsulted) { 
+                guic.DisplayTipButton();
+                hasTipBeenConsulted = true;
+            }
+        }else
+            this.pc.life -= dmg;
 		guic.DrawLifebar (pc.life);
 	}
 

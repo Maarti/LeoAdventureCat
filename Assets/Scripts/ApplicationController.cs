@@ -50,7 +50,7 @@ public class ApplicationController : MonoBehaviour
 			this.playerData = (PlayerData)bf.Deserialize (file);
 			file.Close ();
 		} else {
-			playerData = new PlayerData ();
+			this.playerData = new PlayerData ();
 			if (Application.systemLanguage == SystemLanguage.French)
 				playerData.lang_id = 1;
 			else
@@ -222,6 +222,23 @@ public class ApplicationController : MonoBehaviour
         }
         return total;
     }
+
+    // Return true if the tip has already been consulted
+    public bool IsTipAlreadyConsulted(TipEnum tipEnum)
+    {
+        if (this.playerData.tips == null)
+            this.playerData.tips = new List<TipEnum>();
+        return this.playerData.tips.Contains(tipEnum);
+    }
+
+    // Mark a tip as "consulted", it will not be shown anymore
+    public void ConsultTip(TipEnum tipEnum)
+    {
+        if (this.playerData.tips == null)
+            this.playerData.tips = new List<TipEnum>();
+        if (!this.playerData.tips.Contains(tipEnum))
+            this.playerData.tips.Add(tipEnum);
+    }
 }
 
 
@@ -234,6 +251,7 @@ public class PlayerData
 	public List<WorldEnum> unlockedWorld;
 	public Dictionary<LevelEnum,int> scores;
 	public bool isMute = false;
+    public List<TipEnum> tips;
 
 	public PlayerData ()
 	{		
@@ -242,7 +260,8 @@ public class PlayerData
 		equippedItems = new List<ItemEnum> ();
 		scores = new Dictionary<LevelEnum, int> ();
 		unlockedWorld = new List<WorldEnum> (){ WorldEnum.Forest };
-		// lang_id is initialized in Load()				
+        // lang_id is initialized in Load()
+        tips = new List<TipEnum>();
 	}
 
 	public int updateKittys (int kittyz, Text uiText = null, bool doSave = false)
@@ -475,4 +494,9 @@ public enum DifficultyEnum
 	MEDIUM,
 	HARD,
 	NIGHTMAR
+}
+
+public enum TipEnum
+{
+    BUY_LIFE
 }

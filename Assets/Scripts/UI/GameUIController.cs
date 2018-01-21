@@ -9,7 +9,7 @@ using UnityEngine.Analytics;
 
 public class GameUIController : MonoBehaviour
 {
-	public GameObject pausePanel, mobileController, dialogPanel, gameoverPanel;
+	public GameObject pausePanel, mobileController, dialogPanel, gameoverPanel, tipPanel, tipButton;
 	public bool gamePaused = false, gameFinished = false;
 	public Transform heartPrefab;
 	public AudioClip scoreSound, pauseSound, winSound;
@@ -59,6 +59,11 @@ public class GameUIController : MonoBehaviour
 		GameObject.Find ("Canvas/" + this.name + "/LevelTitle").GetComponent<Text> ().text = level.GetFullName ();
 		//Checkpoints
 		checkpointController = GameObject.Find ("CheckPointController");
+        //TipUI
+        if (ApplicationController.ac.IsTipAlreadyConsulted(TipEnum.BUY_LIFE)) {
+            Destroy(tipButton);
+            Destroy(tipPanel);
+        }
 
 		InstantiateDialogs ();
 		audioSource = GetComponent<AudioSource> ();
@@ -121,6 +126,10 @@ public class GameUIController : MonoBehaviour
 		// Pause the game if not yet paused
 		if (gc.gamePaused != pause)
 			gc.PauseGame (pause);
+
+        // Hide the tips if unpaused
+        if (!pause)
+            DisplayTip(false);
 	}
 
 	public void BuyItem (int item)
@@ -273,6 +282,26 @@ public class GameUIController : MonoBehaviour
 			SceneLoader.LoadSceneWithLoadingScreen (nextLevel.id.ToString ());
 		}
 	}
+
+    public void DisplayTipButton()
+    {
+        if(tipButton!=null)
+            tipButton.SetActive(true);
+    }
+
+    public void DisplayTip(bool display)
+    {        
+        if (display) {
+            if (tipPanel != null)
+                tipPanel.SetActive(true);
+            ApplicationController.ac.ConsultTip(TipEnum.BUY_LIFE);
+            if(tipButton!=null)
+                Destroy(tipButton);
+        }else{
+            if (tipPanel != null && tipPanel.activeSelf)
+                Destroy(tipPanel);
+        }
+    }
 
 	/*****************************************************************************/
 	/*							ADS												 */
