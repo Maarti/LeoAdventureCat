@@ -88,8 +88,9 @@ public class ApplicationController : MonoBehaviour
 		//lvls.Add (LevelEnum.level_1_10, new Level (LevelEnum.level_1_10, "1-10", World.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_12, false));
 		lvls.Add (LevelEnum.level_1_11, new Level (LevelEnum.level_1_11, "1-11", WorldEnum.Forest, DifficultyEnum.MEDIUM, 15, 58, 1, LevelEnum.level_1_12, true));
 		lvls.Add (LevelEnum.level_1_12, new Level (LevelEnum.level_1_12, "1-12", WorldEnum.Forest, DifficultyEnum.NIGHTMAR, 40, 120, 8, LevelEnum.level_1_01, true));
-		lvls.Add (LevelEnum.level_2_story, new Level (LevelEnum.level_2_story, "2-", WorldEnum.AnimalPound, DifficultyEnum.MEDIUM, 25, 320, 5, LevelEnum.level_1_01, false, true));
-		this.levels = lvls;
+		lvls.Add (LevelEnum.level_2_story, new Level (LevelEnum.level_2_story, "2-", WorldEnum.AnimalPound, DifficultyEnum.MEDIUM, 25, 320, 5, LevelEnum.level_2_02, false, true));
+        lvls.Add(LevelEnum.level_2_02, new Level(LevelEnum.level_2_02, "2-02", WorldEnum.AnimalPound, DifficultyEnum.MEDIUM, 15, 90, 2, LevelEnum.level_1_01, false));
+        this.levels = lvls;
 	}
 
 	void initItems ()
