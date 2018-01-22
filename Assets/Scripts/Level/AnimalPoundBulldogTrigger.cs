@@ -10,6 +10,7 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
     public float dogSpeed = 2.5f;       // dog speed during rat phase
     public float dogWaitingTime = 2.2f; // time dog waits each time when it looks for rat
     public Slider bossLifebar;
+    public bool showDialog = true;      // Display dialog at the begining of the fight
 
     Transform startPlatform;            // starting position from where the platforms are thrown
     const int nbLoopTotal = 2;          // nb times to look for rat before chase cat
@@ -215,7 +216,8 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
         boundary.SetActive(true);
 
         // rat dialog
-        guic.DisplayDialog(DialogEnum.rat_start_bulldog);
+        if (showDialog)
+            guic.DisplayDialog(DialogEnum.rat_start_bulldog);
         yield return null;
 
         // display ui

@@ -63,47 +63,56 @@ public class ApplicationController : MonoBehaviour
 
 	void initWorlds ()
 	{
-		// Initialise all worlds
-		Dictionary<WorldEnum,World> worlds = new Dictionary<WorldEnum, World> ();
-		worlds.Add (WorldEnum.Forest, new World (WorldEnum.Forest, "1_FOREST", false));
-		worlds.Add (WorldEnum.AnimalPound, new World (WorldEnum.AnimalPound, "2_ANIMAL_POUND", true));
-        worlds.Add(WorldEnum.City, new World(WorldEnum.City, "3_CITY", true));
+        // Initialise all worlds
+        Dictionary<WorldEnum, World> worlds = new Dictionary<WorldEnum, World>
+        {
+            { WorldEnum.Forest,         new World(WorldEnum.Forest, "1_FOREST", false) },
+            { WorldEnum.AnimalPound,    new World(WorldEnum.AnimalPound, "2_ANIMAL_POUND", true) },
+            { WorldEnum.City,           new World(WorldEnum.City, "3_CITY", true) }
+        };
         this.worlds = worlds;
 	}
 
 	void initLevels ()
 	{
-		// Initialise all levels
-		Dictionary<LevelEnum,Level> lvls = new Dictionary<LevelEnum, Level> ();
-		lvls.Add (LevelEnum.level_1_story, new Level (LevelEnum.level_1_story, "1-", WorldEnum.Forest, DifficultyEnum.EASY, 10, 135, 3, LevelEnum.level_2_story, false, true));
-		lvls.Add (LevelEnum.level_1_01, new Level (LevelEnum.level_1_01, "1-01", WorldEnum.Forest, DifficultyEnum.EASY, 10, 90, 3, LevelEnum.level_1_02, false));
-		lvls.Add (LevelEnum.level_1_02, new Level (LevelEnum.level_1_02, "1-02", WorldEnum.Forest, DifficultyEnum.EASY, 10, 48, 0, LevelEnum.level_1_03, false));
-		lvls.Add (LevelEnum.level_1_03, new Level (LevelEnum.level_1_03, "1-03", WorldEnum.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_06, false));
-		//lvls.Add (LevelEnum.level_1_04, new Level (LevelEnum.level_1_04, "1-04", World.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_12, false));
-		//lvls.Add (LevelEnum.level_1_05, new Level (LevelEnum.level_1_05, "1-05", World.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_12, false));
-		lvls.Add (LevelEnum.level_1_06, new Level (LevelEnum.level_1_06, "1-06", WorldEnum.Forest, DifficultyEnum.HARD, 25, 125, 3, LevelEnum.level_1_11, false));
-		//lvls.Add (LevelEnum.level_1_07, new Level (LevelEnum.level_1_07, "1-07", World.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_12, false));
-		//lvls.Add (LevelEnum.level_1_08, new Level (LevelEnum.level_1_08, "1-08", World.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_12, false));
-		//lvls.Add (LevelEnum.level_1_09, new Level (LevelEnum.level_1_09, "1-09", World.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_12, false));
-		//lvls.Add (LevelEnum.level_1_10, new Level (LevelEnum.level_1_10, "1-10", World.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_12, false));
-		lvls.Add (LevelEnum.level_1_11, new Level (LevelEnum.level_1_11, "1-11", WorldEnum.Forest, DifficultyEnum.MEDIUM, 15, 58, 1, LevelEnum.level_1_12, true));
-		lvls.Add (LevelEnum.level_1_12, new Level (LevelEnum.level_1_12, "1-12", WorldEnum.Forest, DifficultyEnum.NIGHTMAR, 40, 120, 8, LevelEnum.level_1_01, true));
-		lvls.Add (LevelEnum.level_2_story, new Level (LevelEnum.level_2_story, "2-", WorldEnum.AnimalPound, DifficultyEnum.MEDIUM, 25, 320, 5, LevelEnum.level_2_02, false, true));
-        lvls.Add(LevelEnum.level_2_02, new Level(LevelEnum.level_2_02, "2-02", WorldEnum.AnimalPound, DifficultyEnum.MEDIUM, 15, 90, 2, LevelEnum.level_1_01, false));
+        // Initialise all levels
+        Dictionary<LevelEnum, Level> lvls = new Dictionary<LevelEnum, Level>
+        {
+            { LevelEnum.level_1_story, new Level(LevelEnum.level_1_story, "1-", WorldEnum.Forest, DifficultyEnum.EASY, 10, 135, 3, LevelEnum.level_2_story, false, true) },
+            { LevelEnum.level_1_01, new Level(LevelEnum.level_1_01, "1-01", WorldEnum.Forest, DifficultyEnum.EASY, 10, 90, 3, LevelEnum.level_1_02, false) },
+            { LevelEnum.level_1_02, new Level(LevelEnum.level_1_02, "1-02", WorldEnum.Forest, DifficultyEnum.EASY, 10, 48, 0, LevelEnum.level_1_03, false) },
+            { LevelEnum.level_1_03, new Level(LevelEnum.level_1_03, "1-03", WorldEnum.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_06, false) },
+            //lvls.Add (LevelEnum.level_1_04, new Level (LevelEnum.level_1_04, "1-04", World.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_12, false));
+            //lvls.Add (LevelEnum.level_1_05, new Level (LevelEnum.level_1_05, "1-05", World.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_12, false));
+            { LevelEnum.level_1_06, new Level(LevelEnum.level_1_06, "1-06", WorldEnum.Forest, DifficultyEnum.HARD, 25, 125, 3, LevelEnum.level_1_11, false) },
+            //lvls.Add (LevelEnum.level_1_07, new Level (LevelEnum.level_1_07, "1-07", World.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_12, false));
+            //lvls.Add (LevelEnum.level_1_08, new Level (LevelEnum.level_1_08, "1-08", World.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_12, false));
+            //lvls.Add (LevelEnum.level_1_09, new Level (LevelEnum.level_1_09, "1-09", World.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_12, false));
+            //lvls.Add (LevelEnum.level_1_10, new Level (LevelEnum.level_1_10, "1-10", World.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_12, false));
+            { LevelEnum.level_1_11, new Level(LevelEnum.level_1_11, "1-11", WorldEnum.Forest, DifficultyEnum.MEDIUM, 15, 58, 1, LevelEnum.level_1_12, true) },
+            { LevelEnum.level_1_12, new Level(LevelEnum.level_1_12, "1-12", WorldEnum.Forest, DifficultyEnum.NIGHTMAR, 40, 120, 8, LevelEnum.level_1_01, true) },
+
+            { LevelEnum.level_2_story, new Level(LevelEnum.level_2_story, "2-", WorldEnum.AnimalPound, DifficultyEnum.MEDIUM, 25, 320, 5, LevelEnum.level_2_02, false, true) },
+            { LevelEnum.level_2_02, new Level(LevelEnum.level_2_02, "2-02", WorldEnum.AnimalPound, DifficultyEnum.MEDIUM, 15, 90, 2, LevelEnum.level_2_03, false) },
+            { LevelEnum.level_2_03, new Level(LevelEnum.level_2_03, "2-03", WorldEnum.AnimalPound, DifficultyEnum.HARD, 20, 160, 1, LevelEnum.level_1_01, true) }
+        };
         this.levels = lvls;
 	}
 
 	void initItems ()
 	{
-		// Init all items
-		items = new Dictionary<ItemEnum, Item> ();
-		items.Add (ItemEnum.level_1_11, new Item (ItemEnum.level_1_11, "LEVEL", "LEVEL_DESC", 50, LevelEnum.level_1_11));
-		items.Add (ItemEnum.level_1_12, new Item (ItemEnum.level_1_12, "LEVEL", "LEVEL_DESC", 50, LevelEnum.level_1_12));
-		items.Add (ItemEnum.max_life_1, new Item (ItemEnum.max_life_1, "ITEM_MAX_LIFE", "ITEM_MAX_LIFE_DESC", 200));
-		items.Add (ItemEnum.max_life_2, new Item (ItemEnum.max_life_2, "ITEM_MAX_LIFE", "ITEM_MAX_LIFE_DESC", 500));
-		items.Add (ItemEnum.max_life_3, new Item (ItemEnum.max_life_3, "ITEM_MAX_LIFE", "ITEM_MAX_LIFE_DESC", 1000));
-		items.Add (ItemEnum.level_2_story, new Item (ItemEnum.level_2_story, "LEVEL", "LEVEL_DESC", 50, LevelEnum.level_2_story));
-	}
+        // Init all items
+        items = new Dictionary<ItemEnum, Item>
+        {
+            { ItemEnum.level_1_11, new Item(ItemEnum.level_1_11, "LEVEL", "LEVEL_DESC", 50, LevelEnum.level_1_11) },
+            { ItemEnum.level_1_12, new Item(ItemEnum.level_1_12, "LEVEL", "LEVEL_DESC", 50, LevelEnum.level_1_12) },
+            { ItemEnum.level_2_03, new Item(ItemEnum.level_2_03, "LEVEL", "LEVEL_DESC", 75, LevelEnum.level_2_03) },
+            { ItemEnum.max_life_1, new Item(ItemEnum.max_life_1, "ITEM_MAX_LIFE", "ITEM_MAX_LIFE_DESC", 200) },
+            { ItemEnum.max_life_2, new Item(ItemEnum.max_life_2, "ITEM_MAX_LIFE", "ITEM_MAX_LIFE_DESC", 500) },
+            { ItemEnum.max_life_3, new Item(ItemEnum.max_life_3, "ITEM_MAX_LIFE", "ITEM_MAX_LIFE_DESC", 1000) },
+            { ItemEnum.level_2_story, new Item(ItemEnum.level_2_story, "LEVEL", "LEVEL_DESC", 50, LevelEnum.level_2_story) }
+        };
+    }
 
 	public void FinishLevel (LevelEnum level, int score = 100, bool doSave = true)
 	{
@@ -486,7 +495,8 @@ public enum ItemEnum
 	level_1_18,
 	level_1_19,
 	level_1_20,
-	level_2_story
+	level_2_story,
+    level_2_03
 }
 
 public enum DifficultyEnum
