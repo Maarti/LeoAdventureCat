@@ -94,7 +94,8 @@ public class ApplicationController : MonoBehaviour
 
             { LevelEnum.level_2_story, new Level(LevelEnum.level_2_story, "2-", WorldEnum.AnimalPound, DifficultyEnum.MEDIUM, 25, 320, 5, LevelEnum.level_2_02, false, true) },
             { LevelEnum.level_2_02, new Level(LevelEnum.level_2_02, "2-02", WorldEnum.AnimalPound, DifficultyEnum.MEDIUM, 15, 90, 2, LevelEnum.level_2_03, false) },
-            { LevelEnum.level_2_03, new Level(LevelEnum.level_2_03, "2-03", WorldEnum.AnimalPound, DifficultyEnum.HARD, 20, 160, 1, LevelEnum.level_1_01, true) }
+            { LevelEnum.level_2_03, new Level(LevelEnum.level_2_03, "2-03", WorldEnum.AnimalPound, DifficultyEnum.HARD, 20, 160, 1, LevelEnum.level_1_01, true) },
+            { LevelEnum.level_2_04, new Level(LevelEnum.level_2_04, "2-04", WorldEnum.AnimalPound, DifficultyEnum.NIGHTMAR, 25, 160, 2, LevelEnum.level_1_01, true) }
         };
         this.levels = lvls;
 	}
@@ -107,6 +108,7 @@ public class ApplicationController : MonoBehaviour
             { ItemEnum.level_1_11, new Item(ItemEnum.level_1_11, "LEVEL", "LEVEL_DESC", 50, LevelEnum.level_1_11) },
             { ItemEnum.level_1_12, new Item(ItemEnum.level_1_12, "LEVEL", "LEVEL_DESC", 50, LevelEnum.level_1_12) },
             { ItemEnum.level_2_03, new Item(ItemEnum.level_2_03, "LEVEL", "LEVEL_DESC", 75, LevelEnum.level_2_03) },
+            { ItemEnum.level_2_04, new Item(ItemEnum.level_2_04, "LEVEL", "LEVEL_DESC", 50, LevelEnum.level_2_04) },
             { ItemEnum.max_life_1, new Item(ItemEnum.max_life_1, "ITEM_MAX_LIFE", "ITEM_MAX_LIFE_DESC", 200) },
             { ItemEnum.max_life_2, new Item(ItemEnum.max_life_2, "ITEM_MAX_LIFE", "ITEM_MAX_LIFE_DESC", 500) },
             { ItemEnum.max_life_3, new Item(ItemEnum.max_life_3, "ITEM_MAX_LIFE", "ITEM_MAX_LIFE_DESC", 1000) },
@@ -496,7 +498,8 @@ public enum ItemEnum
 	level_1_19,
 	level_1_20,
 	level_2_story,
-    level_2_03
+    level_2_03,
+    level_2_04
 }
 
 public enum DifficultyEnum
