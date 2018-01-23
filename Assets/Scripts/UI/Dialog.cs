@@ -136,6 +136,16 @@ public class Dialog
             };
             dialogDico.Add(DialogEnum.rat_start_bulldog, new Dialog(dl));
             break;
+
+        case LevelEnum.level_2_04:
+			portraitRat = Resources.Load ("Portraits/croc", typeof(Sprite)) as Sprite;
+			ratSound = Resources.Load ("Sound/rat_squeak", typeof(AudioClip)) as AudioClip;
+            dl = new List<DialogLine>() {
+                new DialogLine ("RAT_HIDING_PLACE", "CROC", portraitRat, ratSound)
+            };
+            dialogDico.Add(DialogEnum.rat_hiding_place, new Dialog(dl));
+            break;
+
 		default:
 			break;
 		}
@@ -180,6 +190,7 @@ public enum DialogEnum
     rat_finished_cheese,
     rat_go_to_ventilation,
     rat_start_ventilation_game,
-    rat_start_bulldog
+    rat_start_bulldog,
+    rat_hiding_place
 }
 	

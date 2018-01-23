@@ -1,9 +1,10 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WatchDogController : MonoBehaviour
 {
+    public bool triggerAchievement = true;  // increment the "bring the ball" achievement
+    public bool resetIfSleeping = true;     // reset the ball if its rigidbody is sleeping (= not in movement)
     GameObject theBall, theDog;
 	Rigidbody2D ballRb;
 	Transform mouthBall, spawn, dogTarget, ballAreaTop, ballAreaBottom;
@@ -26,7 +27,7 @@ public class WatchDogController : MonoBehaviour
 	{
         if (!isResetting)
         {
-            if (!ballIsCaught && (ballRb.IsSleeping() || !IsBallInArea()))
+            if (!ballIsCaught && ((resetIfSleeping && ballRb.IsSleeping()) || !IsBallInArea()))
                 ResetBall();
         }
         else
@@ -55,11 +56,14 @@ public class WatchDogController : MonoBehaviour
 			ballIsCaught = true;	
 			StartCoroutine (BallMoveToDog ());
 			theDog.GetComponent<Animator> ().SetTrigger ("catchBall");
+
             //Achievement
-            PlayGamesScript.UnlockAchievement(Config.BRING_BALL_1);
-            PlayGamesScript.IncrementAchievement(Config.BRING_BALL_10,1);
-            PlayGamesScript.IncrementAchievement(Config.BRING_BALL_50, 1);
-            PlayGamesScript.IncrementAchievement(Config.BRING_BALL_100, 1);
+            if (triggerAchievement) {
+                PlayGamesScript.UnlockAchievement(Config.BRING_BALL_1);
+                PlayGamesScript.IncrementAchievement(Config.BRING_BALL_10, 1);
+                PlayGamesScript.IncrementAchievement(Config.BRING_BALL_50, 1);
+                PlayGamesScript.IncrementAchievement(Config.BRING_BALL_100, 1);
+            }
         }
 	}
 
