@@ -95,7 +95,7 @@ public class ApplicationController : MonoBehaviour
             { LevelEnum.level_2_story, new Level(LevelEnum.level_2_story, "2-", WorldEnum.AnimalPound, DifficultyEnum.MEDIUM, 25, 320, 5, LevelEnum.level_2_02, false, true) },
             { LevelEnum.level_2_02, new Level(LevelEnum.level_2_02, "2-02", WorldEnum.AnimalPound, DifficultyEnum.MEDIUM, 15, 90, 2, LevelEnum.level_2_03, false) },
             { LevelEnum.level_2_03, new Level(LevelEnum.level_2_03, "2-03", WorldEnum.AnimalPound, DifficultyEnum.HARD, 20, 160, 1, LevelEnum.level_1_01, true) },
-            { LevelEnum.level_2_04, new Level(LevelEnum.level_2_04, "2-04", WorldEnum.AnimalPound, DifficultyEnum.NIGHTMAR, 25, 160, 2, LevelEnum.level_1_01, true) }
+            { LevelEnum.level_2_04, new Level(LevelEnum.level_2_04, "2-04", WorldEnum.AnimalPound, DifficultyEnum.HARD, 20, 150, 2, LevelEnum.level_1_01, true) }
         };
         this.levels = lvls;
 	}
