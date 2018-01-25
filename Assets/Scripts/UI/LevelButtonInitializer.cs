@@ -80,8 +80,13 @@ public class LevelButtonInitializer : MonoBehaviour
             foreach (GameObject g in toDisableWhenGoToShop)
                 g.SetActive(false);
             shopPanel.SetActive(true);
-        }else
-            SceneLoader.LoadSceneWithLoadingScreen (levelEnum.ToString ());
+        }
+        // load intro scene if the level has one
+        else if(level.introScene != null)
+            SceneLoader.LoadSceneWithLoadingScreen(level.introScene);
+        // load level
+        else
+            SceneLoader.LoadSceneWithLoadingScreen(levelEnum.ToString());
 	}
 
 }
