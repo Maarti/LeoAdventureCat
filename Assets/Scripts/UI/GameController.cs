@@ -50,7 +50,13 @@ public class GameController : MonoBehaviour
 
         // Check if we have to diplay to tip if the player get hit
         hasTipBeenConsulted = ApplicationController.ac.IsTipAlreadyConsulted(TipEnum.BUY_LIFE);
-	}
+
+        // Analytics
+        AnalyticsResult ar = Analytics.CustomEvent("LevelStarted_" + this.level.name, new Dictionary<string, object> {
+            { "date",System.DateTime.Now.ToString() },
+            { "kittys_total",ApplicationController.ac.playerData.kittyz }
+        });
+    }
 
 	void Update ()
 	{
@@ -107,8 +113,9 @@ public class GameController : MonoBehaviour
 
         // Analytics
         AnalyticsResult ar = Analytics.CustomEvent("LevelFinished_" + this.level.name, new Dictionary<string, object> {
+            {"date",System.DateTime.Now.ToString() },
             {"score", score},
-            { "life_lost",lifeLost },
+            {"life_lost",lifeLost },
             {"kittys_collected",kittyzCollected },
             {"time",levelTimer }
         });
@@ -181,9 +188,15 @@ public class GameController : MonoBehaviour
         PlayGamesScript.IncrementAchievement(Config.GAME_OVER, 1);
         if (this.level.difficulty == DifficultyEnum.NIGHTMAR)
             PlayGamesScript.IncrementAchievement(Config.NIGHTMARE_DEATH, 1);
-        
+
         // Analytics
-        AnalyticsResult ar = Analytics.CustomEvent("GameOver_" + this.level.name, pc.gameObject.transform.position);
+        AnalyticsResult ar = Analytics.CustomEvent("GameOver_" + this.level.name, new Dictionary<string, object> {
+            {"date",System.DateTime.Now.ToString() },
+            {"position", pc.transform.position },
+            {"life_lost",lifeLost },
+            {"kittys_collected",kittyzCollected },
+            {"time",levelTimer }
+        });
         Debug.Log("Analytics GameOver :" + ar);
     }
 
