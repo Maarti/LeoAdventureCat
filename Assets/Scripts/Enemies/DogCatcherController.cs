@@ -9,6 +9,7 @@ public class DogCatcherController : MonoBehaviour, IDefendable
 	public Transform nutPrefab;
 	public AudioClip throwSound, shopVacSound, bossHitSound;
     public Slider lifebar;
+    public bool isBossFight = true;
 
 	int currentPhase = 0, previousPhase = 0;
 	bool waitingForNextPhase = false, facingRight = false;
@@ -30,14 +31,17 @@ public class DogCatcherController : MonoBehaviour, IDefendable
 		attackPointEffector = transform.Find ("Body/Weapon/AttackPointEffector").gameObject;
 		attackPointEffector.SetActive (false);
 		audioSource = GetComponent<AudioSource> ();
-        lifebar.maxValue = life;
-        lifebar.value = life;
+        if (lifebar != null)
+        {
+            lifebar.maxValue = life;
+            lifebar.value = life;
+        }
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		if (life > 0) {
+		if (isBossFight && life > 0) {
 			if (currentPhase == 0 && !waitingForNextPhase) {
 				Invoke ("BeginNextPhase", waitingBetweenPhases);
 				waitingForNextPhase = true;
@@ -127,7 +131,8 @@ public class DogCatcherController : MonoBehaviour, IDefendable
 				if (!audioSource.isPlaying)
 					audioSource.PlayOneShot (bossHitSound);
 			}
-            lifebar.value = life;
+            if (lifebar != null)
+                lifebar.value = life;
 		}
 	}
 
@@ -141,7 +146,8 @@ public class DogCatcherController : MonoBehaviour, IDefendable
 		audioSource.Stop ();
 		audioSource.pitch = 0.8f;
 		audioSource.PlayOneShot (bossHitSound);
-        lifebar.gameObject.SetActive(false);
+        if (lifebar != null)
+            lifebar.gameObject.SetActive(false);
         // Achievement
         PlayGamesScript.UnlockAchievement(Config.DEFEAT_DOGCATCHER);
 	}
