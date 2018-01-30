@@ -260,7 +260,7 @@ public class ApplicationController : MonoBehaviour
 [Serializable]
 public class PlayerData
 {
-	public int dataVersion = 1, kittyz = 0, lang_id = 0, max_life = 3;
+	public int dataVersion = 1, kittyz = 5, lang_id = 0, max_life = 3;
 	public List<LevelEnum> unlockedLvls;
 	public List<ItemEnum> boughtItems, equippedItems;
 	public List<WorldEnum> unlockedWorld;

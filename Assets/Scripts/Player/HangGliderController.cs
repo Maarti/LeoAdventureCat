@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class HangGliderController : MonoBehaviour
 {
@@ -11,15 +9,13 @@ public class HangGliderController : MonoBehaviour
 	Rigidbody2D rb;
 	AudioSource audioSource;
 	Animator anim;
-
-	// Use this for initialization
+    
 	void Start ()
 	{
 		audioSource = GetComponent<AudioSource> ();
 		anim = GetComponentInParent<Animator> ();
 	}
 	
-	// Update is called once per frame
 	void Update ()
 	{
 		if (isGliding && pc && pc.isGrounded) {
