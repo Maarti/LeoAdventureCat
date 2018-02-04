@@ -3,8 +3,7 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour, IDefendable, IGlider
 {
-
-	public Transform scratchPrefab;
+	public Transform scratchPrefab, landingSmokePrefab;
 	public float speed = 10, jumpVelocity = 10;
 	public LayerMask playerMask;
 	public bool isGrounded = false, canMoveInAir = true;
@@ -18,7 +17,7 @@ public class PlayerController : MonoBehaviour, IDefendable, IGlider
 	bool facingRight = false, isBumped = false, isInvincible = false;
 	Rigidbody2D rb;
 	Animator animator;
-	Transform checkGroundTop, checkGroundBottom, attackLocation;
+	Transform checkGroundTop, checkGroundBottom, attackLocation, landingSmokeLocation;
 	MouthController mouth;
 
 	void Awake ()
@@ -33,31 +32,34 @@ public class PlayerController : MonoBehaviour, IDefendable, IGlider
 		checkGroundBottom = GameObject.Find (this.name + "/ground_check_bottom").transform;
 		attackLocation = GameObject.Find (this.name + "/AttackLocation").transform;
 		mouth = GameObject.Find (this.name + "/Body/Head/Mouth").GetComponent<MouthController> ();
-		life = ApplicationController.ac.playerData.max_life;
+        landingSmokeLocation = GameObject.Find(this.name + "/LandingSmokeLocation").transform;
+        life = ApplicationController.ac.playerData.max_life;
 	}
 
 	void Update ()
 	{
-		#if !UNITY_ANDROID && !UNITY_IPHONE && !UNITY_BLACKBERRY && !UNITY_WINRT || UNITY_EDITOR
-		if (Input.GetButtonDown ("Jump"))
-			Jump ();
-		else if (Input.GetButtonUp ("Jump"))
-			StopJump ();
-		if (Input.GetButtonDown ("Fire1"))
-			Attack ();
+        #if !UNITY_ANDROID && !UNITY_IPHONE && !UNITY_BLACKBERRY && !UNITY_WINRT || UNITY_EDITOR
+        if(life>0){
+            if (Input.GetButtonDown ("Jump"))
+			    Jump ();
+		    else if (Input.GetButtonUp ("Jump"))
+			    StopJump ();
+		    if (Input.GetButtonDown ("Fire1"))
+			    Attack ();
+        }
 		#endif
 	}
 
 	void FixedUpdate ()
 	{
-		#if !UNITY_ANDROID && !UNITY_IPHONE && !UNITY_BLACKBERRY && !UNITY_WINRT || UNITY_EDITOR
-		Move (Input.GetAxisRaw ("Horizontal"));
-		#else
+        #if !UNITY_ANDROID && !UNITY_IPHONE && !UNITY_BLACKBERRY && !UNITY_WINRT || UNITY_EDITOR
+        if(life>0)
+            Move (Input.GetAxisRaw ("Horizontal"));
+        #else
 		Move (hInput);
-		#endif
+        #endif
 
-		isGrounded = Physics2D.OverlapArea (checkGroundTop.position, checkGroundBottom.position, playerMask);
-		animator.SetBool ("isGrounded", isGrounded);
+        CheckGround();
 		animator.SetFloat ("y.velocity", rb.velocity.y);
 
 	}
@@ -83,6 +85,20 @@ public class PlayerController : MonoBehaviour, IDefendable, IGlider
 		else if (horizonalInput < 0 && facingRight)
 			Flip ();
 	}
+
+    void CheckGround()
+    {
+        bool newIsGrounded = Physics2D.OverlapArea(checkGroundTop.position, checkGroundBottom.position, playerMask);
+        
+        // Pop some smoke when landing for juicy effect
+        if (this.isGrounded==false && newIsGrounded == true) { 
+            Transform smoke = (Transform)Instantiate(landingSmokePrefab, landingSmokeLocation.position, Quaternion.identity);
+            Destroy(smoke.gameObject, 1f);
+        }
+
+        isGrounded = newIsGrounded;
+        animator.SetBool("isGrounded", isGrounded);
+    }
 
 	public void Jump ()
 	{
