@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ThornController : MonoBehaviour
 {
@@ -11,7 +9,8 @@ public class ThornController : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		GetComponent<Animator> ().speed = animSpeed;
+        if(animSpeed!=0f)
+		    GetComponent<Animator> ().speed = animSpeed;
 	}
 
 	// Bump player if touched
@@ -20,7 +19,5 @@ public class ThornController : MonoBehaviour
 		if (other.transform.tag == "Player")
 			other.gameObject.GetComponent<PlayerController> ().Defend (this.gameObject, damageOnCollision, bumpOnCollision, 0.5f);
 	}
-
-
-
+    
 }

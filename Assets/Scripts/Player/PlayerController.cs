@@ -53,8 +53,10 @@ public class PlayerController : MonoBehaviour, IDefendable, IGlider
 	void FixedUpdate ()
 	{
         #if !UNITY_ANDROID && !UNITY_IPHONE && !UNITY_BLACKBERRY && !UNITY_WINRT || UNITY_EDITOR
-        if(life>0)
-            Move (Input.GetAxisRaw ("Horizontal"));
+        if (life > 0)
+            Move(Input.GetAxisRaw("Horizontal"));
+        else
+            Move(0f);
         #else
 		Move (hInput);
         #endif
