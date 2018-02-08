@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class DogCatcherController : MonoBehaviour, IDefendable
 {
 	public float waitingBetweenPhases = 4f;
-	public int life = 40;
+	public int life = 40, nutsToThrow=3;
 	public Transform nutPrefab;
 	public AudioClip throwSound, shopVacSound, bossHitSound;
     public Slider lifebar;
@@ -90,7 +90,7 @@ public class DogCatcherController : MonoBehaviour, IDefendable
 	IEnumerator ThrowingPhase ()
 	{
 		int nbThrown = 0;
-		while (nbThrown < 3) {
+		while (nbThrown < nutsToThrow) {
 			animator.SetTrigger ("throw");
 			nbThrown++;
 			yield return new WaitForSeconds (1f);

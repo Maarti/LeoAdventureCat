@@ -56,7 +56,8 @@ public class DogCatcherTrigger : MonoBehaviour
 	{
 		if (other.gameObject.tag == "Player") {
 			isTriggered = true;
-			guic.DisplayDialog (dialog);
+            if (dialog == DialogEnum.dog_catcher_start)
+			    guic.DisplayDialog (dialog);
 			boss.SetActive (true);
             bossLifebar.gameObject.SetActive(true);
 		}

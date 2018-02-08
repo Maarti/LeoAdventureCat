@@ -88,8 +88,8 @@ public class ApplicationController : MonoBehaviour
             { LevelEnum.level_1_06, new Level(LevelEnum.level_1_06, "1-06", WorldEnum.Forest, DifficultyEnum.HARD, 25, 125, 3, LevelEnum.level_1_09, false) },
             //lvls.Add (LevelEnum.level_1_07, new Level (LevelEnum.level_1_07, "1-07", World.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_12, false));
             //lvls.Add (LevelEnum.level_1_08, new Level (LevelEnum.level_1_08, "1-08", World.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_12, false));
-            { LevelEnum.level_1_09, new Level(LevelEnum.level_1_09, "1-09", WorldEnum.Forest, DifficultyEnum.NIGHTMAR, 40, 1, 5, LevelEnum.level_1_11, true) },
-            //lvls.Add (LevelEnum.level_1_10, new Level (LevelEnum.level_1_10, "1-10", World.Forest, DifficultyEnum.MEDIUM, 15, 80, 3, LevelEnum.level_1_12, false));
+            { LevelEnum.level_1_09, new Level(LevelEnum.level_1_09, "1-09", WorldEnum.Forest, DifficultyEnum.NIGHTMAR, 40, 95, 4, LevelEnum.level_1_10, true) },
+            { LevelEnum.level_1_10, new Level(LevelEnum.level_1_10, "1-10", WorldEnum.Forest, DifficultyEnum.HARD, 25, 100, 2, LevelEnum.level_1_11, true) },
             { LevelEnum.level_1_11, new Level(LevelEnum.level_1_11, "1-11", WorldEnum.Forest, DifficultyEnum.MEDIUM, 15, 58, 1, LevelEnum.level_1_12, true) },
             { LevelEnum.level_1_12, new Level(LevelEnum.level_1_12, "1-12", WorldEnum.Forest, DifficultyEnum.NIGHTMAR, 40, 120, 8, LevelEnum.level_2_story, true) },
 
@@ -110,6 +110,7 @@ public class ApplicationController : MonoBehaviour
         items = new Dictionary<ItemEnum, Item>
         {
             { ItemEnum.level_1_09, new Item(ItemEnum.level_1_09, "LEVEL", "LEVEL_DESC", 50, LevelEnum.level_1_09) },
+            { ItemEnum.level_1_10, new Item(ItemEnum.level_1_10, "LEVEL", "LEVEL_DESC", 50, LevelEnum.level_1_10) },
             { ItemEnum.level_1_11, new Item(ItemEnum.level_1_11, "LEVEL", "LEVEL_DESC", 50, LevelEnum.level_1_11) },
             { ItemEnum.level_1_12, new Item(ItemEnum.level_1_12, "LEVEL", "LEVEL_DESC", 50, LevelEnum.level_1_12) },
             { ItemEnum.level_2_03, new Item(ItemEnum.level_2_03, "LEVEL", "LEVEL_DESC", 75, LevelEnum.level_2_03) },
@@ -506,7 +507,8 @@ public enum ItemEnum
 	level_2_story,
     level_2_03,
     level_2_04,
-    level_1_09
+    level_1_09,
+    level_1_10
 }
 
 public enum DifficultyEnum
