@@ -19,6 +19,7 @@ public class DogCatcherController : MonoBehaviour, IDefendable
 	Animator animator;
 	float lastTimeCollision = -2f;
 	AudioSource audioSource;
+    GameObject enemiesGenerator;
 
 
 	// Use this for initialization
@@ -31,6 +32,7 @@ public class DogCatcherController : MonoBehaviour, IDefendable
 		attackPointEffector = transform.Find ("Body/Weapon/AttackPointEffector").gameObject;
 		attackPointEffector.SetActive (false);
 		audioSource = GetComponent<AudioSource> ();
+        enemiesGenerator = GameObject.Find("EnemiesGenerator");
         if (lifebar != null)
         {
             lifebar.maxValue = life;
@@ -146,10 +148,13 @@ public class DogCatcherController : MonoBehaviour, IDefendable
 		audioSource.Stop ();
 		audioSource.pitch = 0.8f;
 		audioSource.PlayOneShot (bossHitSound);
+        if (enemiesGenerator != null)
+            enemiesGenerator.GetComponent<EnemiesGenerator>().StopPoping();
         if (lifebar != null)
             lifebar.gameObject.SetActive(false);
         // Achievement
-        PlayGamesScript.UnlockAchievement(Config.DEFEAT_DOGCATCHER);
+        if(isBossFight)
+            PlayGamesScript.UnlockAchievement(Config.DEFEAT_DOGCATCHER);
 	}
 
 	public void Flip ()
