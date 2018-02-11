@@ -316,8 +316,8 @@ public class GameUIController : MonoBehaviour
 
 	void CreateInterstitial ()
 	{
-		//string adUnitIdInterstitial = Config.adUnitIdInterstitial;
-		string adUnitIdInterstitial = "ca-app-pub-3940256099942544/1033173712"; // test ad
+		string adUnitIdInterstitial = Config.adUnitIdInterstitial;
+		//string adUnitIdInterstitial = "ca-app-pub-3940256099942544/1033173712"; // test ad
 		this.interstitial = new InterstitialAd (adUnitIdInterstitial);
 
 		interstitial.OnAdFailedToLoad += HandleOnAdFailedToLoad;
