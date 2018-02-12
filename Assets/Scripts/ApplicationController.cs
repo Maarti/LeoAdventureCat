@@ -49,6 +49,7 @@ public class ApplicationController : MonoBehaviour
 			FileStream file = File.Open (Application.persistentDataPath + "/playerData.dat", FileMode.Open);
 			this.playerData = (PlayerData)bf.Deserialize (file);
 			file.Close ();
+            ManageRetroCompatibility();
 		} else {
 			this.playerData = new PlayerData ();
 			if (Application.systemLanguage == SystemLanguage.French)
@@ -61,7 +62,14 @@ public class ApplicationController : MonoBehaviour
 		MergeData ();
 	}
 
-	void initWorlds ()
+    // Init playerData variables if they doesn't exist (because player comes from an older version)
+    void ManageRetroCompatibility()
+    {
+        if(playerData.equipedItems == null)
+            playerData.equipedItems = new Dictionary<ItemTypeEnum, ItemEnum>();
+    }
+
+    void initWorlds ()
 	{
         // Initialise all worlds
         Dictionary<WorldEnum, World> worlds = new Dictionary<WorldEnum, World>
@@ -119,7 +127,14 @@ public class ApplicationController : MonoBehaviour
             { ItemEnum.max_life_1, new Item(ItemEnum.max_life_1, "ITEM_MAX_LIFE", "ITEM_MAX_LIFE_DESC", 200) },
             { ItemEnum.max_life_2, new Item(ItemEnum.max_life_2, "ITEM_MAX_LIFE", "ITEM_MAX_LIFE_DESC", 500) },
             { ItemEnum.max_life_3, new Item(ItemEnum.max_life_3, "ITEM_MAX_LIFE", "ITEM_MAX_LIFE_DESC", 1000) },
-            { ItemEnum.level_2_story, new Item(ItemEnum.level_2_story, "LEVEL", "LEVEL_DESC", 50, LevelEnum.level_2_story) }
+            { ItemEnum.level_2_story, new Item(ItemEnum.level_2_story, "LEVEL", "LEVEL_DESC", 50, LevelEnum.level_2_story) },
+            { ItemEnum.trail_white, new Item(ItemEnum.trail_white, "ITEM_TRAIL_WHITE", "ITEM_TRAIL_DESC", 30,LevelEnum.none,true,ItemTypeEnum.trail) },
+            { ItemEnum.trail_cyan, new Item(ItemEnum.trail_cyan, "ITEM_TRAIL_CYAN", "ITEM_TRAIL_DESC", 50,LevelEnum.none,true,ItemTypeEnum.trail) },
+            { ItemEnum.trail_red, new Item(ItemEnum.trail_red, "ITEM_TRAIL_RED", "ITEM_TRAIL_DESC", 50,LevelEnum.none,true,ItemTypeEnum.trail) },
+            { ItemEnum.trail_yellow, new Item(ItemEnum.trail_yellow, "ITEM_TRAIL_YELLOW", "ITEM_TRAIL_DESC", 50,LevelEnum.none,true,ItemTypeEnum.trail) },
+            { ItemEnum.trail_black, new Item(ItemEnum.trail_black, "ITEM_TRAIL_BLACK", "ITEM_TRAIL_DESC", 75,LevelEnum.none,true,ItemTypeEnum.trail) },
+            { ItemEnum.trail_rainbow, new Item(ItemEnum.trail_rainbow, "ITEM_TRAIL_RAINBOW", "ITEM_TRAIL_DESC", 100,LevelEnum.none,true,ItemTypeEnum.trail) }
+
         };
     }
 
@@ -200,20 +215,31 @@ public class ApplicationController : MonoBehaviour
 		}
 	}
 
-	// Equip or Unequip item (bool equip = false to unequip)
-	public void EquipItem (ItemEnum itemEnum, bool equip = true, bool doSave = true)
+	// Equip an item
+	public void EquipItem (ItemEnum itemEnum, bool doSave = true)
 	{
-		this.items [itemEnum].isEquipped = equip;
-		if (equip && !this.playerData.equippedItems.Contains (itemEnum))
-			this.playerData.equippedItems.Add (itemEnum);
-		else if (!equip && this.playerData.equippedItems.Contains (itemEnum))
-			this.playerData.equippedItems.Remove (itemEnum);
+        Item item = this.items[itemEnum];
+        if (!item.isBought)
+            return;
+        if (playerData.equipedItems.ContainsKey(item.type))
+            playerData.equipedItems[item.type] = itemEnum;
+        else
+            playerData.equipedItems.Add(item.type, itemEnum);
 		if (doSave)
 			Save ();
 	}
 
-	// Merge initial data with the saved data of the player
-	public void MergeData ()
+    // Unequip an item
+    public void UnequipItem(ItemTypeEnum type, bool doSave = true)
+    {
+        if (playerData.equipedItems.ContainsKey(type))
+            playerData.equipedItems.Remove(type);
+        if (doSave)
+            Save();
+    }
+
+    // Merge initial data with the saved data of the player
+    public void MergeData ()
 	{
 		foreach (WorldEnum worldEnum in playerData.unlockedWorld) {
 			UnlockWorld (worldEnum, false);
@@ -223,9 +249,6 @@ public class ApplicationController : MonoBehaviour
 		}
 		foreach (ItemEnum itemEnum in playerData.boughtItems) {
 			BuyItem (itemEnum, null, false, true);
-		}
-		foreach (ItemEnum itemEnum in playerData.equippedItems) {
-			EquipItem (itemEnum, true, false);
 		}
 		foreach (KeyValuePair<LevelEnum,int> entry in this.playerData.scores) {
 			FinishLevel (entry.Key, entry.Value, false);
@@ -266,7 +289,8 @@ public class PlayerData
 {
 	public int dataVersion = 1, kittyz = 5, lang_id = 0, max_life = 3;
 	public List<LevelEnum> unlockedLvls;
-	public List<ItemEnum> boughtItems, equippedItems;
+    public List<ItemEnum> boughtItems, equippedItems;
+    public Dictionary<ItemTypeEnum, ItemEnum> equipedItems;
 	public List<WorldEnum> unlockedWorld;
 	public Dictionary<LevelEnum,int> scores;
 	public bool isMute = false;
@@ -276,7 +300,7 @@ public class PlayerData
 	{		
 		unlockedLvls = new List<LevelEnum> ();
 		boughtItems = new List<ItemEnum> ();
-		equippedItems = new List<ItemEnum> ();
+        equipedItems = new Dictionary<ItemTypeEnum, ItemEnum>();
 		scores = new Dictionary<LevelEnum, int> ();
 		unlockedWorld = new List<WorldEnum> (){ WorldEnum.Forest };
         // lang_id is initialized in Load()
@@ -460,25 +484,42 @@ public class Item
 {
 	public static ItemEnum[] max_life_items = { ItemEnum.max_life_1, ItemEnum.max_life_2, ItemEnum.max_life_3 };
 	public ItemEnum id;
-	public bool isBought = false, isEquipped = false;
+	public bool isBought = false, isEquipable = false;
 	public int price;
 	public LevelEnum level;
+    public ItemTypeEnum type = ItemTypeEnum.none;
 	string name_id, desc_id;
 
-	public Item (ItemEnum id, string name_id, string desc_id, int price, LevelEnum level = LevelEnum.none)
+	public Item (ItemEnum id, string name_id, string desc_id, int price, LevelEnum level = LevelEnum.none, bool isEquipable = false,
+        ItemTypeEnum type = ItemTypeEnum.none)
 	{
 		this.id = id;
 		this.name_id = name_id;
 		this.desc_id = desc_id;
 		this.price = price;
 		this.level = level;
+        this.isEquipable = isEquipable;
+        this.type = type;
 	}
+
+    public static bool IsEquiped(Item item)
+    {
+        bool isEquiped = (ApplicationController.ac.playerData.equipedItems.ContainsKey(item.type) && ApplicationController.ac.playerData.equipedItems[item.type] == item.id);
+        return isEquiped;
+    }
 
 	public string GetName ()
 	{
 		if (this.level != LevelEnum.none)
 			return LocalizationManager.Instance.GetText ("LEVEL") + " " + ApplicationController.ac.levels [level].name;
-		else
+        else if (this.isEquipable)
+        {
+            string name = LocalizationManager.Instance.GetText(name_id);
+            if(Item.IsEquiped(this))
+                name += " ("+ LocalizationManager.Instance.GetText("EQUIPED")+")";
+            return name;
+        }
+        else
 			return LocalizationManager.Instance.GetText (name_id);
 	}
 
@@ -509,7 +550,19 @@ public enum ItemEnum
     level_2_03,
     level_2_04,
     level_1_09,
-    level_1_10
+    level_1_10,
+    trail_white,
+    trail_cyan,
+    trail_red,
+    trail_yellow,
+    trail_black,
+    trail_rainbow
+}
+
+public enum ItemTypeEnum
+{
+    none,
+    trail
 }
 
 public enum DifficultyEnum

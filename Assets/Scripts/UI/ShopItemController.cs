@@ -6,10 +6,10 @@ public class ShopItemController : MonoBehaviour
 
 	public ItemEnum itemEnum;
 	public Text kittyzText;
-	public Sprite boughtImg;
+	public Sprite boughtImg, equipImg, unequipImg;
 	Text itemNameText, itemDescText, itemPriceText;
-	GameObject itemBuyButton, itemPrice;
-	Item item;
+	GameObject itemBuyButton, itemEquipButton, itemPrice;
+	private Item item;
 	bool isStarted = false;
 	AudioSource audioSource;
 
@@ -19,8 +19,10 @@ public class ShopItemController : MonoBehaviour
 		itemDescText = GameObject.Find (this.name + "/ItemDesc").GetComponent<Text> ();
 		itemPriceText = GameObject.Find (this.name + "/ItemPrice/PriceText").GetComponent<Text> ();
 		itemBuyButton = GameObject.Find (this.name + "/BuyButton");
-		itemPrice = GameObject.Find (this.name + "/ItemPrice");
+        itemEquipButton = GameObject.Find(this.name + "/EquipButton");
+        itemPrice = GameObject.Find (this.name + "/ItemPrice");
 		audioSource = GetComponent<AudioSource> ();
+        itemEquipButton.SetActive(false);
 
 		InitButton ();
 		isStarted = true;
@@ -43,7 +45,17 @@ public class ShopItemController : MonoBehaviour
 				itemBuyButton.GetComponent<Button> ().interactable = false;
 				itemPrice.SetActive (false);
 				itemBuyButton.transform.Find ("Image").GetComponent<Image> ().sprite = boughtImg;
-                GetComponent<RectTransform>().SetAsLastSibling(); // move the item at the end of the list
+                // Display equip/unequip button if item is equipable
+                if (item.isEquipable)
+                {
+                    itemEquipButton.SetActive(true);
+                    if (IsItemEquiped())
+                        itemEquipButton.transform.Find("Image").GetComponent<Image>().sprite = unequipImg;
+                    else
+                        itemEquipButton.transform.Find("Image").GetComponent<Image>().sprite = equipImg;
+                }
+                else
+                    GetComponent<RectTransform>().SetAsLastSibling(); // move the item at the end of the list
 			}
 		}
 	}
@@ -58,8 +70,39 @@ public class ShopItemController : MonoBehaviour
 		}
 	}
 
+    // Equip/Unequip the item
+    public void EquipThis()
+    {
+        if (itemEnum != ItemEnum.none)
+        {
+            if (IsItemEquiped())
+                ApplicationController.ac.UnequipItem(item.type);
+            else
+                ApplicationController.ac.EquipItem(itemEnum);
+            //audioSource.PlayOneShot(audioSource.clip);
+            InitButton();
+            RefreshSiblings(); // refresh the "equipped" label and button of same type items
+        }
+    }
 
-	public void Cheat ()
+    bool IsItemEquiped()
+    {
+        return Item.IsEquiped(item);
+    }
+
+    // Refresh the siblings buttons with the same item type
+    void RefreshSiblings()
+    {
+        ShopItemController[] ctrlrs = this.transform.parent.GetComponentsInChildren<ShopItemController>();
+        foreach(ShopItemController ctrlr in ctrlrs)
+        {
+            if (ctrlr.item.type == this.item.type)
+                ctrlr.InitButton();
+        }
+    }
+
+
+    public void Cheat ()
 	{
 		ApplicationController.ac.playerData.updateKittys (50, kittyzText, true);
 	}
