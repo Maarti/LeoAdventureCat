@@ -53,7 +53,7 @@ public class AdController : MonoBehaviour
 			//.AddTestDevice (AdRequest.TestDeviceSimulator)       // Simulator.
 			//.AddTestDevice (Config.myTestDevice1) 
 			//.AddTestDevice (Config.myTestDevice1Caps) 
-            .AddTestDevice(Config.myTestDevice3)
+            .AddTestDevice(Config.myTestDevice2)
 			.Build ();
 		rewardBasedVideo.LoadAd (request, adUnitId);
 

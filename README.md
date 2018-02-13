@@ -19,12 +19,19 @@ adb logcat -s Unity ActivityManager PackageManager dalvikvm DEBUG
 ```
 
 **Get device ID or AdMob :**
+Launch Command Prompt at adb.exe location (*C:\Users\[username]\AppData\Local\Android\android-sdk\platform-tools*) then type : 
+```
+adb logcat -s "Ads"
+```
+(or without -s "Ads" to remove the filter) , then start ad request on the device. Watch for the line "Use AdRequest.Builder.addTestDevice("###########") to get test ads on this device." in the logs.
+
 See [doc](https://developers.google.com/admob/android/test-ads)
 Launch Command Prompt at adb.exe location (*C:\Users\[username]\AppData\Local\Android\android-sdk\platform-tools*) then type : 
 ```
 adb shell
 settings get secure android_id
 ```
+
 
 
 **Tiled2Unity : Sorting Layer**

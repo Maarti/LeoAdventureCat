@@ -521,6 +521,7 @@ MonoBehaviour:
   blowingTime: 3
   damage: 1
   bumpOnCollision: {x: -1, y: -1}
+  manualTrigger: 0
 --- !u!198 &198109932006456448
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -10465,8 +10466,8 @@ AreaEffector2D:
     m_Bits: 4294959103
   m_UseGlobalAngle: 0
   m_ForceAngle: 90
-  m_ForceMagnitude: 15
+  m_ForceMagnitude: 40
   m_ForceVariation: 5
   m_ForceTarget: 0
-  m_Drag: 0
+  m_Drag: 10
   m_AngularDrag: 0

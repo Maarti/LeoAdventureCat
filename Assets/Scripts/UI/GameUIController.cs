@@ -55,10 +55,16 @@ public class GameUIController : MonoBehaviour
 		targetKittyzTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreKittyz/Target").GetComponent<Text> ();
 		targetTimeTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreTime/Target").GetComponent<Text> ();
 		targetLifeTxt = GameObject.Find ("Canvas/" + this.name + "/PauseMenuPanel/Scores/ScoreLife/Target").GetComponent<Text> ();
-		//LevelTitle
-		GameObject.Find ("Canvas/" + this.name + "/LevelTitle").GetComponent<Text> ().text = level.GetFullName ();
-		//Checkpoints
-		checkpointController = GameObject.Find ("CheckPointController");
+        //LevelTitle and difficulty
+        GameObject levelTitle = GameObject.Find("Canvas/" + this.name + "/LevelTitle");
+        GameObject levelDifficultyLabel = levelTitle.transform.Find("LevelDifficulty").gameObject;
+        levelTitle.GetComponent<Text> ().text = level.GetFullName ();
+        if (level.isStory)
+            levelDifficultyLabel.SetActive(false);
+        else
+            levelDifficultyLabel.GetComponent<Text>().text = LocalizationManager.Instance.GetText(level.difficulty.ToString());
+        //Checkpoints
+        checkpointController = GameObject.Find ("CheckPointController");
         //TipUI
         if (ApplicationController.ac.IsTipAlreadyConsulted(TipEnum.BUY_LIFE)) {
             Destroy(tipButton);
@@ -330,11 +336,10 @@ public class GameUIController : MonoBehaviour
 	{
 		if (this.interstitial == null || !this.interstitial.IsLoaded ()) {
 			AdRequest request = new AdRequest.Builder ()	
-				.AddTestDevice (AdRequest.TestDeviceSimulator)
-				.AddTestDevice (Config.myTestDevice1) 
-				.AddTestDevice (Config.myTestDevice1Caps) 
+				//.AddTestDevice (AdRequest.TestDeviceSimulator)
+				//.AddTestDevice (Config.myTestDevice1) 
+				//.AddTestDevice (Config.myTestDevice1Caps) 
 			    .AddTestDevice (Config.myTestDevice2)
-                .AddTestDevice (Config.myTestDevice3)
                 .Build ();
 			interstitial.LoadAd (request);
 		}
