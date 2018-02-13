@@ -333,8 +333,9 @@ public class GameUIController : MonoBehaviour
 				.AddTestDevice (AdRequest.TestDeviceSimulator)
 				.AddTestDevice (Config.myTestDevice1) 
 				.AddTestDevice (Config.myTestDevice1Caps) 
-			                    //.AddTestDevice (Config.myTestDevice2) 
-				.Build ();
+			    .AddTestDevice (Config.myTestDevice2)
+                .AddTestDevice (Config.myTestDevice3)
+                .Build ();
 			interstitial.LoadAd (request);
 		}
 	}
