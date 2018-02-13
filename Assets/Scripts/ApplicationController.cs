@@ -133,7 +133,10 @@ public class ApplicationController : MonoBehaviour
             { ItemEnum.trail_red, new Item(ItemEnum.trail_red, "ITEM_TRAIL_RED", "ITEM_TRAIL_DESC", 50,LevelEnum.none,true,ItemTypeEnum.trail) },
             { ItemEnum.trail_yellow, new Item(ItemEnum.trail_yellow, "ITEM_TRAIL_YELLOW", "ITEM_TRAIL_DESC", 50,LevelEnum.none,true,ItemTypeEnum.trail) },
             { ItemEnum.trail_black, new Item(ItemEnum.trail_black, "ITEM_TRAIL_BLACK", "ITEM_TRAIL_DESC", 75,LevelEnum.none,true,ItemTypeEnum.trail) },
-            { ItemEnum.trail_rainbow, new Item(ItemEnum.trail_rainbow, "ITEM_TRAIL_RAINBOW", "ITEM_TRAIL_DESC", 100,LevelEnum.none,true,ItemTypeEnum.trail) }
+            { ItemEnum.trail_rainbow, new Item(ItemEnum.trail_rainbow, "ITEM_TRAIL_RAINBOW", "ITEM_TRAIL_DESC", 100,LevelEnum.none,true,ItemTypeEnum.trail) },
+            { ItemEnum.hat_top, new Item(ItemEnum.hat_top, "ITEM_HAT_TOP", "ITEM_HAT_DESC", 50,LevelEnum.none,true,ItemTypeEnum.hat) },
+            { ItemEnum.hat_cowboy, new Item(ItemEnum.hat_cowboy, "ITEM_HAT_COWBOY", "ITEM_HAT_DESC", 50,LevelEnum.none,true,ItemTypeEnum.hat) },
+            { ItemEnum.hat_academic, new Item(ItemEnum.hat_academic, "ITEM_HAT_ACADEMIC", "ITEM_HAT_DESC", 60,LevelEnum.none,true,ItemTypeEnum.hat) }
 
         };
     }
@@ -556,13 +559,17 @@ public enum ItemEnum
     trail_red,
     trail_yellow,
     trail_black,
-    trail_rainbow
+    trail_rainbow,
+    hat_top,
+    hat_cowboy,
+    hat_academic
 }
 
 public enum ItemTypeEnum
 {
     none,
-    trail
+    trail,
+    hat
 }
 
 public enum DifficultyEnum

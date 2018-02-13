@@ -205,6 +205,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1374686074696762
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4643300794357058}
+  - component: {fileID: 114265444405695794}
+  m_Layer: 8
+  m_Name: HatGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1394974072801038
 GameObject:
   m_ObjectHideFlags: 1
@@ -759,6 +775,7 @@ Transform:
   - {fileID: 4603672440188986}
   - {fileID: 4221921362129764}
   - {fileID: 4385658997025530}
+  - {fileID: 4643300794357058}
   m_Father: {fileID: 4952964731970656}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1020,6 +1037,19 @@ Transform:
   m_Father: {fileID: 4228936885491144}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 9.867001}
+--- !u!4 &4643300794357058
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1374686074696762}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.168, y: 0.238, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4228936885491144}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4655719905729732
 Transform:
   m_ObjectHideFlags: 1
@@ -1321,6 +1351,22 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114265444405695794
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1374686074696762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6ef18f8d72fe3b4a9ac216ec135b0a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hatPrefabs:
+  - {fileID: 4152105208012148, guid: 485f4a858117f48498610482635fcf43, type: 2}
+  - {fileID: 4669500904960758, guid: bc568158f42919c4bb4a1fa0b04d42a6, type: 2}
+  - {fileID: 4906384899387292, guid: 1497ec3205251d046993decf17a8339c, type: 2}
+  hat: 0
 --- !u!114 &114419182334781554
 MonoBehaviour:
   m_ObjectHideFlags: 1
