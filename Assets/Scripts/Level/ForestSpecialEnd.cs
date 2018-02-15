@@ -53,7 +53,7 @@ public class ForestSpecialEnd : EndSign
 
 		// Boss start absorbing
 		bossAnim.SetTrigger ("absorb");
-		yield return new WaitForSeconds (1f);
+		yield return new WaitForSeconds (3f);
 
 		// Cat "disapear"
 		SpriteRenderer[] playerSprites = player.GetComponentsInChildren<SpriteRenderer> ();

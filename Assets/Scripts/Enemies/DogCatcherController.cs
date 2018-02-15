@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class DogCatcherController : MonoBehaviour, IDefendable
 {
 	public float waitingBetweenPhases = 4f, nutTimeToLive = 2f;
+    public float absorbingTime = 5f;
 	public int life = 40, nutsToThrow=3;
 	public Transform nutPrefab;
 	public AudioClip throwSound, shopVacSound, bossHitSound;
@@ -69,7 +70,7 @@ public class DogCatcherController : MonoBehaviour, IDefendable
 	IEnumerator AspirationPhase ()
 	{
 		animator.SetTrigger ("absorb");
-		yield return new WaitForSeconds (5f);
+		yield return new WaitForSeconds (absorbingTime);
 		StopAbsorb ();
 		currentPhase = 0;
 		previousPhase = 1;
