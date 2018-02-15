@@ -50,11 +50,9 @@ public class AdController : MonoBehaviour
 		rewardBasedVideo = RewardBasedVideoAd.Instance;
 
 		AdRequest request = new AdRequest.Builder ()
-			//.AddTestDevice (AdRequest.TestDeviceSimulator)       // Simulator.
-			//.AddTestDevice (Config.myTestDevice1) 
-			//.AddTestDevice (Config.myTestDevice1Caps) 
             .AddTestDevice(Config.myTestDevice2)
-			.Build ();
+            .AddTestDevice(Config.myTestDevice3)
+            .Build ();
 		rewardBasedVideo.LoadAd (request, adUnitId);
 
 		// update ad button

@@ -335,11 +335,9 @@ public class GameUIController : MonoBehaviour
 	void RequestInterstitial ()
 	{
 		if (this.interstitial == null || !this.interstitial.IsLoaded ()) {
-			AdRequest request = new AdRequest.Builder ()	
-				//.AddTestDevice (AdRequest.TestDeviceSimulator)
-				//.AddTestDevice (Config.myTestDevice1) 
-				//.AddTestDevice (Config.myTestDevice1Caps) 
-			    .AddTestDevice (Config.myTestDevice2)
+			AdRequest request = new AdRequest.Builder ()
+			    .AddTestDevice(Config.myTestDevice2)
+                .AddTestDevice(Config.myTestDevice3)
                 .Build ();
 			interstitial.LoadAd (request);
 		}

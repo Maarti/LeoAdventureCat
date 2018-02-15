@@ -88,17 +88,26 @@ public class AnimalPoundSpecialEnd : EndSign
     {
         // freeze
         cat.GetComponent<Rigidbody2D>().isKinematic = true;
+        cat.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         cam.GetComponent<CameraFloorController>().enabled = false;
         yield return null;
 
         // hangglider fall / cat jumps
         hangGlider.transform.parent = null;
         cat.GetComponent<Animator>().SetBool("isHangGliding", true);
+        float time = 0f;
         while (hangGlider.transform.position != hangGliderPos.position ||
             cat.transform.position != hangGliderPos.position)
         {
             cat.transform.position = Vector3.MoveTowards(cat.transform.position, hangGliderPos.position, Time.deltaTime*1.5f);
             hangGlider.transform.position = Vector3.MoveTowards(hangGlider.transform.position, hangGliderPos.position, Time.deltaTime);
+            time += Time.deltaTime;
+            // timeout
+            if (time>0.5f){
+                cat.transform.position = hangGliderPos.position;
+                hangGlider.transform.position = hangGliderPos.position;
+                break;
+            }
             yield return null;
         }
 
@@ -111,9 +120,16 @@ public class AnimalPoundSpecialEnd : EndSign
         yield return null;
 
         // cat fly to the end
+        time = 0f;
         while (cat.transform.position != ratFinishPos.position)
         {
             cat.transform.position = Vector3.MoveTowards(cat.transform.position, ratFinishPos.position, Time.deltaTime*1.2f);
+            time += Time.deltaTime;
+            // timeout
+            if (time > 5f) {
+                cat.transform.position = ratFinishPos.position;
+                break;
+            }
             yield return null;
         }
 

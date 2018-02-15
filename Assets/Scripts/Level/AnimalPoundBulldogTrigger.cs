@@ -19,6 +19,7 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
     GameObject rat, cat;
     bool ratFacingRight = false;
     bool waitingTimeIsSet = false;
+    bool bubbleIsSet = false;
     int state = -1, nbLoop = 0;
     float startWaitingTime;
 	Animator ratAnim, dogAnim;
@@ -26,12 +27,14 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
     const float ratSpeed = 1f;
     BulldogBossController bossCtrlr;
     Coroutine platformCoroutine;
+    SpeechBubbleController bubble;
 
     // Use this for initialization
     void Start ()
 	{
-        rat = GameObject.FindGameObjectWithTag("Rat");
         cat = GameObject.FindGameObjectWithTag("Player");
+        rat = GameObject.FindGameObjectWithTag("Rat");
+        bubble = rat.GetComponentInChildren<SpeechBubbleController>(true);
         ratAnim = rat.GetComponent<Animator> ();
         dogAnim = dog.GetComponent<Animator>();
 		guic = GameObject.Find ("Canvas/GameUI").GetComponent<GameUIController> ();
@@ -149,14 +152,21 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
             }
             else
             {
-                if ((Time.time - startWaitingTime) < dogWaitingTime)
+                if ((Time.time - startWaitingTime) < dogWaitingTime) {
+                    // display bubble is the dog is about to chase the cat
+                    if (nbLoop >= nbLoopTotal && !bubbleIsSet && dogWaitingTime - (Time.time - startWaitingTime) < 0.6f) { 
+                        bubble.SetText("ESCAPE", 3f);
+                        bubbleIsSet = true;
+                    }
                     return;
+                }
                 else
                 {
                     dogAnim.SetBool("goDown", false);
                     dogAnim.SetBool("isGrowling", false);
                     waitingTimeIsSet = false;
-                    state = (nbLoop >= nbLoopTotal) ? state+1 : 1;
+                    bubbleIsSet = false;
+                    state = (nbLoop >= nbLoopTotal) ? state + 1 : 1;
                 }
             }
         }
