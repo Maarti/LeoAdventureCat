@@ -60,7 +60,8 @@ public class ForestSpecialEnd : EndSign
 		foreach (SpriteRenderer sprite in playerSprites) {
 			sprite.enabled = false;
 		}
-        player.GetComponentInChildren<TrailRenderer>().enabled = false;
+        TrailRenderer tr = player.GetComponentInChildren<TrailRenderer>();
+        if (tr) tr.enabled = false;
 
 		// Boss stop absorbing and flip
 		bossCtrlr.StopAbsorb ();
