@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ProjectileController : MonoBehaviour
 {
-	public float speed = 1, bumpTime = 0.5f, timeToLive = 3;
+	public float speed = 1f, bumpTime = 0.5f, timeToLive = 3f;
 	public int damage = 1;
 	public Vector2 bumpVelocity = new Vector2 (-2, 3);
 	public bool destroyOnCollision = true, hasRigidBody = false, fade = false;
@@ -40,11 +40,11 @@ public class ProjectileController : MonoBehaviour
 	// FadeOut then destroys
 	IEnumerator FadeOut ()
 	{
-		yield return new WaitForSeconds (timeToLive); // waiting time before respawning dart
+		yield return new WaitForSeconds (timeToLive);
 		isFading = true; //no damage when fading away
 		Color newColor = sprite.color;
-		for (float t = 0.0f; t <= 1.0f; t += Time.deltaTime / 1f) {			
-			newColor.a = Mathf.Lerp (1, 0, t);
+		for (float t = 0.0f; t <= 0.5f; t += Time.deltaTime / 1f) {			
+			newColor.a = Mathf.Lerp (1, 0, t*2);
 			sprite.color = newColor;
 			yield return null;
 		}

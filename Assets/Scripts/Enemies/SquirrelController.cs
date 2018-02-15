@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SquirrelController : MonoBehaviour, IAttackable
@@ -7,7 +6,8 @@ public class SquirrelController : MonoBehaviour, IAttackable
 	public Transform nutPrefab;
 	public Vector2[] nutForces;
 	public float nutRespawnTime = 2f, nutTimeToLive = 3f;
-	public bool aimPlayer = true;
+    public bool aimPlayer = true;           // targets the player (taking into account his movement)
+    public bool aimPlayerPosition = false;  // target the player position only (set aimPlayer to true also)
 	public LayerMask playerLayer;
 
 	bool readyToAttack = true;
@@ -30,6 +30,7 @@ public class SquirrelController : MonoBehaviour, IAttackable
 		nutTransform = transform.Find ("Body").Find ("HazelNut").transform;
 		animator = GetComponent<Animator> ();
 		audioSource = GetComponent<AudioSource> ();
+        aimPlayer = (aimPlayerPosition) ? true : aimPlayer; // retrocompatibility
 	}
 
 	void Update ()
@@ -56,9 +57,14 @@ public class SquirrelController : MonoBehaviour, IAttackable
 	{
 		Transform nutProjectile = (Transform)Instantiate (nutPrefab, nutTransform.position, nutTransform.rotation);
 		nutProjectile.GetComponent<ProjectileController> ().timeToLive = nutTimeToLive;
-		if (aimPlayer)
-			nutForce.x = (player.transform.position.x - nutProjectile.transform.position.x) + playerRb.velocity.x;
-		nutProjectile.GetComponent<Rigidbody2D> ().velocity = nutForce;
+		if (aimPlayer) {
+            // aim at the current player position
+            nutForce.x = player.transform.position.x - nutProjectile.transform.position.x;
+            // aim at the current player position + forecast his movement
+            if (!aimPlayerPosition)
+			    nutForce.x += playerRb.velocity.x;
+        }
+        nutProjectile.GetComponent<Rigidbody2D> ().velocity = nutForce;
 		//GameObject.Destroy (nutProjectile.gameObject, nutTimeToLive);
 		audioSource.Play ();
 		StartCoroutine (RespawnNut (nutRespawnTime));

@@ -4,12 +4,13 @@ using UnityEngine.UI;
 
 public class DogCatcherController : MonoBehaviour, IDefendable
 {
-	public float waitingBetweenPhases = 4f;
+	public float waitingBetweenPhases = 4f, nutTimeToLive = 2f;
 	public int life = 40, nutsToThrow=3;
 	public Transform nutPrefab;
 	public AudioClip throwSound, shopVacSound, bossHitSound;
     public Slider lifebar;
     public bool isBossFight = true;
+    public bool aimPlayerPositionOnly = false;  // false : target player position + movement
 
 	int currentPhase = 0, previousPhase = 0;
 	bool waitingForNextPhase = false, facingRight = false;
@@ -105,9 +106,11 @@ public class DogCatcherController : MonoBehaviour, IDefendable
 	void ThrowPojectile ()
 	{
 		Transform nutProjectile = (Transform)Instantiate (nutPrefab, projectilePosition.position, projectilePosition.rotation);
-		nutProjectile.GetComponent<ProjectileController> ().timeToLive = 2f;
+		nutProjectile.GetComponent<ProjectileController> ().timeToLive = nutTimeToLive;
 		Vector2 nutForce = new Vector2 (1, 3);
-		nutForce.x = (player.transform.position.x - nutProjectile.transform.position.x) + playerRb.velocity.x;
+        nutForce.x = player.transform.position.x - nutProjectile.transform.position.x;
+        if (!aimPlayerPositionOnly)
+		    nutForce.x += playerRb.velocity.x;
 		nutProjectile.GetComponent<Rigidbody2D> ().velocity = nutForce;
 		audioSource.PlayOneShot (throwSound, 0.5f);
 	}

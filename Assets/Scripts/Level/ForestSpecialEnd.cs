@@ -1,7 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class ForestSpecialEnd : EndSign
 {
@@ -62,6 +60,7 @@ public class ForestSpecialEnd : EndSign
 		foreach (SpriteRenderer sprite in playerSprites) {
 			sprite.enabled = false;
 		}
+        player.GetComponentInChildren<TrailRenderer>().enabled = false;
 
 		// Boss stop absorbing and flip
 		bossCtrlr.StopAbsorb ();
