@@ -8,6 +8,7 @@
 
 //#define DELAY_CONFIRMATION // Returns PurchaseProcessingResult.Pending from ProcessPurchase, then calls ConfirmPendingPurchase after a delay
 //#define USE_PAYOUTS // Enables use of PayoutDefinitions to specify what the player should receive when a product is purchased
+//#define INTERCEPT_PROMOTIONAL_PURCHASES // Enables intercepting promotional purchases that come directly from the Apple App Store
 
 using System;
 using System.Collections;
@@ -64,7 +65,7 @@ public class IAPDemo : MonoBehaviour, IStoreListener
 
 #if RECEIPT_VALIDATION
     private CrossPlatformValidator validator;
-    #endif
+#endif
 
     /// <summary>
     /// This will be called when Unity IAP has finished initialising.
@@ -100,6 +101,11 @@ public class IAPDemo : MonoBehaviour, IStoreListener
                         item.transactionID,
                         item.receipt
                     }));
+#if INTERCEPT_PROMOTIONAL_PURCHASES
+                // Set all these products to be visible in the user's App Store according to Apple's Promotional IAP feature
+                // https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/StoreKitGuide/PromotingIn-AppPurchases/PromotingIn-AppPurchases.html
+                m_AppleExtensions.SetStorePromotionVisibility(item, AppleStorePromotionVisibility.Show);
+#endif
             }
         }
 
@@ -323,9 +329,9 @@ public class IAPDemo : MonoBehaviour, IStoreListener
 
         var builder = ConfigurationBuilder.Instance(module);
 
-        // This enables the Microsoft IAP simulator for local testing.
-        // You would remove this before building your release package.
-        builder.Configure<IMicrosoftConfiguration>().useMockBillingSystem = true;
+        // Set this to true to enable the Microsoft IAP simulator for local testing.
+        builder.Configure<IMicrosoftConfiguration>().useMockBillingSystem = false;
+
         m_IsGooglePlayStoreSelected =
             Application.platform == RuntimePlatform.Android && module.appStore == AppStore.GooglePlay;
 
@@ -443,6 +449,12 @@ public class IAPDemo : MonoBehaviour, IStoreListener
         // An empty or non-matching GroupId here will result in no products available for purchase
         builder.Configure<ITizenStoreConfiguration>().SetGroupId("100000085616");
 
+#if INTERCEPT_PROMOTIONAL_PURCHASES
+        // On iOS and tvOS we can intercept promotional purchases that come directly from the App Store.
+        // On other platforms this will have no effect; OnPromotionalPurchase will never be called.
+        builder.Configure<IAppleConfiguration>().SetApplePromotionalPurchaseInterceptorCallback(OnPromotionalPurchase);
+        Debug.Log("Setting Apple promotional purchase interceptor callback");
+#endif
 
 #if RECEIPT_VALIDATION
         string appIdentifier;
@@ -552,6 +564,24 @@ public class IAPDemo : MonoBehaviour, IStoreListener
         Debug.Log("Purchase deferred: " + item.definition.id);
     }
 
+#if INTERCEPT_PROMOTIONAL_PURCHASES
+    private void OnPromotionalPurchase(Product item) {
+        Debug.Log("Attempted promotional purchase: " + item.definition.id);
+
+        // Promotional purchase has been detected. Handle this event by, e.g. presenting a parental gate.
+        // Here, for demonstration purposes only, we will wait five seconds before continuing the purchase.
+        StartCoroutine(ContinuePromotionalPurchases());
+    }
+
+    private IEnumerator ContinuePromotionalPurchases()
+    {
+        Debug.Log("Continuing promotional purchases in 5 seconds");
+        yield return new WaitForSeconds(5);
+        Debug.Log("Continuing promotional purchases now");
+        m_AppleExtensions.ContinuePromotionalPurchases (); // iOS and tvOS only; does nothing on Mac
+    }
+#endif
+
     private void InitUI(IEnumerable<Product> items)
     {
         // Show Restore, Register, Login, and Validate buttons on supported platforms
@@ -565,7 +595,7 @@ public class IAPDemo : MonoBehaviour, IStoreListener
         loginButton.onClick.AddListener(LoginButtonClick);
         validateButton.onClick.AddListener(ValidateButtonClick);
 
-        versionText.text = "Unity version: " + Application.unityVersion + "\n" + 
+        versionText.text = "Unity version: " + Application.unityVersion + "\n" +
                            "IAP version: " + StandardPurchasingModule.k_PackageVersion;
     }
 
