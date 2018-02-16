@@ -1,16 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ActivateOnEnter : MonoBehaviour {
 
-	// Use this for initialization
+    public GameObject[] objs;
+    
 	void Start () {
-		
+        foreach (GameObject obj in objs)
+        {
+            obj.SetActive(false);
+        }
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            foreach (GameObject obj in objs)
+            {
+                obj.SetActive(true);
+            }
+        }
+    }
 }

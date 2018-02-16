@@ -13,8 +13,11 @@ public class TimelineEvent : MonoBehaviour {
 
 	void Update () {
         if (pd.state != PlayState.Playing)
-        {
-            SceneLoader.LoadSceneWithLoadingScreen(levelToLoad.ToString());
-        }
+            LoadLevel();
+    }
+
+    public void LoadLevel()
+    {
+        SceneLoader.LoadSceneWithLoadingScreen(levelToLoad.ToString());
     }
 }

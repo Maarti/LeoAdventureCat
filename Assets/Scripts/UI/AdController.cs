@@ -116,7 +116,7 @@ public class AdController : MonoBehaviour
 		string type = args.Type;
 		double amount = args.Amount;
 		Debug.Log ("User rewarded with: " + amount.ToString () + " " + type);
-		ApplicationController.ac.playerData.updateKittys ((int)amount * 2, kittyzText, true);
+		ApplicationController.ac.playerData.updateKittys ((int)amount, kittyzText, true);
 		adIsLoadingOrWatching = false;
 		rewardBasedVideo = RewardBasedVideoAd.Instance;
 	}
