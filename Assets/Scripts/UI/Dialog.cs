@@ -66,8 +66,8 @@ public class Dialog
 			};
 			dialogDico.Add (DialogEnum.tuto_kittyz, new Dialog (dl));
 			dl = new List<DialogLine> () {
-				new DialogLine ("TUTO_ENNEMY_1", "LEO", portraitLeo, catSound),
-				new DialogLine ("TUTO_ENNEMY_2", "LEO", portraitLeo, catSound)
+				new DialogLine ("TUTO_ENNEMY_1", "LEO", portraitLeo, catSound)
+				//,new DialogLine ("TUTO_ENNEMY_2", "LEO", portraitLeo, catSound)
 			};
 			dialogDico.Add (DialogEnum.tuto_ennemy, new Dialog (dl));
 			dl = new List<DialogLine> () {

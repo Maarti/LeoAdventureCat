@@ -101,7 +101,7 @@ public class ApplicationController : MonoBehaviour
             { LevelEnum.level_1_11, new Level(LevelEnum.level_1_11, "1-11", WorldEnum.Forest, DifficultyEnum.MEDIUM, 15, 58, 1, LevelEnum.level_1_12, true) },
             { LevelEnum.level_1_12, new Level(LevelEnum.level_1_12, "1-12", WorldEnum.Forest, DifficultyEnum.NIGHTMAR, 40, 120, 8, LevelEnum.level_2_story, true) },
 
-            { LevelEnum.level_2_story, new Level(LevelEnum.level_2_story, "2-", WorldEnum.AnimalPound, DifficultyEnum.MEDIUM, 25, 320, 5, LevelEnum.level_2_01, false, true) },
+            { LevelEnum.level_2_story, new Level(LevelEnum.level_2_story, "2-", WorldEnum.AnimalPound, DifficultyEnum.MEDIUM, 25, 320, 5, LevelEnum.level_1_01, false, true) },
             { LevelEnum.level_2_01, new Level(LevelEnum.level_2_01, "2-01", WorldEnum.AnimalPound, DifficultyEnum.EASY, 10, 60, 1, LevelEnum.level_2_02, false) },
             { LevelEnum.level_2_02, new Level(LevelEnum.level_2_02, "2-02", WorldEnum.AnimalPound, DifficultyEnum.MEDIUM, 15, 90, 2, LevelEnum.level_2_03, false) },
             { LevelEnum.level_2_03, new Level(LevelEnum.level_2_03, "2-03", WorldEnum.AnimalPound, DifficultyEnum.HARD, 20, 160, 1, LevelEnum.level_2_04, true) },

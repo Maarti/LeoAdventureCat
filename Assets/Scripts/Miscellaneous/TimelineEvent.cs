@@ -18,6 +18,7 @@ public class TimelineEvent : MonoBehaviour {
 
     public void LoadLevel()
     {
+        pd.Pause();
         SceneLoader.LoadSceneWithLoadingScreen(levelToLoad.ToString());
     }
 }
