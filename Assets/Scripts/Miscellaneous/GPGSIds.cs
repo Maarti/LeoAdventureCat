@@ -25,8 +25,9 @@
 public static class GPGSIds
 {
         public const string achievement_perfectionist_5 = "CgkIk_u-oIMHEAIQBw"; // <GPGSID>
-        public const string achievement_kittyz_rush_10 = "CgkIk_u-oIMHEAIQAg"; // <GPGSID>
         public const string achievement_the_intouchable_100 = "CgkIk_u-oIMHEAIQFQ"; // <GPGSID>
+        public const string achievement_kittyz_rush_10 = "CgkIk_u-oIMHEAIQAg"; // <GPGSID>
+        public const string achievement_why_are_you_so_angry = "CgkIk_u-oIMHEAIQGw"; // <GPGSID>
         public const string achievement_perseverant = "CgkIk_u-oIMHEAIQGQ"; // <GPGSID>
         public const string achievement_teamwork = "CgkIk_u-oIMHEAIQEQ"; // <GPGSID>
         public const string achievement_the_intouchable_50 = "CgkIk_u-oIMHEAIQFA"; // <GPGSID>
