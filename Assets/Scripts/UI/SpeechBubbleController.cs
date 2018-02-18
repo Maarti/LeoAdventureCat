@@ -13,7 +13,6 @@ public class SpeechBubbleController : MonoBehaviour {
         text = textObj.GetComponent<Text>();
         cg = GetComponent<CanvasGroup>();
         cg.alpha = 1f;
-        Debug.Log("started text=" + text);
 	}
 	
 	void Update () {
@@ -27,9 +26,7 @@ public class SpeechBubbleController : MonoBehaviour {
         gameObject.SetActive(true);
         if(text==null)
             Start();
-        Debug.Log("setText() before=" + text+ "local="+LocalizationManager.Instance);
         this.text.text = LocalizationManager.Instance.GetText(textId);
-        Debug.Log("setText() after=" + text);
         DisplayBubble();
         StopAllCoroutines();
         StartCoroutine(WaitThenFadeOut(time));
