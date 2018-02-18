@@ -22,11 +22,10 @@ public class GameUIController : MonoBehaviour
 	AudioSource audioSource;
 	InterstitialAd interstitial;
 	ActionEnum actionOnEnd = ActionEnum.main_menu;
-	/*Text dialName, dialText;
-	Image dialPortrait;*/
+    ConnectionTesterStatus connectionTestResult = ConnectionTesterStatus.Undetermined;
 
 
-	void Start ()
+    void Start ()
 	{
 		gc = GameObject.Find ("GameController").GetComponent<GameController> ();
 		// Get Level from Scene name
@@ -329,41 +328,61 @@ public class GameUIController : MonoBehaviour
 		interstitial.OnAdFailedToLoad += HandleOnAdFailedToLoad;
 		interstitial.OnAdClosed += HandleOnAdFinished;
 		interstitial.OnAdLeavingApplication += HandleOnAdFinished;
-		RequestInterstitial ();
+        Debug.Log("CreateInterstitial=" + this.interstitial);
+        RequestInterstitial ();
 	}
 
 	void RequestInterstitial ()
 	{
-		if (this.interstitial == null || !this.interstitial.IsLoaded ()) {
-			AdRequest request = new AdRequest.Builder ()
+        Debug.Log("Should RequestInterstitial ? interstitial="+interstitial);
+        if (this.interstitial != null && !this.interstitial.IsLoaded ()) {
+            Debug.Log("Yes ! RequestInterstitial() interstitialIsLoaded=" + this.interstitial.IsLoaded());
+            AdRequest request = new AdRequest.Builder ()
 			    .AddTestDevice(Config.myTestDevice2)
                 .AddTestDevice(Config.myTestDevice3)
                 .Build ();
 			interstitial.LoadAd (request);
-		}
+		}        
 	}
 
 	void ShowInterstitial ()
 	{	
 		#if !UNITY_ANDROID && !UNITY_IPHONE && !UNITY_BLACKBERRY && !UNITY_WINRT || UNITY_EDITOR
 		HandleOnAdFinished (this, null);
-		#else
+#else
+        Debug.Log("ShowInterstitial()="+this.interstitial);
+        Debug.Log("internetReachability = " + Application.internetReachability.ToString());
 		if (this.interstitial.IsLoaded ()) {
-			interstitial.Show ();
+			Debug.Log("interstitial IsLoaded, let's show it");
+            interstitial.Show ();
+            Debug.Log("interstitial has been shown");
 		} else {
+            Debug.Log("interstitial is not loaded");
 			HandleOnAdFinished (this, null);
 		}
-		#endif
-	}
+#endif
+    }
 
-	void HandleOnAdFailedToLoad (object sender, EventArgs args)
+    void HandleOnAdFailedToLoad (object sender, EventArgs args)
 	{
-		RequestInterstitial ();
-	}
+        connectionTestResult = Network.TestConnection();        
+        Debug.Log("FailedToLoad testConnection=" + connectionTestResult+ " and internetReachability=" + Application.internetReachability);
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+            StartCoroutine(RequestInterstialAfterSeconds(10f));
+        else
+            StartCoroutine(RequestInterstialAfterSeconds(2f));
+    }
+
+    IEnumerator RequestInterstialAfterSeconds(float time)
+    {
+        yield return new WaitForSeconds(time);
+        RequestInterstitial();
+    }
 
 	void HandleOnAdFinished (object sender, EventArgs args)
 	{
-		this.interstitial.Destroy ();
+        Debug.Log("HandleOnAdFinished action="+actionOnEnd);
+        this.interstitial.Destroy ();
 		this.interstitial = null;
 		interstitialWatched = true;
 		switch (actionOnEnd) {
