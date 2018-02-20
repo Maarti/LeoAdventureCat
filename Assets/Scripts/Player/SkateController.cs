@@ -34,6 +34,7 @@ public class SkateController : MonoBehaviour {
         #if !UNITY_ANDROID && !UNITY_IPHONE && !UNITY_BLACKBERRY && !UNITY_WINRT || UNITY_EDITOR
         if (life > 0)
         {
+            Move(1f);   // constantly moving to right
             if (Input.GetButtonDown("Jump"))
                 Jump();
             else if (Input.GetButtonUp("Jump"))
@@ -50,7 +51,16 @@ public class SkateController : MonoBehaviour {
         //animator.SetFloat("y.velocity", rb.velocity.y);
     }
 
+    void Move(float horizonalInput)
+    {
+        Vector2 moveVel = rb.velocity;
+        moveVel.x = horizonalInput * speed;
+        Debug.Log("speed=" + moveVel);
+        rb.velocity = moveVel;
 
+        // Update animator
+        //animator.SetFloat("speed", Mathf.Abs(horizonalInput));
+    }
 
     void CheckGround()
     {

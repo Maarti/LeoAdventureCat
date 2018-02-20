@@ -66,6 +66,8 @@ public class ShopItemController : MonoBehaviour
 			if (ApplicationController.ac.BuyItem (itemEnum, kittyzText)) {
 				audioSource.PlayOneShot (audioSource.clip);
 				InitButton ();
+                if (item.isEquipable)
+                    EquipThis();
 			}
 		}
 	}
