@@ -76,7 +76,7 @@ public class ApplicationController : MonoBehaviour
         {
             { WorldEnum.Forest,         new World(WorldEnum.Forest, "1_FOREST", false) },
             { WorldEnum.AnimalPound,    new World(WorldEnum.AnimalPound, "2_ANIMAL_POUND", true) },
-            { WorldEnum.City,           new World(WorldEnum.City, "3_CITY", true) }
+            { WorldEnum.City,           new World(WorldEnum.City, "3_CITY", false) }
             //{ WorldEnum.House,          new World(WorldEnum.House, "4_HOUSE", true) }
         };
         this.worlds = worlds;
@@ -101,11 +101,13 @@ public class ApplicationController : MonoBehaviour
             { LevelEnum.level_1_11, new Level(LevelEnum.level_1_11, "1-11", WorldEnum.Forest, DifficultyEnum.MEDIUM, 15, 58, 1, LevelEnum.level_1_12, true) },
             { LevelEnum.level_1_12, new Level(LevelEnum.level_1_12, "1-12", WorldEnum.Forest, DifficultyEnum.NIGHTMAR, 40, 120, 8, LevelEnum.level_2_story, true) },
 
-            { LevelEnum.level_2_story, new Level(LevelEnum.level_2_story, "2-", WorldEnum.AnimalPound, DifficultyEnum.MEDIUM, 25, 320, 5, LevelEnum.level_1_01, false, true) },
+            { LevelEnum.level_2_story, new Level(LevelEnum.level_2_story, "2-", WorldEnum.AnimalPound, DifficultyEnum.MEDIUM, 25, 320, 5, LevelEnum.level_3_01, false, true) },
             { LevelEnum.level_2_01, new Level(LevelEnum.level_2_01, "2-01", WorldEnum.AnimalPound, DifficultyEnum.EASY, 10, 60, 1, LevelEnum.level_2_02, false) },
             { LevelEnum.level_2_02, new Level(LevelEnum.level_2_02, "2-02", WorldEnum.AnimalPound, DifficultyEnum.MEDIUM, 15, 90, 2, LevelEnum.level_2_03, false) },
             { LevelEnum.level_2_03, new Level(LevelEnum.level_2_03, "2-03", WorldEnum.AnimalPound, DifficultyEnum.HARD, 20, 160, 1, LevelEnum.level_2_04, true) },
-            { LevelEnum.level_2_04, new Level(LevelEnum.level_2_04, "2-04", WorldEnum.AnimalPound, DifficultyEnum.NIGHTMAR, 20, 130, 2, LevelEnum.level_1_01, true) }
+            { LevelEnum.level_2_04, new Level(LevelEnum.level_2_04, "2-04", WorldEnum.AnimalPound, DifficultyEnum.NIGHTMAR, 20, 130, 2, LevelEnum.level_1_01, true) },
+
+            { LevelEnum.level_3_01, new Level(LevelEnum.level_3_01, "3-01", WorldEnum.City, DifficultyEnum.EASY, 10, 60, 1, LevelEnum.level_1_01, false) }
         };
         // Init intro scenes
         lvls[LevelEnum.level_1_story].introScene = "level_1_story_intro";
@@ -460,27 +462,48 @@ public enum LevelEnum
 	level_1_18,
 	level_1_19,
 	level_1_20,
-	level_2_story,
-	level_2_01,
-	level_2_02,
-	level_2_03,
-	level_2_04,
-	level_2_05,
-	level_2_06,
-	level_2_07,
-	level_2_08,
-	level_2_09,
-	level_2_10,
-	level_2_11,
-	level_2_12,
-	level_2_13,
-	level_2_14,
-	level_2_15,
-	level_2_16,
-	level_2_17,
-	level_2_18,
-	level_2_19,
-	level_2_20
+    level_2_story,
+    level_2_01,
+    level_2_02,
+    level_2_03,
+    level_2_04,
+    level_2_05,
+    level_2_06,
+    level_2_07,
+    level_2_08,
+    level_2_09,
+    level_2_10,
+    level_2_11,
+    level_2_12,
+    level_2_13,
+    level_2_14,
+    level_2_15,
+    level_2_16,
+    level_2_17,
+    level_2_18,
+    level_2_19,
+    level_2_20,
+    level_3_story,
+    level_3_01,
+    level_3_02,
+    level_3_03,
+    level_3_04,
+    level_3_05,
+    level_3_06,
+    level_3_07,
+    level_3_08,
+    level_3_09,
+    level_3_10,
+    level_3_11,
+    level_3_12,
+    level_3_13,
+    level_3_14,
+    level_3_15,
+    level_3_16,
+    level_3_17,
+    level_3_18,
+    level_3_19,
+    level_3_20
 }
 
 public class Item
