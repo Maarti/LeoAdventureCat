@@ -31,3 +31,8 @@ public interface ICollisionDetectionListener
 
 	void CollisionExit (Collider2D collider);
 }
+
+public interface IKittyzCollecter
+{
+    void CollectKittyz(int amount);
+}

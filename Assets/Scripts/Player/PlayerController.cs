@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerController : MonoBehaviour, IDefendable, IGlider
+public class PlayerController : MonoBehaviour, IDefendable, IGlider, IKittyzCollecter
 {
 	public Transform scratchPrefab, landingSmokePrefab;
 	public float speed = 10, jumpVelocity = 10;

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class SkateController : MonoBehaviour, IDefendable {
+public class SkateController : MonoBehaviour, IDefendable,IKittyzCollecter {
 
     public Transform scratchPrefab, landingSmokePrefab;
     public float speed = 2f, jumpVelocity = 4.6f;
@@ -12,16 +12,12 @@ public class SkateController : MonoBehaviour, IDefendable {
 
     const float speedGainBySecond = 0.2f;
     Rigidbody2D rb;
-    Animator animator;
+    Animator anim;
     Transform checkGroundTop, checkGroundBottom, attackLocation, landingSmokeLocation;
     MouthController mouth;
     bool doubleJumped = false;
 
-    void Awake()
-    {
-        //animator = GetComponent<Animator>();
-    }
-
+   
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -31,22 +27,29 @@ public class SkateController : MonoBehaviour, IDefendable {
         landingSmokeLocation = GameObject.Find(this.name + "/LandingSmokeLocation").transform;
         life = ApplicationController.ac.playerData.max_life;
         InvokeRepeating("SpeedGain", 1.0f, 0.25f);
+        anim = GetComponent<Animator>();
     }
 
     void Update()
     {
-        #if !UNITY_ANDROID && !UNITY_IPHONE && !UNITY_BLACKBERRY && !UNITY_WINRT || UNITY_EDITOR
+        
         if (life > 0)
         {
             Move(1f);   // constantly moving to right
+            #if !UNITY_ANDROID && !UNITY_IPHONE && !UNITY_BLACKBERRY && !UNITY_WINRT || UNITY_EDITOR
             if (Input.GetButtonDown("Jump"))
                 Jump();
             else if (Input.GetButtonUp("Jump"))
                 StopJump();
             if (Input.GetButtonDown("Fire1"))
                 Attack();
+            if (Input.GetButtonDown("Fire2"))
+                Crouch();
+            else if (Input.GetButtonUp("Fire2"))
+                StopCrouch();
+            #endif
         }
-        #endif
+
     }
 
     void FixedUpdate()
@@ -101,11 +104,11 @@ public class SkateController : MonoBehaviour, IDefendable {
     }
 
     public void Crouch() {
-
+        anim.SetBool("crouch", true);
     }
 
     public void StopCrouch() {
-
+        anim.SetBool("crouch", false);
     }
 
     public void Attack()
@@ -144,12 +147,11 @@ public class SkateController : MonoBehaviour, IDefendable {
 
     void Die()
     {
-        Debug.Break();
         //mouth.Meowing("die");
         //animator.SetBool("isDead", true);
         //animator.SetTrigger("die"); // trigger + bool to prevent animator to play death multiple times
         CityGameController.gc.GameOver();
-        //StartMoving (0f);
+        Move(0f);
     }
 
     public void CollectKittyz(int amount = 1)

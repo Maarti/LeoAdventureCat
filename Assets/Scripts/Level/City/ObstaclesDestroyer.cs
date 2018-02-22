@@ -9,6 +9,9 @@ public class ObstaclesDestroyer : MonoBehaviour {
         if (collision.tag == "Player")
             Debug.Break();
 
-        Destroy(collision.gameObject);
+        if(collision.transform.parent)
+            Destroy(collision.transform.parent.gameObject);
+        else
+            Destroy(collision.gameObject);
     }
 }

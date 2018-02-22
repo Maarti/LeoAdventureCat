@@ -21,7 +21,7 @@ public class KittyzController : MonoBehaviour
 	void OnTriggerEnter2D (Collider2D other)
 	{
 		if (!isCollected && other.transform.tag == "Player") {
-			other.gameObject.GetComponent<PlayerController> ().CollectKittyz (this.value);
+			other.gameObject.GetComponent<IKittyzCollecter> ().CollectKittyz (this.value);
 			GetCollected ();
 		}
 	}
@@ -33,7 +33,7 @@ public class KittyzController : MonoBehaviour
 		transform.parent.gameObject.GetComponent<Animator> ().SetTrigger ("collected");
 		CheckPointController.cc.KittyzCollected (this.transform.parent.name);
 		audioSource.PlayOneShot (audioSource.clip);
-		Destroy (gameObject, 1f);
+		Destroy (gameObject.transform.parent.gameObject, 1f);
 	}
 }
 
