@@ -81,7 +81,7 @@ public class ObstaclesGenerator : MonoBehaviour {
 
     void UpdateSpawnChance()
     {
-        if (obsCount >= nbObstaclesTotal || (transform.position.x - lastSpawnDist) < (minDistBetweenObs+pc.speed)){
+        if (obsCount >= nbObstaclesTotal || (transform.position.x - lastSpawnDist) < (minDistBetweenObs+pc.Speed)){
             this.spawnChance = 0f;
             return;
         }
@@ -105,7 +105,7 @@ public class ObstaclesGenerator : MonoBehaviour {
     }
 
     void UpdateKittyzChance() {
-        if (kittyzCount >= kittyzTotal || ((botGen.position.x + kittyzOffset - lastSpawnDist) < (minDistBetweenObs+pc.speed))){
+        if (kittyzCount >= kittyzTotal || ((botGen.position.x + kittyzOffset - lastSpawnDist) < (minDistBetweenObs+pc.Speed))){
             this.kittyzChance = 0f;
             return;
         }

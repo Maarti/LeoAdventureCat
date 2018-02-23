@@ -855,8 +855,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 59191285}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.073, z: 10}
-  m_LocalScale: {x: 150, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -3.269, z: 10}
+  m_LocalScale: {x: 150, y: 15.946818, z: 1}
   m_Children: []
   m_Father: {fileID: 345653921}
   m_RootOrder: 2
@@ -1347,7 +1347,6 @@ GameObject:
   m_Component:
   - component: {fileID: 211067646}
   - component: {fileID: 211067642}
-  - component: {fileID: 211067645}
   - component: {fileID: 211067644}
   - component: {fileID: 211067643}
   - component: {fileID: 211067647}
@@ -1373,8 +1372,7 @@ MonoBehaviour:
     type: 2}
   landingSmokePrefab: {fileID: 4240243885601678, guid: 1580c70c929fb5a46a5f98da231682b6,
     type: 2}
-  speed: 4
-  jumpVelocity: 5
+  jumpVelocity: 7
   groundingMask:
     serializedVersion: 2
     m_Bits: 71680
@@ -1397,7 +1395,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 1.75
   m_Material: {fileID: 6200000, guid: 7812ee6c060a019419ee1ebcb952ec7b, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -1418,48 +1416,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.08
---- !u!212 &211067645
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 211067641}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.8864098, g: 1, b: 0.1764706, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 2.56, y: 2.56}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
 --- !u!4 &211067646
 Transform:
   m_ObjectHideFlags: 0
@@ -1474,8 +1430,9 @@ Transform:
   - {fileID: 2080689084}
   - {fileID: 1179040770}
   - {fileID: 763865984}
+  - {fileID: 1660740702}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &211067647
 Animator:
@@ -2562,6 +2519,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstaclesGenerator: {fileID: 1873440088}
+  endOffsetPosition: 10
 --- !u!61 &385098676
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5348,7 +5306,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1133341295}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.25, z: 1.1}
+  m_LocalPosition: {x: 0, y: 7.3, z: 1.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 772624559}
@@ -7723,7 +7681,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -25}
+  m_AnchoredPosition: {x: 0, y: -45}
   m_SizeDelta: {x: 120, y: 30}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1519160985
@@ -8445,7 +8403,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4071236875942150, guid: 0ef540f508ffa6546be0afca658dbd56, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4071236875942150, guid: 0ef540f508ffa6546be0afca658dbd56, type: 2}
       propertyPath: m_LocalPosition.x
@@ -8731,6 +8689,77 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1652480651}
+--- !u!1 &1660740701
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1660740702}
+  - component: {fileID: 1660740703}
+  m_Layer: 8
+  m_Name: Sprite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1660740702
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1660740701}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 211067646}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &1660740703
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1660740701}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Color: {r: 0, g: 0.3379312, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.2, y: 0.2}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
 --- !u!1 &1671064472
 GameObject:
   m_ObjectHideFlags: 0
@@ -9452,14 +9481,20 @@ MonoBehaviour:
   topGen: {fileID: 1236855036}
   botGen: {fileID: 503950857}
   obstaclesParam:
-  - prefab: {fileID: 1487333236124240, guid: e1e03c6de367b054b8dfabaa29ec9f2c, type: 2}
-    number: 13
-  - prefab: {fileID: 1567747214169888, guid: d7bd711e354e56a4d9451bae25b464ec, type: 2}
+  - prefab: {fileID: 1080018202675480, guid: 19668ae480881cf4e897484aed611157, type: 2}
+    number: 5
+  - prefab: {fileID: 1512832584897914, guid: 364d8900c491e9b40a265b56fbc500c7, type: 2}
+    number: 5
+  - prefab: {fileID: 1833535498241682, guid: e5a1002563537834ba2b1c6a17fc7b19, type: 2}
+    number: 5
+  - prefab: {fileID: 1290924126041584, guid: e0c2e784dec52bf42a0a1e402044555a, type: 2}
     number: 2
+  - prefab: {fileID: 1482480299457748, guid: 4f1d2a66a3893914da87e4415258171b, type: 2}
+    number: 3
   kittyzPrefab: {fileID: 1761244615389188, guid: 51ac0e82875f6674ab89031dd37334fb,
     type: 2}
   player: {fileID: 211067641}
-  distanceToTravel: 200
+  distanceToTravel: 280
   kittyzChance: 0
   kittyzOffset: -1
   nbObstaclesTotal: 15

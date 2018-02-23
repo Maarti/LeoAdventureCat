@@ -4,20 +4,27 @@ using UnityEngine;
 public class SkateController : MonoBehaviour, IDefendable,IKittyzCollecter {
 
     public Transform scratchPrefab, landingSmokePrefab;
-    public float speed = 2f, jumpVelocity = 4.6f;
+    public float jumpVelocity = 4.6f;
     public LayerMask groundingMask;
     public bool isGrounded = false, allowDoubleJump = true;
     public int life = 3;
     public float minSpeed = 2f, maxSpeed = 6f;
-
+    float speed = 2f;
     const float speedGainBySecond = 0.2f;
     Rigidbody2D rb;
     Animator anim;
     Transform checkGroundTop, checkGroundBottom, attackLocation, landingSmokeLocation;
     MouthController mouth;
-    bool doubleJumped = false;
-
+    bool doubleJumped = false, isCrouching = false;
    
+    public float Speed {
+        get { return speed; }
+        set {
+            speed = Mathf.Clamp(value, minSpeed, maxSpeed);
+            anim.SetFloat("speed", speed);
+        }
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -41,11 +48,11 @@ public class SkateController : MonoBehaviour, IDefendable,IKittyzCollecter {
                 Jump();
             else if (Input.GetButtonUp("Jump"))
                 StopJump();
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Attack"))
                 Attack();
-            if (Input.GetButtonDown("Fire2"))
+            if(!isCrouching && Input.GetButtonDown("Crouch"))           
                 Crouch();
-            else if (Input.GetButtonUp("Fire2"))
+            else if (isCrouching && Input.GetButtonUp("Crouch"))
                 StopCrouch();
             #endif
         }
@@ -104,10 +111,12 @@ public class SkateController : MonoBehaviour, IDefendable,IKittyzCollecter {
     }
 
     public void Crouch() {
+        isCrouching = true;
         anim.SetBool("crouch", true);
     }
 
     public void StopCrouch() {
+        isCrouching = false;
         anim.SetBool("crouch", false);
     }
 
@@ -121,8 +130,10 @@ public class SkateController : MonoBehaviour, IDefendable,IKittyzCollecter {
     }
 
     void SpeedGain(){
-        if (life > 0)
-            speed = Mathf.Clamp(speed + (speedGainBySecond / 4), minSpeed, maxSpeed);
+        if (life > 0) {
+            float speedGain = (isCrouching) ? -speedGainBySecond / 4 : speedGainBySecond / 4;
+            Speed = speed + speedGain;
+        }
     }
 
     public void Defend(GameObject attacker, int damage, Vector2 bumpVelocity, float bumpTime)
@@ -130,7 +141,7 @@ public class SkateController : MonoBehaviour, IDefendable,IKittyzCollecter {
         if (life <= 0)
             return;
         GetInjured(damage);
-        speed = minSpeed;
+        Speed = minSpeed;
         //animator.SetTrigger("hit");
     }
 

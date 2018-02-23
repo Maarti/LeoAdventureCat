@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour, IDefendable, IGlider, IKittyzColl
 			    Jump ();
 		    else if (Input.GetButtonUp ("Jump"))
 			    StopJump ();
-		    if (Input.GetButtonDown ("Fire1"))
+		    if (Input.GetButtonDown ("Attack"))
 			    Attack ();
         }
 		#endif

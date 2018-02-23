@@ -17,7 +17,7 @@ public class CityUIController : MonoBehaviour
 	CityGameController gc;
 	Text kittyzTxt, timeTxt, lifeTxt, scoreTxt, targetKittyzTxt, targetTimeTxt, targetLifeTxt, scoreLabelTxt, totalKittyzText, checkpointCountdown;
 	bool targetsInited = false, interstitialWatched = false, isGameOver = false, progressBarsInit=false;
-	GameObject lifeBar, buttons_1, buttonNext, buttonResume, pauseTitle, topUI, checkpointController, shoplist;
+	GameObject lifeBar, buttons_1, buttonNext, buttonResume, pauseTitle, topUI, bottomUI, checkpointController, shoplist;
 	Level level;
 	AudioSource audioSource;
 	InterstitialAd interstitial;
@@ -47,11 +47,12 @@ public class CityUIController : MonoBehaviour
 		scoreLabelTxt = transform.Find("PauseMenuPanel/LabelScore").gameObject.GetComponent<Text> ();
 		//GameOverPanel
 		checkpointCountdown = transform.Find("GameOverPanel/Countdown/CheckpointCountdown").gameObject.GetComponent<Text> ();
-		//TopUI
+		//Top/Bottom UI
 		topUI = transform.Find("TopUI").gameObject;
-		lifeBar = transform.Find("TopUI/LifeBar").gameObject;
-		//Targets
-		targetKittyzTxt = transform.Find("PauseMenuPanel/Scores/ScoreKittyz/Target").gameObject.GetComponent<Text> ();
+        lifeBar = transform.Find("TopUI/LifeBar").gameObject;
+        bottomUI = transform.Find("BottomUI").gameObject;
+        //Targets
+        targetKittyzTxt = transform.Find("PauseMenuPanel/Scores/ScoreKittyz/Target").gameObject.GetComponent<Text> ();
 		targetTimeTxt = transform.Find("PauseMenuPanel/Scores/ScoreTime/Target").gameObject.GetComponent<Text> ();
 		targetLifeTxt = transform.Find("PauseMenuPanel/Scores/ScoreLife/Target").gameObject.GetComponent<Text> ();
         //LevelTitle and difficulty
@@ -80,7 +81,7 @@ public class CityUIController : MonoBehaviour
         if (!progressBarsInit)
             InitProgressBars();
         distanceBar.value = gc.pc.transform.position.x;
-        speedBar.value = gc.pc.speed;
+        speedBar.value = gc.pc.Speed;
     }
 
     public void InitProgressBars() {
@@ -89,7 +90,7 @@ public class CityUIController : MonoBehaviour
         distanceBar.value = gc.pc.transform.position.x;
         speedBar.minValue = 1f;
         speedBar.maxValue = gc.pc.maxSpeed;
-        speedBar.value = gc.pc.speed;
+        speedBar.value = gc.pc.Speed;
     }
 
     void InitScores (bool gameFinished = false, bool gameOver = false)
@@ -178,7 +179,8 @@ public class CityUIController : MonoBehaviour
 	public void DisplayTopUI (bool setActive = true)
 	{
 		topUI.SetActive (setActive);
-	}
+        bottomUI.SetActive(setActive);
+    }
 
 	public void EndGame ()
 	{
