@@ -56,23 +56,20 @@ public class ObstaclesGenerator : MonoBehaviour {
         obstaclesStack = new Stack<GameObject>(obstaclesStack.OrderBy(x => rnd.Next()));
     }
 
-    void Spawn()
-    {
+    void Spawn() {
         UpdateSpawnChance();
-        if (Random.value < spawnChance)
-        {
-            //Instantiate(obstacles[Random.Range(0, obstacles.GetLength(0))].prefab, botGen.position, Quaternion.identity);
+        if (Random.value < spawnChance){
             Instantiate(obstaclesStack.Pop(), botGen.position, Quaternion.identity);
             lastSpawnDist = botGen.position.x;
             obsCount++;
-            Debug.Log("Spawn");
+            //Debug.Log("Spawn");
         } else {
             UpdateKittyzChance();
             if (Random.value < kittyzChance) {
                 // spawn a kittyz with an x offset and random y
                 Instantiate(kittyzPrefab, new Vector3(botGen.position.x + kittyzOffset, botGen.position.y + Random.Range(0.25f, 1.5f)), Quaternion.identity);
                 kittyzCount++;
-                Debug.Log("Kittyz spawned");
+                //Debug.Log("Kittyz spawned");
             }
         }
 
@@ -101,7 +98,7 @@ public class ObstaclesGenerator : MonoBehaviour {
 
         this.spawnChance = Mathf.Clamp(newSpawnChance + distanceAdjustment,0f,1f);
 
-        Debug.Log("spawnChance=" + spawnChance + " dist/total=" + transform.position.x + "/" + distanceToTravel + "    obsCount=" + obsCount + "   theoreticalObsCount=" + theoreticalObsCount + " distanceAdjustment=" + distanceAdjustment );
+        //Debug.Log("spawnChance=" + spawnChance + " dist/total=" + transform.position.x + "/" + distanceToTravel + "    obsCount=" + obsCount + "   theoreticalObsCount=" + theoreticalObsCount + " distanceAdjustment=" + distanceAdjustment );
     }
 
     void UpdateKittyzChance() {
@@ -122,7 +119,7 @@ public class ObstaclesGenerator : MonoBehaviour {
 
         this.kittyzChance = Mathf.Clamp(newKittyzChance * distanceAdjustment, 0f, 1f);
 
-        Debug.Log("kittyzChance=" + kittyzChance + "    theoreticalKittyzCount=" + theoreticalKittyzCount + " distanceAdjustment=" + distanceAdjustment);
+        //Debug.Log("kittyzChance=" + kittyzChance + "    theoreticalKittyzCount=" + theoreticalKittyzCount + " distanceAdjustment=" + distanceAdjustment);
     }
 
 }

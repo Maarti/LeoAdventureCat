@@ -57,7 +57,9 @@ public class SkateController : MonoBehaviour, IDefendable,IKittyzCollecter {
                 Crouch();
             else if (isCrouching && Input.GetButtonUp("Crouch"))
                 StopCrouch();
-            #endif
+#endif
+            Debug.Log("velo:" + rb.velocity.y);
+            anim.SetFloat("y.velocity", rb.velocity.y);
         }
 
     }
@@ -82,28 +84,32 @@ public class SkateController : MonoBehaviour, IDefendable,IKittyzCollecter {
     {
         bool newIsGrounded = Physics2D.OverlapArea(checkGroundTop.position, checkGroundBottom.position, groundingMask);
 
-        // Pop some smoke when landing for juicy effect
-        if (this.isGrounded == false && newIsGrounded == true)
-        {
-            doubleJumped = false;
-            Transform smoke = (Transform)Instantiate(landingSmokePrefab, landingSmokeLocation.position, Quaternion.identity);
-            Destroy(smoke.gameObject, 1f);
+        if (newIsGrounded != this.isGrounded) {
+            // Pop some smoke when landing for juicy effect
+            if (newIsGrounded) {
+                doubleJumped = false;
+                Transform smoke = (Transform)Instantiate(landingSmokePrefab, landingSmokeLocation.position, Quaternion.identity);
+                Destroy(smoke.gameObject, 1f);
+            }
+
+            isGrounded = newIsGrounded;
+            anim.SetBool("isGrounded", isGrounded);
         }
 
-        isGrounded = newIsGrounded;
-        //animator.SetBool("isGrounded", isGrounded);
+        
     }
 
     public void Jump()
     {
         if (isGrounded){
-            //animator.SetTrigger("jump");
+            anim.SetTrigger("jump");
             rb.velocity = jumpVelocity * Vector2.up;
             /*  if (Random.value > 0.87f)   //play sound (13% chance)
                   mouth.Meowing("jump");*/
         }else if (allowDoubleJump && !doubleJumped){
             rb.velocity = (jumpVelocity/2) * Vector2.up;
             doubleJumped = true;
+            anim.SetTrigger("doubleJump");
         }
     }
 

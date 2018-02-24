@@ -12,6 +12,7 @@ public class CityGameController : MonoBehaviour
 	public bool gamePaused = false, gameFinished = false;
 	public Level level;
 	public SkateController pc;
+
 	CityUIController guic;
 	bool lifeBarInit = false;
     bool hasTipBeenConsulted = false;
@@ -26,10 +27,10 @@ public class CityGameController : MonoBehaviour
 	{
 		Time.timeScale = 1f;
 		guic = GameObject.Find ("Canvas/GameUI").GetComponent<CityUIController> ();
-		pc = GameObject.FindGameObjectWithTag ("Player").GetComponent<SkateController> ();
+        //pc = GameObject.FindGameObjectWithTag ("Player").GetComponent<SkateController> ();
 
-		// Get Level from Scene name
-		string sceneName = SceneManager.GetActiveScene ().name;
+        // Get Level from Scene name
+        string sceneName = SceneManager.GetActiveScene ().name;
 		LevelEnum lvlEnum = (LevelEnum)Enum.Parse (typeof(LevelEnum), sceneName); 
 		this.level = ApplicationController.ac.levels [lvlEnum];	
 
@@ -62,7 +63,7 @@ public class CityGameController : MonoBehaviour
 	{
 		if (!gamePaused && !gameFinished)
 			levelTimer += Time.deltaTime;
-	}
+    }
 
 	void FixedUpdate ()
 	{
