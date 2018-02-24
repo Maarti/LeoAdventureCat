@@ -1006,6 +1006,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitingBetweenPhases: 8
+  nutTimeToLive: 2
+  absorbingTime: 5
   life: 200
   nutsToThrow: 5
   nutPrefab: {fileID: 4267957003436194, guid: 0a4de33f598c9ee41b6bc8c2e34488f3, type: 2}
@@ -1014,6 +1016,7 @@ MonoBehaviour:
   bossHitSound: {fileID: 8300000, guid: c239f3ab8b0a645219252abc75b70d29, type: 3}
   lifebar: {fileID: 2083550131}
   isBossFight: 1
+  aimPlayerPositionOnly: 0
 --- !u!95 &459328533
 Animator:
   serializedVersion: 3
@@ -4639,7 +4642,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -4656,7 +4659,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1948946782}
   m_FillRect: {fileID: 1276665087}
   m_HandleRect: {fileID: 1948946781}

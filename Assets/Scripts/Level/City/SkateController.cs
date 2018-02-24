@@ -8,7 +8,10 @@ public class SkateController : MonoBehaviour, IDefendable,IKittyzCollecter {
     public LayerMask groundingMask;
     public bool isGrounded = false, allowDoubleJump = true;
     public int life = 3;
-    public float minSpeed = 2f, maxSpeed = 6f;
+    [Range(2f, 10f)]
+    public float minSpeed = 2f;
+    [Range(4f, 30f)]
+    public float maxSpeed = 6f;
     float speed = 2f;
     const float speedGainBySecond = 0.2f;
     Rigidbody2D rb;

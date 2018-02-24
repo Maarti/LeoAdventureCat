@@ -181,10 +181,14 @@ public class ApplicationController : MonoBehaviour
 	public void UnlockLevel (LevelEnum level, bool doSave = true)
 	{
 		if (level != LevelEnum.none) {
-			this.levels [level].isLocked = false;
+            Level lvl = this.levels[level];
+            lvl.isLocked = false;
 			if (!this.playerData.unlockedLvls.Contains (level))
 				this.playerData.unlockedLvls.Add (level);
-			if (doSave)
+            // If level is a story, unlock the next world
+            if (lvl.isStory)
+                UnlockWorld(this.levels[lvl.nextLevel].world.id,false);
+            if (doSave)
 				Save ();
 		}
 	}
