@@ -12,6 +12,7 @@ public class SkateController : MonoBehaviour, IDefendable,IKittyzCollecter {
     public float minSpeed = 2f;
     [Range(4f, 30f)]
     public float maxSpeed = 6f;
+    public AudioClip jumpSound, kickflipSound;
     float speed = 2f;
     const float speedGainBySecond = 0.2f;
     Rigidbody2D rb;
@@ -19,6 +20,7 @@ public class SkateController : MonoBehaviour, IDefendable,IKittyzCollecter {
     Transform checkGroundTop, checkGroundBottom, attackLocation, landingSmokeLocation;
     MouthController mouth;
     bool doubleJumped = false, isCrouching = false;
+    AudioSource audioS;
    
     public float Speed {
         get { return speed; }
@@ -38,6 +40,7 @@ public class SkateController : MonoBehaviour, IDefendable,IKittyzCollecter {
         life = ApplicationController.ac.playerData.max_life;
         InvokeRepeating("SpeedGain", 1.0f, 0.25f);
         anim = GetComponent<Animator>();
+        audioS = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -57,8 +60,7 @@ public class SkateController : MonoBehaviour, IDefendable,IKittyzCollecter {
                 Crouch();
             else if (isCrouching && Input.GetButtonUp("Crouch"))
                 StopCrouch();
-#endif
-            Debug.Log("velo:" + rb.velocity.y);
+            #endif
             anim.SetFloat("y.velocity", rb.velocity.y);
         }
 
@@ -89,6 +91,7 @@ public class SkateController : MonoBehaviour, IDefendable,IKittyzCollecter {
             if (newIsGrounded) {
                 doubleJumped = false;
                 Transform smoke = (Transform)Instantiate(landingSmokePrefab, landingSmokeLocation.position, Quaternion.identity);
+                audioS.PlayOneShot(jumpSound);
                 Destroy(smoke.gameObject, 1f);
             }
 
@@ -106,10 +109,12 @@ public class SkateController : MonoBehaviour, IDefendable,IKittyzCollecter {
             rb.velocity = jumpVelocity * Vector2.up;
             /*  if (Random.value > 0.87f)   //play sound (13% chance)
                   mouth.Meowing("jump");*/
+            audioS.PlayOneShot(jumpSound);
         }else if (allowDoubleJump && !doubleJumped){
             rb.velocity = (jumpVelocity/2) * Vector2.up;
             doubleJumped = true;
             anim.SetTrigger("doubleJump");
+            audioS.PlayOneShot(kickflipSound);
         }
     }
 
@@ -178,4 +183,5 @@ public class SkateController : MonoBehaviour, IDefendable,IKittyzCollecter {
     {
         CityGameController.gc.CollectKittyz(amount);
     }
+
 }
