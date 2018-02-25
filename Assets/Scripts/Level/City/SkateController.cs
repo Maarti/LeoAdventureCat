@@ -12,15 +12,14 @@ public class SkateController : MonoBehaviour, IDefendable,IKittyzCollecter {
     public float minSpeed = 2f;
     [Range(4f, 30f)]
     public float maxSpeed = 6f;
-    public AudioClip jumpSound, kickflipSound;
+    public AudioClip jumpSound, kickflipSound, catJump, catHit, catDie, ratSqueek, ratHit;
     float speed = 2f;
     const float speedGainBySecond = 0.2f;
     Rigidbody2D rb;
     Animator anim;
     Transform checkGroundTop, checkGroundBottom, attackLocation, landingSmokeLocation;
-    MouthController mouth;
     bool doubleJumped = false, isCrouching = false;
-    AudioSource audioS;
+    AudioSource audioS, audioCat, audioRat;
    
     public float Speed {
         get { return speed; }
@@ -41,6 +40,8 @@ public class SkateController : MonoBehaviour, IDefendable,IKittyzCollecter {
         InvokeRepeating("SpeedGain", 1.0f, 0.25f);
         anim = GetComponent<Animator>();
         audioS = GetComponent<AudioSource>();
+        audioCat = transform.Find("Cat").GetComponent<AudioSource>();
+        audioRat = transform.Find("Rat").GetComponent<AudioSource>();
     }
 
     void Update()
@@ -107,8 +108,8 @@ public class SkateController : MonoBehaviour, IDefendable,IKittyzCollecter {
         if (isGrounded){
             anim.SetTrigger("jump");
             rb.velocity = jumpVelocity * Vector2.up;
-            /*  if (Random.value > 0.87f)   //play sound (13% chance)
-                  mouth.Meowing("jump");*/
+            if (Random.value > 0.9f)   //play sound (10% chance)
+                audioCat.PlayOneShot(catJump);
             audioS.PlayOneShot(jumpSound);
         }else if (allowDoubleJump && !doubleJumped){
             rb.velocity = (jumpVelocity/2) * Vector2.up;
@@ -156,7 +157,7 @@ public class SkateController : MonoBehaviour, IDefendable,IKittyzCollecter {
             return;
         GetInjured(damage);
         Speed = minSpeed;
-        //animator.SetTrigger("hit");
+        anim.SetTrigger("hit");
     }
 
     void GetInjured(int dmg)
@@ -166,13 +167,18 @@ public class SkateController : MonoBehaviour, IDefendable,IKittyzCollecter {
         CityGameController.gc.PlayerInjured(dmg);
         if (life <= 0)
             Die();
-        /*else
-            mouth.Meowing("hit");*/
+        else {
+            if (Random.value < 0.5f)   //play cat or rat sound
+                audioCat.PlayOneShot(catHit);
+            else
+                audioRat.PlayOneShot(ratHit);
+        }
     }
 
     void Die()
     {
-        //mouth.Meowing("die");
+        audioCat.PlayOneShot(catDie);
+        audioRat.PlayOneShot(ratSqueek);
         //animator.SetBool("isDead", true);
         //animator.SetTrigger("die"); // trigger + bool to prevent animator to play death multiple times
         CityGameController.gc.GameOver();
