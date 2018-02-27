@@ -76,7 +76,7 @@ public class ApplicationController : MonoBehaviour
         {
             { WorldEnum.Forest,         new World(WorldEnum.Forest, "1_FOREST", false) },
             { WorldEnum.AnimalPound,    new World(WorldEnum.AnimalPound, "2_ANIMAL_POUND", true) },
-            { WorldEnum.City,           new World(WorldEnum.City, "3_CITY", false) }
+            { WorldEnum.City,           new World(WorldEnum.City, "3_CITY", true) }
             //{ WorldEnum.House,          new World(WorldEnum.House, "4_HOUSE", true) }
         };
         this.worlds = worlds;

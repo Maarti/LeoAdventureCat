@@ -18,8 +18,8 @@ public class AdController : MonoBehaviour
 	void Start ()
 	{
 		//init kittyz
-		kittyzText = GameObject.Find ("KittyzText").GetComponentInChildren<Text> ();
-		kittyzText.text = ApplicationController.ac.playerData.kittyz.ToString ();
+		//kittyzText = GameObject.Find ("KittyzText").GetComponentInChildren<Text> ();
+		//kittyzText.text = ApplicationController.ac.playerData.kittyz.ToString ();
 		//init ad
 		adText = GetComponentInChildren<Text> ();
 		rewardBasedVideo = RewardBasedVideoAd.Instance;
