@@ -1,4 +1,5 @@
-﻿using GooglePlayGames;
+﻿#if UNITY_ANDROID || UNITY_IOS
+using GooglePlayGames;
 using GooglePlayGames.BasicApi;
 using UnityEngine;
 
@@ -13,3 +14,13 @@ public class PlayGamesActivator : MonoBehaviour {
         PlayGamesScript.SignIn();
     }
 }
+
+#else
+using UnityEngine;
+public class PlayGamesActivator : MonoBehaviour
+{
+
+    void Start() {
+    }
+}
+#endif

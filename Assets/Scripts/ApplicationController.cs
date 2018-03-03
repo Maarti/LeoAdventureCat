@@ -335,6 +335,7 @@ public class PlayerData
 		} else
 			this.scores.Add (lvl, score);
 
+        #if UNITY_ANDROID || UNITY_IOS
         // Achievements
         if (score >= 100 && PlayGamesPlatform.Instance.IsAuthenticated())
         {
@@ -360,7 +361,7 @@ public class PlayerData
                 Debug.Log("new perfectionnistCurrentValue="+ PlayGamesScript.perfectionnistCurrentValue);
             }
         }
-
+        #endif
     }
 }
 

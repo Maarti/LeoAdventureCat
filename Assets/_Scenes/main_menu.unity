@@ -4659,8 +4659,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 19.999985}
-  m_SizeDelta: {x: -100, y: -199.99997}
+  m_AnchoredPosition: {x: 0, y: 32.5}
+  m_SizeDelta: {x: -100, y: -175}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &511149482
 MonoBehaviour:
@@ -6392,6 +6392,7 @@ GameObject:
   - component: {fileID: 635574457}
   - component: {fileID: 635574456}
   - component: {fileID: 635574458}
+  - component: {fileID: 635574459}
   m_Layer: 5
   m_Name: 500kittyz
   m_TagString: Untagged
@@ -6446,6 +6447,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kittyzText: {fileID: 380860701}
+--- !u!114 &635574459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 635574455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5b95ee7dcf3dbe4fb7e1257149aeee8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeTo: 0.3
+  waitBeforeFade: 6
+  speedFade: 0.2
 --- !u!1 &646200688
 GameObject:
   m_ObjectHideFlags: 0
@@ -16405,8 +16420,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 85}
-  m_SizeDelta: {x: -40, y: -210}
+  m_AnchoredPosition: {x: 0, y: 70}
+  m_SizeDelta: {x: -40, y: -180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1547184477
 MonoBehaviour:
@@ -18431,6 +18446,7 @@ GameObject:
   - component: {fileID: 1810760056}
   - component: {fileID: 1810760058}
   - component: {fileID: 1810760057}
+  - component: {fileID: 1810760059}
   m_Layer: 5
   m_Name: AdPanel
   m_TagString: Untagged
@@ -18492,6 +18508,20 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1810760055}
+--- !u!114 &1810760059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1810760055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5b95ee7dcf3dbe4fb7e1257149aeee8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeTo: 0.3
+  waitBeforeFade: 6
+  speedFade: 0.2
 --- !u!1001 &1824983008
 Prefab:
   m_ObjectHideFlags: 0

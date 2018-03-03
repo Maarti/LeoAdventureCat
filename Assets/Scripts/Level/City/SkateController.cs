@@ -47,7 +47,7 @@ public class SkateController : MonoBehaviour, IDefendable,IKittyzCollecter {
     void Update()
     {
         
-        if (life > 0)
+        if (life > 0 && Time.timeScale > 0f)
         {
             Move(1f);   // constantly moving to right
             #if !UNITY_ANDROID && !UNITY_IPHONE && !UNITY_BLACKBERRY && !UNITY_WINRT || UNITY_EDITOR
@@ -137,9 +137,6 @@ public class SkateController : MonoBehaviour, IDefendable,IKittyzCollecter {
 
     public void Attack()
     {
-        string[] attacksAnim = { "attack01", "attack02" };
-        string randomAttackAnim = attacksAnim[Random.Range(0, attacksAnim.Length)];
-        //animator.SetTrigger(randomAttackAnim);
         Transform attack = (Transform)Instantiate(scratchPrefab, attackLocation.position, Quaternion.identity);
         attack.gameObject.GetComponent<ScratchController>().Init(1, Vector2.zero, 0.35f);
     }

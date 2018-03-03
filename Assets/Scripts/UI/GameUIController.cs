@@ -22,8 +22,9 @@ public class GameUIController : MonoBehaviour
 	AudioSource audioSource;
 	InterstitialAd interstitial;
 	ActionEnum actionOnEnd = ActionEnum.main_menu;
+    #if UNITY_ANDROID || UNITY_IPHONE
     ConnectionTesterStatus connectionTestResult = ConnectionTesterStatus.Undetermined;
-
+    #endif
 
     void Start ()
 	{
@@ -347,7 +348,7 @@ public class GameUIController : MonoBehaviour
 
 	void ShowInterstitial ()
 	{	
-		#if !UNITY_ANDROID && !UNITY_IPHONE && !UNITY_BLACKBERRY && !UNITY_WINRT || UNITY_EDITOR
+#if !UNITY_ANDROID && !UNITY_IPHONE && !UNITY_BLACKBERRY && !UNITY_WINRT || UNITY_EDITOR
 		HandleOnAdFinished (this, null);
 #else
         Debug.Log("ShowInterstitial()="+this.interstitial);
@@ -365,8 +366,10 @@ public class GameUIController : MonoBehaviour
 
     void HandleOnAdFailedToLoad (object sender, EventArgs args)
 	{
+        #if UNITY_ANDROID || UNITY_IPHONE
         connectionTestResult = Network.TestConnection();        
         Debug.Log("FailedToLoad testConnection=" + connectionTestResult+ " and internetReachability=" + Application.internetReachability);
+        #endif
         if (Application.internetReachability == NetworkReachability.NotReachable)
             StartCoroutine(RequestInterstialAfterSeconds(10f));
         else

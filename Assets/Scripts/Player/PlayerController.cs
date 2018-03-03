@@ -12,7 +12,9 @@ public class PlayerController : MonoBehaviour, IDefendable, IGlider, IKittyzColl
 	public Vector3 hangGliderPosition;
 
 	const int lifeMax = 10;
-	float hInput = 0;
+    #if UNITY_ANDROID || UNITY_IOS
+    float hInput = 0;
+    #endif
 	float timeBeingInvincible = 1.5f;
 	bool facingRight = false, isBumped = false, isInvincible = false;
 	Rigidbody2D rb;
@@ -38,8 +40,8 @@ public class PlayerController : MonoBehaviour, IDefendable, IGlider, IKittyzColl
 
 	void Update ()
 	{
-        #if !UNITY_ANDROID && !UNITY_IPHONE && !UNITY_BLACKBERRY && !UNITY_WINRT || UNITY_EDITOR
-        if(life>0){
+#if !UNITY_ANDROID && !UNITY_IPHONE && !UNITY_BLACKBERRY && !UNITY_WINRT || UNITY_EDITOR
+        if(life>0 && Time.timeScale > 0f){
             if (Input.GetButtonDown ("Jump"))
 			    Jump ();
 		    else if (Input.GetButtonUp ("Jump"))
@@ -47,19 +49,19 @@ public class PlayerController : MonoBehaviour, IDefendable, IGlider, IKittyzColl
 		    if (Input.GetButtonDown ("Attack"))
 			    Attack ();
         }
-		#endif
+#endif
 	}
 
 	void FixedUpdate ()
 	{
-        #if !UNITY_ANDROID && !UNITY_IPHONE && !UNITY_BLACKBERRY && !UNITY_WINRT || UNITY_EDITOR
+#if !UNITY_ANDROID && !UNITY_IPHONE && !UNITY_BLACKBERRY && !UNITY_WINRT || UNITY_EDITOR
         if (life > 0)
             Move(Input.GetAxisRaw("Horizontal"));
         else
             Move(0f);
-        #else
+#else
 		Move (hInput);
-        #endif
+#endif
 
         CheckGround();
 		animator.SetFloat ("y.velocity", rb.velocity.y);
@@ -121,7 +123,9 @@ public class PlayerController : MonoBehaviour, IDefendable, IGlider, IKittyzColl
 
 	public void StartMoving (float horizonalInput)
 	{
+        #if UNITY_ANDROID || UNITY_IOS
 		hInput = horizonalInput;
+        #endif
 	}
 
 	void Flip ()

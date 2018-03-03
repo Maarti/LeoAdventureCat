@@ -52,7 +52,7 @@ public class GameController : MonoBehaviour
         hasTipBeenConsulted = ApplicationController.ac.IsTipAlreadyConsulted(TipEnum.BUY_LIFE);
 
         // Analytics
-        AnalyticsResult ar = Analytics.CustomEvent("LevelStarted_" + this.level.name, new Dictionary<string, object> {
+        Analytics.CustomEvent("LevelStarted_" + this.level.name, new Dictionary<string, object> {
             { "date",System.DateTime.Now.ToString() },
             { "kittys_total",ApplicationController.ac.playerData.kittyz }
         });

@@ -18,7 +18,7 @@ public class AdController : MonoBehaviour
 	void Start ()
 	{
 		//init kittyz
-		//kittyzText = GameObject.Find ("KittyzText").GetComponentInChildren<Text> ();
+		kittyzText = GameObject.Find ("KittyzText").GetComponentInChildren<Text> ();
 		//kittyzText.text = ApplicationController.ac.playerData.kittyz.ToString ();
 		//init ad
 		adText = GetComponentInChildren<Text> ();
@@ -143,13 +143,15 @@ public class AdController : MonoBehaviour
 
 	void OnDestroy ()
 	{
-		rewardBasedVideo.OnAdLoaded -= HandleOnAdLoaded;
-		rewardBasedVideo.OnAdFailedToLoad -= HandleOnAdFailedToLoad;
-		rewardBasedVideo.OnAdOpening -= HandleOnAdOpening;
-		rewardBasedVideo.OnAdStarted -= HandleOnAdStarted;
-		rewardBasedVideo.OnAdRewarded -= HandleOnAdRewarded;
-		rewardBasedVideo.OnAdClosed -= HandleOnAdClosed;
-		rewardBasedVideo.OnAdLeavingApplication -= HandleOnAdLeavingApplication;
+        if (rewardBasedVideo != null) {
+            rewardBasedVideo.OnAdLoaded -= HandleOnAdLoaded;
+            rewardBasedVideo.OnAdFailedToLoad -= HandleOnAdFailedToLoad;
+            rewardBasedVideo.OnAdOpening -= HandleOnAdOpening;
+            rewardBasedVideo.OnAdStarted -= HandleOnAdStarted;
+            rewardBasedVideo.OnAdRewarded -= HandleOnAdRewarded;
+            rewardBasedVideo.OnAdClosed -= HandleOnAdClosed;
+            rewardBasedVideo.OnAdLeavingApplication -= HandleOnAdLeavingApplication;
+        }
 	}
 
 	void OnEnable ()

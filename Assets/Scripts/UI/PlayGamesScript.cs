@@ -1,4 +1,5 @@
-﻿using GooglePlayGames;
+﻿#if UNITY_ANDROID || UNITY_IOS
+using GooglePlayGames;
 using GooglePlayGames.BasicApi;
 using UnityEngine;
 
@@ -22,7 +23,7 @@ public class PlayGamesScript : MonoBehaviour
         PlayGamesScript.ShowAchievementsUI();
     }
 
-    #region StaticMethods
+#region StaticMethods
     public static void SignIn()
     {
        /* Authentication will show the required consent dialogs.If the user
@@ -35,7 +36,7 @@ public class PlayGamesScript : MonoBehaviour
        });
     }
 
-    #region Achievements
+#region Achievements
     public static void UnlockAchievement(string id)
     {
         if (PlayGamesPlatform.Instance.IsAuthenticated())
@@ -92,9 +93,9 @@ public class PlayGamesScript : MonoBehaviour
             });
         }
     }
-    #endregion
+#endregion
 
-    #region LeaderBoard
+#region LeaderBoard
     public static void AddScoreToLeaderboard(string leaderboardId, long score)
     {
         if (PlayGamesPlatform.Instance.IsAuthenticated())
@@ -119,9 +120,65 @@ public class PlayGamesScript : MonoBehaviour
         else
             SignIn();
     }
-    #endregion
+#endregion
 
-    #endregion
+#endregion
 
 
 }
+
+#else
+using UnityEngine;
+public class PlayGamesScript : MonoBehaviour
+{
+    public static int perfectionnistCurrentValue = -1;
+
+    public void ShowAllLeaderboards() {
+    }
+    public void ShowOverallLeaderboards() {
+    }
+
+    public void ShowAchievements() {
+    }
+
+
+    public static void SignIn() {
+    }
+    
+    public static void UnlockAchievement(string id) {
+    }
+
+    public static void IncrementAchievement(string id, int stepsToIncrement) {
+    }
+
+    public static void ShowAchievementsUI() {
+    }
+
+    // Return the current step value of an incremental achievement
+    public static int GetAchievementValue(string id) {
+        return -1;
+    }
+
+    // Return 0 if locked, 1 if unlocked, -1 if not c0nnected
+    public static int IsAchievementUnlocked(string id) {
+        return -1;
+    }
+
+    // Reveal a hidden achievement
+    public static void RevealAchievement(string id) {
+    }
+
+    public static void AddScoreToLeaderboard(string leaderboardId, long score) {
+        
+    }
+
+    public static void ShowLeaderboardsUI() {
+       
+    }
+
+    public static void ShowSpecificLeaderboardsUI(string id) {
+      
+    }
+
+}
+#endif
