@@ -81,9 +81,13 @@ public class LevelButtonInitializer : MonoBehaviour
                 g.SetActive(false);
             shopPanel.SetActive(true);
         }
+#if !UNITY_WEBGL
+        // Intro scene audio crash on WebGL, see : https://docs.unity3d.com/Manual/webgl-audio.html
+        // and : https://issuetracker.unity3d.com/issues/webgl-fmod-error-spam-when-playing-audio-clip-with-timeline
         // load intro scene if the level has one
         else if(level.introScene != null)
             SceneLoader.LoadSceneWithLoadingScreen(level.introScene);
+#endif
         // load level
         else
             SceneLoader.LoadSceneWithLoadingScreen(levelEnum.ToString());
