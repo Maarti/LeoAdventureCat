@@ -13,6 +13,11 @@ public class SkateController : MonoBehaviour, IDefendable,IKittyzCollecter {
     [Range(4f, 30f)]
     public float maxSpeed = 6f;
     public AudioClip jumpSound, kickflipSound, catJump, catHit, catDie, ratSqueek, ratHit;
+    public delegate void PlayerAction();
+    public event PlayerAction OnJump;
+    public event PlayerAction OnDoubleJump;
+    public event PlayerAction OnCrouch;
+    public event PlayerAction OnAttack;
     float speed = 2f;
     const float speedGainBySecond = 0.2f;
     Rigidbody2D rb;
@@ -107,6 +112,8 @@ public class SkateController : MonoBehaviour, IDefendable,IKittyzCollecter {
     {
         if (isGrounded){
             anim.SetTrigger("jump");
+            if(OnJump!=null)
+                OnJump();
             rb.velocity = jumpVelocity * Vector2.up;
             if (Random.value > 0.9f)   //play sound (10% chance)
                 audioCat.PlayOneShot(catJump);
@@ -115,6 +122,8 @@ public class SkateController : MonoBehaviour, IDefendable,IKittyzCollecter {
             rb.velocity = (jumpVelocity/2) * Vector2.up;
             doubleJumped = true;
             anim.SetTrigger("doubleJump");
+            if (OnDoubleJump != null)
+                OnDoubleJump();
             audioS.PlayOneShot(kickflipSound);
         }
     }
@@ -128,6 +137,8 @@ public class SkateController : MonoBehaviour, IDefendable,IKittyzCollecter {
     public void Crouch() {
         isCrouching = true;
         anim.SetBool("crouch", true);
+        if (OnCrouch != null)
+            OnCrouch();
     }
 
     public void StopCrouch() {
@@ -139,6 +150,8 @@ public class SkateController : MonoBehaviour, IDefendable,IKittyzCollecter {
     {
         Transform attack = (Transform)Instantiate(scratchPrefab, attackLocation.position, Quaternion.identity);
         attack.gameObject.GetComponent<ScratchController>().Init(1, Vector2.zero, 0.35f);
+        if (OnAttack != null)
+            OnAttack();
     }
 
     void SpeedGain(){
