@@ -12,15 +12,16 @@ public class DestroyIfNotMobile : MonoBehaviour
 	{
 		Destroy (this.gameObject);
 	}
-	#else
+#else
 	void Start ()
 	{
-		if (SceneManager.GetActiveScene ().name != "level_1_story")
+        string level = SceneManager.GetActiveScene ().name;
+		if (level != "level_1_story" && level != "level_3_story" && level != "level_3_01")
 			FadeOutUI ();
 	}
-	#endif
+#endif
 
-	public void FadeOutUI ()
+    public void FadeOutUI ()
 	{
 		CanvasGroup cg = GetComponent<CanvasGroup> ();
 		StartCoroutine (FadeOut (cg));
