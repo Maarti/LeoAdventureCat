@@ -6,10 +6,11 @@ public class ObstaclesGenerator : MonoBehaviour {
 
     public Transform topGen, botGen;
     public Obstacle[] obstaclesParam;
-    public GameObject kittyzPrefab, player;
+    public GameObject kittyzPrefab, player, waspPrefab;
     public float distanceToTravel = 100f, kittyzChance = 0f, kittyzOffset = -1f;
     public int nbObstaclesTotal = 10, kittyzTotal, kittyzCount = 0;
     public float spawnChance = 0.5f;
+    public int nbWaspTotal = 0;
 
     float distByObsAvg;                         // average distance between obstacles
     int obsCount = 0;                           // number of obstacles spawned since the beginning
@@ -18,6 +19,8 @@ public class ObstaclesGenerator : MonoBehaviour {
     const float minDistBetweenObs = 2f;         // the minimum space between 2 obstacles
     SkateController pc;
     Stack<GameObject> obstaclesStack;
+    int nbWasp = 0;
+    float distBetweenWasp, distNextWasp;
 
     [System.Serializable]
     public struct Obstacle {
@@ -33,7 +36,18 @@ public class ObstaclesGenerator : MonoBehaviour {
         pc = player.GetComponent<SkateController>();
         InitObstaclesStack();
         distByObsAvg = distanceToTravel / nbObstaclesTotal;
+        distBetweenWasp = distanceToTravel / (nbWaspTotal + 1);
+        distNextWasp = distBetweenWasp * (nbWasp + 1);
         Invoke("Spawn", 1f);
+    }
+
+    private void Update() {
+        // Generate enemies
+        Debug.Log("distbetween=" + distBetweenWasp + " nbwasp=" + nbWasp + " distnextwasp=" + distNextWasp+" transform="+this.transform.position.x);
+        if (nbWasp < nbWaspTotal) {
+            if(this.transform.position.x >= distNextWasp)
+                SpawnEnemy();
+        }
     }
 
     void InitObstaclesStack() {
@@ -120,6 +134,12 @@ public class ObstaclesGenerator : MonoBehaviour {
         this.kittyzChance = Mathf.Clamp(newKittyzChance * distanceAdjustment, 0f, 1f);
 
         //Debug.Log("kittyzChance=" + kittyzChance + "    theoreticalKittyzCount=" + theoreticalKittyzCount + " distanceAdjustment=" + distanceAdjustment);
+    }
+
+    void SpawnEnemy() {
+        GameObject enemy= Instantiate(waspPrefab, botGen.position, Quaternion.identity) as GameObject;
+        enemy.transform.parent = botGen;
+        distNextWasp = distBetweenWasp * (++nbWasp + 1);
     }
 
 }
