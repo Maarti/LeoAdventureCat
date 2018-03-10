@@ -107,10 +107,12 @@ public class ApplicationController : MonoBehaviour
             { LevelEnum.level_2_03, new Level(LevelEnum.level_2_03, "2-03", WorldEnum.AnimalPound, DifficultyEnum.HARD, 20, 160, 1, LevelEnum.level_2_04, true) },
             { LevelEnum.level_2_04, new Level(LevelEnum.level_2_04, "2-04", WorldEnum.AnimalPound, DifficultyEnum.NIGHTMAR, 20, 130, 2, LevelEnum.level_1_01, true) },
 
+            { LevelEnum.level_3_story, new Level(LevelEnum.level_3_story, "3-", WorldEnum.City, DifficultyEnum.MEDIUM, 10, 84, 2, LevelEnum.level_3_01, false, true) },
             { LevelEnum.level_3_01, new Level(LevelEnum.level_3_01, "3-01", WorldEnum.City, DifficultyEnum.EASY, 10, 60, 1, LevelEnum.level_1_01, false) }
         };
         // Init intro scenes
         lvls[LevelEnum.level_1_story].introScene = "level_1_story_intro";
+        lvls[LevelEnum.level_3_story].introScene = "level_3_story_intro";
 
         this.levels = lvls;
 	}
