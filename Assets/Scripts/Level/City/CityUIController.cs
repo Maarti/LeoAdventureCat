@@ -14,7 +14,9 @@ public class CityUIController : MonoBehaviour
 	public Transform heartPrefab;
 	public AudioClip scoreSound, pauseSound, winSound;
     public Slider distanceBar, speedBar;
-	CityGameController gc;
+    public CityBossController bossCtrlr;
+
+    CityGameController gc;
 	Text kittyzTxt, timeTxt, lifeTxt, scoreTxt, targetKittyzTxt, targetTimeTxt, targetLifeTxt, scoreLabelTxt, totalKittyzText, checkpointCountdown;
 	bool targetsInited = false, interstitialWatched = false, isGameOver = false, progressBarsInit=false;
 	GameObject lifeBar, buttons_1, buttonNext, buttonResume, pauseTitle, topUI, bottomUI, checkpointController, shoplist;
@@ -87,7 +89,10 @@ public class CityUIController : MonoBehaviour
 
     public void InitProgressBars() {
         distanceBar.minValue = 0f;
-        distanceBar.maxValue = obsGen.distanceToTravel;
+        if (bossCtrlr == null)
+            distanceBar.maxValue = obsGen.distanceToTravel;
+        else
+            distanceBar.maxValue = bossCtrlr.distanceToEndBoss;
         distanceBar.value = gc.pc.transform.position.x;
         speedBar.minValue = 1f;
         speedBar.maxValue = gc.pc.maxSpeed;

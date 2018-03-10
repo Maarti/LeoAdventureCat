@@ -5,12 +5,13 @@ using UnityEngine.UI;
 public class CityTutorial : MonoBehaviour {
 
     public SpeechBubbleController bubble;
-    public GameObject tutoImgCrouch, tutoImgJump, tutoImgDoubleJump, tutoImgAttack, obsGen;
+    public GameObject tutoImgCrouch, tutoImgJump, tutoImgDoubleJump, tutoImgAttack, obsGen, boss;
     public SkateController skateCtrlr;
     public GameObject screenMask, endSign, distanceBar;
 
     void Start() {
         obsGen.SetActive(false);
+        boss.SetActive(false);
         distanceBar.SetActive(false);
         Invoke("DisplayCrouchTuto",2f);
     }
@@ -103,6 +104,7 @@ public class CityTutorial : MonoBehaviour {
         skateCtrlr.gameObject.transform.position = pos;
         skateCtrlr.Speed = 1f;
         obsGen.SetActive(true);
+        boss.SetActive(true);
         distanceBar.SetActive(true);
         endSign.GetComponent<CityEndSign>().Init();
         CityGameController.gc.levelTimer = 0f;

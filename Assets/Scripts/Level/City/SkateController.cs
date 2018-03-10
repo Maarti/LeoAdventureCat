@@ -166,7 +166,8 @@ public class SkateController : MonoBehaviour, IDefendable,IKittyzCollecter {
         if (life <= 0)
             return;
         GetInjured(damage);
-        Speed = minSpeed;
+        if(attacker.tag != "Ball") // don't change speed when hit by wheel
+            Speed = minSpeed;
         anim.SetTrigger("hit");
     }
 

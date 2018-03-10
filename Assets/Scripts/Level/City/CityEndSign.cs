@@ -3,7 +3,7 @@
 public class CityEndSign : EndSign
 {
 
-    public GameObject obstaclesGenerator;
+    public GameObject obstaclesGenerator, boss;
     public float endOffsetPosition = 10f;
     public bool isTutorial = false;
     CityUIController guictrl;
@@ -24,6 +24,9 @@ public class CityEndSign : EndSign
     }
 
     public void Init() {
-        transform.position = new Vector3(obstaclesGenerator.GetComponent<ObstaclesGenerator>().distanceToTravel + endOffsetPosition, transform.position.y);
+        if(boss==null)
+            transform.position = new Vector3(obstaclesGenerator.GetComponent<ObstaclesGenerator>().distanceToTravel + endOffsetPosition, transform.position.y);
+        else
+            transform.position = new Vector3(boss.GetComponent<CityBossController>().distanceToEndBoss + endOffsetPosition, transform.position.y);
     }
 }
