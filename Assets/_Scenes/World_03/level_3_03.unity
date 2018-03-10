@@ -1467,6 +1467,16 @@ Prefab:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114645707812659222, guid: 941321b3d2dd06d4290e056c38ebf8c3,
+        type: 2}
+      propertyPath: minSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114645707812659222, guid: 941321b3d2dd06d4290e056c38ebf8c3,
+        type: 2}
+      propertyPath: maxSpeed
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 941321b3d2dd06d4290e056c38ebf8c3, type: 2}
   m_IsPrefabParent: 0
@@ -13030,7 +13040,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelTimer: 0
   checkpointName: null
-  levelEnum: 45
+  levelEnum: 47
   lifeLost: 0
   kittyzCollected: 0
   savedKittyzDestroyed: []
@@ -13200,25 +13210,27 @@ MonoBehaviour:
   botGen: {fileID: 503950857}
   obstaclesParam:
   - prefab: {fileID: 1976568108052980, guid: 5dbbaaa3e0fdff745acf95c96759ffb9, type: 2}
-    number: 5
+    number: 4
   - prefab: {fileID: 1314811158539208, guid: e1e03c6de367b054b8dfabaa29ec9f2c, type: 2}
-    number: 5
+    number: 4
   - prefab: {fileID: 1213830112856422, guid: 24693491ed6176740bc0f9badeca1bf1, type: 2}
-    number: 2
+    number: 4
   - prefab: {fileID: 1171313295470274, guid: 8fbde8c7f1cb5304fb467da06008da7c, type: 2}
-    number: 5
+    number: 20
+  - prefab: {fileID: 1949530742589158, guid: 5d1c590cf39565d4dbab62bfb08713fe, type: 2}
+    number: 4
   kittyzPrefab: {fileID: 1761244615389188, guid: 51ac0e82875f6674ab89031dd37334fb,
     type: 2}
   player: {fileID: 209081257}
   waspPrefab: {fileID: 1886136327306594, guid: 7e201e406adb72547b9402458edad719, type: 2}
-  distanceToTravel: 280
+  distanceToTravel: 500
   kittyzChance: 0
   kittyzOffset: -1
   nbObstaclesTotal: 15
-  kittyzTotal: 10
+  kittyzTotal: 15
   kittyzCount: 0
   spawnChance: 0.5
-  nbWaspTotal: 0
+  nbWaspTotal: 2
 --- !u!1 &1884603304
 GameObject:
   m_ObjectHideFlags: 0

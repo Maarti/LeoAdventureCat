@@ -108,7 +108,9 @@ public class ApplicationController : MonoBehaviour
             { LevelEnum.level_2_04, new Level(LevelEnum.level_2_04, "2-04", WorldEnum.AnimalPound, DifficultyEnum.NIGHTMAR, 20, 130, 2, LevelEnum.level_1_01, true) },
 
             { LevelEnum.level_3_story, new Level(LevelEnum.level_3_story, "3-", WorldEnum.City, DifficultyEnum.MEDIUM, 10, 84, 2, LevelEnum.level_3_01, false, true) },
-            { LevelEnum.level_3_01, new Level(LevelEnum.level_3_01, "3-01", WorldEnum.City, DifficultyEnum.EASY, 10, 60, 1, LevelEnum.level_1_01, false) }
+            { LevelEnum.level_3_01, new Level(LevelEnum.level_3_01, "3-01", WorldEnum.City, DifficultyEnum.EASY, 10, 60, 2, LevelEnum.level_3_02, false) },
+            { LevelEnum.level_3_02, new Level(LevelEnum.level_3_02, "3-02", WorldEnum.City, DifficultyEnum.MEDIUM, 15, 68, 1, LevelEnum.level_3_03, false) },
+            { LevelEnum.level_3_03, new Level(LevelEnum.level_3_03, "3-03", WorldEnum.City, DifficultyEnum.MEDIUM, 15, 80, 2, LevelEnum.level_1_01, true) }
         };
         // Init intro scenes
         lvls[LevelEnum.level_1_story].introScene = "level_1_story_intro";
@@ -128,6 +130,7 @@ public class ApplicationController : MonoBehaviour
             { ItemEnum.level_1_12, new Item(ItemEnum.level_1_12, "LEVEL", "LEVEL_DESC", 50, LevelEnum.level_1_12) },
             { ItemEnum.level_2_03, new Item(ItemEnum.level_2_03, "LEVEL", "LEVEL_DESC", 75, LevelEnum.level_2_03) },
             { ItemEnum.level_2_04, new Item(ItemEnum.level_2_04, "LEVEL", "LEVEL_DESC", 75, LevelEnum.level_2_04) },
+            { ItemEnum.level_3_03, new Item(ItemEnum.level_3_03, "LEVEL", "LEVEL_DESC", 50, LevelEnum.level_3_03) },
             { ItemEnum.max_life_1, new Item(ItemEnum.max_life_1, "ITEM_MAX_LIFE", "ITEM_MAX_LIFE_DESC", 200) },
             { ItemEnum.max_life_2, new Item(ItemEnum.max_life_2, "ITEM_MAX_LIFE", "ITEM_MAX_LIFE_DESC", 500) },
             { ItemEnum.max_life_3, new Item(ItemEnum.max_life_3, "ITEM_MAX_LIFE", "ITEM_MAX_LIFE_DESC", 1000) },
@@ -592,7 +595,8 @@ public enum ItemEnum
     trail_rainbow,
     hat_top,
     hat_cowboy,
-    hat_academic
+    hat_academic,
+    level_3_03
 }
 
 public enum ItemTypeEnum

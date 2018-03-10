@@ -112,7 +112,7 @@ public class ObstaclesGenerator : MonoBehaviour {
 
         this.spawnChance = Mathf.Clamp(newSpawnChance + distanceAdjustment,0f,1f);
 
-        //Debug.Log("spawnChance=" + spawnChance + " dist/total=" + transform.position.x + "/" + distanceToTravel + "    obsCount=" + obsCount + "   theoreticalObsCount=" + theoreticalObsCount + " distanceAdjustment=" + distanceAdjustment );
+        Debug.Log("spawnChance=" + spawnChance + " dist/total=" + transform.position.x + "/" + distanceToTravel + "    obsCount=" + obsCount + "   theoreticalObsCount=" + theoreticalObsCount + " distanceAdjustment=" + distanceAdjustment );
     }
 
     void UpdateKittyzChance() {
