@@ -4586,6 +4586,7 @@ Transform:
   - {fileID: 1561636681}
   - {fileID: 1447169233}
   - {fileID: 1545154801}
+  - {fileID: 1474626563}
   m_Father: {fileID: 345653921}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4601,7 +4602,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distanceToTriggerBoss: 280
-  distanceToEndBoss: 420
+  distanceToEndBoss: 450
   timeBetweenAttacks: 3
   wheelForce: 9
   playerCtrlr: {fileID: 209081262}
@@ -4612,6 +4613,8 @@ MonoBehaviour:
     type: 2}
   vanRightPos: {fileID: 1545154801}
   wheelPos: {fileID: 117263355}
+  vanOutPos: {fileID: 1474626563}
+  accidentSound: {fileID: 8300000, guid: 922f6a436455a1846afcbcd053d81257, type: 3}
 --- !u!95 &551579336
 Animator:
   serializedVersion: 3
@@ -10245,6 +10248,34 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1452696142}
+--- !u!1 &1474626562
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1474626563}
+  m_Layer: 14
+  m_Name: VanOutPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 8220585740371884164, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1474626563
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1474626562}
+  m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.04, y: -5.73, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 551579334}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1488345363
 GameObject:
   m_ObjectHideFlags: 0

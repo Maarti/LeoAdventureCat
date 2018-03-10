@@ -148,8 +148,9 @@ public class SkateController : MonoBehaviour, IDefendable,IKittyzCollecter {
 
     public void Attack()
     {
-        Transform attack = (Transform)Instantiate(scratchPrefab, attackLocation.position, Quaternion.identity);
-        attack.gameObject.GetComponent<ScratchController>().Init(1, Vector2.zero, 0.35f);
+        //Transform attack = (Transform)Instantiate(scratchPrefab, attackLocation.position, Quaternion.identity);
+        //attack.gameObject.GetComponent<ScratchController>().Init(1, Vector2.zero, 0.35f);
+        anim.SetTrigger("attack");
         if (OnAttack != null)
             OnAttack();
     }
@@ -167,8 +168,7 @@ public class SkateController : MonoBehaviour, IDefendable,IKittyzCollecter {
             return;
         GetInjured(damage);
         if(attacker.tag != "Ball") // don't change speed when hit by wheel
-            Speed = minSpeed;
-        anim.SetTrigger("hit");
+            Speed = minSpeed;        
     }
 
     void GetInjured(int dmg)
@@ -179,6 +179,7 @@ public class SkateController : MonoBehaviour, IDefendable,IKittyzCollecter {
         if (life <= 0)
             Die();
         else {
+            anim.SetTrigger("hit");
             if (Random.value < 0.5f)   //play cat or rat sound
                 audioCat.PlayOneShot(catHit);
             else
@@ -191,7 +192,7 @@ public class SkateController : MonoBehaviour, IDefendable,IKittyzCollecter {
         audioCat.PlayOneShot(catDie);
         audioRat.PlayOneShot(ratSqueek);
         //animator.SetBool("isDead", true);
-        //animator.SetTrigger("die"); // trigger + bool to prevent animator to play death multiple times
+        anim.SetTrigger("die"); // trigger + bool to prevent animator to play death multiple times
         CityGameController.gc.GameOver();
         Move(0f);
     }

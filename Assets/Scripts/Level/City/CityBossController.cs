@@ -93,6 +93,7 @@ public class CityBossController : MonoBehaviour
     }
 
     IEnumerator VanGoAway() {
+        audioSource.Stop();
         audioSource.PlayOneShot(accidentSound);
         while (vanContainer.transform.position != vanOutPos.position) {
             vanContainer.transform.position = Vector3.MoveTowards(vanContainer.transform.position, vanOutPos.position, Time.deltaTime * 4);

@@ -43,10 +43,10 @@ public class ObstaclesGenerator : MonoBehaviour {
 
     private void Update() {
         // Generate enemies
-        Debug.Log("distbetween=" + distBetweenWasp + " nbwasp=" + nbWasp + " distnextwasp=" + distNextWasp+" transform="+this.transform.position.x);
         if (nbWasp < nbWaspTotal) {
             if(this.transform.position.x >= distNextWasp)
                 SpawnEnemy();
+            //Debug.Log("distbetween=" + distBetweenWasp + " nbwasp=" + nbWasp + " distnextwasp=" + distNextWasp+" transform="+this.transform.position.x);
         }
     }
 
