@@ -32,14 +32,16 @@ public class SpeechBubbleController : MonoBehaviour {
         StartCoroutine(WaitThenFadeOut(time));
     }
 
-    IEnumerator WaitThenFadeOut(float waitingTime)
-    {
+    public void StartWaitThenFadeOut(float waitingTime) {
+        StartCoroutine(WaitThenFadeOut(waitingTime));
+    }
+
+    IEnumerator WaitThenFadeOut(float waitingTime) {
         yield return new WaitForSeconds(waitingTime);
         StartCoroutine(FadeOut());
     }
 
-    IEnumerator FadeOut()
-    {
+    IEnumerator FadeOut() {
         float alpha;
         for (float t = 0.0f; t <= 0.5f; t += Time.deltaTime)
         {

@@ -1,13 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class TutorialUI : MonoBehaviour
 {
 
 	public GameObject uiElementOn, uiElementOff;
 	public bool fadeControllerUi = false;
+    public SpeechBubbleController bubble;
+    public float bubbleTimeToLive = 0f;
 
 	void OnTriggerEnter2D (Collider2D other)
 	{
@@ -15,6 +14,8 @@ public class TutorialUI : MonoBehaviour
 			SetHalo ();
 			if (fadeControllerUi)
 				FadeOutControllerUI ();
+            if (bubble != null && bubbleTimeToLive > 0f)
+                bubble.StartWaitThenFadeOut(bubbleTimeToLive);
 			Destroy (this.gameObject);
 		}
 	}
