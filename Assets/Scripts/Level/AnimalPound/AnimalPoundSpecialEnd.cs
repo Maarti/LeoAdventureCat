@@ -36,7 +36,8 @@ public class AnimalPoundSpecialEnd : EndSign
 			GameController.gc.gameFinished = true;
 			guic.DisplayMobileController (false);
 			guic.DisplayTopUI (false);
-			cat.GetComponent<PlayerController> ().StartMoving (0f);
+            cat.GetComponent<PlayerController>().freeze = true;
+            cat.GetComponent<PlayerController> ().StartMoving (0f);
 			StartCoroutine (RatEndingAnimation ());
 		}
 	}

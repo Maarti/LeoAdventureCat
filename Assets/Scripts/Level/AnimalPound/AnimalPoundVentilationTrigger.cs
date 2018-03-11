@@ -44,6 +44,7 @@ public class AnimalPoundVentilationTrigger : MonoBehaviour
         {
             guic.DisplayMobileController(false);
             guic.DisplayTopUI(false);
+            cat.GetComponent<PlayerController>().freeze = true;
             state++;
         }
 
@@ -150,6 +151,7 @@ public class AnimalPoundVentilationTrigger : MonoBehaviour
             {
                 guic.DisplayDialog(DialogEnum.rat_start_ventilation_game);
                 ventilGC.StartGame();
+                cat.GetComponent<PlayerController>().freeze = false;
                 state++;
             }
         }

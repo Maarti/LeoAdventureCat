@@ -40,7 +40,8 @@ public class AnimalPoundRatStopTrigger : MonoBehaviour
 		else if (state == 2) {
 			guic.DisplayMobileController (false);
 			guic.DisplayTopUI (false);
-			state++;
+            cat.GetComponent<PlayerController>().freeze = true;
+            state++;
 		}
 
 		// Rat run to chair / Disable UI
@@ -82,7 +83,8 @@ public class AnimalPoundRatStopTrigger : MonoBehaviour
 			//guic.DisplayDialog (DialogEnum.rat_ready);
 			guic.DisplayMobileController ();
 			guic.DisplayTopUI ();
-			state++;
+            cat.GetComponent<PlayerController>().freeze = false;
+            state++;
 		}
 
 		// Destroy

@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour, IDefendable, IGlider, IKittyzColl
 	public Transform scratchPrefab, landingSmokePrefab;
 	public float speed = 10, jumpVelocity = 10;
 	public LayerMask playerMask;
-	public bool isGrounded = false, canMoveInAir = true;
+	public bool isGrounded = false, canMoveInAir = true, freeze = false;
 	public Vector2 offensiveBumpVelocity = new Vector2 (-1.5f, 0.5f);
 	public int life = 3, damage = 1;
 	public Vector3 hangGliderPosition;
@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour, IDefendable, IGlider, IKittyzColl
 	void Update ()
 	{
 #if !UNITY_ANDROID && !UNITY_IPHONE && !UNITY_BLACKBERRY && !UNITY_WINRT || UNITY_EDITOR
-        if(life>0 && Time.timeScale > 0f){
+        if(life>0 && Time.timeScale > 0f && !freeze){
             if (Input.GetButtonDown ("Jump"))
 			    Jump ();
 		    else if (Input.GetButtonUp ("Jump"))
@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour, IDefendable, IGlider, IKittyzColl
 	void FixedUpdate ()
 	{
 #if !UNITY_ANDROID && !UNITY_IPHONE && !UNITY_BLACKBERRY && !UNITY_WINRT || UNITY_EDITOR
-        if (life > 0)
+        if (life > 0 && !freeze)
             Move(Input.GetAxisRaw("Horizontal"));
         else
             Move(0f);

@@ -216,6 +216,7 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
         guic.DisplayMobileController(false);
         guic.DisplayTopUI(false);
         cat.GetComponent<PlayerController>().StartMoving(0f);
+        cat.GetComponent<PlayerController>().freeze = true;
 
         // throw ball
         ball.GetComponent<Rigidbody2D>().isKinematic = false;
@@ -234,7 +235,8 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
         guic.DisplayMobileController();
         guic.DisplayTopUI();
         bossLifebar.gameObject.SetActive(true);
-        
+        cat.GetComponent<PlayerController>().freeze = false;
+
         state++;
         yield return null;
     }
