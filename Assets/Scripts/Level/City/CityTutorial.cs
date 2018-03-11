@@ -6,6 +6,7 @@ public class CityTutorial : MonoBehaviour {
 
     public SpeechBubbleController bubble;
     public GameObject tutoImgCrouch, tutoImgJump, tutoImgDoubleJump, tutoImgAttack, obsGen, boss;
+    public GameObject tutoImgKeyDown, tutoImgKeyUp, tutoImgSpace;
     public SkateController skateCtrlr;
     public GameObject screenMask, endSign, distanceBar;
 
@@ -19,6 +20,8 @@ public class CityTutorial : MonoBehaviour {
     void DisplayCrouchTuto() {
 #if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
         tutoImgCrouch.SetActive(true);
+#else
+        tutoImgKeyDown.SetActive(true);
 #endif
         bubble.SetText("CITY_TUTO_CROUCH", 10f);
         // Subscribe to player crouch event
@@ -28,6 +31,8 @@ public class CityTutorial : MonoBehaviour {
     void OnCrouch() {
 #if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
         tutoImgCrouch.SetActive(false);
+#else
+        tutoImgKeyDown.SetActive(false);
 #endif
         skateCtrlr.OnCrouch -= OnCrouch;
         DisplayJumpTuto();
@@ -36,6 +41,8 @@ public class CityTutorial : MonoBehaviour {
     void DisplayJumpTuto() {
 #if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
         tutoImgJump.SetActive(true);
+#else
+        tutoImgKeyUp.SetActive(true);
 #endif
         bubble.SetText("CITY_TUTO_JUMP", 10f);
         skateCtrlr.OnJump += OnJump;
@@ -44,6 +51,8 @@ public class CityTutorial : MonoBehaviour {
     void OnJump() {
 #if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
         tutoImgJump.SetActive(false);
+#else
+        tutoImgKeyUp.SetActive(false);
 #endif
         skateCtrlr.OnJump -= OnJump;
         DisplayAttackTuto();
@@ -52,6 +61,8 @@ public class CityTutorial : MonoBehaviour {
     void DisplayAttackTuto() {
 #if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
         tutoImgAttack.SetActive(true);
+#else
+        tutoImgSpace.SetActive(true);
 #endif
         bubble.SetText("CITY_TUTO_ATTACK", 10f);
         skateCtrlr.OnAttack += OnAttack;
@@ -60,6 +71,8 @@ public class CityTutorial : MonoBehaviour {
     void OnAttack() {
 #if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
         tutoImgAttack.SetActive(false);
+#else
+        tutoImgSpace.SetActive(false);
 #endif
         skateCtrlr.OnAttack -= OnAttack;
         DisplayDoubleJumpTuto();
@@ -68,6 +81,8 @@ public class CityTutorial : MonoBehaviour {
     void DisplayDoubleJumpTuto() {
 #if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
         tutoImgDoubleJump.SetActive(true);
+#else
+        tutoImgKeyUp.SetActive(true);
 #endif
         bubble.SetText("CITY_TUTO_DOUBLEJUMP", 10f);
         skateCtrlr.OnDoubleJump += OnDoubleJump;
@@ -76,6 +91,8 @@ public class CityTutorial : MonoBehaviour {
     void OnDoubleJump() {
 #if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
         tutoImgDoubleJump.SetActive(false);
+#else
+        tutoImgKeyUp.SetActive(false);
 #endif
         bubble.SetText("CITY_TUTO_AWESOME", 1f);
         skateCtrlr.OnDoubleJump -= OnDoubleJump;
