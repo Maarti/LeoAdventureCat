@@ -4,9 +4,15 @@ public class TutorialUI : MonoBehaviour
 {
 
 	public GameObject uiElementOn, uiElementOff;
-	public bool fadeControllerUi = false;
+    [Space(10)]
+    public GameObject keyboardTutoOn;
+    public GameObject keyboardTutoOff;
+    [Space(10)]
+    public bool fadeControllerUi = false;
+    [Space(10)]
     public SpeechBubbleController bubble;
     public float bubbleTimeToLive = 0f;
+    
 
 	void OnTriggerEnter2D (Collider2D other)
 	{
@@ -16,7 +22,8 @@ public class TutorialUI : MonoBehaviour
 				FadeOutControllerUI ();
             if (bubble != null && bubbleTimeToLive > 0f)
                 bubble.StartWaitThenFadeOut(bubbleTimeToLive);
-			Destroy (this.gameObject);
+            ManageKeyboardTuto();
+            Destroy (this.gameObject);
 		}
 	}
 
@@ -34,5 +41,16 @@ public class TutorialUI : MonoBehaviour
 		if (mc)
 			mc.GetComponent<DestroyIfNotMobile> ().FadeOutUI ();
 	}
+
+    void ManageKeyboardTuto() {
+#if !UNITY_ANDROID && !UNITY_IOS
+        if (keyboardTutoOn != null) {
+            keyboardTutoOn.SetActive(true);
+        }
+        if (keyboardTutoOff != null) {
+            keyboardTutoOff.SetActive(false);
+        }
+#endif
+    }
 
 }
