@@ -101,7 +101,7 @@ public class ApplicationController : MonoBehaviour
             { LevelEnum.level_1_11, new Level(LevelEnum.level_1_11, "1-11", WorldEnum.Forest, DifficultyEnum.MEDIUM, 15, 58, 1, LevelEnum.level_1_12, true) },
             { LevelEnum.level_1_12, new Level(LevelEnum.level_1_12, "1-12", WorldEnum.Forest, DifficultyEnum.NIGHTMAR, 40, 120, 8, LevelEnum.level_2_story, true) },
 
-            { LevelEnum.level_2_story, new Level(LevelEnum.level_2_story, "2-", WorldEnum.AnimalPound, DifficultyEnum.MEDIUM, 25, 320, 5, LevelEnum.level_3_01, false, true) },
+            { LevelEnum.level_2_story, new Level(LevelEnum.level_2_story, "2-", WorldEnum.AnimalPound, DifficultyEnum.MEDIUM, 25, 320, 5, LevelEnum.level_3_story, false, true) },
             { LevelEnum.level_2_01, new Level(LevelEnum.level_2_01, "2-01", WorldEnum.AnimalPound, DifficultyEnum.EASY, 10, 60, 1, LevelEnum.level_2_02, false) },
             { LevelEnum.level_2_02, new Level(LevelEnum.level_2_02, "2-02", WorldEnum.AnimalPound, DifficultyEnum.MEDIUM, 15, 90, 2, LevelEnum.level_2_03, false) },
             { LevelEnum.level_2_03, new Level(LevelEnum.level_2_03, "2-03", WorldEnum.AnimalPound, DifficultyEnum.HARD, 20, 160, 1, LevelEnum.level_2_04, true) },
@@ -112,10 +112,15 @@ public class ApplicationController : MonoBehaviour
             { LevelEnum.level_3_02, new Level(LevelEnum.level_3_02, "3-02", WorldEnum.City, DifficultyEnum.MEDIUM, 15, 68, 1, LevelEnum.level_3_03, false) },
             { LevelEnum.level_3_03, new Level(LevelEnum.level_3_03, "3-03", WorldEnum.City, DifficultyEnum.MEDIUM, 15, 80, 2, LevelEnum.level_1_01, true) }
         };
-        // Init intro scenes
-        lvls[LevelEnum.level_1_story].introScene = "level_1_story_intro";
+        // Init intro scenes        
+#if UNITY_WEBGL
+        // Intro scene audio crash on WebGL, see : https://docs.unity3d.com/Manual/webgl-audio.html
+        // and : https://issuetracker.unity3d.com/issues/webgl-fmod-error-spam-when-playing-audio-clip-with-timeline
+        lvls[LevelEnum.level_1_story].introScene = "level_1_story_intro_webgl";
+#else
+        lvls[LevelEnum.level_1_story].introScene = "level_1_story_intro";        
+#endif
         lvls[LevelEnum.level_3_story].introScene = "level_3_story_intro";
-
         this.levels = lvls;
 	}
 
@@ -340,7 +345,7 @@ public class PlayerData
 		} else
 			this.scores.Add (lvl, score);
 
-        #if UNITY_ANDROID || UNITY_IOS
+#if UNITY_ANDROID || UNITY_IOS
         // Achievements
         if (score >= 100 && PlayGamesPlatform.Instance.IsAuthenticated())
         {
@@ -366,7 +371,7 @@ public class PlayerData
                 Debug.Log("new perfectionnistCurrentValue="+ PlayGamesScript.perfectionnistCurrentValue);
             }
         }
-        #endif
+#endif
     }
 }
 

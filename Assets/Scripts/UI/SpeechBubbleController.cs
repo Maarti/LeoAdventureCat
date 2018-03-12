@@ -6,6 +6,7 @@ public class SpeechBubbleController : MonoBehaviour {
 
     public GameObject bubbleObj, textObj;
     public float fadeOutTime = .5f;
+    public float fadeOnStart = -1f;
     Text text;
     CanvasGroup cg;
 
@@ -13,6 +14,8 @@ public class SpeechBubbleController : MonoBehaviour {
         text = textObj.GetComponent<Text>();
         cg = GetComponent<CanvasGroup>();
         cg.alpha = 1f;
+        if (fadeOnStart > 0f)
+            StartWaitThenFadeOut(fadeOnStart);
 	}
 	
 	void Update () {

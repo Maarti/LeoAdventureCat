@@ -9,9 +9,6 @@ public class TutorialUI : MonoBehaviour
     public GameObject keyboardTutoOff;
     [Space(10)]
     public bool fadeControllerUi = false;
-    [Space(10)]
-    public SpeechBubbleController bubble;
-    public float bubbleTimeToLive = 0f;
     
 
 	void OnTriggerEnter2D (Collider2D other)
@@ -20,8 +17,6 @@ public class TutorialUI : MonoBehaviour
 			SetHalo ();
 			if (fadeControllerUi)
 				FadeOutControllerUI ();
-            if (bubble != null && bubbleTimeToLive > 0f)
-                bubble.StartWaitThenFadeOut(bubbleTimeToLive);
             ManageKeyboardTuto();
             Destroy (this.gameObject);
 		}

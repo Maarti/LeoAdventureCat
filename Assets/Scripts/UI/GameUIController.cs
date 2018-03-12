@@ -284,8 +284,11 @@ public class GameUIController : MonoBehaviour
 		} else {
 			Time.timeScale = 1f;
 			Level nextLevel = gc.level.GetNextUnlockedLevel ();
-			//SceneManager.LoadScene (nextLevel.id.ToString ());
-			SceneLoader.LoadSceneWithLoadingScreen (nextLevel.id.ToString ());
+            
+            if(nextLevel.introScene != null)
+                SceneLoader.LoadSceneWithLoadingScreen(nextLevel.introScene);
+            else
+            SceneLoader.LoadSceneWithLoadingScreen (nextLevel.id.ToString ());
 		}
 	}
 
