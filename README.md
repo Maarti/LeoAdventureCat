@@ -74,3 +74,5 @@ adb logcat *:W
 * Icons made by Smashicons from flaticon.com
 * Most of music made by Kevin MacLeod (incompetech.com)
 * UI (panel and buttons) made by Cameron Tatz (@CamTatz)
+
+Unity 2017.1.1f1

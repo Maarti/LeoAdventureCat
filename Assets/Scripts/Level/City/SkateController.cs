@@ -18,6 +18,8 @@ public class SkateController : MonoBehaviour, IDefendable,IKittyzCollecter {
     public event PlayerAction OnDoubleJump;
     public event PlayerAction OnCrouch;
     public event PlayerAction OnAttack;
+    public delegate void IsInjured();       // used to camera shake
+    public event IsInjured OnInjured;
     float speed = 2f;
     const float speedGainBySecond = 0.2f;
     Rigidbody2D rb;
@@ -176,6 +178,8 @@ public class SkateController : MonoBehaviour, IDefendable,IKittyzCollecter {
         dmg = Mathf.Clamp(dmg, 0, life);
         life -= dmg;
         CityGameController.gc.PlayerInjured(dmg);
+        if (OnInjured != null)
+            OnInjured();            // camera shake delegate
         if (life <= 0)
             Die();
         else {

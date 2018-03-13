@@ -10,8 +10,10 @@ public class PlayerController : MonoBehaviour, IDefendable, IGlider, IKittyzColl
 	public Vector2 offensiveBumpVelocity = new Vector2 (-1.5f, 0.5f);
 	public int life = 3, damage = 1;
 	public Vector3 hangGliderPosition;
+    public delegate void IsInjured();       // used to camera shake
+    public event IsInjured OnInjured;
 
-	const int lifeMax = 10;
+    const int lifeMax = 10;
     #if UNITY_ANDROID || UNITY_IOS
     float hInput = 0;
     #endif
@@ -211,7 +213,9 @@ public class PlayerController : MonoBehaviour, IDefendable, IGlider, IKittyzColl
 		dmg = Mathf.Clamp (dmg, 0, life);
 		this.life -= dmg;
 		GameController.gc.PlayerInjured (dmg);
-		if (this.life <= 0) {
+        if (OnInjured != null)
+            OnInjured();            // camera shake delegate
+        if (this.life <= 0) {
 			Die ();
 		} else
 			mouth.Meowing ("hit");
