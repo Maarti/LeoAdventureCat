@@ -18,9 +18,9 @@ public class MainMenuController : MonoBehaviour
 
     void Update ()
 	{
-		// Exit if Android back button is pressed
-		if (Input.GetKeyDown (KeyCode.Escape))
-			Application.Quit ();
+        // If Android back button is pressed, go back or exit
+        //if (Input.GetKeyDown(KeyCode.Escape))
+        //    Application.Quit();
 
         // Track the "Nosy" achievement on the help panel
         if (trackHelpAchievement && helpScrollRect.normalizedPosition.y < 0.1f)
