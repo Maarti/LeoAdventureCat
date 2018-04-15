@@ -5,6 +5,7 @@ public class WatchDogController : MonoBehaviour
 {
     public bool triggerAchievement = true;  // increment the "bring the ball" achievement
     public bool resetIfSleeping = true;     // reset the ball if its rigidbody is sleeping (= not in movement)
+    public AudioClip catchingSound;
     GameObject theBall, theDog;
 	Rigidbody2D ballRb;
 	Transform mouthBall, spawn, dogTarget, ballAreaTop, ballAreaBottom;
@@ -56,6 +57,7 @@ public class WatchDogController : MonoBehaviour
 			ballIsCaught = true;	
 			StartCoroutine (BallMoveToDog ());
 			theDog.GetComponent<Animator> ().SetTrigger ("catchBall");
+            GetComponent<AudioSource>().PlayOneShot(catchingSound);
 
             //Achievement
             if (triggerAchievement) {
