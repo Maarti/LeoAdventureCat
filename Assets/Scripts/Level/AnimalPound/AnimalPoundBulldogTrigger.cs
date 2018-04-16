@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class AnimalPoundBulldogTrigger : MonoBehaviour
 {
-	public GameObject dog, ball, boundary;
+	public GameObject dog, ball, boundary, flashLight;
 	public Transform ratDown, ratUp, ratDownPipe, ratUpPipe, dogDown, dogUp, platformPrefab;
     public Transform minPlatformZone, maxPlatformZone;  // zone where the platforms are thrown
     public float dogSpeed = 2.5f;       // dog speed during rat phase
@@ -318,7 +318,16 @@ public class AnimalPoundBulldogTrigger : MonoBehaviour
         // clamp position inside the limit zone
         position.x = Mathf.Clamp(position.x, minPlatformZone.position.x, maxPlatformZone.position.x);
         position.y = Mathf.Clamp(position.y, minPlatformZone.position.y, maxPlatformZone.position.y);
+        // trigger flashlight at target position
+        StartFlashLight(position);
         return position;
+    }
+
+    void StartFlashLight(Vector3 flashPosition) {
+        if (!flashLight)
+            return;
+        flashLight.transform.position = flashPosition;
+        flashLight.GetComponent<Animator>().SetTrigger("start");
     }
 
     void OnBossDeath()
