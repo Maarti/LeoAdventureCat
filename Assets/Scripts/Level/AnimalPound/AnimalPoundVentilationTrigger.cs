@@ -140,7 +140,7 @@ public class AnimalPoundVentilationTrigger : MonoBehaviour
             }
         }
 
-        // Rat enters in ventil and floats
+        // Rat enters in ventil
         else if (state == 8)
         {
             if (rat.transform.position != insideVentil.position)

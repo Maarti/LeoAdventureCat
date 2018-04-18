@@ -12,6 +12,7 @@ public class BulldogBossController : MonoBehaviour, IDefendable
     public delegate void DeathDelegate();
     public event DeathDelegate OnDeath;
     public Slider lifebar;
+    public bool isDecorative = false;
 
     Animator animator;
     AudioSource audioSource;
@@ -21,9 +22,11 @@ public class BulldogBossController : MonoBehaviour, IDefendable
     
 
     void Start()
-    {
+    {        
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
+        if (isDecorative)
+            return;
         cat = GameObject.FindGameObjectWithTag("Player");
         lifebar.maxValue = life;
         lifebar.value = life;

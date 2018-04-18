@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class VentilationGameController : MonoBehaviour {
@@ -8,15 +7,23 @@ public class VentilationGameController : MonoBehaviour {
     public Vector3 cameraPosition = new Vector3(5.6f,18.2f,-11f);
     public GameObject catBoundary, ratBoundary, finalBlower, particlesUp;
     public Transform ratEndPosition;
-    GameObject cam;
+    public bool autoStart = false, useMainCamera=true;
+    public GameObject cam;
     bool isCameraInit=false;
     Rigidbody2D ratRb;
     Coroutine camRoutine = null;
 
 	void Start () {
-		cam = GameObject.FindGameObjectWithTag("MainCamera");
+        if (useMainCamera)
+		    cam = GameObject.FindGameObjectWithTag("MainCamera");
         cameraPosition.z = cam.transform.position.z;
         ratRb = GameObject.FindGameObjectWithTag("Rat").GetComponent<Rigidbody2D>();
+        if (autoStart)
+            StartGame();
+    }
+
+    void LateUpdate() {
+        UpdateSecondaryCamera();
     }
 
     public void StartGame()
@@ -25,15 +32,20 @@ public class VentilationGameController : MonoBehaviour {
         if (!isCameraInit)
             InitCamera();
         // boundaries
-        catBoundary.SetActive(true);
-        ratBoundary.SetActive(true);
+        if(catBoundary)
+            catBoundary.SetActive(true);
+        if(ratBoundary)
+            ratBoundary.SetActive(true);
         // rat
         ratRb.isKinematic = false;
         ratRb.gravityScale = 0f;
+        ratRb.GetComponent<Animator>().SetBool("isFloating", true);
+        ratRb.GetComponent<Animator>().SetFloat("speed", 0f);
         // activate all switches
         EnableSwitches(true);
         // activate particules
-        particlesUp.SetActive(true);
+        if(particlesUp)
+            particlesUp.SetActive(true);
     }
 
     public void EndGame()
@@ -41,7 +53,8 @@ public class VentilationGameController : MonoBehaviour {
         // camera
         if (camRoutine != null)
             StopCoroutine(camRoutine);
-        cam.GetComponent<CameraFloorController>().enabled = true;
+        if(useMainCamera)
+            cam.GetComponent<CameraFloorController>().enabled = true;
         // boundaries
         Destroy(catBoundary);
         Destroy(ratBoundary);
@@ -52,20 +65,46 @@ public class VentilationGameController : MonoBehaviour {
         // deactivate all switches
         EnableSwitches(false);
         // activate final blower
-        finalBlower.GetComponent<BlowerController>().damage = 1;
-        finalBlower.transform.Find("Burner/RightFire").gameObject.SetActive(true);
-        finalBlower.transform.Find("Burner/LeftFire").gameObject.SetActive(true);
-        finalBlower.GetComponent<BlowerController>().StartBlowing();
+        if (finalBlower) {
+            finalBlower.GetComponent<BlowerController>().damage = 1;
+            finalBlower.transform.Find("Burner/RightFire").gameObject.SetActive(true);
+            finalBlower.transform.Find("Burner/LeftFire").gameObject.SetActive(true);
+            finalBlower.GetComponent<BlowerController>().StartBlowing();
+        }
         // teleport rat
         StartCoroutine(TeleportRat());
     }
 
     public void InitCamera()
     {
+        if (!useMainCamera)
+            return;
         cam.GetComponent<CameraFloorController>().enabled = false; // deactivate camera following
         if (camRoutine != null)
             StopCoroutine(camRoutine);
         camRoutine = StartCoroutine(MoveCamera(cameraPosition));
+    }
+
+    void UpdateSecondaryCamera() {
+        Debug.Log("updt");
+        if (useMainCamera)
+            return;
+        // Set the position of the camera's transform to be the same as the player's, but offset by the calculated offset distance.
+        Vector3 newPosition = ratRb.transform.position;
+        newPosition.z = cameraPosition.z;
+
+        // Borders managing
+        /*if (newPosition.x < xMin)
+            newPosition.x = xMin;
+        else if (newPosition.x > xMax)
+            newPosition.x = xMax;
+        if (newPosition.y < yMin)
+            newPosition.y = yMin;
+        else if (newPosition.y > yMax)
+            newPosition.y = yMax;*/
+
+        // Move camera smoothly
+        cam.transform.position = Vector3.Lerp(cam.transform.position, newPosition, 0.1f);
     }
 
     IEnumerator MoveCamera(Vector3 target)
@@ -94,11 +133,13 @@ public class VentilationGameController : MonoBehaviour {
     IEnumerator TeleportRat()
     {
         yield return new WaitForSeconds(1f);
-        ratRb.isKinematic = true;
-        Transform ratT = ratRb.gameObject.transform;
-        ratT.position = ratEndPosition.position;
-        // facing to left
-        Vector3 theScale = new Vector3(Mathf.Abs(ratT.localScale.x) * -1, ratT.localScale.y, ratT.localScale.z);
-        ratT.localScale = theScale;
+        if (ratEndPosition) {
+            ratRb.isKinematic = true;
+            Transform ratT = ratRb.gameObject.transform;
+            ratT.position = ratEndPosition.position;
+            // facing to left
+            Vector3 theScale = new Vector3(Mathf.Abs(ratT.localScale.x) * -1, ratT.localScale.y, ratT.localScale.z);
+            ratT.localScale = theScale;
+        }
     }
 }
