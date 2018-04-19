@@ -4,6 +4,7 @@ public class KittyzController : MonoBehaviour
 {
 	public int value = 1;
 	public float speedOnCollect = 8f;
+    public bool collidWithRat = false;
 	AudioSource audioSource;
 	bool isCollected = false;
 
@@ -18,15 +19,19 @@ public class KittyzController : MonoBehaviour
 			transform.position = new Vector3 (transform.position.x, transform.position.y + Time.deltaTime * speedOnCollect, transform.position.z);
 	}
 
-	void OnTriggerEnter2D (Collider2D other)
-	{
-		if (!isCollected && other.transform.tag == "Player") {
-			other.gameObject.GetComponent<IKittyzCollecter> ().CollectKittyz (this.value);
-			GetCollected ();
-		}
-	}
+    void OnTriggerEnter2D(Collider2D other) {
+        if (isCollected)
+            return;
+        if (other.transform.tag == "Player") {
+            other.gameObject.GetComponent<IKittyzCollecter>().CollectKittyz(this.value);
+            GetCollected();
+        } else if (collidWithRat && other.transform.tag == "Rat") {
+            GameObject.FindGameObjectWithTag("Player").GetComponent<IKittyzCollecter>().CollectKittyz(this.value);
+            GetCollected();
+        }
+    }
 
-	void GetCollected ()
+    void GetCollected ()
 	{
 		isCollected = true;
 		GetComponent<Collider2D> ().enabled = false;

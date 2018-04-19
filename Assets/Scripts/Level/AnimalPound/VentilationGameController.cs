@@ -86,7 +86,6 @@ public class VentilationGameController : MonoBehaviour {
     }
 
     void UpdateSecondaryCamera() {
-        Debug.Log("updt");
         if (useMainCamera)
             return;
         // Set the position of the camera's transform to be the same as the player's, but offset by the calculated offset distance.
