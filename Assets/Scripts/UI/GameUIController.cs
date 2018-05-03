@@ -218,15 +218,20 @@ public class GameUIController : MonoBehaviour
 	public void ReloadScene (bool fromCheckpoint = false)
 	{
 		StopCoroutine (DisplayGameOverMenu ());
-		if (gameFinished && !interstitialWatched) {
-			EndGameAction (ActionEnum.restart_level);
-		} else if (isGameOver && fromCheckpoint && !interstitialWatched) {
+        // Ad if restart button on level finished
+        if (gameFinished && !interstitialWatched) {
+            EndGameAction(ActionEnum.restart_level);
+        // One ad every 80s if restart button on death
+        } else if (isGameOver && !fromCheckpoint && !interstitialWatched && (Time.realtimeSinceStartup-ApplicationController.ac.lastAdTime)>=80f) {
+            EndGameAction(ActionEnum.restart_level);
+        // Ad if checkpoint button on death
+        } else if (isGameOver && fromCheckpoint && !interstitialWatched) {
 			EndGameAction (ActionEnum.restart_from_checkpoint);
 		} else {
+        // No ad
 			PauseGame (false);
 			if (!fromCheckpoint)
 				checkpointController.GetComponent<CheckPointController> ().Reset (this.level.id);
-			//SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
 			SceneLoader.LoadSceneWithLoadingScreen (SceneManager.GetActiveScene ().name);
 		}
 	}
@@ -359,6 +364,7 @@ public class GameUIController : MonoBehaviour
 		if (this.interstitial.IsLoaded ()) {
 			Debug.Log("interstitial IsLoaded, let's show it");
             interstitial.Show ();
+            ApplicationController.ac.lastAdTime = Time.realtimeSinceStartup;
             Debug.Log("interstitial has been shown");
 		} else {
             Debug.Log("interstitial is not loaded");

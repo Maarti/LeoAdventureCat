@@ -17,6 +17,7 @@ public class ApplicationController : MonoBehaviour
 	public Dictionary<LevelEnum,Level> levels;
 	public Dictionary<ItemEnum,Item> items;
 	public string nextSceneToLoad = "";
+    public float lastAdTime = 0f;
 
 	void Awake ()
 	{
